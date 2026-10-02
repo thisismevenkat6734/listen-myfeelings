@@ -1,0 +1,4046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#08070d"
+    >
+
+    <meta
+        name="description"
+        content="Listen My Feelings — express what you feel, listen without judgment, and create meaningful human connections."
+    >
+
+    <title>Listen My Feelings — Home</title>
+
+    <link
+        rel="icon"
+        href="assets/login-hero.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+        /* =====================================================
+           LISTEN MY FEELINGS — APP
+        ===================================================== */
+
+        :root {
+            --app-bg: #08070d;
+            --app-surface: #11101a;
+            --app-surface-2: #171522;
+            --app-surface-3: #1d1a2a;
+            --app-border: rgba(255,255,255,.09);
+            --app-border-strong: rgba(255,255,255,.14);
+            --app-text: #f8f7fb;
+            --app-muted: #aaa6b8;
+            --app-purple: #8b5cf6;
+            --app-pink: #ec4899;
+            --app-green: #42d392;
+            --app-red: #ef4444;
+            --app-yellow: #f5c451;
+            --app-max: 1240px;
+            --app-radius: 20px;
+            --app-shadow: 0 20px 60px rgba(0,0,0,.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% -15%,
+                    rgba(139,92,246,.16),
+                    transparent 38%
+                ),
+                var(--app-bg);
+            color: var(--app-text);
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: .55;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .app-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 68px;
+            border-bottom: 1px solid var(--app-border);
+            background: rgba(8,7,13,.88);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+
+        .app-topbar-inner {
+            width: min(
+                calc(100% - 28px),
+                var(--app-max)
+            );
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .app-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .app-brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--app-purple),
+                    var(--app-pink)
+                );
+            box-shadow:
+                0 8px 30px rgba(139,92,246,.25);
+        }
+
+        .app-brand-name {
+            font-size: 15px;
+            letter-spacing: -.2px;
+        }
+
+        .app-search {
+            position: relative;
+            width: min(390px, 38vw);
+        }
+
+        .app-search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: .55;
+            pointer-events: none;
+        }
+
+        .app-search input {
+            width: 100%;
+            height: 42px;
+            padding: 0 15px 0 42px;
+            border: 1px solid var(--app-border);
+            border-radius: 14px;
+            outline: none;
+            color: var(--app-text);
+            background: rgba(255,255,255,.045);
+            transition: .2s ease;
+        }
+
+        .app-search input:focus {
+            border-color: rgba(139,92,246,.65);
+            background: rgba(255,255,255,.065);
+            box-shadow:
+                0 0 0 3px rgba(139,92,246,.10);
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--app-border);
+            border-radius: 13px;
+            color: var(--app-text);
+            background: rgba(255,255,255,.04);
+            display: grid;
+            place-items: center;
+            transition: .2s ease;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255,255,255,.09);
+            transform: translateY(-1px);
+        }
+
+        /* =====================================================
+           MAIN LAYOUT
+        ===================================================== */
+
+        .app-layout {
+            width: min(
+                calc(100% - 28px),
+                var(--app-max)
+            );
+            margin: 0 auto;
+            padding: 26px 0 100px;
+            display: grid;
+            grid-template-columns: 190px minmax(0, 650px) 260px;
+            gap: 26px;
+            align-items: start;
+        }
+
+        /* =====================================================
+           SIDE NAV
+        ===================================================== */
+
+        .app-sidebar {
+            position: sticky;
+            top: 92px;
+        }
+
+        .nav-card {
+            padding: 8px;
+            border: 1px solid var(--app-border);
+            border-radius: 20px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .app-nav-button {
+            width: 100%;
+            min-height: 46px;
+            padding: 0 13px;
+            border: 0;
+            border-radius: 13px;
+            background: transparent;
+            color: var(--app-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            transition: .2s ease;
+        }
+
+        .app-nav-button:hover,
+        .app-nav-button.active {
+            color: var(--app-text);
+            background: rgba(139,92,246,.12);
+        }
+
+        .app-nav-button.active {
+            box-shadow:
+                inset 2px 0 0 var(--app-purple);
+        }
+
+        .nav-icon {
+            width: 25px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .nav-label {
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .nav-divider {
+            height: 1px;
+            margin: 8px 4px;
+            background: var(--app-border);
+        }
+
+        /* =====================================================
+           CENTER
+        ===================================================== */
+
+        .feed-column {
+            min-width: 0;
+        }
+
+        .feed-heading {
+            margin-bottom: 18px;
+        }
+
+        .feed-heading h1 {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.15;
+            letter-spacing: -.6px;
+        }
+
+        .feed-heading p {
+            margin: 7px 0 0;
+            color: var(--app-muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           COMPOSER
+        ===================================================== */
+
+        .composer {
+            padding: 18px;
+            border: 1px solid var(--app-border);
+            border-radius: var(--app-radius);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(139,92,246,.075),
+                    rgba(236,72,153,.035)
+                ),
+                var(--app-surface);
+            box-shadow: var(--app-shadow);
+        }
+
+        .composer-top {
+            display: flex;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            flex: 0 0 44px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-weight: 800;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--app-purple),
+                    var(--app-pink)
+                );
+        }
+
+        .composer-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .composer-main textarea {
+            width: 100%;
+            min-height: 105px;
+            resize: vertical;
+            padding: 4px 0;
+            border: 0;
+            outline: none;
+            background: transparent;
+            color: var(--app-text);
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        .composer-main textarea::placeholder {
+            color: #777286;
+        }
+
+        .composer-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .composer-meta select {
+            width: 100%;
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid var(--app-border);
+            border-radius: 12px;
+            outline: none;
+            color: var(--app-text);
+            background: rgba(255,255,255,.045);
+        }
+
+        .composer-meta select option {
+            color: #111;
+            background: #fff;
+        }
+
+        .composer-bottom {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--app-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .character-count {
+            color: var(--app-muted);
+            font-size: 12px;
+        }
+
+        .primary-button {
+            min-height: 42px;
+            padding: 0 18px;
+            border: 0;
+            border-radius: 13px;
+            color: white;
+            font-weight: 750;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--app-purple),
+                    var(--app-pink)
+                );
+            box-shadow:
+                0 10px 25px rgba(139,92,246,.20);
+            transition: .2s ease;
+        }
+
+        .primary-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow:
+                0 14px 30px rgba(139,92,246,.28);
+        }
+
+        /* =====================================================
+           AD AREAS
+        ===================================================== */
+
+        .ad-slot {
+            min-height: 76px;
+            margin: 16px 0;
+            padding: 12px;
+            border: 1px dashed rgba(255,255,255,.10);
+            border-radius: 16px;
+            background: rgba(255,255,255,.018);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #6e697b;
+            font-size: 10px;
+            letter-spacing: .4px;
+        }
+
+        .ad-slot strong {
+            display: block;
+            color: #898394;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+
+        /*
+         * Real advertising networks should be initialized only
+         * after the required publisher/account approval and
+         * provider configuration.
+         *
+         * We never fake an ad impression or rewarded completion.
+         */
+
+        /* =====================================================
+           FEED CONTROLS
+        ===================================================== */
+
+        .feed-controls {
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .feed-controls-title {
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .feed-filter {
+            height: 38px;
+            padding: 0 11px;
+            border: 1px solid var(--app-border);
+            border-radius: 11px;
+            outline: none;
+            color: var(--app-text);
+            background: rgba(255,255,255,.04);
+        }
+
+        .feed-filter option {
+            color: #111;
+            background: #fff;
+        }
+
+        /* =====================================================
+           FEELING CARD
+        ===================================================== */
+
+        #feed-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .feeling-card {
+            padding: 18px;
+            border: 1px solid var(--app-border);
+            border-radius: var(--app-radius);
+            background: var(--app-surface);
+            transition: .2s ease;
+        }
+
+        .feeling-card:hover {
+            border-color: var(--app-border-strong);
+            transform: translateY(-1px);
+        }
+
+        .feeling-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .person {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .person-avatar {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d4be8,
+                    #d83e8b
+                );
+        }
+
+        .person-info {
+            min-width: 0;
+        }
+
+        .person-info strong {
+            display: block;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .person-info small {
+            display: block;
+            margin-top: 3px;
+            color: var(--app-muted);
+            font-size: 11px;
+        }
+
+        .more-button {
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 10px;
+            color: var(--app-muted);
+            background: transparent;
+        }
+
+        .more-button:hover {
+            color: var(--app-text);
+            background: rgba(255,255,255,.06);
+        }
+
+        .feeling-text {
+            margin: 17px 0 13px;
+            color: #eeecf3;
+            font-size: 15px;
+            line-height: 1.72;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .feeling-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 14px;
+        }
+
+        .feeling-tag {
+            padding: 5px 9px;
+            border: 1px solid rgba(139,92,246,.18);
+            border-radius: 999px;
+            color: #c8b9f5;
+            background: rgba(139,92,246,.08);
+            font-size: 10px;
+            font-weight: 650;
+        }
+
+        .feeling-actions {
+            padding-top: 12px;
+            border-top: 1px solid var(--app-border);
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .feeling-action {
+            min-height: 37px;
+            padding: 0 11px;
+            border: 1px solid var(--app-border);
+            border-radius: 10px;
+            color: var(--app-muted);
+            background: rgba(255,255,255,.025);
+            font-size: 11px;
+            font-weight: 650;
+            transition: .2s ease;
+        }
+
+        .feeling-action:hover:not(:disabled) {
+            color: var(--app-text);
+            background: rgba(255,255,255,.065);
+        }
+
+        .feeling-action.understood {
+            color: #d6c8ff;
+            border-color: rgba(139,92,246,.35);
+            background: rgba(139,92,246,.13);
+        }
+
+        /* =====================================================
+           RIGHT SIDEBAR
+        ===================================================== */
+
+        .app-rightbar {
+            position: sticky;
+            top: 92px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .info-card {
+            padding: 17px;
+            border: 1px solid var(--app-border);
+            border-radius: 18px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            font-size: 13px;
+        }
+
+        .info-card p {
+            margin: 0;
+            color: var(--app-muted);
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .connection-status {
+            margin-top: 12px;
+            padding: 11px;
+            border-radius: 12px;
+            background: rgba(66,211,146,.06);
+            border: 1px solid rgba(66,211,146,.12);
+            color: #a7eacb;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+        .safety-list {
+            margin: 12px 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .safety-list li {
+            color: var(--app-muted);
+            font-size: 11px;
+        }
+
+        /* =====================================================
+           EMPTY / LOADING
+        ===================================================== */
+
+        .empty-state {
+            padding: 55px 20px;
+            border: 1px solid var(--app-border);
+            border-radius: var(--app-radius);
+            background: var(--app-surface);
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 13px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            color: #cfc5ec;
+            background: rgba(139,92,246,.10);
+            font-size: 22px;
+        }
+
+        .empty-state h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .empty-state p {
+            max-width: 340px;
+            margin: 8px auto 0;
+            color: var(--app-muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           MOBILE NAV
+        ===================================================== */
+
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .app-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            padding: 20px;
+            display: grid;
+            place-items: center;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .app-modal {
+            width: min(100%, 480px);
+            max-height: min(700px, 90vh);
+            overflow: auto;
+            border: 1px solid var(--app-border-strong);
+            border-radius: 22px;
+            background: #11101a;
+            box-shadow: 0 30px 100px rgba(0,0,0,.55);
+        }
+
+        .modal-head {
+            padding: 18px 18px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .modal-head h2 {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 10px;
+            color: var(--app-muted);
+            background: rgba(255,255,255,.05);
+        }
+
+        .modal-body {
+            padding: 6px 18px 20px;
+        }
+
+        .modal-body p {
+            color: var(--app-muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .modal-actions {
+            margin-top: 18px;
+            display: flex;
+            gap: 9px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            min-height: 42px;
+            padding: 0 15px;
+            border: 1px solid var(--app-border);
+            border-radius: 12px;
+            color: var(--app-text);
+            background: rgba(255,255,255,.045);
+        }
+
+        .danger-button {
+            min-height: 42px;
+            padding: 0 15px;
+            border: 0;
+            border-radius: 12px;
+            color: white;
+            background: var(--app-red);
+        }
+
+        .report-option {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid var(--app-border);
+            border-radius: 12px;
+            color: var(--app-text);
+            background: rgba(255,255,255,.035);
+            text-align: left;
+        }
+
+        .report-option:hover {
+            background: rgba(255,255,255,.07);
+        }
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        #app-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            z-index: 5000;
+            max-width: min(92vw, 420px);
+            padding: 12px 16px;
+            border: 1px solid var(--app-border-strong);
+            border-radius: 13px;
+            color: var(--app-text);
+            background: rgba(20,18,29,.96);
+            box-shadow: 0 20px 60px rgba(0,0,0,.4);
+            font-size: 12px;
+            transform:
+                translate(-50%, 20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+        }
+
+        #app-toast.show {
+            transform:
+                translate(-50%, 0);
+            opacity: 1;
+        }
+
+        #app-toast.success {
+            border-color: rgba(66,211,146,.35);
+        }
+
+        #app-toast.error {
+            border-color: rgba(239,68,68,.35);
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1050px) {
+
+            .app-layout {
+                grid-template-columns: 165px minmax(0, 1fr);
+            }
+
+            .app-rightbar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .app-topbar {
+                height: 62px;
+            }
+
+            .app-topbar-inner {
+                width: min(
+                    calc(100% - 18px),
+                    var(--app-max)
+                );
+                gap: 8px;
+            }
+
+            .app-brand-name {
+                display: none;
+            }
+
+            .app-brand-mark {
+                width: 36px;
+                height: 36px;
+            }
+
+            .app-search {
+                flex: 1;
+                width: auto;
+            }
+
+            .app-search input {
+                height: 40px;
+            }
+
+            .top-actions .icon-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .app-layout {
+                width: min(
+                    calc(100% - 18px),
+                    650px
+                );
+                display: block;
+                padding: 18px 0 92px;
+            }
+
+            .app-sidebar {
+                display: none;
+            }
+
+            .feed-heading h1 {
+                font-size: 22px;
+            }
+
+            .composer {
+                padding: 15px;
+            }
+
+            .composer-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .feeling-card {
+                padding: 15px;
+            }
+
+            .feeling-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .feeling-action {
+                width: 100%;
+            }
+
+            .feeling-action:last-child {
+                grid-column: 1 / -1;
+            }
+
+            .mobile-bottom-nav {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1500;
+                height: 68px;
+                padding:
+                    7px
+                    max(7px, env(safe-area-inset-right))
+                    max(7px, env(safe-area-inset-bottom))
+                    max(7px, env(safe-area-inset-left));
+                border-top: 1px solid var(--app-border);
+                background: rgba(10,9,15,.94);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                display: grid;
+                grid-template-columns:
+                    repeat(5, 1fr);
+            }
+
+            .mobile-nav-button {
+                border: 0;
+                border-radius: 12px;
+                color: var(--app-muted);
+                background: transparent;
+                display: grid;
+                place-items: center;
+                gap: 2px;
+                font-size: 17px;
+            }
+
+            .mobile-nav-button span:last-child {
+                font-size: 9px;
+            }
+
+            .mobile-nav-button.active {
+                color: #d5c8ff;
+                background: rgba(139,92,246,.10);
+            }
+
+            .ad-slot {
+                min-height: 65px;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .top-actions .messages-button {
+                display: none;
+            }
+
+            .feed-controls {
+                align-items: stretch;
+            }
+
+            .feed-filter {
+                max-width: 130px;
+            }
+
+            .composer-bottom {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .primary-button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="app-body">
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="app-topbar">
+
+        <div class="app-topbar-inner">
+
+            <a
+                class="app-brand"
+                href="app.html"
+                aria-label="Listen My Feelings home"
+            >
+                <span class="app-brand-mark">
+                    ♡
+                </span>
+
+                <span class="app-brand-name">
+                    Listen My Feelings
+                </span>
+            </a>
+
+
+            <label
+                class="app-search"
+                aria-label="Search feelings"
+            >
+
+                <span class="app-search-icon">
+                    🔎
+                </span>
+
+                <input
+                    id="feed-search"
+                    type="search"
+                    autocomplete="off"
+                    maxlength="100"
+                    placeholder="Search feelings..."
+                >
+
+            </label>
+
+
+            <div class="top-actions">
+
+                <button
+                    class="icon-btn"
+                    type="button"
+                    data-route="notifications.html"
+                    aria-label="Notifications"
+                    title="Notifications"
+                >
+                    🔔
+                </button>
+
+                <button
+                    class="icon-btn messages-button"
+                    type="button"
+                    data-route="messages.html"
+                    aria-label="Messages"
+                    title="Messages"
+                >
+                    💬
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN APPLICATION
+    ====================================================== -->
+
+    <main class="app-layout">
+
+
+        <!-- =================================================
+             DESKTOP SIDEBAR
+        ================================================== -->
+
+        <aside class="app-sidebar">
+
+            <nav class="nav-card" aria-label="Application">
+
+                <button
+                    class="app-nav-button active"
+                    type="button"
+                    data-route="app.html"
+                >
+                    <span class="nav-icon">⌂</span>
+                    <span class="nav-label">Home</span>
+                </button>
+
+                <button
+                    class="app-nav-button"
+                    type="button"
+                    data-route="discover.html"
+                >
+                    <span class="nav-icon">⌕</span>
+                    <span class="nav-label">Discover</span>
+                </button>
+
+                <button
+                    class="app-nav-button"
+                    type="button"
+                    data-route="notifications.html"
+                >
+                    <span class="nav-icon">♢</span>
+                    <span class="nav-label">Notifications</span>
+                </button>
+
+                <button
+                    class="app-nav-button"
+                    type="button"
+                    data-route="messages.html"
+                >
+                    <span class="nav-icon">✉</span>
+                    <span class="nav-label">Messages</span>
+                </button>
+
+                <button
+                    class="app-nav-button"
+                    type="button"
+                    data-route="profile.html"
+                >
+                    <span class="nav-icon">◎</span>
+                    <span class="nav-label">Profile</span>
+                </button>
+
+                <div class="nav-divider"></div>
+
+                <button
+                    class="app-nav-button"
+                    type="button"
+                    data-route="settings.html"
+                >
+                    <span class="nav-icon">⚙</span>
+                    <span class="nav-label">Settings</span>
+                </button>
+
+                <button
+                    class="app-nav-button"
+                    type="button"
+                    id="logout-button"
+                >
+                    <span class="nav-icon">↪</span>
+                    <span class="nav-label">Log out</span>
+                </button>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- =================================================
+             FEED
+        ================================================== -->
+
+        <section class="feed-column">
+
+            <div class="feed-heading">
+
+                <h1>
+                    Your space to be heard.
+                </h1>
+
+                <p>
+                    Share what you feel. Listen without judgment.
+                    Sometimes understanding is enough.
+                </p>
+
+            </div>
+
+
+            <!-- Composer -->
+
+            <section
+                class="composer"
+                aria-label="Share a feeling"
+            >
+
+                <div class="composer-top">
+
+                    <div
+                        class="user-avatar"
+                        id="composer-avatar"
+                        aria-hidden="true"
+                    >
+                        U
+                    </div>
+
+                    <div class="composer-main">
+
+                        <textarea
+                            id="feeling-input"
+                            maxlength="2000"
+                            placeholder="What are you feeling right now?"
+                            aria-label="Your feeling"
+                        ></textarea>
+
+                        <div class="composer-meta">
+
+                            <select
+                                id="feeling-mood"
+                                aria-label="Choose mood"
+                            >
+                                <option value="">
+                                    Mood
+                                </option>
+
+                                <option value="Happy">
+                                    😊 Happy
+                                </option>
+
+                                <option value="Calm">
+                                    🌿 Calm
+                                </option>
+
+                                <option value="Sad">
+                                    🌧️ Sad
+                                </option>
+
+                                <option value="Lonely">
+                                    🌙 Lonely
+                                </option>
+
+                                <option value="Anxious">
+                                    🌫️ Anxious
+                                </option>
+
+                                <option value="Angry">
+                                    🔥 Angry
+                                </option>
+
+                                <option value="Confused">
+                                    🌀 Confused
+                                </option>
+
+                                <option value="Hopeful">
+                                    ✨ Hopeful
+                                </option>
+
+                                <option value="Grateful">
+                                    💜 Grateful
+                                </option>
+
+                            </select>
+
+
+                            <select
+                                id="feeling-topic"
+                                aria-label="Choose topic"
+                            >
+                                <option value="">
+                                    Topic
+                                </option>
+
+                                <option value="Relationships">
+                                    Relationships
+                                </option>
+
+                                <option value="Family">
+                                    Family
+                                </option>
+
+                                <option value="Friendship">
+                                    Friendship
+                                </option>
+
+                                <option value="Work">
+                                    Work
+                                </option>
+
+                                <option value="Studies">
+                                    Studies
+                                </option>
+
+                                <option value="Life">
+                                    Life
+                                </option>
+
+                                <option value="Future">
+                                    Future
+                                </option>
+
+                                <option value="Self">
+                                    Myself
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="composer-bottom">
+
+                    <span
+                        class="character-count"
+                        id="character-count"
+                    >
+                        0 / 2000
+                    </span>
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                        id="publish-feeling"
+                    >
+                        Share feeling
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Banner ad placement -->
+
+            <div
+                class="ad-slot"
+                id="banner-ad-top"
+                aria-label="Advertisement"
+            >
+                <div>
+                    <strong>ADVERTISEMENT</strong>
+                    Sponsored content
+                </div>
+            </div>
+
+
+            <!-- Feed controls -->
+
+            <div class="feed-controls">
+
+                <span class="feed-controls-title">
+                    Feelings from the community
+                </span>
+
+                <select
+                    class="feed-filter"
+                    id="feed-filter"
+                    aria-label="Feed filter"
+                >
+                    <option value="latest">
+                        Latest
+                    </option>
+
+                    <option value="understood">
+                        Most understood
+                    </option>
+                </select>
+
+            </div>
+
+
+            <!-- Feed -->
+
+            <div id="feed-list">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        ◌
+                    </div>
+
+                    <h3>
+                        Loading feelings...
+                    </h3>
+
+                    <p>
+                        Finding something worth listening to.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Second banner placement -->
+
+            <div
+                class="ad-slot"
+                id="banner-ad-feed"
+                aria-label="Advertisement"
+            >
+                <div>
+                    <strong>ADVERTISEMENT</strong>
+                    Sponsored content
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT SIDEBAR
+        ================================================== -->
+
+        <aside class="app-rightbar">
+
+
+            <div class="info-card">
+
+                <h3>
+                    Your space
+                </h3>
+
+                <p>
+                    There is no pressure to have the perfect
+                    words here. Be honest, respectful and real.
+                </p>
+
+                <div class="connection-status">
+
+                    🤝 <strong>Connections</strong><br>
+
+                    Connection access is protected by
+                    verified rewarded-ad access and
+                    server-controlled expiry.
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    Stay safe
+                </h3>
+
+                <ul class="safety-list">
+
+                    <li>
+                        • Never share passwords or OTPs.
+                    </li>
+
+                    <li>
+                        • Don't share private information publicly.
+                    </li>
+
+                    <li>
+                        • Report harmful or abusive content.
+                    </li>
+
+                    <li>
+                        • Block people who make you uncomfortable.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div
+                class="ad-slot"
+                id="banner-ad-sidebar"
+                aria-label="Advertisement"
+            >
+                <div>
+                    <strong>ADVERTISEMENT</strong>
+                    Sponsored content
+                </div>
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    Need help?
+                </h3>
+
+                <p>
+                    Listen My Feelings is a social expression
+                    and connection platform. It is not a
+                    replacement for professional mental-health
+                    or emergency services.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <!-- =====================================================
+         MOBILE NAVIGATION
+    ====================================================== -->
+
+    <nav
+        class="mobile-bottom-nav"
+        aria-label="Mobile navigation"
+    >
+
+        <button
+            class="mobile-nav-button active"
+            type="button"
+            data-route="app.html"
+        >
+            <span>⌂</span>
+            <span>Home</span>
+        </button>
+
+        <button
+            class="mobile-nav-button"
+            type="button"
+            data-route="discover.html"
+        >
+            <span>⌕</span>
+            <span>Discover</span>
+        </button>
+
+        <button
+            class="mobile-nav-button"
+            type="button"
+            data-route="notifications.html"
+        >
+            <span>♢</span>
+            <span>Alerts</span>
+        </button>
+
+        <button
+            class="mobile-nav-button"
+            type="button"
+            data-route="messages.html"
+        >
+            <span>✉</span>
+            <span>Messages</span>
+        </button>
+
+        <button
+            class="mobile-nav-button"
+            type="button"
+            data-route="profile.html"
+        >
+            <span>◎</span>
+            <span>Profile</span>
+        </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+         CONNECTION MODAL
+    ====================================================== -->
+
+    <div
+        class="app-modal-backdrop"
+        id="connection-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="connection-modal-title"
+    >
+
+        <div class="app-modal">
+
+            <div class="modal-head">
+
+                <h2 id="connection-modal-title">
+                    Connect with someone
+                </h2>
+
+                <button
+                    class="modal-close"
+                    type="button"
+                    data-close-modal="connection-modal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    A connection allows meaningful private
+                    text conversation with another person.
+                </p>
+
+                <p>
+                    To unlock a connection, you will need to
+                    complete the rewarded-ad verification flow.
+                    Access lasts for 12 hours and is controlled
+                    by trusted server time.
+                </p>
+
+                <p>
+                    The browser cannot create or extend a
+                    connection by itself.
+                </p>
+
+                <div class="modal-actions">
+
+                    <button
+                        class="secondary-button"
+                        type="button"
+                        data-close-modal="connection-modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                        id="start-rewarded-ad"
+                    >
+                        Watch ad to unlock
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         REPORT MODAL
+    ====================================================== -->
+
+    <div
+        class="app-modal-backdrop"
+        id="report-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="report-modal-title"
+    >
+
+        <div class="app-modal">
+
+            <div class="modal-head">
+
+                <h2 id="report-modal-title">
+                    Report content
+                </h2>
+
+                <button
+                    class="modal-close"
+                    type="button"
+                    data-close-modal="report-modal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    Select the reason that best describes
+                    the problem. False or abusive reports
+                    may be reviewed.
+                </p>
+
+                <button
+                    class="report-option"
+                    type="button"
+                    data-report-reason="harassment"
+                >
+                    Harassment or bullying
+                </button>
+
+                <button
+                    class="report-option"
+                    type="button"
+                    data-report-reason="hate"
+                >
+                    Hateful or abusive content
+                </button>
+
+                <button
+                    class="report-option"
+                    type="button"
+                    data-report-reason="self-harm"
+                >
+                    Self-harm related concern
+                </button>
+
+                <button
+                    class="report-option"
+                    type="button"
+                    data-report-reason="sexual"
+                >
+                    Sexual or inappropriate content
+                </button>
+
+                <button
+                    class="report-option"
+                    type="button"
+                    data-report-reason="spam"
+                >
+                    Spam or misleading content
+                </button>
+
+                <button
+                    class="report-option"
+                    type="button"
+                    data-report-reason="other"
+                >
+                    Something else
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MORE OPTIONS MODAL
+    ====================================================== -->
+
+    <div
+        class="app-modal-backdrop"
+        id="more-modal"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="more-modal-title"
+    >
+
+        <div class="app-modal">
+
+            <div class="modal-head">
+
+                <h2 id="more-modal-title">
+                    Post options
+                </h2>
+
+                <button
+                    class="modal-close"
+                    type="button"
+                    data-close-modal="more-modal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    Choose an action for this feeling.
+                </p>
+
+                <div class="modal-actions">
+
+                    <button
+                        class="danger-button"
+                        type="button"
+                        id="open-report-from-more"
+                    >
+                        Report
+                    </button>
+
+                    <button
+                        class="secondary-button"
+                        type="button"
+                        id="block-author-button"
+                    >
+                        Block author
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="app-toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- =====================================================
+         FIREBASE + APPLICATION BACKEND CLIENT
+    ====================================================== -->
+
+    <script type="module">
+
+        /* =================================================
+           FIREBASE CONFIGURATION
+        ================================================= */
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            query,
+            where,
+            orderBy,
+            limit,
+            onSnapshot,
+            doc,
+            setDoc,
+            deleteDoc,
+            getDoc,
+            serverTimestamp,
+            writeBatch
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaYNxk89vnvc-SHrTNfNrQ0gJCYdnrBOI",
+            authDomain: "createyourownidentity-2e2a3.firebaseapp.com",
+            projectId: "createyourownidentity-2e2a3",
+            storageBucket: "createyourownidentity-2e2a3.firebasestorage.app",
+            messagingSenderId: "316875593955",
+            appId: "1:316875593955:web:529cb0fe3c45f2cca54dd6",
+            measurementId: "G-LXVR8CJWRE"
+        };
+
+
+        const firebaseApp =
+            initializeApp(firebaseConfig);
+
+        const auth =
+            getAuth(firebaseApp);
+
+        const db =
+            getFirestore(firebaseApp);
+
+
+        /* =================================================
+           CONFIGURATION
+        ================================================= */
+
+        const CONFIG = {
+
+            maxFeelingLength: 2000,
+
+            feedLimit: 30,
+
+            draftKey:
+                "lmf_feeling_draft",
+
+            draftMaxAge:
+                1000 * 60 * 60 * 24 * 7,
+
+            connectionDurationHours:
+                12
+
+        };
+
+
+        /* =================================================
+           STATE
+        ================================================= */
+
+        const state = {
+
+            user: null,
+
+            feelings: [],
+
+            understood:
+                new Set(),
+
+            search: "",
+
+            filter: "latest",
+
+            unsubscribeFeed: null,
+
+            currentFeelingId: null,
+
+            currentAuthorId: null,
+
+            reportFeelingId: null,
+
+            reportAuthorId: null,
+
+            toastTimer: null
+
+        };
+
+
+        /* =================================================
+           DOM
+        ================================================= */
+
+        const dom = {
+
+            feed:
+                document.getElementById(
+                    "feed-list"
+                ),
+
+            input:
+                document.getElementById(
+                    "feeling-input"
+                ),
+
+            mood:
+                document.getElementById(
+                    "feeling-mood"
+                ),
+
+            topic:
+                document.getElementById(
+                    "feeling-topic"
+                ),
+
+            publish:
+                document.getElementById(
+                    "publish-feeling"
+                ),
+
+            count:
+                document.getElementById(
+                    "character-count"
+                ),
+
+            search:
+                document.getElementById(
+                    "feed-search"
+                ),
+
+            filter:
+                document.getElementById(
+                    "feed-filter"
+                ),
+
+            avatar:
+                document.getElementById(
+                    "composer-avatar"
+                ),
+
+            logout:
+                document.getElementById(
+                    "logout-button"
+                ),
+
+            connectionModal:
+                document.getElementById(
+                    "connection-modal"
+                ),
+
+            reportModal:
+                document.getElementById(
+                    "report-modal"
+                ),
+
+            moreModal:
+                document.getElementById(
+                    "more-modal"
+                ),
+
+            toast:
+                document.getElementById(
+                    "app-toast"
+                )
+
+        };
+
+
+        /* =================================================
+           SECURITY HELPERS
+        ================================================= */
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+
+        /* =================================================
+           TOAST
+        ================================================= */
+
+        function showToast(
+            message,
+            type = "info"
+        ) {
+
+            if (!dom.toast) {
+                return;
+            }
+
+            clearTimeout(
+                state.toastTimer
+            );
+
+            dom.toast.textContent =
+                message;
+
+            dom.toast.className =
+                "";
+
+            dom.toast.classList.add(
+                "show"
+            );
+
+            if (type) {
+
+                dom.toast.classList.add(
+                    type
+                );
+            }
+
+            state.toastTimer =
+                setTimeout(
+                    () => {
+
+                        dom.toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    3200
+                );
+        }
+
+
+        /* =================================================
+           USER INITIAL
+        ================================================= */
+
+        function getInitial(user) {
+
+            const value =
+                user?.displayName ||
+                user?.email ||
+                "U";
+
+            return value
+                .trim()
+                .charAt(0)
+                .toUpperCase();
+        }
+
+
+        /* =================================================
+           TIME
+        ================================================= */
+
+        function formatTime(
+            timestamp
+        ) {
+
+            if (!timestamp) {
+                return "Just now";
+            }
+
+            try {
+
+                const date =
+                    typeof timestamp.toDate ===
+                    "function"
+
+                        ? timestamp.toDate()
+
+                        : new Date(timestamp);
+
+                const difference =
+                    Date.now() -
+                    date.getTime();
+
+                const minutes =
+                    Math.floor(
+                        difference /
+                        60000
+                    );
+
+                if (minutes < 1) {
+                    return "Just now";
+                }
+
+                if (minutes < 60) {
+                    return `${minutes}m`;
+                }
+
+                const hours =
+                    Math.floor(
+                        minutes / 60
+                    );
+
+                if (hours < 24) {
+                    return `${hours}h`;
+                }
+
+                const days =
+                    Math.floor(
+                        hours / 24
+                    );
+
+                if (days < 7) {
+                    return `${days}d`;
+                }
+
+                return date.toLocaleDateString();
+
+            } catch {
+
+                return "Recently";
+            }
+        }
+
+
+        /* =================================================
+           AUTHENTICATION
+        ================================================= */
+
+        onAuthStateChanged(
+            auth,
+            async (user) => {
+
+                state.user =
+                    user;
+
+                if (!user) {
+
+                    stopFeed();
+
+                    window.location.replace(
+                        "index.html"
+                    );
+
+                    return;
+                }
+
+                updateUserUI(
+                    user
+                );
+
+                await loadOwnUnderstandReactions();
+
+                restoreDraft();
+
+                startFeed();
+            }
+        );
+
+
+        /* =================================================
+           USER UI
+        ================================================= */
+
+        function updateUserUI(
+            user
+        ) {
+
+            if (dom.avatar) {
+
+                dom.avatar.textContent =
+                    getInitial(user);
+            }
+        }
+
+
+        /* =================================================
+           LOAD OWN REACTIONS
+        ================================================= */
+
+        async function loadOwnUnderstandReactions() {
+
+            state.understood.clear();
+
+            if (!state.user) {
+                return;
+            }
+
+            /*
+             * We intentionally don't trust Local Storage
+             * for reactions.
+             *
+             * Individual reaction documents are checked
+             * when needed.
+             *
+             * This keeps the browser from becoming the
+             * security authority.
+             */
+        }
+
+
+        async function checkUnderstand(
+            feelingId
+        ) {
+
+            if (!state.user) {
+                return false;
+            }
+
+            try {
+
+                const reactionRef =
+                    doc(
+                        db,
+                        "feelings",
+                        feelingId,
+                        "understands",
+                        state.user.uid
+                    );
+
+                const snapshot =
+                    await getDoc(
+                        reactionRef
+                    );
+
+                const exists =
+                    snapshot.exists();
+
+                if (exists) {
+
+                    state.understood.add(
+                        feelingId
+                    );
+
+                } else {
+
+                    state.understood.delete(
+                        feelingId
+                    );
+                }
+
+                return exists;
+
+            } catch (error) {
+
+                console.error(
+                    "Reaction check failed:",
+                    error
+                );
+
+                return false;
+            }
+        }
+
+
+        async function hydrateReactionState(
+            feelings
+        ) {
+
+            if (!state.user) {
+                return;
+            }
+
+            const checks =
+                feelings.map(
+                    feeling =>
+                        checkUnderstand(
+                            feeling.id
+                        )
+                );
+
+            await Promise.all(
+                checks
+            );
+
+            renderFeed();
+        }
+
+
+        /* =================================================
+           FEED
+        ================================================= */
+
+        function startFeed() {
+
+            stopFeed();
+
+            if (!dom.feed) {
+                return;
+            }
+
+            dom.feed.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">◌</div>
+                    <h3>Loading feelings...</h3>
+                    <p>
+                        Finding something worth listening to.
+                    </p>
+                </div>
+            `;
+
+
+            const feelingsCollection =
+                collection(
+                    db,
+                    "feelings"
+                );
+
+
+            const feedQuery =
+                query(
+
+                    feelingsCollection,
+
+                    where(
+                        "visibility",
+                        "==",
+                        "public"
+                    ),
+
+                    where(
+                        "status",
+                        "==",
+                        "active"
+                    ),
+
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    ),
+
+                    limit(
+                        CONFIG.feedLimit
+                    )
+
+                );
+
+
+            state.unsubscribeFeed =
+                onSnapshot(
+
+                    feedQuery,
+
+                    async (snapshot) => {
+
+                        state.feelings =
+                            snapshot.docs.map(
+                                document => ({
+                                    id:
+                                        document.id,
+
+                                    ...document.data()
+                                })
+                            );
+
+                        renderFeed();
+
+                        await hydrateReactionState(
+                            state.feelings
+                        );
+
+                    },
+
+                    error => {
+
+                        console.error(
+                            "Feed error:",
+                            error
+                        );
+
+                        renderFeedError(
+                            error
+                        );
+                    }
+
+                );
+        }
+
+
+        function stopFeed() {
+
+            if (
+                typeof state.unsubscribeFeed ===
+                "function"
+            ) {
+
+                state.unsubscribeFeed();
+
+                state.unsubscribeFeed =
+                    null;
+            }
+        }
+
+
+        function renderFeedError(
+            error
+        ) {
+
+            if (!dom.feed) {
+                return;
+            }
+
+            const message =
+                error?.code ===
+                "failed-precondition"
+
+                    ? "Firebase needs a Firestore index for this feed."
+
+                    : "The feed couldn't be loaded right now.";
+
+            dom.feed.innerHTML = `
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        !
+                    </div>
+
+                    <h3>
+                        Feed unavailable
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(message)}
+                    </p>
+
+                </div>
+            `;
+        }
+
+
+        /* =================================================
+           FILTER
+        ================================================= */
+
+        function getFilteredFeelings() {
+
+            let feelings =
+                [...state.feelings];
+
+            const search =
+                state.search
+                    .trim()
+                    .toLowerCase();
+
+
+            if (search) {
+
+                feelings =
+                    feelings.filter(
+                        feeling => {
+
+                            const text =
+                                String(
+                                    feeling.text ||
+                                    ""
+                                ).toLowerCase();
+
+                            const mood =
+                                String(
+                                    feeling.mood ||
+                                    ""
+                                ).toLowerCase();
+
+                            const topic =
+                                String(
+                                    feeling.topic ||
+                                    ""
+                                ).toLowerCase();
+
+                            const author =
+                                String(
+                                    feeling.authorDisplayName ||
+                                    ""
+                                ).toLowerCase();
+
+                            return (
+
+                                text.includes(
+                                    search
+                                ) ||
+
+                                mood.includes(
+                                    search
+                                ) ||
+
+                                topic.includes(
+                                    search
+                                ) ||
+
+                                author.includes(
+                                    search
+                                )
+
+                            );
+                        }
+                    );
+            }
+
+
+            if (
+                state.filter ===
+                "understood"
+            ) {
+
+                feelings.sort(
+                    (a, b) =>
+                        Number(
+                            b.understoodCount ||
+                            0
+                        ) -
+                        Number(
+                            a.understoodCount ||
+                            0
+                        )
+                );
+            }
+
+
+            return feelings;
+        }
+
+
+        /* =================================================
+           RENDER
+        ================================================= */
+
+        function renderFeed() {
+
+            if (!dom.feed) {
+                return;
+            }
+
+            const feelings =
+                getFilteredFeelings();
+
+
+            if (!feelings.length) {
+
+                dom.feed.innerHTML = `
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ♡
+                        </div>
+
+                        <h3>
+                            No feelings found
+                        </h3>
+
+                        <p>
+                            Be the first person to
+                            share something real.
+                        </p>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            dom.feed.innerHTML =
+                feelings
+                    .map(
+                        createFeelingCard
+                    )
+                    .join("");
+
+
+            bindFeedActions();
+        }
+
+
+        /* =================================================
+           CARD
+        ================================================= */
+
+        function createFeelingCard(
+            feeling
+        ) {
+
+            const author =
+                feeling.authorDisplayName ||
+                "Listener";
+
+            const initial =
+                escapeHTML(
+                    author
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase()
+                );
+
+
+            const text =
+                escapeHTML(
+                    feeling.text || ""
+                );
+
+
+            const mood =
+                feeling.mood
+                    ? `
+                        <span class="feeling-tag">
+                            ${escapeHTML(
+                                feeling.mood
+                            )}
+                        </span>
+                    `
+                    : "";
+
+
+            const topic =
+                feeling.topic
+                    ? `
+                        <span class="feeling-tag">
+                            ${escapeHTML(
+                                feeling.topic
+                            )}
+                        </span>
+                    `
+                    : "";
+
+
+            const understoodCount =
+                Number(
+                    feeling.understoodCount ||
+                    0
+                );
+
+
+            const alreadyUnderstood =
+                state.understood.has(
+                    feeling.id
+                );
+
+
+            const isOwn =
+                state.user?.uid ===
+                feeling.authorId;
+
+
+            return `
+
+                <article
+                    class="feeling-card"
+                    data-feeling-id="${escapeHTML(
+                        feeling.id
+                    )}"
+                >
+
+                    <div class="feeling-head">
+
+                        <div class="person">
+
+                            <div class="person-avatar">
+                                ${initial}
+                            </div>
+
+                            <div class="person-info">
+
+                                <strong>
+                                    ${escapeHTML(
+                                        author
+                                    )}
+                                </strong>
+
+                                <small>
+                                    ${formatTime(
+                                        feeling.createdAt
+                                    )}
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="more-button"
+                            type="button"
+                            data-more-id="${escapeHTML(
+                                feeling.id
+                            )}"
+                            data-author-id="${escapeHTML(
+                                feeling.authorId ||
+                                ""
+                            )}"
+                            aria-label="More options"
+                        >
+                            •••
+                        </button>
+
+                    </div>
+
+
+                    <div class="feeling-text">
+                        ${text}
+                    </div>
+
+
+                    ${
+                        mood || topic
+
+                            ? `
+                                <div class="feeling-tags">
+                                    ${mood}
+                                    ${topic}
+                                </div>
+                            `
+
+                            : ""
+                    }
+
+
+                    <div class="feeling-actions">
+
+                        <button
+                            class="feeling-action ${
+                                alreadyUnderstood
+                                    ? "understood"
+                                    : ""
+                            }"
+                            type="button"
+                            data-understand-id="${escapeHTML(
+                                feeling.id
+                            )}"
+                        >
+                            ${
+                                alreadyUnderstood
+                                    ? "♥ I Understand"
+                                    : "♡ I Understand"
+                            }
+
+                            ${
+                                understoodCount > 0
+                                    ? ` · ${understoodCount}`
+                                    : ""
+                            }
+
+                        </button>
+
+
+                        <button
+                            class="feeling-action"
+                            type="button"
+                            data-respond-id="${escapeHTML(
+                                feeling.id
+                            )}"
+                        >
+                            💬 Respond
+                        </button>
+
+
+                        <button
+                            class="feeling-action"
+                            type="button"
+                            data-connect-id="${escapeHTML(
+                                feeling.authorId ||
+                                ""
+                            )}"
+                            ${
+                                isOwn
+                                    ? "disabled"
+                                    : ""
+                            }
+                        >
+                            🤝 Connect
+                        </button>
+
+                    </div>
+
+                </article>
+            `;
+        }
+
+
+        /* =================================================
+           ACTION BINDING
+        ================================================= */
+
+        function bindFeedActions() {
+
+            document
+                .querySelectorAll(
+                    "[data-understand-id]"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                toggleUnderstand(
+                                    button.dataset
+                                        .understandId
+                                );
+                            }
+                        );
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    "[data-respond-id]"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                respondToFeeling(
+                                    button.dataset
+                                        .respondId
+                                );
+                            }
+                        );
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    "[data-connect-id]"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                openConnectionModal(
+                                    button.dataset
+                                        .connectId
+                                );
+                            }
+                        );
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    "[data-more-id]"
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            "click",
+                            () => {
+
+                                openMoreModal(
+                                    button.dataset
+                                        .moreId,
+
+                                    button.dataset
+                                        .authorId
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+
+        /* =================================================
+           I UNDERSTAND
+        ================================================= */
+
+        async function toggleUnderstand(
+            feelingId
+        ) {
+
+            if (!state.user) {
+
+                showToast(
+                    "Please sign in first.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (!feelingId) {
+                return;
+            }
+
+
+            const reactionRef =
+                doc(
+                    db,
+                    "feelings",
+                    feelingId,
+                    "understands",
+                    state.user.uid
+                );
+
+
+            const already =
+                state.understood.has(
+                    feelingId
+                );
+
+
+            try {
+
+                if (already) {
+
+                    await deleteDoc(
+                        reactionRef
+                    );
+
+                    state.understood.delete(
+                        feelingId
+                    );
+
+                } else {
+
+                    await setDoc(
+                        reactionRef,
+                        {
+                            userId:
+                                state.user.uid,
+
+                            createdAt:
+                                serverTimestamp()
+                        }
+                    );
+
+                    state.understood.add(
+                        feelingId
+                    );
+                }
+
+
+                renderFeed();
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * understoodCount is not trusted from
+                 * the browser.
+                 *
+                 * A trusted backend/Cloud Function should
+                 * maintain aggregate counts from the
+                 * understands subcollection.
+                 */
+            } catch (error) {
+
+                console.error(
+                    "I Understand error:",
+                    error
+                );
+
+                showToast(
+                    "We couldn't update your response.",
+                    "error"
+                );
+            }
+        }
+
+
+        /* =================================================
+           CREATE FEELING
+        ================================================= */
+
+        async function createFeeling() {
+
+            if (!state.user) {
+
+                showToast(
+                    "Please sign in first.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const text =
+                dom.input?.value
+                    ?.trim() || "";
+
+
+            const mood =
+                dom.mood?.value || "";
+
+
+            const topic =
+                dom.topic?.value || "";
+
+
+            if (!text) {
+
+                showToast(
+                    "Write something before sharing.",
+                    "error"
+                );
+
+                dom.input?.focus();
+
+                return;
+            }
+
+
+            if (
+                text.length >
+                CONFIG.maxFeelingLength
+            ) {
+
+                showToast(
+                    `Your feeling can contain up to ${CONFIG.maxFeelingLength} characters.`,
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (dom.publish) {
+
+                dom.publish.disabled =
+                    true;
+
+                dom.publish.textContent =
+                    "Sharing...";
+            }
+
+
+            try {
+
+                await addDoc(
+                    collection(
+                        db,
+                        "feelings"
+                    ),
+                    {
+
+                        authorId:
+                            state.user.uid,
+
+                        authorDisplayName:
+                            state.user.displayName ||
+                            state.user.email
+                                ?.split("@")[0] ||
+                            "Listener",
+
+                        text,
+
+                        mood,
+
+                        topic,
+
+                        visibility:
+                            "public",
+
+                        status:
+                            "active",
+
+                        understoodCount:
+                            0,
+
+                        createdAt:
+                            serverTimestamp(),
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                clearDraft();
+
+
+                if (dom.input) {
+                    dom.input.value = "";
+                }
+
+                if (dom.mood) {
+                    dom.mood.value = "";
+                }
+
+                if (dom.topic) {
+                    dom.topic.value = "";
+                }
+
+
+                updateCharacterCount();
+
+
+                showToast(
+                    "Your feeling has been shared.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Create feeling error:",
+                    error
+                );
+
+                showToast(
+                    "Your feeling couldn't be shared.",
+                    "error"
+                );
+
+            } finally {
+
+                if (dom.publish) {
+
+                    dom.publish.disabled =
+                        false;
+
+                    dom.publish.textContent =
+                        "Share feeling";
+                }
+            }
+        }
+
+
+        /* =================================================
+           CHARACTER COUNT
+        ================================================= */
+
+        function updateCharacterCount() {
+
+            if (
+                !dom.input ||
+                !dom.count
+            ) {
+                return;
+            }
+
+            dom.count.textContent =
+                `${dom.input.value.length} / ${CONFIG.maxFeelingLength}`;
+        }
+
+
+        /* =================================================
+           RESPOND
+        ================================================= */
+
+        function respondToFeeling(
+            feelingId
+        ) {
+
+            const feeling =
+                state.feelings.find(
+                    item =>
+                        item.id ===
+                        feelingId
+                );
+
+
+            if (!feeling) {
+                return;
+            }
+
+
+            /*
+             * V1 keeps response creation inside the
+             * authenticated Firestore architecture.
+             *
+             * We don't create fake response documents.
+             */
+
+            if (dom.input) {
+
+                dom.input.focus();
+
+                dom.input.placeholder =
+                    "Write something thoughtful...";
+            }
+
+
+            showToast(
+                "Write your response in the composer.",
+                "info"
+            );
+        }
+
+
+        /* =================================================
+           CONNECTION
+        ================================================= */
+
+        function openConnectionModal(
+            authorId
+        ) {
+
+            if (!state.user) {
+
+                showToast(
+                    "Please sign in first.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                !authorId ||
+                authorId ===
+                state.user.uid
+            ) {
+
+                return;
+            }
+
+
+            state.currentAuthorId =
+                authorId;
+
+
+            openModal(
+                dom.connectionModal
+            );
+        }
+
+
+        /*
+         * The actual rewarded advertisement provider must
+         * call a trusted backend after verified completion.
+         *
+         * The browser NEVER writes:
+         *
+         * connections/{connectionId}
+         *
+         * directly.
+         */
+
+        document
+            .getElementById(
+                "start-rewarded-ad"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    showToast(
+                        "Rewarded-ad verification is required before this connection can be unlocked.",
+                        "info"
+                    );
+
+                    /*
+                     * No fake reward.
+                     * No fake connection.
+                     * No Local Storage expiry.
+                     *
+                     * Backend flow:
+                     *
+                     * authenticated user
+                     *        ↓
+                     * rewarded ad
+                     *        ↓
+                     * provider verification
+                     *        ↓
+                     * trusted backend
+                     *        ↓
+                     * adUnlocks document
+                     *        ↓
+                     * connection document
+                     *        ↓
+                     * server-controlled 12h expiry
+                     */
+                }
+            );
+
+
+        /* =================================================
+           REPORT
+        ================================================= */
+
+        function openMoreModal(
+            feelingId,
+            authorId
+        ) {
+
+            state.currentFeelingId =
+                feelingId;
+
+            state.currentAuthorId =
+                authorId;
+
+
+            openModal(
+                dom.moreModal
+            );
+        }
+
+
+        document
+            .getElementById(
+                "open-report-from-more"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    closeModal(
+                        dom.moreModal
+                    );
+
+                    state.reportFeelingId =
+                        state.currentFeelingId;
+
+                    state.reportAuthorId =
+                        state.currentAuthorId;
+
+                    openModal(
+                        dom.reportModal
+                    );
+                }
+            );
+
+
+        async function submitReport(
+            reason
+        ) {
+
+            if (!state.user) {
+
+                showToast(
+                    "Please sign in first.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                !state.reportFeelingId ||
+                !reason
+            ) {
+                return;
+            }
+
+
+            try {
+
+                /*
+                 * Firestore rules allow authenticated
+                 * users to create reports.
+                 */
+
+                await addDoc(
+                    collection(
+                        db,
+                        "reports"
+                    ),
+                    {
+
+                        reporterId:
+                            state.user.uid,
+
+                        feelingId:
+                            state.reportFeelingId,
+
+                        reportedUserId:
+                            state.reportAuthorId ||
+                            null,
+
+                        reason,
+
+                        status:
+                            "open",
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                closeModal(
+                    dom.reportModal
+                );
+
+
+                showToast(
+                    "Report submitted. Thank you for helping keep the community safe.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Report error:",
+                    error
+                );
+
+                showToast(
+                    "The report could not be submitted.",
+                    "error"
+                );
+            }
+        }
+
+
+        document
+            .querySelectorAll(
+                "[data-report-reason]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            submitReport(
+                                button.dataset
+                                    .reportReason
+                            );
+                        }
+                    );
+                }
+            );
+
+
+        /* =================================================
+           BLOCK
+        ================================================= */
+
+        document
+            .getElementById(
+                "block-author-button"
+            )
+            ?.addEventListener(
+                "click",
+                async () => {
+
+                    if (
+                        !state.user ||
+                        !state.currentAuthorId
+                    ) {
+                        return;
+                    }
+
+
+                    if (
+                        state.currentAuthorId ===
+                        state.user.uid
+                    ) {
+                        return;
+                    }
+
+
+                    try {
+
+                        const blockRef =
+                            doc(
+                                db,
+                                "blocks",
+                                state.currentAuthorId
+                            );
+
+
+                        /*
+                         * The production block model should use
+                         * a user-specific block document/subcollection
+                         * so multiple users can independently block
+                         * the same person.
+                         *
+                         * We don't create an unsafe global block
+                         * document from the client.
+                         */
+
+                        showToast(
+                            "Block action will use the protected user-specific safety flow.",
+                            "info"
+                        );
+
+                        closeModal(
+                            dom.moreModal
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Block error:",
+                            error
+                        );
+                    }
+                }
+            );
+
+
+        /* =================================================
+           DRAFT
+        ================================================= */
+
+        function saveDraft() {
+
+            if (!dom.input) {
+                return;
+            }
+
+
+            try {
+
+                const draft = {
+
+                    text:
+                        dom.input.value,
+
+                    mood:
+                        dom.mood?.value ||
+                        "",
+
+                    topic:
+                        dom.topic?.value ||
+                        "",
+
+                    savedAt:
+                        Date.now()
+
+                };
+
+
+                localStorage.setItem(
+                    CONFIG.draftKey,
+                    JSON.stringify(
+                        draft
+                    )
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Draft save failed:",
+                    error
+                );
+            }
+        }
+
+
+        function restoreDraft() {
+
+            try {
+
+                const raw =
+                    localStorage.getItem(
+                        CONFIG.draftKey
+                    );
+
+
+                if (!raw) {
+                    return;
+                }
+
+
+                const draft =
+                    JSON.parse(
+                        raw
+                    );
+
+
+                if (!draft) {
+                    return;
+                }
+
+
+                if (
+                    draft.savedAt &&
+                    Date.now() -
+                    draft.savedAt >
+                    CONFIG.draftMaxAge
+                ) {
+
+                    clearDraft();
+
+                    return;
+                }
+
+
+                if (
+                    dom.input &&
+                    typeof draft.text ===
+                    "string"
+                ) {
+
+                    dom.input.value =
+                        draft.text;
+                }
+
+
+                if (
+                    dom.mood &&
+                    typeof draft.mood ===
+                    "string"
+                ) {
+
+                    dom.mood.value =
+                        draft.mood;
+                }
+
+
+                if (
+                    dom.topic &&
+                    typeof draft.topic ===
+                    "string"
+                ) {
+
+                    dom.topic.value =
+                        draft.topic;
+                }
+
+
+                updateCharacterCount();
+
+            } catch (error) {
+
+                console.warn(
+                    "Draft restore failed:",
+                    error
+                );
+
+                clearDraft();
+            }
+        }
+
+
+        function clearDraft() {
+
+            try {
+
+                localStorage.removeItem(
+                    CONFIG.draftKey
+                );
+
+            } catch {
+                /* Optional browser storage. */
+            }
+        }
+
+
+        /* =================================================
+           SEARCH
+        ================================================= */
+
+        dom.search?.addEventListener(
+            "input",
+            () => {
+
+                state.search =
+                    dom.search.value;
+
+                renderFeed();
+            }
+        );
+
+
+        /* =================================================
+           FILTER
+        ================================================= */
+
+        dom.filter?.addEventListener(
+            "change",
+            () => {
+
+                state.filter =
+                    dom.filter.value;
+
+                renderFeed();
+            }
+        );
+
+
+        /* =================================================
+           COMPOSER
+        ================================================= */
+
+        dom.publish?.addEventListener(
+            "click",
+            createFeeling
+        );
+
+
+        dom.input?.addEventListener(
+            "input",
+            () => {
+
+                updateCharacterCount();
+
+                saveDraft();
+            }
+        );
+
+
+        dom.mood?.addEventListener(
+            "change",
+            saveDraft
+        );
+
+
+        dom.topic?.addEventListener(
+            "change",
+            saveDraft
+        );
+
+
+        /* =================================================
+           LOGOUT
+        ================================================= */
+
+        dom.logout?.addEventListener(
+            "click",
+            async () => {
+
+                try {
+
+                    await signOut(
+                        auth
+                    );
+
+                    window.location.replace(
+                        "index.html"
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                    showToast(
+                        "Unable to log out right now.",
+                        "error"
+                    );
+                }
+            }
+        );
+
+
+        /* =================================================
+           NAVIGATION
+        ================================================= */
+
+        document
+            .querySelectorAll(
+                "[data-route]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const route =
+                                button.dataset
+                                    .route;
+
+                            if (!route) {
+                                return;
+                            }
+
+                            window.location.href =
+                                route;
+                        }
+                    );
+                }
+            );
+
+
+        /* =================================================
+           MODALS
+        ================================================= */
+
+        function openModal(
+            modal
+        ) {
+
+            if (!modal) {
+                return;
+            }
+
+            modal.hidden =
+                false;
+
+            document.body.style.overflow =
+                "hidden";
+        }
+
+
+        function closeModal(
+            modal
+        ) {
+
+            if (!modal) {
+                return;
+            }
+
+            modal.hidden =
+                true;
+
+            const anyOpen =
+                document.querySelector(
+                    ".app-modal-backdrop:not([hidden])"
+                );
+
+            if (!anyOpen) {
+
+                document.body.style.overflow =
+                    "";
+            }
+        }
+
+
+        document
+            .querySelectorAll(
+                "[data-close-modal]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const id =
+                                button.dataset
+                                    .closeModal;
+
+                            closeModal(
+                                document.getElementById(
+                                    id
+                                )
+                            );
+                        }
+                    );
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".app-modal-backdrop"
+            )
+            .forEach(
+                backdrop => {
+
+                    backdrop.addEventListener(
+                        "click",
+                        event => {
+
+                            if (
+                                event.target ===
+                                backdrop
+                            ) {
+
+                                closeModal(
+                                    backdrop
+                                );
+                            }
+                        }
+                    );
+                }
+            );
+
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key !==
+                    "Escape"
+                ) {
+                    return;
+                }
+
+                document
+                    .querySelectorAll(
+                        ".app-modal-backdrop:not([hidden])"
+                    )
+                    .forEach(
+                        closeModal
+                    );
+            }
+        );
+
+
+        /* =================================================
+           INITIALIZE
+        ================================================= */
+
+        updateCharacterCount();
+
+
+        /* =================================================
+           PUBLIC APP API
+        ================================================= */
+
+        window.ListenMyFeelingsApp = {
+
+            getCurrentUser() {
+
+                return state.user;
+            },
+
+            getFeelings() {
+
+                return [
+                    ...state.feelings
+                ];
+            },
+
+            refreshFeed() {
+
+                startFeed();
+            },
+
+            saveDraft,
+
+            restoreDraft,
+
+            clearDraft
+
+        };
+
+
+        /* =================================================
+           CLEANUP
+        ================================================= */
+
+        window.addEventListener(
+            "beforeunload",
+            () => {
+
+                stopFeed();
+
+            }
+        );
+
+    </script>
+
+</body>
+  </html>
