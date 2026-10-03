@@ -26,16 +26,14 @@
     <style>
         :root {
             --discover-bg: #09070f;
-            --discover-card: rgba(24, 19, 34, 0.88);
-            --discover-card-2: rgba(31, 24, 44, 0.9);
+            --discover-card: rgba(24, 19, 34, 0.92);
             --discover-border: rgba(255, 255, 255, 0.09);
             --discover-text: #ffffff;
             --discover-muted: #a9a2b7;
-            --discover-soft: #ddd7e8;
             --discover-accent: #a855f7;
             --discover-accent-2: #ec4899;
-            --discover-success: #34d399;
             --discover-danger: #fb7185;
+            --discover-success: #34d399;
             --discover-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
         }
 
@@ -63,7 +61,13 @@
                 ),
                 var(--discover-bg);
             color: var(--discover-text);
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
         }
 
         button,
@@ -75,6 +79,11 @@
 
         button {
             cursor: pointer;
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
         }
 
         .discover-shell {
@@ -124,7 +133,6 @@
         .icon-btn:hover {
             transform: translateY(-2px);
             background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(168, 85, 247, 0.35);
         }
 
         .search-panel {
@@ -175,7 +183,8 @@
             box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.08);
         }
 
-        .search-button {
+        .search-button,
+        .state-button {
             min-height: 52px;
             padding: 0 22px;
             border: 0;
@@ -187,7 +196,6 @@
                 var(--discover-accent),
                 var(--discover-accent-2)
             );
-            box-shadow: 0 12px 28px rgba(168, 85, 247, 0.2);
         }
 
         .filter-row {
@@ -202,7 +210,8 @@
             display: none;
         }
 
-        .filter-select {
+        .filter-select,
+        .sort-select {
             min-width: 145px;
             padding: 12px 14px;
             border-radius: 13px;
@@ -212,7 +221,8 @@
             outline: none;
         }
 
-        .filter-select option {
+        .filter-select option,
+        .sort-select option {
             background: #181321;
             color: #fff;
         }
@@ -251,19 +261,6 @@
             font-size: 13px;
         }
 
-        .sort-select {
-            padding: 9px 12px;
-            border-radius: 11px;
-            border: 1px solid var(--discover-border);
-            background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            outline: none;
-        }
-
-        .sort-select option {
-            background: #181321;
-        }
-
         .feelings-list {
             display: grid;
             gap: 14px;
@@ -272,11 +269,12 @@
         .feeling-card {
             border: 1px solid var(--discover-border);
             border-radius: 22px;
-            background: linear-gradient(
-                145deg,
-                rgba(27, 21, 39, 0.94),
-                rgba(18, 14, 27, 0.96)
-            );
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(27, 21, 39, 0.96),
+                    rgba(18, 14, 27, 0.98)
+                );
             box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
@@ -365,16 +363,16 @@
         }
 
         .feeling-actions {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
-            flex-wrap: wrap;
             margin-top: 19px;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.065);
         }
 
         .action-button {
-            min-height: 40px;
+            min-height: 42px;
             padding: 0 13px;
             border-radius: 12px;
             border: 1px solid var(--discover-border);
@@ -404,6 +402,77 @@
 
         .action-button.danger {
             color: #fda4af;
+        }
+
+        .response-section {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .response-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .response-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ddd6fe;
+        }
+
+        .response-toggle {
+            border: 0;
+            background: transparent;
+            color: #c084fc;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px;
+        }
+
+        .responses-list {
+            display: grid;
+            gap: 9px;
+            margin-top: 10px;
+        }
+
+        .response-item {
+            padding: 10px 11px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .response-author {
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .response-time {
+            margin-left: 6px;
+            color: #82798e;
+            font-size: 10px;
+            font-weight: 400;
+        }
+
+        .response-text {
+            margin-top: 5px;
+            color: #d8d1df;
+            font-size: 12px;
+            line-height: 1.55;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .response-loading,
+        .response-empty {
+            margin-top: 10px;
+            color: var(--discover-muted);
+            font-size: 12px;
         }
 
         .sidebar {
@@ -485,16 +554,9 @@
 
         .state-button {
             margin-top: 16px;
-            padding: 10px 15px;
-            border: 0;
+            min-height: 42px;
+            padding: 0 15px;
             border-radius: 12px;
-            color: #fff;
-            font-weight: 700;
-            background: linear-gradient(
-                135deg,
-                var(--discover-accent),
-                var(--discover-accent-2)
-            );
         }
 
         .load-more-wrap {
@@ -632,6 +694,10 @@
             margin-top: 14px;
         }
 
+        .modal-actions.stack {
+            flex-direction: column;
+        }
+
         .modal-button {
             min-height: 42px;
             padding: 0 15px;
@@ -649,6 +715,11 @@
                 var(--discover-accent),
                 var(--discover-accent-2)
             );
+        }
+
+        .modal-button.danger {
+            color: #fda4af;
+            border-color: rgba(251, 113, 133, 0.2);
         }
 
         .toast {
@@ -724,16 +795,7 @@
             }
 
             .feeling-actions {
-                display: grid;
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .action-button {
-                width: 100%;
-            }
-
-            .feed-toolbar {
-                align-items: flex-start;
             }
         }
 
@@ -760,18 +822,22 @@
 <main class="discover-shell">
 
     <section class="discover-top">
+
         <div class="discover-heading">
             <h1>Discover</h1>
-            <p>Explore real feelings shared publicly by people in the community.</p>
+
+            <p>
+                Explore real feelings shared publicly by people in the community.
+            </p>
         </div>
 
         <div class="top-actions">
+
             <button
                 class="icon-btn"
                 id="notificationsButton"
                 type="button"
                 aria-label="Notifications"
-                title="Notifications"
             >
                 🔔
             </button>
@@ -781,19 +847,21 @@
                 id="messagesButton"
                 type="button"
                 aria-label="Messages"
-                title="Messages"
             >
                 💬
             </button>
+
         </div>
+
     </section>
 
 
-    <section class="search-panel" aria-label="Discover search and filters">
+    <section class="search-panel">
 
         <div class="search-row">
 
             <div class="search-box">
+
                 <span aria-hidden="true">🔎</span>
 
                 <input
@@ -804,6 +872,7 @@
                     placeholder="Search feelings, topics or words..."
                     aria-label="Search feelings"
                 >
+
             </div>
 
             <button
@@ -815,6 +884,7 @@
             </button>
 
         </div>
+
 
         <div class="filter-row">
 
@@ -836,6 +906,7 @@
                 <option value="other">💭 Other</option>
             </select>
 
+
             <select
                 id="topicFilter"
                 class="filter-select"
@@ -852,6 +923,7 @@
                 <option value="money">Money</option>
                 <option value="other">Other</option>
             </select>
+
 
             <button
                 class="clear-filter"
@@ -879,6 +951,7 @@
                     Loading feelings...
                 </span>
 
+
                 <select
                     id="sortSelect"
                     class="sort-select"
@@ -896,7 +969,11 @@
                 class="loading-state"
             >
                 <div class="state-icon">⏳</div>
-                <div class="state-title">Finding feelings...</div>
+
+                <div class="state-title">
+                    Finding feelings...
+                </div>
+
                 <div class="state-text">
                     We're loading public feelings from the community.
                 </div>
@@ -908,7 +985,11 @@
                 class="error-state hidden"
             >
                 <div class="state-icon">⚠️</div>
-                <div class="state-title">Couldn't load Discover</div>
+
+                <div class="state-title">
+                    Couldn't load Discover
+                </div>
+
                 <div
                     class="state-text"
                     id="errorText"
@@ -931,7 +1012,11 @@
                 class="empty-state hidden"
             >
                 <div class="state-icon">🌙</div>
-                <div class="state-title">No feelings found</div>
+
+                <div class="state-title">
+                    No feelings found
+                </div>
+
                 <div class="state-text">
                     Try another search or clear the filters.
                 </div>
@@ -971,7 +1056,10 @@
         <aside class="sidebar">
 
             <section class="side-card">
-                <h3>What is Discover?</h3>
+
+                <h3>
+                    What is Discover?
+                </h3>
 
                 <p>
                     Find public feelings shared by people who chose to express
@@ -985,15 +1073,19 @@
                 >
                     ✍️ Share your feeling
                 </button>
+
             </section>
 
 
             <section class="side-card">
-                <h3>Connection</h3>
+
+                <h3>
+                    Connection
+                </h3>
 
                 <p>
-                    Connection access is protected by the platform's
-                    verified-ad and 12-hour connection system.
+                    Connection access is protected by verified rewarded-ad
+                    verification and trusted server authorization.
                 </p>
 
                 <button
@@ -1003,11 +1095,15 @@
                 >
                     🤝 How connection works
                 </button>
+
             </section>
 
 
             <section class="side-card">
-                <h3>Stay safe</h3>
+
+                <h3>
+                    Stay safe
+                </h3>
 
                 <p>
                     Never share passwords, OTPs, financial information or
@@ -1021,6 +1117,7 @@
                 >
                     🛡️ Safety & reporting
                 </button>
+
             </section>
 
 
@@ -1052,44 +1149,43 @@
     <button
         type="button"
         data-route="app.html"
-        aria-label="Home"
     >
         <strong>⌂</strong>
         Home
     </button>
 
+
     <button
         type="button"
         class="active"
         data-route="discover.html"
-        aria-label="Discover"
     >
         <strong>◉</strong>
         Discover
     </button>
 
+
     <button
         type="button"
         data-route="notifications.html"
-        aria-label="Notifications"
     >
         <strong>♢</strong>
         Alerts
     </button>
 
+
     <button
         type="button"
         data-route="messages.html"
-        aria-label="Messages"
     >
         <strong>◌</strong>
         Messages
     </button>
 
+
     <button
         type="button"
         data-route="profile.html"
-        aria-label="Profile"
     >
         <strong>○</strong>
         Profile
@@ -1105,14 +1201,13 @@
     class="modal-backdrop"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="responseTitle"
 >
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2 id="responseTitle">
+            <h2>
                 Respond with empathy
             </h2>
 
@@ -1120,7 +1215,6 @@
                 id="closeResponseButton"
                 class="modal-close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
@@ -1170,14 +1264,13 @@
     class="modal-backdrop"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="reportTitle"
 >
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2 id="reportTitle">
+            <h2>
                 Report feeling
             </h2>
 
@@ -1185,7 +1278,6 @@
                 id="closeReportButton"
                 class="modal-close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
@@ -1234,14 +1326,13 @@
     class="modal-backdrop"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="connectionTitle"
 >
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2 id="connectionTitle">
+            <h2>
                 Connect safely
             </h2>
 
@@ -1249,7 +1340,6 @@
                 id="closeConnectionButton"
                 class="modal-close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
@@ -1257,16 +1347,18 @@
         </div>
 
         <p>
-            Connections are protected by a verified rewarded-ad flow.
-            After successful server verification, an eligible connection
-            can remain active for 12 hours.
+            A connection becomes available only after a rewarded-ad
+            verification is confirmed by the trusted backend.
         </p>
 
         <p>
-            This Discover page will never create a fake connection or trust
-            a client-side timer. The secure connection endpoint and ad
-            verification backend must authorize the operation before a
-            connection document can be created.
+            After successful verification, the backend can authorize
+            the connection for the defined 12-hour period.
+        </p>
+
+        <p>
+            This page will never create a fake connection or trust
+            a client-side timer.
         </p>
 
         <div class="modal-actions">
@@ -1276,7 +1368,7 @@
                 class="modal-button primary"
                 type="button"
             >
-                I understand
+                Continue
             </button>
 
         </div>
@@ -1286,21 +1378,20 @@
 </div>
 
 
-<!-- MORE MENU MODAL -->
+<!-- MORE MODAL -->
 
 <div
     id="moreModal"
     class="modal-backdrop"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="moreTitle"
 >
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2 id="moreTitle">
+            <h2>
                 Feeling options
             </h2>
 
@@ -1308,14 +1399,14 @@
                 id="closeMoreButton"
                 class="modal-close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
 
         </div>
 
-        <div class="modal-actions" style="justify-content:stretch;flex-direction:column;">
+
+        <div class="modal-actions stack">
 
             <button
                 id="moreReportButton"
@@ -1324,6 +1415,16 @@
             >
                 🚩 Report this feeling
             </button>
+
+
+            <button
+                id="moreBlockButton"
+                class="modal-button danger"
+                type="button"
+            >
+                🚫 Block this person
+            </button>
+
 
             <button
                 id="moreCopyButton"
@@ -1363,10 +1464,10 @@
         where,
         limit,
         getDocs,
+        getDoc,
         doc,
         setDoc,
         deleteDoc,
-        getDoc,
         addDoc,
         serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -1382,10 +1483,15 @@
     const MAX_REPORT_LENGTH = 1000;
 
     const feelingCache = new Map();
+    const responseCache = new Map();
 
     let currentUser = null;
+
     let allFeelings = [];
     let visibleFeelings = [];
+
+    let blockedUserIds = new Set();
+
     let renderedCount = 0;
 
     let selectedFeelingId = null;
@@ -1398,42 +1504,74 @@
        DOM
     ========================================================= */
 
-    const searchInput = document.getElementById("searchInput");
-    const searchButton = document.getElementById("searchButton");
+    const searchInput =
+        document.getElementById("searchInput");
 
-    const moodFilter = document.getElementById("moodFilter");
-    const topicFilter = document.getElementById("topicFilter");
-    const clearFiltersButton = document.getElementById("clearFiltersButton");
+    const searchButton =
+        document.getElementById("searchButton");
 
-    const sortSelect = document.getElementById("sortSelect");
+    const moodFilter =
+        document.getElementById("moodFilter");
 
-    const feelingsList = document.getElementById("feelingsList");
+    const topicFilter =
+        document.getElementById("topicFilter");
 
-    const loadingState = document.getElementById("loadingState");
-    const emptyState = document.getElementById("emptyState");
-    const errorState = document.getElementById("errorState");
+    const clearFiltersButton =
+        document.getElementById("clearFiltersButton");
 
-    const errorText = document.getElementById("errorText");
+    const sortSelect =
+        document.getElementById("sortSelect");
 
-    const retryButton = document.getElementById("retryButton");
-    const emptyClearButton = document.getElementById("emptyClearButton");
+    const feelingsList =
+        document.getElementById("feelingsList");
 
-    const resultCount = document.getElementById("resultCount");
+    const loadingState =
+        document.getElementById("loadingState");
 
-    const loadMoreWrap = document.getElementById("loadMoreWrap");
-    const loadMoreButton = document.getElementById("loadMoreButton");
+    const emptyState =
+        document.getElementById("emptyState");
 
-    const responseModal = document.getElementById("responseModal");
-    const responseInput = document.getElementById("responseInput");
+    const errorState =
+        document.getElementById("errorState");
 
-    const reportModal = document.getElementById("reportModal");
-    const reportInput = document.getElementById("reportInput");
+    const errorText =
+        document.getElementById("errorText");
 
-    const connectionModal = document.getElementById("connectionModal");
+    const retryButton =
+        document.getElementById("retryButton");
 
-    const moreModal = document.getElementById("moreModal");
+    const emptyClearButton =
+        document.getElementById("emptyClearButton");
 
-    const toastElement = document.getElementById("toast");
+    const resultCount =
+        document.getElementById("resultCount");
+
+    const loadMoreWrap =
+        document.getElementById("loadMoreWrap");
+
+    const loadMoreButton =
+        document.getElementById("loadMoreButton");
+
+    const responseModal =
+        document.getElementById("responseModal");
+
+    const responseInput =
+        document.getElementById("responseInput");
+
+    const reportModal =
+        document.getElementById("reportModal");
+
+    const reportInput =
+        document.getElementById("reportInput");
+
+    const connectionModal =
+        document.getElementById("connectionModal");
+
+    const moreModal =
+        document.getElementById("moreModal");
+
+    const toastElement =
+        document.getElementById("toast");
 
 
     /* =========================================================
@@ -1442,15 +1580,19 @@
 
     function showToast(message) {
 
-        toastElement.textContent = message;
+        toastElement.textContent =
+            String(message || "");
 
         toastElement.classList.add("show");
 
         clearTimeout(showToast.timer);
 
-        showToast.timer = setTimeout(() => {
-            toastElement.classList.remove("show");
-        }, 3000);
+        showToast.timer =
+            setTimeout(() => {
+
+                toastElement.classList.remove("show");
+
+            }, 3000);
     }
 
 
@@ -1466,6 +1608,7 @@
 
 
     function normalize(value) {
+
         return String(value ?? "")
             .trim()
             .toLowerCase();
@@ -1474,16 +1617,22 @@
 
     function getInitials(name) {
 
-        const clean = String(name || "User").trim();
+        const clean =
+            String(name || "User").trim();
 
         if (!clean) {
             return "U";
         }
 
-        const parts = clean.split(/\s+/).slice(0, 2);
-
-        return parts
-            .map(part => part.charAt(0).toUpperCase())
+        return clean
+            .split(/\s+/)
+            .slice(0, 2)
+            .map(
+                part =>
+                    part
+                        .charAt(0)
+                        .toUpperCase()
+            )
             .join("");
     }
 
@@ -1496,26 +1645,46 @@
 
         let date = null;
 
-        if (typeof timestamp.toDate === "function") {
+        if (
+            timestamp &&
+            typeof timestamp.toDate === "function"
+        ) {
             date = timestamp.toDate();
-        } else if (timestamp instanceof Date) {
+
+        } else if (
+            timestamp &&
+            typeof timestamp.toDate === "function"
+        ) {
+            date = timestamp.toDate();
+
+        } else if (
+            timestamp instanceof Date
+        ) {
             date = timestamp;
-        } else if (typeof timestamp === "number") {
+
+        } else if (
+            typeof timestamp === "number"
+        ) {
             date = new Date(timestamp);
         }
 
-        if (!date || Number.isNaN(date.getTime())) {
+        if (
+            !date ||
+            Number.isNaN(date.getTime())
+        ) {
             return "Recently";
         }
 
-        const now = Date.now();
+        const difference =
+            Math.max(
+                0,
+                Date.now() - date.getTime()
+            );
 
-        const difference = Math.max(
-            0,
-            now - date.getTime()
-        );
-
-        const minutes = Math.floor(difference / 60000);
+        const minutes =
+            Math.floor(
+                difference / 60000
+            );
 
         if (minutes < 1) {
             return "Just now";
@@ -1525,13 +1694,15 @@
             return `${minutes}m ago`;
         }
 
-        const hours = Math.floor(minutes / 60);
+        const hours =
+            Math.floor(minutes / 60);
 
         if (hours < 24) {
             return `${hours}h ago`;
         }
 
-        const days = Math.floor(hours / 24);
+        const days =
+            Math.floor(hours / 24);
 
         if (days < 7) {
             return `${days}d ago`;
@@ -1548,7 +1719,43 @@
     }
 
 
-    function getFieldValue(data, keys, fallback = "") {
+    function getTimestampMilliseconds(timestamp) {
+
+        if (!timestamp) {
+            return 0;
+        }
+
+        if (
+            typeof timestamp.toMillis ===
+            "function"
+        ) {
+            return timestamp.toMillis();
+        }
+
+        if (
+            typeof timestamp.toDate ===
+            "function"
+        ) {
+            return timestamp.toDate().getTime();
+        }
+
+        if (timestamp instanceof Date) {
+            return timestamp.getTime();
+        }
+
+        if (typeof timestamp === "number") {
+            return timestamp;
+        }
+
+        return 0;
+    }
+
+
+    function getFieldValue(
+        data,
+        keys,
+        fallback = ""
+    ) {
 
         for (const key of keys) {
 
@@ -1567,38 +1774,40 @@
 
     function normalizeMood(value) {
 
-        const clean = normalize(value);
+        const clean =
+            normalize(value);
 
         const aliases = {
+
             "😊 happy": "happy",
-            "happy": "happy",
+            happy: "happy",
 
             "😔 sad": "sad",
-            "sad": "sad",
+            sad: "sad",
 
             "🥺 lonely": "lonely",
-            "lonely": "lonely",
+            lonely: "lonely",
 
             "😡 angry": "angry",
-            "angry": "angry",
+            angry: "angry",
 
             "😟 anxious": "anxious",
-            "anxious": "anxious",
+            anxious: "anxious",
 
             "😕 confused": "confused",
-            "confused": "confused",
+            confused: "confused",
 
             "🌱 hopeful": "hopeful",
-            "hopeful": "hopeful",
+            hopeful: "hopeful",
 
             "🙏 grateful": "grateful",
-            "grateful": "grateful",
+            grateful: "grateful",
 
             "✨ excited": "excited",
-            "excited": "excited",
+            excited: "excited",
 
             "💭 other": "other",
-            "other": "other"
+            other: "other"
         };
 
         return aliases[clean] || clean;
@@ -1614,71 +1823,86 @@
 
     function getFeelingData(snapshot) {
 
-        const data = snapshot.data() || {};
+        const data =
+            snapshot.data() || {};
 
-        const text = getFieldValue(
-            data,
-            ["text", "feeling", "content"],
-            ""
-        );
-
-        const authorName = getFieldValue(
-            data,
-            ["authorName", "displayName", "name", "userName"],
-            "Anonymous"
-        );
-
-        const mood = getFieldValue(
-            data,
-            ["mood"],
-            "other"
-        );
-
-        const topic = getFieldValue(
-            data,
-            ["topic"],
-            "other"
-        );
-
-        const createdAt = getFieldValue(
-            data,
-            ["createdAt", "created_at"],
-            null
-        );
-
-        const visibility = getFieldValue(
-            data,
-            ["visibility"],
-            "public"
-        );
-
-        const status = getFieldValue(
-            data,
-            ["status"],
-            "active"
-        );
-
-        const authorId = getFieldValue(
-            data,
-            ["userId", "authorId", "uid"],
-            ""
-        );
-
-        const understandCount = Number(
+        const text =
             getFieldValue(
                 data,
-                ["understandCount", "understoodCount"],
-                0
-            )
-        ) || 0;
+                ["text", "feeling", "content"],
+                ""
+            );
 
-        const responseCount = Number(
+        const authorName =
             getFieldValue(
                 data,
-                ["responseCount", "responsesCount"],
-                0
-            )
-        ) || 0;
+                [
+                    "authorDisplayName",
+                    "authorName",
+                    "displayName",
+                    "name",
+                    "userName"
+                ],
+                "Anonymous"
+            );
+
+        const mood =
+            getFieldValue(
+                data,
+                ["mood"],
+                "other"
+            );
+
+        const topic =
+            getFieldValue(
+                data,
+                ["topic"],
+                "other"
+            );
+
+        const createdAt =
+            getFieldValue(
+                data,
+                ["createdAt", "created_at"],
+                null
+            );
+
+        const visibility =
+            getFieldValue(
+                data,
+                ["visibility"],
+                "public"
+            );
+
+        const status =
+            getFieldValue(
+                data,
+                ["status"],
+                "active"
+            );
+
+        const authorId =
+            getFieldValue(
+                data,
+                [
+                    "authorId",
+                    "userId",
+                    "uid"
+                ],
+                ""
+            );
+
+        const understandCount =
+            Number(
+                getFieldValue(
+                    data,
+                    [
+                        "understandCount",
+                        "understoodCount"
+                    ],
+                    0
+                )
+            ) || 0;
 
         return {
             id: snapshot.id,
@@ -1690,8 +1914,7 @@
             visibility,
             status,
             authorId: String(authorId),
-            understandCount,
-            responseCount
+            understandCount
         };
     }
 
@@ -1700,23 +1923,83 @@
        AUTH
     ========================================================= */
 
-    onAuthStateChanged(auth, async user => {
+    onAuthStateChanged(
+        auth,
+        async user => {
 
-        if (!user) {
+            if (!user) {
 
-            window.location.href = "index.html";
+                window.location.href =
+                    "index.html";
 
-            return;
+                return;
+            }
+
+            currentUser = user;
+
+            await loadBlockedUsers();
+
+            await loadFeelings();
         }
-
-        currentUser = user;
-
-        await loadFeelings();
-    });
+    );
 
 
     /* =========================================================
-       FIRESTORE LOAD
+       BLOCKED USERS
+    ========================================================= */
+
+    async function loadBlockedUsers() {
+
+        blockedUserIds =
+            new Set();
+
+        try {
+
+            const blocksQuery =
+                query(
+                    collection(db, "blocks"),
+                    where(
+                        "blockerId",
+                        "==",
+                        currentUser.uid
+                    ),
+                    limit(500)
+                );
+
+            const snapshot =
+                await getDocs(
+                    blocksQuery
+                );
+
+            snapshot.forEach(item => {
+
+                const data =
+                    item.data() || {};
+
+                if (
+                    data.blockedUserId
+                ) {
+
+                    blockedUserIds.add(
+                        String(
+                            data.blockedUserId
+                        )
+                    );
+                }
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Block load error:",
+                error
+            );
+        }
+    }
+
+
+    /* =========================================================
+       LOAD FEELINGS
     ========================================================= */
 
     async function loadFeelings() {
@@ -1725,33 +2008,45 @@
 
         try {
 
-            /*
-             * We intentionally avoid orderBy() here.
-             * The client sorts the received public/active records.
-             * This reduces unnecessary composite-index requirements.
-             */
+            const feelingsQuery =
+                query(
+                    collection(
+                        db,
+                        "feelings"
+                    ),
+                    where(
+                        "visibility",
+                        "==",
+                        "public"
+                    ),
+                    where(
+                        "status",
+                        "==",
+                        "active"
+                    ),
+                    limit(MAX_RESULTS)
+                );
 
-            const feelingsQuery = query(
-                collection(db, "feelings"),
-                where("visibility", "==", "public"),
-                where("status", "==", "active"),
-                limit(MAX_RESULTS)
-            );
-
-            const snapshot = await getDocs(feelingsQuery);
+            const snapshot =
+                await getDocs(
+                    feelingsQuery
+                );
 
             allFeelings = [];
 
             snapshot.forEach(item => {
 
-                const feeling = getFeelingData(item);
+                const feeling =
+                    getFeelingData(item);
 
                 feelingCache.set(
                     feeling.id,
                     feeling
                 );
 
-                allFeelings.push(feeling);
+                allFeelings.push(
+                    feeling
+                );
             });
 
             applyFilters();
@@ -1763,10 +2058,13 @@
                 error
             );
 
-            if (error.code === "permission-denied") {
+            if (
+                error.code ===
+                "permission-denied"
+            ) {
 
                 errorText.textContent =
-                    "Firestore denied this public Discover query. Check that the deployed Firestore rules allow authenticated users to read public active feelings.";
+                    "Firestore denied this Discover query. Check the deployed Firestore rules.";
 
             } else {
 
@@ -1781,83 +2079,118 @@
 
 
     /* =========================================================
-       FILTER / SEARCH
+       FILTERS
     ========================================================= */
 
     function applyFilters() {
 
-        const search = normalize(
-            searchInput.value
-        );
+        const search =
+            normalize(
+                searchInput.value
+            );
 
-        const selectedMood = normalizeMood(
-            moodFilter.value
-        );
+        const selectedMood =
+            normalizeMood(
+                moodFilter.value
+            );
 
-        const selectedTopic = normalizeTopic(
-            topicFilter.value
-        );
+        const selectedTopic =
+            normalizeTopic(
+                topicFilter.value
+            );
 
-        const filtered = allFeelings.filter(
-            feeling => {
+        const filtered =
+            allFeelings.filter(
+                feeling => {
 
-                const feelingMood =
-                    normalizeMood(feeling.mood);
+                    if (
+                        feeling.authorId &&
+                        blockedUserIds.has(
+                            feeling.authorId
+                        )
+                    ) {
+                        return false;
+                    }
 
-                const feelingTopic =
-                    normalizeTopic(feeling.topic);
+                    const feelingMood =
+                        normalizeMood(
+                            feeling.mood
+                        );
 
-                const text =
-                    normalize(feeling.text);
+                    const feelingTopic =
+                        normalizeTopic(
+                            feeling.topic
+                        );
 
-                const author =
-                    normalize(feeling.authorName);
+                    const text =
+                        normalize(
+                            feeling.text
+                        );
 
-                const topicText =
-                    normalize(feeling.topic);
+                    const author =
+                        normalize(
+                            feeling.authorName
+                        );
 
-                const moodText =
-                    normalize(feeling.mood);
+                    const topicText =
+                        normalize(
+                            feeling.topic
+                        );
 
-                const searchMatches =
-                    !search ||
-                    text.includes(search) ||
-                    author.includes(search) ||
-                    topicText.includes(search) ||
-                    moodText.includes(search);
+                    const moodText =
+                        normalize(
+                            feeling.mood
+                        );
 
-                const moodMatches =
-                    selectedMood === "all" ||
-                    feelingMood === selectedMood;
+                    const searchMatches =
+                        !search ||
+                        text.includes(search) ||
+                        author.includes(search) ||
+                        topicText.includes(search) ||
+                        moodText.includes(search);
 
-                const topicMatches =
-                    selectedTopic === "all" ||
-                    feelingTopic === selectedTopic;
+                    const moodMatches =
+                        selectedMood === "all" ||
+                        feelingMood === selectedMood;
 
-                return (
-                    searchMatches &&
-                    moodMatches &&
-                    topicMatches
-                );
+                    const topicMatches =
+                        selectedTopic === "all" ||
+                        feelingTopic === selectedTopic;
+
+                    return (
+                        searchMatches &&
+                        moodMatches &&
+                        topicMatches
+                    );
+                }
+            );
+
+        filtered.sort(
+            (a, b) => {
+
+                const aTime =
+                    getTimestampMilliseconds(
+                        a.createdAt
+                    );
+
+                const bTime =
+                    getTimestampMilliseconds(
+                        b.createdAt
+                    );
+
+                if (
+                    sortSelect.value ===
+                    "oldest"
+                ) {
+                    return aTime - bTime;
+                }
+
+                return bTime - aTime;
             }
         );
 
-        filtered.sort((a, b) => {
-
-            const aTime =
-                getTimestampMilliseconds(a.createdAt);
-
-            const bTime =
-                getTimestampMilliseconds(b.createdAt);
-
-            if (sortSelect.value === "oldest") {
-                return aTime - bTime;
-            }
-
-            return bTime - aTime;
-        });
-
-        visibleFeelings = filtered;
+        visibleFeelings =
+            filtered;
 
         renderedCount = 0;
 
@@ -1865,59 +2198,42 @@
     }
 
 
-    function getTimestampMilliseconds(timestamp) {
-
-        if (!timestamp) {
-            return 0;
-        }
-
-        if (typeof timestamp.toMillis === "function") {
-            return timestamp.toMillis();
-        }
-
-        if (typeof timestamp.toDate === "function") {
-            return timestamp.toDate().getTime();
-        }
-
-        if (timestamp instanceof Date) {
-            return timestamp.getTime();
-        }
-
-        if (typeof timestamp === "number") {
-            return timestamp;
-        }
-
-        return 0;
-    }
-
-
     function renderVisibleFeelings() {
 
         feelingsList.innerHTML = "";
 
-        renderedCount = Math.min(
-            PAGE_SIZE,
-            visibleFeelings.length
-        );
-
-        const initialItems =
-            visibleFeelings.slice(
-                0,
-                renderedCount
+        renderedCount =
+            Math.min(
+                PAGE_SIZE,
+                visibleFeelings.length
             );
 
-        initialItems.forEach(
-            feeling => {
-                feelingsList.appendChild(
-                    createFeelingCard(feeling)
-                );
-            }
-        );
+        visibleFeelings
+            .slice(
+                0,
+                renderedCount
+            )
+            .forEach(
+                feeling => {
+
+                    feelingsList.appendChild(
+                        createFeelingCard(
+                            feeling
+                        )
+                    );
+                }
+            );
 
         resultCount.textContent =
-            `${visibleFeelings.length} ${visibleFeelings.length === 1 ? "feeling" : "feelings"}`;
+            `${visibleFeelings.length} ${
+                visibleFeelings.length === 1
+                    ? "feeling"
+                    : "feelings"
+            }`;
 
-        if (visibleFeelings.length === 0) {
+        if (
+            visibleFeelings.length === 0
+        ) {
 
             setState("empty");
 
@@ -1933,7 +2249,8 @@
     function updateLoadMore() {
 
         if (
-            visibleFeelings.length > renderedCount
+            visibleFeelings.length >
+            renderedCount
         ) {
 
             loadMoreWrap.classList.remove(
@@ -1941,7 +2258,10 @@
             );
 
             loadMoreButton.textContent =
-                `Load more (${visibleFeelings.length - renderedCount} left)`;
+                `Load more (${
+                    visibleFeelings.length -
+                    renderedCount
+                } left)`;
 
         } else {
 
@@ -1962,13 +2282,17 @@
 
         nextItems.forEach(
             feeling => {
+
                 feelingsList.appendChild(
-                    createFeelingCard(feeling)
+                    createFeelingCard(
+                        feeling
+                    )
                 );
             }
         );
 
-        renderedCount += nextItems.length;
+        renderedCount +=
+            nextItems.length;
 
         updateLoadMore();
     }
@@ -1978,24 +2302,33 @@
        FEELING CARD
     ========================================================= */
 
-    function createFeelingCard(feeling) {
+    function createFeelingCard(
+        feeling
+    ) {
 
         const card =
-            document.createElement("article");
+            document.createElement(
+                "article"
+            );
 
-        card.className = "feeling-card";
+        card.className =
+            "feeling-card";
 
         card.dataset.feelingId =
             feeling.id;
 
-        const currentUserUnderstands =
-            card.dataset.understood === "true";
+        card.dataset.authorId =
+            feeling.authorId || "";
 
         const moodLabel =
-            formatMoodLabel(feeling.mood);
+            formatMoodLabel(
+                feeling.mood
+            );
 
         const topicLabel =
-            formatTopicLabel(feeling.topic);
+            formatTopicLabel(
+                feeling.topic
+            );
 
         card.innerHTML = `
 
@@ -2048,18 +2381,24 @@
                 <div class="feeling-meta">
 
                     <span class="meta-pill">
-                        ${escapeHTML(moodLabel)}
+                        ${escapeHTML(
+                            moodLabel
+                        )}
                     </span>
 
                     <span class="meta-pill">
-                        ${escapeHTML(topicLabel)}
+                        ${escapeHTML(
+                            topicLabel
+                        )}
                     </span>
 
                 </div>
 
 
                 <p class="feeling-text">
-                    ${escapeHTML(feeling.text)}
+                    ${escapeHTML(
+                        feeling.text
+                    )}
                 </p>
 
 
@@ -2069,7 +2408,9 @@
                         class="action-button"
                         type="button"
                         data-action="understand"
-                        data-feeling-id="${escapeHTML(feeling.id)}"
+                        data-feeling-id="${escapeHTML(
+                            feeling.id
+                        )}"
                     >
                         💜 I Understand
                         <span data-understand-count>
@@ -2081,32 +2422,68 @@
                         </span>
                     </button>
 
+
                     <button
                         class="action-button"
                         type="button"
                         data-action="respond"
-                        data-feeling-id="${escapeHTML(feeling.id)}"
+                        data-feeling-id="${escapeHTML(
+                            feeling.id
+                        )}"
                     >
                         💭 Respond
                     </button>
+
 
                     <button
                         class="action-button connect"
                         type="button"
                         data-action="connect"
-                        data-feeling-id="${escapeHTML(feeling.id)}"
+                        data-feeling-id="${escapeHTML(
+                            feeling.id
+                        )}"
                     >
                         🤝 Connect
                     </button>
+
 
                     <button
                         class="action-button danger"
                         type="button"
                         data-action="report"
-                        data-feeling-id="${escapeHTML(feeling.id)}"
+                        data-feeling-id="${escapeHTML(
+                            feeling.id
+                        )}"
                     >
                         🚩 Report
                     </button>
+
+                </div>
+
+
+                <div
+                    class="response-section"
+                    data-response-section
+                >
+
+                    <div class="response-header">
+
+                        <span class="response-title">
+                            💬 Responses
+                        </span>
+
+                        <button
+                            class="response-toggle"
+                            type="button"
+                            data-action="responses"
+                            data-feeling-id="${escapeHTML(
+                                feeling.id
+                            )}"
+                        >
+                            View responses
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -2119,9 +2496,11 @@
 
     function formatMoodLabel(value) {
 
-        const clean = normalizeMood(value);
+        const clean =
+            normalizeMood(value);
 
         const labels = {
+
             happy: "😊 Happy",
             sad: "😔 Sad",
             lonely: "🥺 Lonely",
@@ -2134,15 +2513,23 @@
             other: "💭 Other"
         };
 
-        return labels[clean] || "💭 " + String(value || "Other");
+        return (
+            labels[clean] ||
+            "💭 " +
+            String(
+                value || "Other"
+            )
+        );
     }
 
 
     function formatTopicLabel(value) {
 
-        const clean = normalizeTopic(value);
+        const clean =
+            normalizeTopic(value);
 
         const labels = {
+
             self: "Self",
             relationships: "Relationships",
             family: "Family",
@@ -2154,8 +2541,12 @@
             other: "Other"
         };
 
-        return labels[clean] ||
-            String(value || "Other");
+        return (
+            labels[clean] ||
+            String(
+                value || "Other"
+            )
+        );
     }
 
 
@@ -2169,7 +2560,11 @@
     ) {
 
         if (!currentUser) {
-            showToast("Please sign in first.");
+
+            showToast(
+                "Please sign in first."
+            );
+
             return;
         }
 
@@ -2182,6 +2577,8 @@
                 currentUser.uid
             );
 
+        button.disabled = true;
+
         try {
 
             const existing =
@@ -2189,7 +2586,14 @@
                     reactionReference
                 );
 
-            if (existing.exists()) {
+            const feeling =
+                feelingCache.get(
+                    feelingId
+                );
+
+            if (
+                existing.exists()
+            ) {
 
                 await deleteDoc(
                     reactionReference
@@ -2199,25 +2603,23 @@
                     "active"
                 );
 
-                const feeling =
-                    feelingCache.get(
-                        feelingId
-                    );
-
                 if (feeling) {
 
                     feeling.understandCount =
                         Math.max(
                             0,
                             Number(
-                                feeling.understandCount || 0
+                                feeling.understandCount ||
+                                0
                             ) - 1
                         );
                 }
 
                 updateUnderstandCount(
                     button,
-                    feeling?.understandCount || 0
+                    feeling
+                        ? feeling.understandCount
+                        : 0
                 );
 
                 showToast(
@@ -2229,8 +2631,11 @@
                 await setDoc(
                     reactionReference,
                     {
-                        userId: currentUser.uid,
-                        createdAt: serverTimestamp()
+                        userId:
+                            currentUser.uid,
+
+                        createdAt:
+                            serverTimestamp()
                     }
                 );
 
@@ -2238,22 +2643,20 @@
                     "active"
                 );
 
-                const feeling =
-                    feelingCache.get(
-                        feelingId
-                    );
-
                 if (feeling) {
 
                     feeling.understandCount =
                         Number(
-                            feeling.understandCount || 0
+                            feeling.understandCount ||
+                            0
                         ) + 1;
                 }
 
                 updateUnderstandCount(
                     button,
-                    feeling?.understandCount || 1
+                    feeling
+                        ? feeling.understandCount
+                        : 1
                 );
 
                 showToast(
@@ -2269,10 +2672,15 @@
             );
 
             showToast(
-                error.code === "permission-denied"
+                error.code ===
+                "permission-denied"
                     ? "You don't have permission to react to this feeling."
                     : "Couldn't update your response."
             );
+
+        } finally {
+
+            button.disabled = false;
         }
     }
 
@@ -2288,14 +2696,17 @@
             );
 
         if (countElement) {
+
             countElement.textContent =
-                String(count);
+                String(
+                    Number(count) || 0
+                );
         }
     }
 
 
     /* =========================================================
-       RESPONSE
+       RESPONSE MODAL
     ========================================================= */
 
     function openResponseModal(
@@ -2311,15 +2722,17 @@
             "show"
         );
 
-        setTimeout(() => {
-            responseInput.focus();
-        }, 50);
+        setTimeout(
+            () => responseInput.focus(),
+            50
+        );
     }
 
 
     function closeResponseModal() {
 
-        selectedFeelingId = null;
+        selectedFeelingId =
+            null;
 
         responseInput.value = "";
 
@@ -2332,12 +2745,20 @@
     async function submitResponse() {
 
         if (!currentUser) {
-            showToast("Please sign in first.");
+
+            showToast(
+                "Please sign in first."
+            );
+
             return;
         }
 
         if (!selectedFeelingId) {
-            showToast("Feeling not selected.");
+
+            showToast(
+                "Feeling not selected."
+            );
+
             return;
         }
 
@@ -2345,14 +2766,23 @@
             responseInput.value.trim();
 
         if (!text) {
-            showToast("Please write a response.");
+
+            showToast(
+                "Please write a response."
+            );
+
             return;
         }
 
-        if (text.length > MAX_RESPONSE_LENGTH) {
+        if (
+            text.length >
+            MAX_RESPONSE_LENGTH
+        ) {
+
             showToast(
                 `Response must be ${MAX_RESPONSE_LENGTH} characters or less.`
             );
+
             return;
         }
 
@@ -2362,33 +2792,55 @@
             );
 
         button.disabled = true;
-        button.textContent = "Sending...";
+        button.textContent =
+            "Sending...";
+
+        const feelingId =
+            selectedFeelingId;
 
         try {
+
+            /*
+             * IMPORTANT:
+             * These field names exactly match
+             * the current Firestore security rules.
+             */
 
             await addDoc(
                 collection(
                     db,
                     "feelings",
-                    selectedFeelingId,
+                    feelingId,
                     "responses"
                 ),
                 {
-                    userId: currentUser.uid,
-                    authorName:
+                    authorId:
+                        currentUser.uid,
+
+                    authorDisplayName:
                         currentUser.displayName ||
                         currentUser.email?.split("@")[0] ||
-                        "User",
+                        "Listener",
+
                     text,
-                    createdAt: serverTimestamp(),
-                    status: "active"
+
+                    status:
+                        "active",
+
+                    createdAt:
+                        serverTimestamp()
                 }
             );
 
             closeResponseModal();
 
             showToast(
-                "Your response was sent."
+                "Your response was sent. 💜"
+            );
+
+            await renderResponses(
+                feelingId,
+                true
             );
 
         } catch (error) {
@@ -2399,16 +2851,376 @@
             );
 
             showToast(
-                error.code === "permission-denied"
+                error.code ===
+                "permission-denied"
                     ? "You don't have permission to respond to this feeling."
-                    : "Couldn't send your response."
+                    : (
+                        error.message ||
+                        "Couldn't send your response."
+                    )
             );
 
         } finally {
 
             button.disabled = false;
-            button.textContent = "Send response";
+            button.textContent =
+                "Send response";
         }
+    }
+
+
+    /* =========================================================
+       RESPONSE DISPLAY
+    ========================================================= */
+
+    async function toggleResponses(
+        feelingId,
+        button
+    ) {
+
+        const card =
+            document.querySelector(
+                `[data-feeling-id="${CSS.escape(
+                    feelingId
+                )}"]`
+            );
+
+        if (!card) {
+            return;
+        }
+
+        const section =
+            card.querySelector(
+                "[data-response-section]"
+            );
+
+        if (!section) {
+            return;
+        }
+
+        const existing =
+            section.querySelector(
+                ".responses-list"
+            );
+
+        if (existing) {
+
+            const list =
+                existing;
+
+            list.remove();
+
+            const empty =
+                section.querySelector(
+                    ".response-empty"
+                );
+
+            if (empty) {
+                empty.remove();
+            }
+
+            const loading =
+                section.querySelector(
+                    ".response-loading"
+                );
+
+            if (loading) {
+                loading.remove();
+            }
+
+            button.textContent =
+                "View responses";
+
+            return;
+        }
+
+        await renderResponses(
+            feelingId,
+            false
+        );
+
+        button.textContent =
+            "Hide responses";
+    }
+
+
+    async function renderResponses(
+        feelingId,
+        forceRefresh = false
+    ) {
+
+        const card =
+            document.querySelector(
+                `[data-feeling-id="${CSS.escape(
+                    feelingId
+                )}"]`
+            );
+
+        if (!card) {
+            return;
+        }
+
+        const section =
+            card.querySelector(
+                "[data-response-section]"
+            );
+
+        if (!section) {
+            return;
+        }
+
+        const toggle =
+            section.querySelector(
+                '[data-action="responses"]'
+            );
+
+        if (
+            !forceRefresh &&
+            responseCache.has(
+                feelingId
+            )
+        ) {
+
+            drawResponses(
+                section,
+                responseCache.get(
+                    feelingId
+                )
+            );
+
+            if (toggle) {
+                toggle.textContent =
+                    "Hide responses";
+            }
+
+            return;
+        }
+
+        const oldLoading =
+            section.querySelector(
+                ".response-loading"
+            );
+
+        if (oldLoading) {
+            oldLoading.remove();
+        }
+
+        const loading =
+            document.createElement(
+                "div"
+            );
+
+        loading.className =
+            "response-loading";
+
+        loading.textContent =
+            "Loading responses...";
+
+        section.appendChild(
+            loading
+        );
+
+        try {
+
+            const responsesQuery =
+                query(
+                    collection(
+                        db,
+                        "feelings",
+                        feelingId,
+                        "responses"
+                    ),
+                    where(
+                        "status",
+                        "==",
+                        "active"
+                    ),
+                    limit(20)
+                );
+
+            const snapshot =
+                await getDocs(
+                    responsesQuery
+                );
+
+            const responses = [];
+
+            snapshot.forEach(item => {
+
+                const data =
+                    item.data() || {};
+
+                responses.push({
+
+                    id: item.id,
+
+                    authorId:
+                        String(
+                            data.authorId ||
+                            data.userId ||
+                            ""
+                        ),
+
+                    authorName:
+                        String(
+                            data.authorDisplayName ||
+                            data.authorName ||
+                            "Listener"
+                        ),
+
+                    text:
+                        String(
+                            data.text || ""
+                        ),
+
+                    createdAt:
+                        data.createdAt || null
+                });
+            });
+
+            responses.sort(
+                (a, b) =>
+                    getTimestampMilliseconds(
+                        a.createdAt
+                    ) -
+                    getTimestampMilliseconds(
+                        b.createdAt
+                    )
+            );
+
+            responseCache.set(
+                feelingId,
+                responses
+            );
+
+            drawResponses(
+                section,
+                responses
+            );
+
+            if (toggle) {
+                toggle.textContent =
+                    "Hide responses";
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Response load error:",
+                error
+            );
+
+            if (loading) {
+                loading.textContent =
+                    "Couldn't load responses.";
+            }
+        }
+    }
+
+
+    function drawResponses(
+        section,
+        responses
+    ) {
+
+        const oldList =
+            section.querySelector(
+                ".responses-list"
+            );
+
+        if (oldList) {
+            oldList.remove();
+        }
+
+        const oldEmpty =
+            section.querySelector(
+                ".response-empty"
+            );
+
+        if (oldEmpty) {
+            oldEmpty.remove();
+        }
+
+        const oldLoading =
+            section.querySelector(
+                ".response-loading"
+            );
+
+        if (oldLoading) {
+            oldLoading.remove();
+        }
+
+        if (!responses.length) {
+
+            const empty =
+                document.createElement(
+                    "div"
+                );
+
+            empty.className =
+                "response-empty";
+
+            empty.textContent =
+                "No responses yet. Be the first to respond with empathy.";
+
+            section.appendChild(
+                empty
+            );
+
+            return;
+        }
+
+        const list =
+            document.createElement(
+                "div"
+            );
+
+        list.className =
+            "responses-list";
+
+        responses.forEach(
+            response => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "response-item";
+
+                item.innerHTML = `
+
+                    <div class="response-author">
+                        ${escapeHTML(
+                            response.authorName
+                        )}
+
+                        <span class="response-time">
+                            ${escapeHTML(
+                                formatDate(
+                                    response.createdAt
+                                )
+                            )}
+                        </span>
+                    </div>
+
+                    <div class="response-text">
+                        ${escapeHTML(
+                            response.text
+                        )}
+                    </div>
+                `;
+
+                list.appendChild(
+                    item
+                );
+            }
+        );
+
+        section.appendChild(
+            list
+        );
     }
 
 
@@ -2429,15 +3241,17 @@
             "show"
         );
 
-        setTimeout(() => {
-            reportInput.focus();
-        }, 50);
+        setTimeout(
+            () => reportInput.focus(),
+            50
+        );
     }
 
 
     function closeReportModal() {
 
-        selectedFeelingId = null;
+        selectedFeelingId =
+            null;
 
         reportInput.value = "";
 
@@ -2450,12 +3264,20 @@
     async function submitReport() {
 
         if (!currentUser) {
-            showToast("Please sign in first.");
+
+            showToast(
+                "Please sign in first."
+            );
+
             return;
         }
 
         if (!selectedFeelingId) {
-            showToast("Feeling not selected.");
+
+            showToast(
+                "Feeling not selected."
+            );
+
             return;
         }
 
@@ -2463,14 +3285,23 @@
             reportInput.value.trim();
 
         if (!reason) {
-            showToast("Please describe the issue.");
+
+            showToast(
+                "Please describe the issue."
+            );
+
             return;
         }
 
-        if (reason.length > MAX_REPORT_LENGTH) {
+        if (
+            reason.length >
+            MAX_REPORT_LENGTH
+        ) {
+
             showToast(
                 `Report must be ${MAX_REPORT_LENGTH} characters or less.`
             );
+
             return;
         }
 
@@ -2480,12 +3311,16 @@
             );
 
         button.disabled = true;
-        button.textContent = "Submitting...";
+        button.textContent =
+            "Submitting...";
 
         try {
 
             await addDoc(
-                collection(db, "reports"),
+                collection(
+                    db,
+                    "reports"
+                ),
                 {
                     reporterId:
                         currentUser.uid,
@@ -2520,7 +3355,8 @@
             );
 
             showToast(
-                error.code === "permission-denied"
+                error.code ===
+                "permission-denied"
                     ? "You don't have permission to submit this report."
                     : "Couldn't submit the report."
             );
@@ -2528,7 +3364,126 @@
         } finally {
 
             button.disabled = false;
-            button.textContent = "Submit report";
+            button.textContent =
+                "Submit report";
+        }
+    }
+
+
+    /* =========================================================
+       BLOCK USER
+    ========================================================= */
+
+    async function blockSelectedUser() {
+
+        if (!currentUser) {
+
+            showToast(
+                "Please sign in first."
+            );
+
+            return;
+        }
+
+        if (!selectedMoreFeelingId) {
+            return;
+        }
+
+        const feeling =
+            feelingCache.get(
+                selectedMoreFeelingId
+            );
+
+        if (!feeling) {
+
+            showToast(
+                "Feeling could not be found."
+            );
+
+            return;
+        }
+
+        const targetUserId =
+            feeling.authorId;
+
+        if (!targetUserId) {
+
+            showToast(
+                "This user cannot be blocked from this feeling."
+            );
+
+            return;
+        }
+
+        if (
+            targetUserId ===
+            currentUser.uid
+        ) {
+
+            showToast(
+                "You cannot block yourself."
+            );
+
+            return;
+        }
+
+        const confirmed =
+            window.confirm(
+                "Block this person? Their public feelings will be hidden from your Discover feed."
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const blockId =
+            `${currentUser.uid}_${targetUserId}`;
+
+        try {
+
+            await setDoc(
+                doc(
+                    db,
+                    "blocks",
+                    blockId
+                ),
+                {
+                    blockerId:
+                        currentUser.uid,
+
+                    blockedUserId:
+                        targetUserId,
+
+                    createdAt:
+                        serverTimestamp()
+                }
+            );
+
+            blockedUserIds.add(
+                targetUserId
+            );
+
+            closeMoreModal();
+
+            applyFilters();
+
+            showToast(
+                "Person blocked."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Block error:",
+                error
+            );
+
+            showToast(
+                error.code ===
+                "permission-denied"
+                    ? "You don't have permission to block this person."
+                    : "Couldn't block this person."
+            );
         }
     }
 
@@ -2552,7 +3507,8 @@
 
     function closeMoreModal() {
 
-        selectedMoreFeelingId = null;
+        selectedMoreFeelingId =
+            null;
 
         moreModal.classList.remove(
             "show"
@@ -2571,9 +3527,38 @@
 
         try {
 
-            await navigator.clipboard.writeText(
-                url
-            );
+            if (
+                navigator.clipboard &&
+                typeof navigator.clipboard.writeText ===
+                "function"
+            ) {
+
+                await navigator.clipboard.writeText(
+                    url
+                );
+
+            } else {
+
+                const temporary =
+                    document.createElement(
+                        "input"
+                    );
+
+                temporary.value =
+                    url;
+
+                document.body.appendChild(
+                    temporary
+                );
+
+                temporary.select();
+
+                document.execCommand(
+                    "copy"
+                );
+
+                temporary.remove();
+            }
 
             showToast(
                 "Feeling link copied."
@@ -2599,7 +3584,15 @@
        CONNECTION
     ========================================================= */
 
-    function openConnectionModal() {
+    function openConnectionModal(
+        feelingId = null
+    ) {
+
+        if (feelingId) {
+
+            selectedFeelingId =
+                feelingId;
+        }
 
         connectionModal.classList.add(
             "show"
@@ -2611,6 +3604,40 @@
 
         connectionModal.classList.remove(
             "show"
+        );
+    }
+
+
+    function continueConnectionFlow() {
+
+        closeConnectionModal();
+
+        /*
+         * IMPORTANT:
+         * No fake connection is created here.
+         *
+         * The actual V1 connection requires:
+         *
+         * User
+         *   ↓
+         * Rewarded ad
+         *   ↓
+         * Provider verification
+         *   ↓
+         * Trusted backend
+         *   ↓
+         * adUnlocks
+         *   ↓
+         * connections
+         *   ↓
+         * 12-hour authorization
+         *
+         * Until that backend exists, creating a connection
+         * directly from the browser would be insecure.
+         */
+
+        showToast(
+            "Secure connection verification is not activated yet. No fake connection was created."
         );
     }
 
@@ -2668,66 +3695,82 @@
 
     function navigate(route) {
 
-        window.location.href = route;
+        if (!route) {
+            return;
+        }
+
+        window.location.href =
+            route;
     }
 
 
     document
-        .querySelectorAll("[data-route]")
+        .querySelectorAll(
+            "[data-route]"
+        )
         .forEach(button => {
 
             button.addEventListener(
                 "click",
                 () => {
 
-                    const route =
-                        button.dataset.route;
-
-                    if (route) {
-                        navigate(route);
-                    }
+                    navigate(
+                        button.dataset.route
+                    );
                 }
             );
         });
 
 
     document
-        .getElementById("notificationsButton")
+        .getElementById(
+            "notificationsButton"
+        )
         .addEventListener(
             "click",
-            () => navigate(
-                "notifications.html"
-            )
+            () =>
+                navigate(
+                    "notifications.html"
+                )
         );
 
 
     document
-        .getElementById("messagesButton")
+        .getElementById(
+            "messagesButton"
+        )
         .addEventListener(
             "click",
-            () => navigate(
-                "messages.html"
-            )
+            () =>
+                navigate(
+                    "messages.html"
+                )
         );
 
 
     document
-        .getElementById("createFeelingButton")
+        .getElementById(
+            "createFeelingButton"
+        )
         .addEventListener(
             "click",
-            () => navigate(
-                "app.html"
-            )
+            () =>
+                navigate(
+                    "app.html"
+                )
         );
 
 
     document
-        .getElementById("safetyButton")
+        .getElementById(
+            "safetyButton"
+        )
         .addEventListener(
             "click",
-            () => navigate(
-                "settings.html#safety"
-            )
+            () =>
+                navigate(
+                    "settings.html#safety"
+                )
         );
 
 
@@ -2736,6 +3779,7 @@
     ========================================================= */
 
     function runSearch() {
+
         applyFilters();
     }
 
@@ -2750,7 +3794,11 @@
         "keydown",
         event => {
 
-            if (event.key === "Enter") {
+            if (
+                event.key ===
+                "Enter"
+            ) {
+
                 runSearch();
             }
         }
@@ -2761,7 +3809,9 @@
         "input",
         () => {
 
-            clearTimeout(searchTimer);
+            clearTimeout(
+                searchTimer
+            );
 
             searchTimer =
                 setTimeout(
@@ -2792,13 +3842,17 @@
 
     function clearFilters() {
 
-        searchInput.value = "";
+        searchInput.value =
+            "";
 
-        moodFilter.value = "all";
+        moodFilter.value =
+            "all";
 
-        topicFilter.value = "all";
+        topicFilter.value =
+            "all";
 
-        sortSelect.value = "newest";
+        sortSelect.value =
+            "newest";
 
         applyFilters();
 
@@ -2822,7 +3876,12 @@
 
     retryButton.addEventListener(
         "click",
-        loadFeelings
+        async () => {
+
+            await loadBlockedUsers();
+
+            await loadFeelings();
+        }
     );
 
 
@@ -2833,7 +3892,7 @@
 
 
     /* =========================================================
-       CARD EVENT DELEGATION
+       CARD EVENTS
     ========================================================= */
 
     feelingsList.addEventListener(
@@ -2852,17 +3911,24 @@
             const action =
                 button.dataset.action;
 
-            const feelingId =
-                button.dataset.feelingId ||
+            const card =
                 button.closest(
                     ".feeling-card"
-                )?.dataset.feelingId;
+                );
+
+            const feelingId =
+                button.dataset.feelingId ||
+                card?.dataset.feelingId;
 
             if (!feelingId) {
                 return;
             }
 
-            if (action === "understand") {
+
+            if (
+                action ===
+                "understand"
+            ) {
 
                 await toggleUnderstand(
                     feelingId,
@@ -2872,7 +3938,11 @@
                 return;
             }
 
-            if (action === "respond") {
+
+            if (
+                action ===
+                "respond"
+            ) {
 
                 openResponseModal(
                     feelingId
@@ -2881,17 +3951,38 @@
                 return;
             }
 
-            if (action === "connect") {
 
-                selectedFeelingId =
-                    feelingId;
+            if (
+                action ===
+                "responses"
+            ) {
 
-                openConnectionModal();
+                await toggleResponses(
+                    feelingId,
+                    button
+                );
 
                 return;
             }
 
-            if (action === "report") {
+
+            if (
+                action ===
+                "connect"
+            ) {
+
+                openConnectionModal(
+                    feelingId
+                );
+
+                return;
+            }
+
+
+            if (
+                action ===
+                "report"
+            ) {
 
                 openReportModal(
                     feelingId
@@ -2900,7 +3991,11 @@
                 return;
             }
 
-            if (action === "more") {
+
+            if (
+                action ===
+                "more"
+            ) {
 
                 openMoreModal(
                     feelingId
@@ -2911,11 +4006,13 @@
 
 
     /* =========================================================
-       RESPONSE MODAL EVENTS
+       RESPONSE EVENTS
     ========================================================= */
 
     document
-        .getElementById("closeResponseButton")
+        .getElementById(
+            "closeResponseButton"
+        )
         .addEventListener(
             "click",
             closeResponseModal
@@ -2923,7 +4020,9 @@
 
 
     document
-        .getElementById("cancelResponseButton")
+        .getElementById(
+            "cancelResponseButton"
+        )
         .addEventListener(
             "click",
             closeResponseModal
@@ -2931,7 +4030,9 @@
 
 
     document
-        .getElementById("submitResponseButton")
+        .getElementById(
+            "submitResponseButton"
+        )
         .addEventListener(
             "click",
             submitResponse
@@ -2939,11 +4040,13 @@
 
 
     /* =========================================================
-       REPORT MODAL EVENTS
+       REPORT EVENTS
     ========================================================= */
 
     document
-        .getElementById("closeReportButton")
+        .getElementById(
+            "closeReportButton"
+        )
         .addEventListener(
             "click",
             closeReportModal
@@ -2951,7 +4054,9 @@
 
 
     document
-        .getElementById("cancelReportButton")
+        .getElementById(
+            "cancelReportButton"
+        )
         .addEventListener(
             "click",
             closeReportModal
@@ -2959,7 +4064,9 @@
 
 
     document
-        .getElementById("submitReportButton")
+        .getElementById(
+            "submitReportButton"
+        )
         .addEventListener(
             "click",
             submitReport
@@ -2967,11 +4074,13 @@
 
 
     /* =========================================================
-       CONNECTION MODAL EVENTS
+       CONNECTION EVENTS
     ========================================================= */
 
     document
-        .getElementById("closeConnectionButton")
+        .getElementById(
+            "closeConnectionButton"
+        )
         .addEventListener(
             "click",
             closeConnectionModal
@@ -2979,34 +4088,34 @@
 
 
     document
-        .getElementById("connectionUnderstandButton")
+        .getElementById(
+            "connectionUnderstandButton"
+        )
         .addEventListener(
             "click",
-            () => {
-
-                closeConnectionModal();
-
-                showToast(
-                    "Secure connection verification will be handled by the trusted backend."
-                );
-            }
+            continueConnectionFlow
         );
 
 
     document
-        .getElementById("connectionInfoButton")
+        .getElementById(
+            "connectionInfoButton"
+        )
         .addEventListener(
             "click",
-            openConnectionModal
+            () =>
+                openConnectionModal()
         );
 
 
     /* =========================================================
-       MORE MODAL EVENTS
+       MORE EVENTS
     ========================================================= */
 
     document
-        .getElementById("closeMoreButton")
+        .getElementById(
+            "closeMoreButton"
+        )
         .addEventListener(
             "click",
             closeMoreModal
@@ -3014,7 +4123,9 @@
 
 
     document
-        .getElementById("moreCopyButton")
+        .getElementById(
+            "moreCopyButton"
+        )
         .addEventListener(
             "click",
             copyFeelingLink
@@ -3022,7 +4133,9 @@
 
 
     document
-        .getElementById("moreReportButton")
+        .getElementById(
+            "moreReportButton"
+        )
         .addEventListener(
             "click",
             () => {
@@ -3033,6 +4146,7 @@
                 closeMoreModal();
 
                 if (feelingId) {
+
                     openReportModal(
                         feelingId
                     );
@@ -3041,8 +4155,18 @@
         );
 
 
+    document
+        .getElementById(
+            "moreBlockButton"
+        )
+        .addEventListener(
+            "click",
+            blockSelectedUser
+        );
+
+
     /* =========================================================
-       MODAL BACKDROP CLOSE
+       MODAL BACKDROP
     ========================================================= */
 
     [
@@ -3057,7 +4181,8 @@
             event => {
 
                 if (
-                    event.target !== modal
+                    event.target !==
+                    modal
                 ) {
                     return;
                 }
@@ -3066,22 +4191,28 @@
                     "show"
                 );
 
-                selectedFeelingId = null;
-                selectedMoreFeelingId = null;
+                selectedFeelingId =
+                    null;
+
+                selectedMoreFeelingId =
+                    null;
             }
         );
     });
 
 
     /* =========================================================
-       ESC KEY
+       ESCAPE
     ========================================================= */
 
     document.addEventListener(
         "keydown",
         event => {
 
-            if (event.key !== "Escape") {
+            if (
+                event.key !==
+                "Escape"
+            ) {
                 return;
             }
 
@@ -3101,8 +4232,69 @@
                 "show"
             );
 
-            selectedFeelingId = null;
-            selectedMoreFeelingId = null;
+            selectedFeelingId =
+                null;
+
+            selectedMoreFeelingId =
+                null;
+        }
+    );
+
+
+    /* =========================================================
+       HASH SCROLL
+    ========================================================= */
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            const hash =
+                window.location.hash;
+
+            if (
+                !hash.startsWith(
+                    "#feeling-"
+                )
+            ) {
+                return;
+            }
+
+            const feelingId =
+                hash.replace(
+                    "#feeling-",
+                    ""
+                );
+
+            if (!feelingId) {
+                return;
+            }
+
+            setTimeout(
+                () => {
+
+                    const card =
+                        document.querySelector(
+                            `[data-feeling-id="${CSS.escape(
+                                feelingId
+                            )}"]`
+                        );
+
+                    if (card) {
+
+                        card.scrollIntoView(
+                            {
+                                behavior:
+                                    "smooth",
+                                block:
+                                    "center"
+                            }
+                        );
+                    }
+
+                },
+                500
+            );
         }
     );
 
@@ -3112,56 +4304,45 @@
     ========================================================= */
 
     window.ListenMyFeelingsDiscover = {
-        reload: loadFeelings,
-        search: runSearch,
+
+        reload:
+            loadFeelings,
+
+        search:
+            runSearch,
+
         clearFilters,
-        getCurrentFeelings: () =>
-            [...visibleFeelings]
+
+        getCurrentFeelings:
+            () =>
+                [
+                    ...visibleFeelings
+                ]
     };
 
 
     /* =========================================================
-       SERVICE WORKER-SAFE PAGE INITIALIZATION
-    ========================================================= */
-
-    window.addEventListener(
-        "pageshow",
-        () => {
-
-            /*
-             * The auth listener remains the authority.
-             * No sensitive authentication data is stored in Local Storage.
-             */
-        }
-    );
-
-
-    /* =========================================================
-       LOGOUT SUPPORT
+       LOGOUT SHORTCUT
     ========================================================= */
 
     window.addEventListener(
         "keydown",
         async event => {
 
-            /*
-             * Ctrl/Cmd + Shift + L provides an additional
-             * keyboard logout shortcut without adding another
-             * visible option that could be mistaken for a normal
-             * navigation control.
-             */
-
             if (
                 event.shiftKey &&
                 event.ctrlKey &&
-                event.key.toLowerCase() === "l"
+                event.key.toLowerCase() ===
+                    "l"
             ) {
 
                 event.preventDefault();
 
                 try {
 
-                    await signOut(auth);
+                    await signOut(
+                        auth
+                    );
 
                     window.location.href =
                         "index.html";
@@ -3184,4 +4365,4 @@
 </script>
 
 </body>
-  </html>
+                    </html>
