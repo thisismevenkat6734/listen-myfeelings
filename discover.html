@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <title>Discover • Listen My Feelings</title>
 
@@ -29,12 +26,11 @@
     <style>
         :root {
             --bg: #09070f;
-            --card: rgba(24, 19, 34, .94);
-            --card2: rgba(30, 24, 43, .95);
+            --card: rgba(24,19,34,.96);
+            --card2: rgba(30,24,43,.97);
             --border: rgba(255,255,255,.09);
             --text: #fff;
             --muted: #aaa3b7;
-            --soft: #e9e2f0;
             --purple: #a855f7;
             --pink: #ec4899;
             --danger: #fb7185;
@@ -106,7 +102,7 @@
 
         h1 {
             margin: 0;
-            font-size: clamp(28px, 5vw, 42px);
+            font-size: clamp(28px,5vw,42px);
             letter-spacing: -1.5px;
         }
 
@@ -260,6 +256,7 @@
                     rgba(17,13,25,.98)
                 );
             box-shadow: 0 18px 50px rgba(0,0,0,.22);
+            contain: content;
         }
 
         .card-inner {
@@ -289,11 +286,7 @@
             border-radius: 50%;
             color: white;
             font-weight: 800;
-            background: linear-gradient(
-                135deg,
-                #a855f7,
-                #ec4899
-            );
+            background: linear-gradient(135deg,#a855f7,#ec4899);
         }
 
         .author-name {
@@ -772,18 +765,6 @@
                 min-height: 105px;
                 font-size: 17px;
             }
-
-            .actions {
-                grid-template-columns: repeat(2,1fr);
-            }
-
-            .sidebar {
-                display: grid;
-            }
-
-            .toolbar {
-                align-items: flex-start;
-            }
         }
 
         @media (min-width: 801px) {
@@ -809,46 +790,24 @@
 <main class="shell">
 
     <section class="top">
-
         <div>
             <h1>Discover</h1>
-
             <p class="subtitle">
                 Explore real feelings shared publicly by people in the community.
             </p>
         </div>
 
         <div class="top-actions">
-
-            <button
-                id="notificationsButton"
-                class="icon-button"
-                type="button"
-                aria-label="Notifications"
-            >
-                🔔
-            </button>
-
-            <button
-                id="messagesButton"
-                class="icon-button"
-                type="button"
-                aria-label="Messages"
-            >
-                💬
-            </button>
-
+            <button id="notificationsButton" class="icon-button" type="button" aria-label="Notifications">🔔</button>
+            <button id="messagesButton" class="icon-button" type="button" aria-label="Messages">💬</button>
         </div>
-
     </section>
-
 
     <section class="search-panel">
 
         <div class="search-row">
 
             <div class="search-input-wrap">
-
                 <span>🔎</span>
 
                 <input
@@ -859,26 +818,17 @@
                     autocomplete="off"
                     placeholder="Search feelings, topics or words..."
                 >
-
             </div>
 
-            <button
-                id="searchButton"
-                class="search-button"
-                type="button"
-            >
+            <button id="searchButton" class="search-button" type="button">
                 Search
             </button>
 
         </div>
 
-
         <div class="filters">
 
-            <select
-                id="moodFilter"
-                class="filter"
-            >
+            <select id="moodFilter" class="filter">
                 <option value="all">All moods</option>
                 <option value="happy">😊 Happy</option>
                 <option value="sad">😔 Sad</option>
@@ -892,11 +842,7 @@
                 <option value="other">💭 Other</option>
             </select>
 
-
-            <select
-                id="topicFilter"
-                class="filter"
-            >
+            <select id="topicFilter" class="filter">
                 <option value="all">All topics</option>
                 <option value="self">Self</option>
                 <option value="relationships">Relationships</option>
@@ -909,19 +855,12 @@
                 <option value="other">Other</option>
             </select>
 
-
-            <button
-                id="clearFiltersButton"
-                class="clear"
-                type="button"
-            >
+            <button id="clearFiltersButton" class="clear" type="button">
                 Clear
             </button>
 
         </div>
-
     </section>
-
 
     <section class="layout">
 
@@ -929,113 +868,60 @@
 
             <div class="toolbar">
 
-                <span
-                    id="resultCount"
-                    class="count"
-                >
+                <span id="resultCount" class="count">
                     Loading feelings...
                 </span>
 
-
-                <select
-                    id="sortSelect"
-                    class="sort"
-                >
+                <select id="sortSelect" class="sort">
                     <option value="newest">Newest</option>
                     <option value="oldest">Oldest</option>
                 </select>
 
             </div>
 
-
-            <div
-                id="loadingState"
-                class="state"
-            >
+            <div id="loadingState" class="state">
                 <div class="state-icon">⏳</div>
-
-                <div class="state-title">
-                    Finding feelings...
-                </div>
-
+                <div class="state-title">Finding feelings...</div>
                 <div class="state-text">
                     We're loading public feelings from the community.
                 </div>
             </div>
 
-
-            <div
-                id="errorState"
-                class="state hidden"
-            >
+            <div id="errorState" class="state hidden">
                 <div class="state-icon">⚠️</div>
+                <div class="state-title">Couldn't load Discover</div>
 
-                <div class="state-title">
-                    Couldn't load Discover
-                </div>
-
-                <div
-                    id="errorText"
-                    class="state-text"
-                >
+                <div id="errorText" class="state-text">
                     Something went wrong.
                 </div>
 
-                <button
-                    id="retryButton"
-                    class="state-button"
-                    type="button"
-                >
+                <button id="retryButton" class="state-button" type="button">
                     Try again
                 </button>
             </div>
 
-
-            <div
-                id="emptyState"
-                class="state hidden"
-            >
+            <div id="emptyState" class="state hidden">
                 <div class="state-icon">🌙</div>
-
-                <div class="state-title">
-                    No feelings found
-                </div>
+                <div class="state-title">No feelings found</div>
 
                 <div class="state-text">
                     Try another search or clear the filters.
                 </div>
 
-                <button
-                    id="emptyClearButton"
-                    class="state-button"
-                    type="button"
-                >
+                <button id="emptyClearButton" class="state-button" type="button">
                     Clear search
                 </button>
             </div>
 
+            <div id="feelingsList" class="list"></div>
 
-            <div
-                id="feelingsList"
-                class="list"
-            ></div>
-
-
-            <div
-                id="loadMoreWrap"
-                class="load-more-wrap hidden"
-            >
-                <button
-                    id="loadMoreButton"
-                    class="load-more"
-                    type="button"
-                >
+            <div id="loadMoreWrap" class="load-more-wrap hidden">
+                <button id="loadMoreButton" class="load-more" type="button">
                     Load more
                 </button>
             </div>
 
         </div>
-
 
         <aside class="sidebar">
 
@@ -1048,16 +934,11 @@
                     themselves openly. Read with empathy and respond respectfully.
                 </p>
 
-                <button
-                    id="createFeelingButton"
-                    class="side-button"
-                    type="button"
-                >
+                <button id="createFeelingButton" class="side-button" type="button">
                     ✍️ Share your feeling
                 </button>
 
             </section>
-
 
             <section class="side-card">
 
@@ -1068,16 +949,11 @@
                     12-hour authorization system.
                 </p>
 
-                <button
-                    id="connectionInfoButton"
-                    class="side-button"
-                    type="button"
-                >
+                <button id="connectionInfoButton" class="side-button" type="button">
                     🤝 How connection works
                 </button>
 
             </section>
-
 
             <section class="side-card">
 
@@ -1088,16 +964,11 @@
                     private details with strangers.
                 </p>
 
-                <button
-                    id="safetyButton"
-                    class="side-button"
-                    type="button"
-                >
+                <button id="safetyButton" class="side-button" type="button">
                     🛡️ Safety & reporting
                 </button>
 
             </section>
-
 
             <section class="side-card">
 
@@ -1118,48 +989,29 @@
 </main>
 
 
-<nav
-    class="bottom-nav"
-    aria-label="Main navigation"
->
+<nav class="bottom-nav" aria-label="Main navigation">
 
-    <button
-        type="button"
-        data-route="app.html"
-    >
+    <button type="button" data-route="app.html">
         <strong>⌂</strong>
         Home
     </button>
 
-    <button
-        type="button"
-        class="active"
-        data-route="discover.html"
-    >
+    <button type="button" class="active" data-route="discover.html">
         <strong>◉</strong>
         Discover
     </button>
 
-    <button
-        type="button"
-        data-route="notifications.html"
-    >
+    <button type="button" data-route="notifications.html">
         <strong>♢</strong>
         Alerts
     </button>
 
-    <button
-        type="button"
-        data-route="messages.html"
-    >
+    <button type="button" data-route="messages.html">
         <strong>◌</strong>
         Messages
     </button>
 
-    <button
-        type="button"
-        data-route="profile.html"
-    >
+    <button type="button" data-route="profile.html">
         <strong>○</strong>
         Profile
     </button>
@@ -1167,12 +1019,9 @@
 </nav>
 
 
-<!-- RESPONSE MODAL -->
+<!-- RESPONSE -->
 
-<div
-    id="responseModal"
-    class="modal-backdrop"
->
+<div id="responseModal" class="modal-backdrop">
 
     <div class="modal">
 
@@ -1180,11 +1029,7 @@
 
             <h2>Respond with empathy</h2>
 
-            <button
-                id="closeResponseButton"
-                class="close"
-                type="button"
-            >
+            <button id="closeResponseButton" class="close" type="button">
                 ✕
             </button>
 
@@ -1203,19 +1048,11 @@
 
         <div class="modal-actions">
 
-            <button
-                id="cancelResponseButton"
-                class="modal-button"
-                type="button"
-            >
+            <button id="cancelResponseButton" class="modal-button" type="button">
                 Cancel
             </button>
 
-            <button
-                id="submitResponseButton"
-                class="modal-button modal-primary"
-                type="button"
-            >
+            <button id="submitResponseButton" class="modal-button modal-primary" type="button">
                 Send response
             </button>
 
@@ -1226,12 +1063,9 @@
 </div>
 
 
-<!-- REPORT MODAL -->
+<!-- REPORT -->
 
-<div
-    id="reportModal"
-    class="modal-backdrop"
->
+<div id="reportModal" class="modal-backdrop">
 
     <div class="modal">
 
@@ -1239,11 +1073,7 @@
 
             <h2>Report feeling</h2>
 
-            <button
-                id="closeReportButton"
-                class="close"
-                type="button"
-            >
+            <button id="closeReportButton" class="close" type="button">
                 ✕
             </button>
 
@@ -1261,19 +1091,11 @@
 
         <div class="modal-actions">
 
-            <button
-                id="cancelReportButton"
-                class="modal-button"
-                type="button"
-            >
+            <button id="cancelReportButton" class="modal-button" type="button">
                 Cancel
             </button>
 
-            <button
-                id="submitReportButton"
-                class="modal-button modal-primary"
-                type="button"
-            >
+            <button id="submitReportButton" class="modal-button modal-primary" type="button">
                 Submit report
             </button>
 
@@ -1284,12 +1106,9 @@
 </div>
 
 
-<!-- CONNECTION MODAL -->
+<!-- CONNECTION -->
 
-<div
-    id="connectionModal"
-    class="modal-backdrop"
->
+<div id="connectionModal" class="modal-backdrop">
 
     <div class="modal">
 
@@ -1297,36 +1116,31 @@
 
             <h2>Connect safely</h2>
 
-            <button
-                id="closeConnectionButton"
-                class="close"
-                type="button"
-            >
+            <button id="closeConnectionButton" class="close" type="button">
                 ✕
             </button>
 
         </div>
 
         <p>
-            A connection cannot be created safely by frontend code alone.
-            The final connection must be authorized by the trusted backend
-            after the rewarded-ad provider verifies the completed ad.
+            Connecting is protected by a verified rewarded-ad flow.
         </p>
 
         <p>
-            Once authorized, the backend will create the connection with
-            a 12-hour server-controlled expiry. This prevents users from
-            modifying browser storage or timers to bypass the rule.
+            After the ad provider confirms the completed reward, a trusted
+            backend must authorize the connection and create its 12-hour
+            server-controlled access period.
+        </p>
+
+        <p>
+            This browser cannot safely create or extend that authorization by
+            itself. No fake unlock or Local Storage bypass is used.
         </p>
 
         <div class="modal-actions">
 
-            <button
-                id="connectionCloseAction"
-                class="modal-button modal-primary"
-                type="button"
-            >
-                Continue safely
+            <button id="connectionCloseAction" class="modal-button modal-primary" type="button">
+                Close
             </button>
 
         </div>
@@ -1336,12 +1150,9 @@
 </div>
 
 
-<!-- MORE MODAL -->
+<!-- MORE -->
 
-<div
-    id="moreModal"
-    class="modal-backdrop"
->
+<div id="moreModal" class="modal-backdrop">
 
     <div class="modal">
 
@@ -1349,11 +1160,7 @@
 
             <h2>Feeling options</h2>
 
-            <button
-                id="closeMoreButton"
-                class="close"
-                type="button"
-            >
+            <button id="closeMoreButton" class="close" type="button">
                 ✕
             </button>
 
@@ -1361,27 +1168,15 @@
 
         <div class="option-list">
 
-            <button
-                id="moreReportButton"
-                class="option-button danger"
-                type="button"
-            >
+            <button id="moreReportButton" class="option-button danger" type="button">
                 🚩 Report this feeling
             </button>
 
-            <button
-                id="moreBlockButton"
-                class="option-button danger"
-                type="button"
-            >
+            <button id="moreBlockButton" class="option-button danger" type="button">
                 🚫 Block this person
             </button>
 
-            <button
-                id="moreCopyButton"
-                class="option-button"
-                type="button"
-            >
+            <button id="moreCopyButton" class="option-button" type="button">
                 🔗 Copy feeling link
             </button>
 
@@ -1392,12 +1187,9 @@
 </div>
 
 
-<!-- SAFETY MODAL -->
+<!-- SAFETY -->
 
-<div
-    id="safetyModal"
-    class="modal-backdrop"
->
+<div id="safetyModal" class="modal-backdrop">
 
     <div class="modal">
 
@@ -1405,20 +1197,16 @@
 
             <h2>Safety & reporting</h2>
 
-            <button
-                id="closeSafetyButton"
-                class="close"
-                type="button"
-            >
+            <button id="closeSafetyButton" class="close" type="button">
                 ✕
             </button>
 
         </div>
 
         <p>
-            If you see harassment, hate, sexual content, spam,
-            privacy violations or other harmful behaviour, use
-            Report. You can also block a user from a feeling's menu.
+            If you see harassment, hate, sexual content, spam, privacy
+            violations or other harmful behaviour, use Report.
+            You can also block a user from a feeling's menu.
         </p>
 
         <p>
@@ -1428,11 +1216,7 @@
 
         <div class="modal-actions">
 
-            <button
-                id="safetyCloseAction"
-                class="modal-button modal-primary"
-                type="button"
-            >
+            <button id="safetyCloseAction" class="modal-button modal-primary" type="button">
                 Got it
             </button>
 
@@ -1443,2966 +1227,2416 @@
 </div>
 
 
-<div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 
 <script type="module">
 
-    import {
-        auth,
-        db
-    } from "./firebase/firebase-config.js";
+import { auth, db } from "./firebase/firebase-config.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+    collection,
+    collectionGroup,
+    query,
+    where,
+    limit,
+    getDocs,
+    getDoc,
+    setDoc,
+    deleteDoc,
+    doc,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-    import {
-        onAuthStateChanged,
-        signOut
-    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const MAX_RESULTS = 100;
+const PAGE_SIZE = 20;
+const MAX_RESPONSE_LENGTH = 2000;
+const MAX_REPORT_LENGTH = 1000;
 
 
-    import {
-        collection,
-        query,
-        where,
-        limit,
-        getDocs,
-        getCountFromServer,
-        doc,
-        setDoc,
-        deleteDoc,
-        getDoc,
-        addDoc,
-        serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+/* =========================================================
+   STATE
+========================================================= */
+
+const state = {
+    user: null,
+    loading: false,
+    allFeelings: [],
+    visibleFeelings: [],
+    blockedUserIds: new Set(),
+    understoodIds: new Set(),
+    responseCache: new Map(),
+    expandedResponses: new Set(),
+    responseLoading: false,
+    reportLoading: false,
+    understandLoading: new Set(),
+    selectedFeelingId: null,
+    selectedMoreFeelingId: null,
+    renderedCount: 0,
+    searchTimer: null
+};
 
 
-    /* =========================================================
-       CONFIG
-    ========================================================= */
+/* =========================================================
+   DOM
+========================================================= */
 
-    const MAX_RESULTS = 100;
-    const PAGE_SIZE = 20;
-    const MAX_RESPONSE_LENGTH = 2000;
-    const MAX_REPORT_LENGTH = 1000;
+const $ = id => document.getElementById(id);
 
+const searchInput = $("searchInput");
+const searchButton = $("searchButton");
+const moodFilter = $("moodFilter");
+const topicFilter = $("topicFilter");
+const clearFiltersButton = $("clearFiltersButton");
+const sortSelect = $("sortSelect");
 
-    /* =========================================================
-       STATE
-    ========================================================= */
+const resultCount = $("resultCount");
+const feelingsList = $("feelingsList");
 
-    let currentUser = null;
+const loadingState = $("loadingState");
+const errorState = $("errorState");
+const emptyState = $("emptyState");
+const errorText = $("errorText");
 
-    let allFeelings = [];
-    let visibleFeelings = [];
+const retryButton = $("retryButton");
+const emptyClearButton = $("emptyClearButton");
 
-    let renderedCount = 0;
+const loadMoreWrap = $("loadMoreWrap");
+const loadMoreButton = $("loadMoreButton");
 
-    let blockedUserIds = new Set();
+const responseModal = $("responseModal");
+const responseInput = $("responseInput");
 
-    let selectedFeelingId = null;
-    let selectedMoreFeelingId = null;
+const reportModal = $("reportModal");
+const reportInput = $("reportInput");
 
-    let responseCache = new Map();
+const connectionModal = $("connectionModal");
+const moreModal = $("moreModal");
+const safetyModal = $("safetyModal");
 
-    let expandedResponses = new Set();
-
-    let understandLoading = new Set();
-
-    let responseLoading = new Set();
-
-    let reportLoading = false;
-
-    let searchTimer = null;
-
-
-    /* =========================================================
-       DOM
-    ========================================================= */
-
-    const searchInput =
-        document.getElementById("searchInput");
-
-    const searchButton =
-        document.getElementById("searchButton");
-
-    const moodFilter =
-        document.getElementById("moodFilter");
-
-    const topicFilter =
-        document.getElementById("topicFilter");
-
-    const clearFiltersButton =
-        document.getElementById("clearFiltersButton");
-
-    const sortSelect =
-        document.getElementById("sortSelect");
-
-    const resultCount =
-        document.getElementById("resultCount");
-
-    const feelingsList =
-        document.getElementById("feelingsList");
-
-    const loadingState =
-        document.getElementById("loadingState");
-
-    const errorState =
-        document.getElementById("errorState");
-
-    const emptyState =
-        document.getElementById("emptyState");
-
-    const errorText =
-        document.getElementById("errorText");
-
-    const retryButton =
-        document.getElementById("retryButton");
-
-    const emptyClearButton =
-        document.getElementById("emptyClearButton");
-
-    const loadMoreWrap =
-        document.getElementById("loadMoreWrap");
-
-    const loadMoreButton =
-        document.getElementById("loadMoreButton");
-
-    const responseModal =
-        document.getElementById("responseModal");
-
-    const responseInput =
-        document.getElementById("responseInput");
-
-    const reportModal =
-        document.getElementById("reportModal");
-
-    const reportInput =
-        document.getElementById("reportInput");
-
-    const connectionModal =
-        document.getElementById("connectionModal");
-
-    const moreModal =
-        document.getElementById("moreModal");
-
-    const safetyModal =
-        document.getElementById("safetyModal");
-
-    const toast =
-        document.getElementById("toast");
+const toast = $("toast");
 
 
-    /* =========================================================
-       BASIC HELPERS
-    ========================================================= */
+/* =========================================================
+   HELPERS
+========================================================= */
 
-    function showToast(message) {
+function showToast(message) {
 
-        toast.textContent = message;
+    toast.textContent = message;
 
-        toast.classList.add("show");
+    toast.classList.add("show");
 
-        clearTimeout(showToast.timer);
+    clearTimeout(showToast.timer);
 
-        showToast.timer = setTimeout(() => {
+    showToast.timer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
 
-            toast.classList.remove("show");
 
-        }, 3000);
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function normalize(value) {
+
+    return String(value ?? "")
+        .trim()
+        .toLowerCase();
+}
+
+
+function getInitials(name) {
+
+    const clean = String(name || "User").trim();
+
+    if (!clean) {
+        return "U";
     }
 
-
-    function escapeHTML(value) {
-
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
+    return clean
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(part => part.charAt(0).toUpperCase())
+        .join("");
+}
 
 
-    function normalize(value) {
+function timestampMs(value) {
 
-        return String(value ?? "")
-            .trim()
-            .toLowerCase();
-    }
-
-
-    function getInitials(name) {
-
-        const clean =
-            String(name || "User").trim();
-
-        if (!clean) {
-            return "U";
-        }
-
-        return clean
-            .split(/\s+/)
-            .slice(0,2)
-            .map(
-                part =>
-                    part.charAt(0).toUpperCase()
-            )
-            .join("");
-    }
-
-
-    function getTimestampMilliseconds(timestamp) {
-
-        if (!timestamp) {
-            return 0;
-        }
-
-        if (
-            typeof timestamp.toMillis === "function"
-        ) {
-            return timestamp.toMillis();
-        }
-
-        if (
-            typeof timestamp.toDate === "function"
-        ) {
-            return timestamp.toDate().getTime();
-        }
-
-        if (timestamp instanceof Date) {
-            return timestamp.getTime();
-        }
-
-        if (typeof timestamp === "number") {
-            return timestamp;
-        }
-
+    if (!value) {
         return 0;
     }
 
+    if (typeof value.toMillis === "function") {
+        return value.toMillis();
+    }
 
-    function formatDate(timestamp) {
+    if (typeof value.toDate === "function") {
+        return value.toDate().getTime();
+    }
 
-        const time =
-            getTimestampMilliseconds(timestamp);
+    if (value instanceof Date) {
+        return value.getTime();
+    }
 
-        if (!time) {
-            return "Recently";
+    if (typeof value === "number") {
+        return value;
+    }
+
+    return 0;
+}
+
+
+function formatDate(timestamp) {
+
+    const time = timestampMs(timestamp);
+
+    if (!time) {
+        return "Recently";
+    }
+
+    const difference = Math.max(0, Date.now() - time);
+
+    const minutes = Math.floor(difference / 60000);
+
+    if (minutes < 1) {
+        return "Just now";
+    }
+
+    if (minutes < 60) {
+        return `${minutes}m ago`;
+    }
+
+    const hours = Math.floor(minutes / 60);
+
+    if (hours < 24) {
+        return `${hours}h ago`;
+    }
+
+    const days = Math.floor(hours / 24);
+
+    if (days < 7) {
+        return `${days}d ago`;
+    }
+
+    return new Date(time).toLocaleDateString(
+        undefined,
+        {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
         }
+    );
+}
 
-        const difference =
-            Math.max(
-                0,
-                Date.now() - time
+
+function normalizeMood(value) {
+
+    const clean = normalize(value);
+
+    return clean
+        .replace("😊 ", "")
+        .replace("😔 ", "")
+        .replace("🥺 ", "")
+        .replace("😡 ", "")
+        .replace("😟 ", "")
+        .replace("😕 ", "")
+        .replace("🌱 ", "")
+        .replace("🙏 ", "")
+        .replace("✨ ", "")
+        .replace("💭 ", "");
+}
+
+
+function normalizeTopic(value) {
+
+    return normalize(value)
+        .replace(/\s+/g, "_");
+}
+
+
+function moodLabel(value) {
+
+    const mood = normalizeMood(value);
+
+    const labels = {
+        happy: "😊 Happy",
+        sad: "😔 Sad",
+        lonely: "🥺 Lonely",
+        angry: "😡 Angry",
+        anxious: "😟 Anxious",
+        confused: "😕 Confused",
+        hopeful: "🌱 Hopeful",
+        grateful: "🙏 Grateful",
+        excited: "✨ Excited",
+        other: "💭 Other"
+    };
+
+    return labels[mood] || `💭 ${String(value || "Other")}`;
+}
+
+
+function topicLabel(value) {
+
+    const topic = normalizeTopic(value);
+
+    const labels = {
+        self: "Self",
+        relationships: "Relationships",
+        family: "Family",
+        work: "Work",
+        study: "Study",
+        life: "Life",
+        health: "Health",
+        money: "Money",
+        other: "Other"
+    };
+
+    return labels[topic] || String(value || "Other");
+}
+
+
+function friendlyError(error) {
+
+    if (!error) {
+        return "Something went wrong.";
+    }
+
+    switch (error.code) {
+
+        case "permission-denied":
+            return "Firestore permission denied. Check the published rules.";
+
+        case "unauthenticated":
+            return "Your session expired. Please sign in again.";
+
+        case "failed-precondition":
+            return "Firebase needs an index or configuration update.";
+
+        case "network-request-failed":
+            return "Network problem. Please check your internet.";
+
+        case "unavailable":
+            return "Firebase is temporarily unavailable. Try again.";
+
+        default:
+            return error.message || "Something went wrong.";
+    }
+}
+
+
+/* =========================================================
+   STATE UI
+========================================================= */
+
+function setState(type) {
+
+    loadingState.classList.add("hidden");
+    errorState.classList.add("hidden");
+    emptyState.classList.add("hidden");
+
+    if (type === "loading") {
+        loadingState.classList.remove("hidden");
+    }
+
+    if (type === "error") {
+        errorState.classList.remove("hidden");
+    }
+
+    if (type === "empty") {
+        emptyState.classList.remove("hidden");
+    }
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+onAuthStateChanged(auth, async user => {
+
+    if (!user) {
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+    state.user = user;
+
+    await loadDiscover();
+});
+
+
+/* =========================================================
+   LOAD BLOCKS
+========================================================= */
+
+async function loadBlockedUsers() {
+
+    state.blockedUserIds.clear();
+
+    if (!state.user) {
+        return;
+    }
+
+    const q = query(
+        collection(db, "blocks"),
+        where("blockerId", "==", state.user.uid),
+        limit(500)
+    );
+
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(item => {
+
+        const data = item.data() || {};
+
+        if (data.blockedUserId) {
+            state.blockedUserIds.add(
+                String(data.blockedUserId)
             );
-
-        const minutes =
-            Math.floor(
-                difference / 60000
-            );
-
-        if (minutes < 1) {
-            return "Just now";
         }
+    });
+}
 
-        if (minutes < 60) {
-            return `${minutes}m ago`;
-        }
 
-        const hours =
-            Math.floor(minutes / 60);
+/* =========================================================
+   LOAD CURRENT USER UNDERSTANDS
+   ========================================================= */
 
-        if (hours < 24) {
-            return `${hours}h ago`;
-        }
+/*
+   We use one collection-group query instead of one
+   getDoc() per feeling.
 
-        const days =
-            Math.floor(hours / 24);
+   If your current rules do not yet include a collection-group
+   rule for "understands", this query will be denied. In that
+   case the page automatically falls back to normal per-card
+   checks when the user interacts.
+*/
 
-        if (days < 7) {
-            return `${days}d ago`;
-        }
+async function loadUnderstandState() {
 
-        return new Date(time).toLocaleDateString(
-            undefined,
-            {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-            }
+    state.understoodIds.clear();
+
+    if (!state.user) {
+        return;
+    }
+
+    try {
+
+        const q = query(
+            collectionGroup(db, "understands"),
+            where("userId", "==", state.user.uid),
+            limit(500)
         );
+
+        const snapshot = await getDocs(q);
+
+        snapshot.forEach(item => {
+
+            const parentPath = item.ref.parent.parent;
+
+            if (parentPath) {
+                state.understoodIds.add(
+                    parentPath.id
+                );
+            }
+        });
+
+    } catch (error) {
+
+        console.warn(
+            "Collection-group understand lookup unavailable:",
+            error
+        );
+
+        /*
+         * Do not break Discover because of an optional
+         * optimization. The button itself still performs
+         * an authoritative getDoc() check before writing.
+         */
+    }
+}
+
+
+/* =========================================================
+   LOAD DISCOVER
+========================================================= */
+
+async function loadDiscover() {
+
+    if (state.loading) {
+        return;
     }
 
+    state.loading = true;
 
-    function normalizeMood(value) {
+    setState("loading");
 
-        const clean =
-            normalize(value);
+    resultCount.textContent = "Loading feelings...";
 
-        const aliases = {
+    try {
 
-            "😊 happy": "happy",
-            "happy": "happy",
+        await loadBlockedUsers();
 
-            "😔 sad": "sad",
-            "sad": "sad",
+        /*
+         * No orderBy here.
+         *
+         * We sort locally. This avoids depending on a composite
+         * index and keeps the query simple.
+         */
 
-            "🥺 lonely": "lonely",
-            "lonely": "lonely",
+        const q = query(
+            collection(db, "feelings"),
+            where("visibility", "==", "public"),
+            where("status", "==", "active"),
+            limit(MAX_RESULTS)
+        );
 
-            "😡 angry": "angry",
-            "angry": "angry",
+        const snapshot = await getDocs(q);
 
-            "😟 anxious": "anxious",
-            "anxious": "anxious",
+        const feelings = [];
 
-            "😕 confused": "confused",
-            "confused": "confused",
+        snapshot.forEach(item => {
 
-            "🌱 hopeful": "hopeful",
-            "hopeful": "hopeful",
+            const data = item.data() || {};
 
-            "🙏 grateful": "grateful",
-            "grateful": "grateful",
-
-            "✨ excited": "excited",
-            "excited": "excited",
-
-            "💭 other": "other",
-            "other": "other"
-        };
-
-        return aliases[clean] || clean;
-    }
-
-
-    function normalizeTopic(value) {
-
-        return normalize(value)
-            .replace(/\s+/g, "_");
-    }
-
-
-    function moodLabel(value) {
-
-        const clean =
-            normalizeMood(value);
-
-        const labels = {
-
-            happy: "😊 Happy",
-            sad: "😔 Sad",
-            lonely: "🥺 Lonely",
-            angry: "😡 Angry",
-            anxious: "😟 Anxious",
-            confused: "😕 Confused",
-            hopeful: "🌱 Hopeful",
-            grateful: "🙏 Grateful",
-            excited: "✨ Excited",
-            other: "💭 Other"
-        };
-
-        return labels[clean]
-            || `💭 ${String(value || "Other")}`;
-    }
-
-
-    function topicLabel(value) {
-
-        const clean =
-            normalizeTopic(value);
-
-        const labels = {
-
-            self: "Self",
-            relationships: "Relationships",
-            family: "Family",
-            work: "Work",
-            study: "Study",
-            life: "Life",
-            health: "Health",
-            money: "Money",
-            other: "Other"
-        };
-
-        return labels[clean]
-            || String(value || "Other");
-    }
-
-
-    function getFeelingData(snapshot) {
-
-        const data =
-            snapshot.data() || {};
-
-        return {
-
-            id: snapshot.id,
-
-            text: String(
-                data.text ??
-                data.feeling ??
-                data.content ??
-                ""
-            ),
-
-            authorName: String(
-                data.authorDisplayName ??
-                data.authorName ??
-                data.displayName ??
-                data.name ??
-                "Anonymous"
-            ),
-
-            authorId: String(
+            const authorId = String(
                 data.authorId ??
                 data.userId ??
                 data.uid ??
                 ""
-            ),
-
-            mood: String(
-                data.mood ?? "other"
-            ),
-
-            topic: String(
-                data.topic ?? "other"
-            ),
-
-            createdAt:
-                data.createdAt ?? null,
-
-            visibility:
-                data.visibility ?? "public",
-
-            status:
-                data.status ?? "active",
-
-            understoodCount:
-                Number(
-                    data.understoodCount ?? 0
-                ) || 0,
-
-            understoodByCurrentUser:
-                false
-        };
-    }
-
-
-    /* =========================================================
-       AUTH
-    ========================================================= */
-
-    onAuthStateChanged(
-        auth,
-        async user => {
-
-            if (!user) {
-
-                window.location.href =
-                    "index.html";
-
-                return;
-            }
-
-            currentUser = user;
-
-            await loadDiscover();
-        }
-    );
-
-
-    /* =========================================================
-       LOAD DISCOVER
-    ========================================================= */
-
-    async function loadDiscover() {
-
-        setState("loading");
-
-        try {
-
-            await loadBlockedUsers();
-
-            const feelingsQuery =
-                query(
-                    collection(db, "feelings"),
-                    where(
-                        "visibility",
-                        "==",
-                        "public"
-                    ),
-                    where(
-                        "status",
-                        "==",
-                        "active"
-                    ),
-                    limit(MAX_RESULTS)
-                );
-
-
-            const snapshot =
-                await getDocs(
-                    feelingsQuery
-                );
-
-
-            allFeelings = [];
-
-
-            snapshot.forEach(
-                item => {
-
-                    const feeling =
-                        getFeelingData(item);
-
-                    if (
-                        !blockedUserIds.has(
-                            feeling.authorId
-                        )
-                    ) {
-
-                        allFeelings.push(
-                            feeling
-                        );
-                    }
-                }
             );
-
-
-            /*
-             * Read actual understand reaction state.
-             * We also retrieve actual counts using Firestore
-             * count aggregation rather than trusting a client
-             * supplied count.
-             */
-
-            await enrichUnderstandState();
-
-
-            applyFilters();
-
-
-        } catch (error) {
-
-            console.error(
-                "Discover load error:",
-                error
-            );
-
-            errorText.textContent =
-                getFriendlyFirestoreError(
-                    error
-                );
-
-            setState("error");
-        }
-    }
-
-
-    async function loadBlockedUsers() {
-
-        blockedUserIds =
-            new Set();
-
-        if (!currentUser) {
-            return;
-        }
-
-        const blocksQuery =
-            query(
-                collection(db, "blocks"),
-                where(
-                    "blockerId",
-                    "==",
-                    currentUser.uid
-                )
-            );
-
-        const snapshot =
-            await getDocs(
-                blocksQuery
-            );
-
-        snapshot.forEach(
-            item => {
-
-                const data =
-                    item.data() || {};
-
-                if (
-                    data.blockedUserId
-                ) {
-
-                    blockedUserIds.add(
-                        String(
-                            data.blockedUserId
-                        )
-                    );
-                }
-            }
-        );
-    }
-
-
-    async function enrichUnderstandState() {
-
-        if (!currentUser) {
-            return;
-        }
-
-        await Promise.all(
-            allFeelings.map(
-                async feeling => {
-
-                    try {
-
-                        const reactionRef =
-                            doc(
-                                db,
-                                "feelings",
-                                feeling.id,
-                                "understands",
-                                currentUser.uid
-                            );
-
-                        const reactionSnapshot =
-                            await getDoc(
-                                reactionRef
-                            );
-
-                        feeling.understoodByCurrentUser =
-                            reactionSnapshot.exists();
-
-
-                        const understandsRef =
-                            collection(
-                                db,
-                                "feelings",
-                                feeling.id,
-                                "understands"
-                            );
-
-                        const countSnapshot =
-                            await getCountFromServer(
-                                understandsRef
-                            );
-
-                        feeling.understoodCount =
-                            countSnapshot
-                                .data()
-                                .count || 0;
-
-                    } catch (error) {
-
-                        console.warn(
-                            "Understand state error:",
-                            feeling.id,
-                            error
-                        );
-
-                        /*
-                         * If the aggregate query fails,
-                         * keep the stored field as fallback.
-                         */
-
-                    }
-                }
-            )
-        );
-    }
-
-
-    /* =========================================================
-       FILTERS
-    ========================================================= */
-
-    function applyFilters() {
-
-        const search =
-            normalize(
-                searchInput.value
-            );
-
-        const selectedMood =
-            normalizeMood(
-                moodFilter.value
-            );
-
-        const selectedTopic =
-            normalizeTopic(
-                topicFilter.value
-            );
-
-
-        visibleFeelings =
-            allFeelings.filter(
-                feeling => {
-
-                    if (
-                        blockedUserIds.has(
-                            feeling.authorId
-                        )
-                    ) {
-                        return false;
-                    }
-
-
-                    const text =
-                        normalize(
-                            feeling.text
-                        );
-
-                    const author =
-                        normalize(
-                            feeling.authorName
-                        );
-
-                    const topic =
-                        normalize(
-                            feeling.topic
-                        );
-
-                    const mood =
-                        normalize(
-                            feeling.mood
-                        );
-
-
-                    const searchMatch =
-                        !search ||
-                        text.includes(search) ||
-                        author.includes(search) ||
-                        topic.includes(search) ||
-                        mood.includes(search);
-
-
-                    const moodMatch =
-                        selectedMood === "all" ||
-                        normalizeMood(
-                            feeling.mood
-                        ) === selectedMood;
-
-
-                    const topicMatch =
-                        selectedTopic === "all" ||
-                        normalizeTopic(
-                            feeling.topic
-                        ) === selectedTopic;
-
-
-                    return (
-                        searchMatch &&
-                        moodMatch &&
-                        topicMatch
-                    );
-                }
-            );
-
-
-        visibleFeelings.sort(
-            (a,b) => {
-
-                const aTime =
-                    getTimestampMilliseconds(
-                        a.createdAt
-                    );
-
-                const bTime =
-                    getTimestampMilliseconds(
-                        b.createdAt
-                    );
-
-                return sortSelect.value === "oldest"
-                    ? aTime - bTime
-                    : bTime - aTime;
-            }
-        );
-
-
-        renderFeelings();
-    }
-
-
-    function renderFeelings() {
-
-        feelingsList.innerHTML = "";
-
-        renderedCount =
-            Math.min(
-                PAGE_SIZE,
-                visibleFeelings.length
-            );
-
-
-        visibleFeelings
-            .slice(0,renderedCount)
-            .forEach(
-                feeling => {
-
-                    const card =
-                        createFeelingCard(
-                            feeling
-                        );
-
-                    feelingsList.appendChild(
-                        card
-                    );
-
-                    refreshResponseSection(
-                        feeling.id,
-                        card
-                    );
-                }
-            );
-
-
-        resultCount.textContent =
-            `${visibleFeelings.length} ${
-                visibleFeelings.length === 1
-                    ? "feeling"
-                    : "feelings"
-            }`;
-
-
-        if (
-            visibleFeelings.length === 0
-        ) {
-
-            setState("empty");
-
-        } else {
-
-            setState("content");
-        }
-
-
-        updateLoadMore();
-    }
-
-
-    function updateLoadMore() {
-
-        if (
-            renderedCount <
-            visibleFeelings.length
-        ) {
-
-            loadMoreWrap.classList.remove(
-                "hidden"
-            );
-
-            loadMoreButton.textContent =
-                `Load more (${
-                    visibleFeelings.length -
-                    renderedCount
-                } left)`;
-
-        } else {
-
-            loadMoreWrap.classList.add(
-                "hidden"
-            );
-        }
-    }
-
-
-    function loadMore() {
-
-        const next =
-            visibleFeelings.slice(
-                renderedCount,
-                renderedCount + PAGE_SIZE
-            );
-
-
-        next.forEach(
-            feeling => {
-
-                const card =
-                    createFeelingCard(
-                        feeling
-                    );
-
-                feelingsList.appendChild(
-                    card
-                );
-
-                refreshResponseSection(
-                    feeling.id,
-                    card
-                );
-            }
-        );
-
-
-        renderedCount +=
-            next.length;
-
-
-        updateLoadMore();
-    }
-
-
-    /* =========================================================
-       FEELING CARD
-    ========================================================= */
-
-    function createFeelingCard(feeling) {
-
-        const card =
-            document.createElement("article");
-
-        card.className = "card";
-
-        card.dataset.feelingId =
-            feeling.id;
-
-        card.dataset.authorId =
-            feeling.authorId;
-
-
-        card.innerHTML = `
-
-            <div class="card-inner">
-
-                <div class="author">
-
-                    <div class="author-left">
-
-                        <div class="avatar">
-                            ${escapeHTML(
-                                getInitials(
-                                    feeling.authorName
-                                )
-                            )}
-                        </div>
-
-                        <div>
-
-                            <div class="author-name">
-                                ${escapeHTML(
-                                    feeling.authorName
-                                )}
-                            </div>
-
-                            <div class="time">
-                                ${escapeHTML(
-                                    formatDate(
-                                        feeling.createdAt
-                                    )
-                                )}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        class="more"
-                        type="button"
-                        data-action="more"
-                        aria-label="More options"
-                    >
-                        ⋯
-                    </button>
-
-                </div>
-
-
-                <div class="meta">
-
-                    <span class="pill">
-                        ${escapeHTML(
-                            moodLabel(
-                                feeling.mood
-                            )
-                        )}
-                    </span>
-
-                    <span class="pill">
-                        ${escapeHTML(
-                            topicLabel(
-                                feeling.topic
-                            )
-                        )}
-                    </span>
-
-                </div>
-
-
-                <div class="text">
-                    ${escapeHTML(
-                        feeling.text
-                    )}
-                </div>
-
-
-                <div class="actions">
-
-                    <button
-                        class="action ${
-                            feeling.understoodByCurrentUser
-                                ? "active"
-                                : ""
-                        }"
-                        type="button"
-                        data-action="understand"
-                        data-feeling-id="${escapeHTML(
-                            feeling.id
-                        )}"
-                    >
-                        💜 I Understand
-                        <span data-understand-count>
-                            ${escapeHTML(
-                                String(
-                                    feeling.understoodCount
-                                )
-                            )}
-                        </span>
-                    </button>
-
-
-                    <button
-                        class="action"
-                        type="button"
-                        data-action="respond"
-                        data-feeling-id="${escapeHTML(
-                            feeling.id
-                        )}"
-                    >
-                        💭 Respond
-                    </button>
-
-
-                    <button
-                        class="action connect"
-                        type="button"
-                        data-action="connect"
-                        data-feeling-id="${escapeHTML(
-                            feeling.id
-                        )}"
-                    >
-                        🤝 Connect
-                    </button>
-
-
-                    <button
-                        class="action report"
-                        type="button"
-                        data-action="report"
-                        data-feeling-id="${escapeHTML(
-                            feeling.id
-                        )}"
-                    >
-                        🚩 Report
-                    </button>
-
-                </div>
-
-
-                <section
-                    class="responses"
-                    data-responses-section
-                >
-
-                    <div class="responses-header">
-
-                        <span>
-                            💬 Responses
-                        </span>
-
-                        <button
-                            class="toggle-responses"
-                            type="button"
-                            data-action="toggle-responses"
-                            data-feeling-id="${escapeHTML(
-                                feeling.id
-                            )}"
-                        >
-                            Show responses
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        class="response-list hidden"
-                        data-response-list
-                    ></div>
-
-                </section>
-
-            </div>
-        `;
-
-
-        return card;
-    }
-
-
-    /* =========================================================
-       UNDERSTAND
-    ========================================================= */
-
-    async function toggleUnderstand(
-        feelingId,
-        button
-    ) {
-
-        if (!currentUser) {
-
-            showToast(
-                "Please sign in first."
-            );
-
-            return;
-        }
-
-
-        if (
-            understandLoading.has(
-                feelingId
-            )
-        ) {
-            return;
-        }
-
-
-        understandLoading.add(
-            feelingId
-        );
-
-        button.disabled = true;
-
-
-        try {
-
-            const reactionRef =
-                doc(
-                    db,
-                    "feelings",
-                    feelingId,
-                    "understands",
-                    currentUser.uid
-                );
-
-
-            const existing =
-                await getDoc(
-                    reactionRef
-                );
-
-
-            if (existing.exists()) {
-
-                await deleteDoc(
-                    reactionRef
-                );
-
-                button.classList.remove(
-                    "active"
-                );
-
-                const feeling =
-                    allFeelings.find(
-                        item =>
-                            item.id === feelingId
-                    );
-
-                if (feeling) {
-                    feeling.understoodByCurrentUser =
-                        false;
-                }
-
-                showToast(
-                    "Your understanding was removed."
-                );
-
-            } else {
-
-                await setDoc(
-                    reactionRef,
-                    {
-                        userId:
-                            currentUser.uid,
-
-                        createdAt:
-                            serverTimestamp()
-                    }
-                );
-
-                button.classList.add(
-                    "active"
-                );
-
-                const feeling =
-                    allFeelings.find(
-                        item =>
-                            item.id === feelingId
-                    );
-
-                if (feeling) {
-                    feeling.understoodByCurrentUser =
-                        true;
-                }
-
-                showToast(
-                    "I Understand added 💜"
-                );
-            }
-
-
-            /*
-             * Always re-read the server-side count.
-             */
-
-            const countSnapshot =
-                await getCountFromServer(
-                    collection(
-                        db,
-                        "feelings",
-                        feelingId,
-                        "understands"
-                    )
-                );
-
-
-            const count =
-                countSnapshot
-                    .data()
-                    .count || 0;
-
-
-            const feeling =
-                allFeelings.find(
-                    item =>
-                        item.id === feelingId
-                );
-
-
-            if (feeling) {
-                feeling.understoodCount =
-                    count;
-            }
-
-
-            updateAllUnderstandButtons(
-                feelingId,
-                count,
-                feeling?.understoodByCurrentUser
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Understand error:",
-                error
-            );
-
-            showToast(
-                getFriendlyFirestoreError(
-                    error
-                )
-            );
-
-        } finally {
-
-            understandLoading.delete(
-                feelingId
-            );
-
-            button.disabled = false;
-        }
-    }
-
-
-    function updateAllUnderstandButtons(
-        feelingId,
-        count,
-        active
-    ) {
-
-        document
-            .querySelectorAll(
-                `[data-action="understand"][data-feeling-id="${CSS.escape(
-                    feelingId
-                )}"]`
-            )
-            .forEach(
-                button => {
-
-                    button.classList.toggle(
-                        "active",
-                        Boolean(active)
-                    );
-
-                    const countElement =
-                        button.querySelector(
-                            "[data-understand-count]"
-                        );
-
-                    if (countElement) {
-                        countElement.textContent =
-                            String(count);
-                    }
-                }
-            );
-    }
-
-
-    /* =========================================================
-       RESPONSES
-    ========================================================= */
-
-    async function getResponses(
-        feelingId,
-        forceRefresh = false
-    ) {
-
-        if (
-            responseCache.has(feelingId) &&
-            !forceRefresh
-        ) {
-
-            return responseCache.get(
-                feelingId
-            );
-        }
-
-
-        const responsesQuery =
-            query(
-                collection(
-                    db,
-                    "feelings",
-                    feelingId,
-                    "responses"
-                ),
-                limit(100)
-            );
-
-
-        const snapshot =
-            await getDocs(
-                responsesQuery
-            );
-
-
-        const responses = [];
-
-
-        snapshot.forEach(
-            item => {
-
-                const data =
-                    item.data() || {};
-
-
-                if (
-                    data.status !== "active"
-                ) {
-                    return;
-                }
-
-
-                responses.push({
-
-                    id: item.id,
-
-                    userId:
-                        String(
-                            data.userId ??
-                            data.authorId ??
-                            ""
-                        ),
-
-                    authorName:
-                        String(
-                            data.authorName ??
-                            data.authorDisplayName ??
-                            "User"
-                        ),
-
-                    text:
-                        String(
-                            data.text ?? ""
-                        ),
-
-                    createdAt:
-                        data.createdAt ??
-                        null
-                });
-            }
-        );
-
-
-        responses.sort(
-            (a,b) =>
-                getTimestampMilliseconds(
-                    a.createdAt
-                ) -
-                getTimestampMilliseconds(
-                    b.createdAt
-                )
-        );
-
-
-        responseCache.set(
-            feelingId,
-            responses
-        );
-
-
-        return responses;
-    }
-
-
-    async function refreshResponseSection(
-        feelingId,
-        card
-    ) {
-
-        try {
-
-            const responses =
-                await getResponses(
-                    feelingId
-                );
-
-
-            const list =
-                card.querySelector(
-                    "[data-response-list]"
-                );
-
-
-            const toggle =
-                card.querySelector(
-                    "[data-action='toggle-responses']"
-                );
-
-
-            if (!list || !toggle) {
-                return;
-            }
-
-
-            if (responses.length === 0) {
-
-                list.innerHTML = `
-                    <div class="no-responses">
-                        No responses yet. Be the first to respond with empathy.
-                    </div>
-                `;
-
-            } else {
-
-                list.innerHTML =
-                    responses
-                        .map(
-                            response => `
-                                <div class="response-item">
-
-                                    <div class="response-author">
-
-                                        <strong>
-                                            ${escapeHTML(
-                                                response.authorName
-                                            )}
-                                        </strong>
-
-                                        <span class="response-time">
-                                            ${escapeHTML(
-                                                formatDate(
-                                                    response.createdAt
-                                                )
-                                            )}
-                                        </span>
-
-                                    </div>
-
-                                    <div class="response-text">
-                                        ${escapeHTML(
-                                            response.text
-                                        )}
-                                    </div>
-
-                                </div>
-                            `
-                        )
-                        .join("");
-            }
-
-
-            toggle.textContent =
-                expandedResponses.has(feelingId)
-                    ? "Hide responses"
-                    : `Show responses${
-                        responses.length
-                            ? ` (${responses.length})`
-                            : ""
-                    }`;
-
 
             if (
-                expandedResponses.has(
-                    feelingId
+                authorId &&
+                state.blockedUserIds.has(authorId)
+            ) {
+                return;
+            }
+
+            const text = String(
+                data.text ??
+                data.feeling ??
+                data.content ??
+                ""
+            ).trim();
+
+            if (!text) {
+                return;
+            }
+
+            feelings.push({
+
+                id: item.id,
+
+                text,
+
+                authorName: String(
+                    data.authorDisplayName ??
+                    data.authorName ??
+                    data.displayName ??
+                    data.name ??
+                    "Anonymous"
+                ),
+
+                authorId,
+
+                mood: String(
+                    data.mood ?? "other"
+                ),
+
+                topic: String(
+                    data.topic ?? "other"
+                ),
+
+                createdAt:
+                    data.createdAt ?? null,
+
+                understoodCount:
+                    Number(
+                        data.understoodCount ?? 0
+                    ) || 0
+            });
+        });
+
+        state.allFeelings = feelings;
+
+        /*
+         * One optimized optional query for the current user's
+         * understand reactions.
+         */
+        await loadUnderstandState();
+
+        state.allFeelings.forEach(feeling => {
+
+            feeling.understood =
+                state.understoodIds.has(
+                    feeling.id
+                );
+        });
+
+        applyFilters();
+
+    } catch (error) {
+
+        console.error(
+            "Discover load error:",
+            error
+        );
+
+        errorText.textContent =
+            friendlyError(error);
+
+        setState("error");
+
+    } finally {
+
+        state.loading = false;
+    }
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+function applyFilters() {
+
+    const search =
+        normalize(searchInput.value);
+
+    const selectedMood =
+        normalizeMood(moodFilter.value);
+
+    const selectedTopic =
+        normalizeTopic(topicFilter.value);
+
+    state.visibleFeelings =
+        state.allFeelings.filter(feeling => {
+
+            if (
+                state.blockedUserIds.has(
+                    feeling.authorId
                 )
             ) {
-
-                list.classList.remove(
-                    "hidden"
-                );
-
-            } else {
-
-                list.classList.add(
-                    "hidden"
-                );
+                return false;
             }
 
-        } catch (error) {
+            const haystack = normalize([
+                feeling.text,
+                feeling.authorName,
+                feeling.topic,
+                feeling.mood
+            ].join(" "));
 
-            console.error(
-                "Response load error:",
-                error
+            if (
+                search &&
+                !haystack.includes(search)
+            ) {
+                return false;
+            }
+
+            if (
+                selectedMood !== "all" &&
+                normalizeMood(feeling.mood) !== selectedMood
+            ) {
+                return false;
+            }
+
+            if (
+                selectedTopic !== "all" &&
+                normalizeTopic(feeling.topic) !== selectedTopic
+            ) {
+                return false;
+            }
+
+            return true;
+        });
+
+
+    state.visibleFeelings.sort((a,b) => {
+
+        const aTime = timestampMs(a.createdAt);
+        const bTime = timestampMs(b.createdAt);
+
+        return sortSelect.value === "oldest"
+            ? aTime - bTime
+            : bTime - aTime;
+    });
+
+
+    renderFeelings();
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderFeelings() {
+
+    feelingsList.replaceChildren();
+
+    state.renderedCount =
+        Math.min(
+            PAGE_SIZE,
+            state.visibleFeelings.length
+        );
+
+    const fragment =
+        document.createDocumentFragment();
+
+    state.visibleFeelings
+        .slice(0, state.renderedCount)
+        .forEach(feeling => {
+
+            fragment.appendChild(
+                createFeelingCard(feeling)
             );
-        }
+        });
+
+    feelingsList.appendChild(fragment);
+
+    resultCount.textContent =
+        `${state.visibleFeelings.length} ${
+            state.visibleFeelings.length === 1
+                ? "feeling"
+                : "feelings"
+        }`;
+
+    if (state.visibleFeelings.length === 0) {
+        setState("empty");
+    } else {
+        setState("content");
     }
 
+    updateLoadMore();
+}
 
-    function openResponseModal(
-        feelingId
+
+function updateLoadMore() {
+
+    if (
+        state.renderedCount <
+        state.visibleFeelings.length
     ) {
 
-        selectedFeelingId =
-            feelingId;
+        loadMoreWrap.classList.remove("hidden");
 
-        responseInput.value = "";
+        loadMoreButton.textContent =
+            `Load more (${
+                state.visibleFeelings.length -
+                state.renderedCount
+            } left)`;
 
-        responseModal.classList.add(
-            "show"
+    } else {
+
+        loadMoreWrap.classList.add("hidden");
+    }
+}
+
+
+function loadMore() {
+
+    const next =
+        state.visibleFeelings.slice(
+            state.renderedCount,
+            state.renderedCount + PAGE_SIZE
         );
 
-        setTimeout(
-            () =>
-                responseInput.focus(),
-            60
+    const fragment =
+        document.createDocumentFragment();
+
+    next.forEach(feeling => {
+
+        fragment.appendChild(
+            createFeelingCard(feeling)
         );
+    });
+
+    feelingsList.appendChild(fragment);
+
+    state.renderedCount += next.length;
+
+    updateLoadMore();
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+function createFeelingCard(feeling) {
+
+    const card =
+        document.createElement("article");
+
+    card.className = "card";
+
+    card.dataset.feelingId =
+        feeling.id;
+
+    card.dataset.authorId =
+        feeling.authorId;
+
+
+    card.innerHTML = `
+
+        <div class="card-inner">
+
+            <div class="author">
+
+                <div class="author-left">
+
+                    <div class="avatar">
+                        ${escapeHTML(
+                            getInitials(
+                                feeling.authorName
+                            )
+                        )}
+                    </div>
+
+                    <div>
+
+                        <div class="author-name">
+                            ${escapeHTML(
+                                feeling.authorName
+                            )}
+                        </div>
+
+                        <div class="time">
+                            ${escapeHTML(
+                                formatDate(
+                                    feeling.createdAt
+                                )
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="more"
+                    type="button"
+                    data-action="more"
+                    aria-label="More options"
+                >
+                    ⋯
+                </button>
+
+            </div>
+
+            <div class="meta">
+
+                <span class="pill">
+                    ${escapeHTML(
+                        moodLabel(
+                            feeling.mood
+                        )
+                    )}
+                </span>
+
+                <span class="pill">
+                    ${escapeHTML(
+                        topicLabel(
+                            feeling.topic
+                        )
+                    )}
+                </span>
+
+            </div>
+
+            <div class="text">
+                ${escapeHTML(feeling.text)}
+            </div>
+
+            <div class="actions">
+
+                <button
+                    class="action ${
+                        feeling.understood
+                            ? "active"
+                            : ""
+                    }"
+                    type="button"
+                    data-action="understand"
+                    data-feeling-id="${escapeHTML(
+                        feeling.id
+                    )}"
+                >
+                    💜 I Understand
+                    <span data-understand-count>
+                        ${escapeHTML(
+                            String(
+                                feeling.understoodCount
+                            )
+                        )}
+                    </span>
+                </button>
+
+                <button
+                    class="action"
+                    type="button"
+                    data-action="respond"
+                    data-feeling-id="${escapeHTML(
+                        feeling.id
+                    )}"
+                >
+                    💭 Respond
+                </button>
+
+                <button
+                    class="action connect"
+                    type="button"
+                    data-action="connect"
+                    data-feeling-id="${escapeHTML(
+                        feeling.id
+                    )}"
+                >
+                    🤝 Connect
+                </button>
+
+                <button
+                    class="action report"
+                    type="button"
+                    data-action="report"
+                    data-feeling-id="${escapeHTML(
+                        feeling.id
+                    )}"
+                >
+                    🚩 Report
+                </button>
+
+            </div>
+
+            <section class="responses">
+
+                <div class="responses-header">
+
+                    <span>
+                        💬 Responses
+                    </span>
+
+                    <button
+                        class="toggle-responses"
+                        type="button"
+                        data-action="toggle-responses"
+                        data-feeling-id="${escapeHTML(
+                            feeling.id
+                        )}"
+                    >
+                        Show responses
+                    </button>
+
+                </div>
+
+                <div
+                    class="response-list hidden"
+                    data-response-list
+                ></div>
+
+            </section>
+
+        </div>
+    `;
+
+    return card;
+}
+
+
+/* =========================================================
+   UNDERSTAND
+========================================================= */
+
+async function toggleUnderstand(
+    feelingId,
+    button
+) {
+
+    if (!state.user) {
+        showToast("Please sign in first.");
+        return;
     }
 
-
-    function closeResponseModal() {
-
-        selectedFeelingId = null;
-
-        responseInput.value = "";
-
-        responseModal.classList.remove(
-            "show"
-        );
-    }
-
-
-    async function submitResponse() {
-
-        if (!currentUser) {
-
-            showToast(
-                "Please sign in first."
-            );
-
-            return;
-        }
-
-
-        if (!selectedFeelingId) {
-
-            showToast(
-                "Feeling not selected."
-            );
-
-            return;
-        }
-
-
-        if (
-            responseLoading.has(
-                selectedFeelingId
-            )
-        ) {
-            return;
-        }
-
-
-        const text =
-            responseInput.value.trim();
-
-
-        if (!text) {
-
-            showToast(
-                "Please write a response."
-            );
-
-            return;
-        }
-
-
-        if (
-            text.length >
-            MAX_RESPONSE_LENGTH
-        ) {
-
-            showToast(
-                `Response must be ${MAX_RESPONSE_LENGTH} characters or less.`
-            );
-
-            return;
-        }
-
-
-        const feelingId =
-            selectedFeelingId;
-
-
-        const button =
-            document.getElementById(
-                "submitResponseButton"
-            );
-
-
-        responseLoading.add(
+    if (
+        state.understandLoading.has(
             feelingId
-        );
-
-        button.disabled = true;
-        button.textContent =
-            "Sending...";
-
-
-        try {
-
-            await addDoc(
-                collection(
-                    db,
-                    "feelings",
-                    feelingId,
-                    "responses"
-                ),
-                {
-                    userId:
-                        currentUser.uid,
-
-                    authorName:
-                        currentUser.displayName ||
-                        currentUser.email?.split("@")[0] ||
-                        "User",
-
-                    text,
-
-                    status:
-                        "active",
-
-                    createdAt:
-                        serverTimestamp()
-                }
-            );
-
-
-            responseCache.delete(
-                feelingId
-            );
-
-
-            expandedResponses.add(
-                feelingId
-            );
-
-
-            closeResponseModal();
-
-
-            const card =
-                document.querySelector(
-                    `[data-feeling-id="${CSS.escape(
-                        feelingId
-                    )}"]`
-                );
-
-
-            if (card) {
-
-                await refreshResponseSection(
-                    feelingId,
-                    card
-                );
-            }
-
-
-            showToast(
-                "Your response was sent."
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Response error:",
-                error
-            );
-
-            showToast(
-                getFriendlyFirestoreError(
-                    error
-                )
-            );
-
-        } finally {
-
-            responseLoading.delete(
-                feelingId
-            );
-
-            button.disabled = false;
-            button.textContent =
-                "Send response";
-        }
+        )
+    ) {
+        return;
     }
 
+    state.understandLoading.add(feelingId);
 
-    async function toggleResponses(
-        feelingId,
-        card
-    ) {
+    button.disabled = true;
 
-        if (
-            expandedResponses.has(
-                feelingId
-            )
-        ) {
+    try {
 
-            expandedResponses.delete(
+        const reactionRef =
+            doc(
+                db,
+                "feelings",
+                feelingId,
+                "understands",
+                state.user.uid
+            );
+
+        const existing =
+            await getDoc(reactionRef);
+
+
+        if (existing.exists()) {
+
+            await deleteDoc(reactionRef);
+
+            state.understoodIds.delete(
                 feelingId
             );
 
         } else {
 
-            expandedResponses.add(
-                feelingId
-            );
-        }
-
-
-        await refreshResponseSection(
-            feelingId,
-            card
-        );
-    }
-
-
-    /* =========================================================
-       REPORT
-    ========================================================= */
-
-    function openReportModal(
-        feelingId
-    ) {
-
-        selectedFeelingId =
-            feelingId;
-
-        reportInput.value = "";
-
-        reportModal.classList.add(
-            "show"
-        );
-
-        setTimeout(
-            () =>
-                reportInput.focus(),
-            60
-        );
-    }
-
-
-    function closeReportModal() {
-
-        selectedFeelingId = null;
-
-        reportInput.value = "";
-
-        reportModal.classList.remove(
-            "show"
-        );
-    }
-
-
-    async function submitReport() {
-
-        if (!currentUser) {
-
-            showToast(
-                "Please sign in first."
-            );
-
-            return;
-        }
-
-
-        if (!selectedFeelingId) {
-
-            showToast(
-                "Feeling not selected."
-            );
-
-            return;
-        }
-
-
-        if (reportLoading) {
-            return;
-        }
-
-
-        const reason =
-            reportInput.value.trim();
-
-
-        if (!reason) {
-
-            showToast(
-                "Please describe the issue."
-            );
-
-            return;
-        }
-
-
-        if (
-            reason.length >
-            MAX_REPORT_LENGTH
-        ) {
-
-            showToast(
-                `Report must be ${MAX_REPORT_LENGTH} characters or less.`
-            );
-
-            return;
-        }
-
-
-        const button =
-            document.getElementById(
-                "submitReportButton"
-            );
-
-
-        reportLoading = true;
-
-        button.disabled = true;
-
-        button.textContent =
-            "Submitting...";
-
-
-        try {
-
-            await addDoc(
-                collection(
-                    db,
-                    "reports"
-                ),
+            await setDoc(
+                reactionRef,
                 {
-                    reporterId:
-                        currentUser.uid,
-
-                    targetType:
-                        "feeling",
-
-                    targetId:
-                        selectedFeelingId,
-
-                    reason,
-
-                    status:
-                        "open",
+                    userId:
+                        state.user.uid,
 
                     createdAt:
                         serverTimestamp()
                 }
             );
 
-
-            closeReportModal();
-
-
-            showToast(
-                "Report submitted for review."
+            state.understoodIds.add(
+                feelingId
             );
-
-
-        } catch (error) {
-
-            console.error(
-                "Report error:",
-                error
-            );
-
-            showToast(
-                getFriendlyFirestoreError(
-                    error
-                )
-            );
-
-        } finally {
-
-            reportLoading = false;
-
-            button.disabled = false;
-
-            button.textContent =
-                "Submit report";
-        }
-    }
-
-
-    /* =========================================================
-       BLOCK
-    ========================================================= */
-
-    async function blockSelectedUser() {
-
-        if (!currentUser) {
-
-            showToast(
-                "Please sign in first."
-            );
-
-            return;
-        }
-
-
-        if (!selectedMoreFeelingId) {
-            return;
         }
 
 
         const feeling =
-            allFeelings.find(
+            state.allFeelings.find(
                 item =>
-                    item.id ===
-                    selectedMoreFeelingId
+                    item.id === feelingId
             );
 
 
-        if (!feeling) {
-            return;
-        }
+        if (feeling) {
 
-
-        const targetUserId =
-            feeling.authorId;
-
-
-        if (!targetUserId) {
-
-            showToast(
-                "This user cannot be identified."
-            );
-
-            return;
-        }
-
-
-        if (
-            targetUserId ===
-            currentUser.uid
-        ) {
-
-            showToast(
-                "You cannot block yourself."
-            );
-
-            closeMoreModal();
-
-            return;
-        }
-
-
-        const confirmed =
-            window.confirm(
-                "Block this person? Their public feelings will be hidden from you."
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        try {
-
-            const blockId =
-                `${currentUser.uid}_${targetUserId}`;
-
-
-            await setDoc(
-                doc(
-                    db,
-                    "blocks",
-                    blockId
-                ),
-                {
-                    blockerId:
-                        currentUser.uid,
-
-                    blockedUserId:
-                        targetUserId,
-
-                    createdAt:
-                        serverTimestamp()
-                }
-            );
-
-
-            blockedUserIds.add(
-                targetUserId
-            );
-
-
-            closeMoreModal();
-
-
-            allFeelings =
-                allFeelings.filter(
-                    item =>
-                        item.authorId !==
-                        targetUserId
+            feeling.understood =
+                state.understoodIds.has(
+                    feelingId
                 );
 
-
-            responseCache =
-                new Map(
-                    [...responseCache]
-                        .filter(
-                            ([id]) =>
-                                allFeelings.some(
-                                    feeling =>
-                                        feeling.id === id
-                                )
-                        )
+            /*
+             * The existing understoodCount field is not trusted
+             * as an authoritative counter. Update the UI
+             * immediately and reconcile with the server only
+             * after the successful mutation.
+             */
+            feeling.understoodCount =
+                Math.max(
+                    0,
+                    Number(
+                        feeling.understoodCount
+                    ) +
+                    (
+                        feeling.understood
+                            ? 1
+                            : -1
+                    )
                 );
-
-
-            applyFilters();
-
-
-            showToast(
-                "Person blocked. Their public feelings are hidden."
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Block error:",
-                error
-            );
-
-            showToast(
-                getFriendlyFirestoreError(
-                    error
-                )
-            );
-        }
-    }
-
-
-    /* =========================================================
-       MORE
-    ========================================================= */
-
-    function openMoreModal(
-        feelingId
-    ) {
-
-        selectedMoreFeelingId =
-            feelingId;
-
-        moreModal.classList.add(
-            "show"
-        );
-    }
-
-
-    function closeMoreModal() {
-
-        selectedMoreFeelingId = null;
-
-        moreModal.classList.remove(
-            "show"
-        );
-    }
-
-
-    async function copyFeelingLink() {
-
-        if (!selectedMoreFeelingId) {
-            return;
         }
 
 
-        const url =
-            `${window.location.origin}${window.location.pathname}#feeling-${selectedMoreFeelingId}`;
-
-
-        try {
-
-            if (
-                navigator.clipboard &&
-                window.isSecureContext
-            ) {
-
-                await navigator.clipboard.writeText(
-                    url
-                );
-
-            } else {
-
-                const temporary =
-                    document.createElement(
-                        "textarea"
-                    );
-
-                temporary.value = url;
-
-                document.body.appendChild(
-                    temporary
-                );
-
-                temporary.select();
-
-                document.execCommand(
-                    "copy"
-                );
-
-                temporary.remove();
-            }
-
-
-            showToast(
-                "Feeling link copied."
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Copy error:",
-                error
-            );
-
-            showToast(
-                "Couldn't copy the link."
-            );
-        }
-
-
-        closeMoreModal();
-    }
-
-
-    /* =========================================================
-       CONNECTION
-    ========================================================= */
-
-    function openConnectionModal(
-        feelingId
-    ) {
-
-        selectedFeelingId =
-            feelingId ||
-            selectedFeelingId;
-
-        connectionModal.classList.add(
-            "show"
-        );
-    }
-
-
-    function closeConnectionModal() {
-
-        connectionModal.classList.remove(
-            "show"
-        );
-
-        selectedFeelingId = null;
-    }
-
-
-    /* =========================================================
-       STATE
-    ========================================================= */
-
-    function setState(state) {
-
-        loadingState.classList.add(
-            "hidden"
-        );
-
-        errorState.classList.add(
-            "hidden"
-        );
-
-        emptyState.classList.add(
-            "hidden"
+        updateUnderstandUI(
+            feelingId,
+            feeling?.understoodCount ?? 0,
+            feeling?.understood ?? false
         );
 
 
-        if (state === "loading") {
-
-            loadingState.classList.remove(
-                "hidden"
-            );
-
-            return;
-        }
-
-
-        if (state === "error") {
-
-            errorState.classList.remove(
-                "hidden"
-            );
-
-            return;
-        }
-
-
-        if (state === "empty") {
-
-            emptyState.classList.remove(
-                "hidden"
-            );
-
-            return;
-        }
-    }
-
-
-    /* =========================================================
-       FIRESTORE ERROR MESSAGE
-    ========================================================= */
-
-    function getFriendlyFirestoreError(
-        error
-    ) {
-
-        if (!error) {
-            return "Something went wrong.";
-        }
-
-
-        if (
-            error.code ===
-            "permission-denied"
-        ) {
-
-            return "Firestore permission denied. Check the published Firestore rules.";
-        }
-
-
-        if (
-            error.code ===
-            "failed-precondition"
-        ) {
-
-            return "Firestore needs an index or configuration update.";
-        }
-
-
-        if (
-            error.code ===
-            "unauthenticated"
-        ) {
-
-            return "Your session expired. Please sign in again.";
-        }
-
-
-        if (
-            error.code ===
-            "network-request-failed"
-        ) {
-
-            return "Network problem. Please check your internet connection.";
-        }
-
-
-        return (
-            error.message ||
-            "Something went wrong. Please try again."
+        showToast(
+            existing.exists()
+                ? "I Understand removed."
+                : "I Understand added 💜"
         );
+
+    } catch (error) {
+
+        console.error(
+            "Understand error:",
+            error
+        );
+
+        showToast(
+            friendlyError(error)
+        );
+
+    } finally {
+
+        state.understandLoading.delete(
+            feelingId
+        );
+
+        button.disabled = false;
     }
+}
 
 
-    /* =========================================================
-       NAVIGATION
-    ========================================================= */
-
-    function navigate(route) {
-
-        window.location.href =
-            route;
-    }
-
+function updateUnderstandUI(
+    feelingId,
+    count,
+    active
+) {
 
     document
         .querySelectorAll(
-            "[data-route]"
+            `[data-action="understand"][data-feeling-id="${CSS.escape(
+                feelingId
+            )}"]`
         )
-        .forEach(
-            button => {
+        .forEach(button => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+            button.classList.toggle(
+                "active",
+                Boolean(active)
+            );
 
-                        const route =
-                            button.dataset.route;
-
-                        if (route) {
-                            navigate(route);
-                        }
-                    }
+            const countNode =
+                button.querySelector(
+                    "[data-understand-count]"
                 );
+
+            if (countNode) {
+                countNode.textContent =
+                    String(count);
             }
-        );
+        });
+}
 
 
-    document
-        .getElementById(
-            "notificationsButton"
+/* =========================================================
+   RESPONSES
+========================================================= */
+
+async function loadResponses(feelingId) {
+
+    if (
+        state.responseCache.has(
+            feelingId
         )
-        .addEventListener(
-            "click",
-            () =>
-                navigate(
-                    "notifications.html"
-                )
+    ) {
+        return state.responseCache.get(
+            feelingId
+        );
+    }
+
+    const q =
+        query(
+            collection(
+                db,
+                "feelings",
+                feelingId,
+                "responses"
+            ),
+            limit(100)
         );
 
+    const snapshot =
+        await getDocs(q);
 
-    document
-        .getElementById(
-            "messagesButton"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                navigate(
-                    "messages.html"
-                )
+    const responses = [];
+
+    snapshot.forEach(item => {
+
+        const data =
+            item.data() || {};
+
+        if (
+            data.status !== "active"
+        ) {
+            return;
+        }
+
+        const text =
+            String(
+                data.text ?? ""
+            ).trim();
+
+        if (!text) {
+            return;
+        }
+
+        responses.push({
+
+            id: item.id,
+
+            userId:
+                String(
+                    data.userId ??
+                    data.authorId ??
+                    ""
+                ),
+
+            authorName:
+                String(
+                    data.authorName ??
+                    data.authorDisplayName ??
+                    "User"
+                ),
+
+            text,
+
+            createdAt:
+                data.createdAt ?? null
+        });
+    });
+
+
+    responses.sort(
+        (a,b) =>
+            timestampMs(a.createdAt) -
+            timestampMs(b.createdAt)
+    );
+
+
+    state.responseCache.set(
+        feelingId,
+        responses
+    );
+
+    return responses;
+}
+
+
+async function showResponses(
+    feelingId,
+    card
+) {
+
+    const list =
+        card.querySelector(
+            "[data-response-list]"
         );
 
-
-    document
-        .getElementById(
-            "createFeelingButton"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                navigate(
-                    "app.html"
-                )
+    const toggle =
+        card.querySelector(
+            "[data-action='toggle-responses']"
         );
 
-
-    document
-        .getElementById(
-            "safetyButton"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                safetyModal.classList.add(
-                    "show"
-                )
-        );
-
-
-    /* =========================================================
-       SEARCH
-    ========================================================= */
-
-    function runSearch() {
-        applyFilters();
+    if (!list || !toggle) {
+        return;
     }
 
 
-    searchButton.addEventListener(
-        "click",
-        runSearch
-    );
+    if (
+        state.expandedResponses.has(
+            feelingId
+        )
+    ) {
 
+        state.expandedResponses.delete(
+            feelingId
+        );
 
-    searchInput.addEventListener(
-        "keydown",
-        event => {
+        list.classList.add("hidden");
 
-            if (
-                event.key === "Enter"
-            ) {
-
-                runSearch();
-            }
-        }
-    );
-
-
-    searchInput.addEventListener(
-        "input",
-        () => {
-
-            clearTimeout(
-                searchTimer
+        const cached =
+            state.responseCache.get(
+                feelingId
             );
 
-            searchTimer =
-                setTimeout(
-                    runSearch,
-                    220
-                );
+        toggle.textContent =
+            cached?.length
+                ? `Show responses (${cached.length})`
+                : "Show responses";
+
+        return;
+    }
+
+
+    toggle.disabled = true;
+    toggle.textContent = "Loading...";
+
+
+    try {
+
+        const responses =
+            await loadResponses(
+                feelingId
+            );
+
+        state.expandedResponses.add(
+            feelingId
+        );
+
+
+        if (!responses.length) {
+
+            list.innerHTML = `
+                <div class="no-responses">
+                    No responses yet. Be the first to respond with empathy.
+                </div>
+            `;
+
+        } else {
+
+            list.innerHTML =
+                responses.map(
+                    response => `
+                        <div class="response-item">
+
+                            <div class="response-author">
+
+                                <strong>
+                                    ${escapeHTML(
+                                        response.authorName
+                                    )}
+                                </strong>
+
+                                <span class="response-time">
+                                    ${escapeHTML(
+                                        formatDate(
+                                            response.createdAt
+                                        )
+                                    )}
+                                </span>
+
+                            </div>
+
+                            <div class="response-text">
+                                ${escapeHTML(
+                                    response.text
+                                )}
+                            </div>
+
+                        </div>
+                    `
+                ).join("");
         }
-    );
 
 
-    moodFilter.addEventListener(
-        "change",
-        runSearch
-    );
+        list.classList.remove(
+            "hidden"
+        );
+
+        toggle.textContent =
+            responses.length
+                ? `Hide responses (${responses.length})`
+                : "Hide responses";
 
 
-    topicFilter.addEventListener(
-        "change",
-        runSearch
-    );
+    } catch (error) {
 
+        console.error(
+            "Response load error:",
+            error
+        );
 
-    sortSelect.addEventListener(
-        "change",
-        runSearch
-    );
-
-
-    function clearFilters() {
-
-        searchInput.value = "";
-
-        moodFilter.value =
-            "all";
-
-        topicFilter.value =
-            "all";
-
-        sortSelect.value =
-            "newest";
-
-        applyFilters();
+        toggle.textContent =
+            "Show responses";
 
         showToast(
-            "Search and filters cleared."
+            friendlyError(error)
         );
+
+    } finally {
+
+        toggle.disabled = false;
+    }
+}
+
+
+function openResponseModal(feelingId) {
+
+    state.selectedFeelingId =
+        feelingId;
+
+    responseInput.value = "";
+
+    responseModal.classList.add("show");
+
+    setTimeout(
+        () => responseInput.focus(),
+        50
+    );
+}
+
+
+function closeResponseModal() {
+
+    state.selectedFeelingId =
+        null;
+
+    responseInput.value = "";
+
+    responseModal.classList.remove("show");
+}
+
+
+async function submitResponse() {
+
+    if (!state.user) {
+        showToast("Please sign in first.");
+        return;
+    }
+
+    const feelingId =
+        state.selectedFeelingId;
+
+    if (!feelingId) {
+        showToast("Feeling not selected.");
+        return;
+    }
+
+    if (state.responseLoading) {
+        return;
+    }
+
+    const text =
+        responseInput.value.trim();
+
+    if (!text) {
+        showToast("Please write a response.");
+        return;
+    }
+
+    if (
+        text.length >
+        MAX_RESPONSE_LENGTH
+    ) {
+        showToast(
+            `Response must be ${MAX_RESPONSE_LENGTH} characters or less.`
+        );
+        return;
     }
 
 
-    clearFiltersButton.addEventListener(
-        "click",
-        clearFilters
-    );
+    const button =
+        $("submitResponseButton");
+
+    state.responseLoading = true;
+
+    button.disabled = true;
+    button.textContent = "Sending...";
 
 
-    emptyClearButton.addEventListener(
-        "click",
-        clearFilters
-    );
+    try {
 
+        await addDoc(
+            collection(
+                db,
+                "feelings",
+                feelingId,
+                "responses"
+            ),
+            {
+                userId:
+                    state.user.uid,
 
-    retryButton.addEventListener(
-        "click",
-        loadDiscover
-    );
+                authorName:
+                    state.user.displayName ||
+                    state.user.email?.split("@")[0] ||
+                    "User",
 
+                text,
 
-    loadMoreButton.addEventListener(
-        "click",
-        loadMore
-    );
+                status:
+                    "active",
 
-
-    /* =========================================================
-       CARD EVENTS
-    ========================================================= */
-
-    feelingsList.addEventListener(
-        "click",
-        async event => {
-
-            const button =
-                event.target.closest(
-                    "[data-action]"
-                );
-
-
-            if (!button) {
-                return;
+                createdAt:
+                    serverTimestamp()
             }
+        );
 
 
-            const action =
-                button.dataset.action;
+        state.responseCache.delete(
+            feelingId
+        );
+
+        state.expandedResponses.add(
+            feelingId
+        );
+
+        closeResponseModal();
 
 
-            const card =
-                button.closest(
-                    ".card"
-                );
-
-
-            const feelingId =
-                button.dataset.feelingId ||
-                card?.dataset.feelingId;
-
-
-            if (!feelingId) {
-                return;
-            }
-
-
-            if (
-                action ===
-                "understand"
-            ) {
-
-                await toggleUnderstand(
-                    feelingId,
-                    button
-                );
-
-                return;
-            }
-
-
-            if (
-                action ===
-                "respond"
-            ) {
-
-                openResponseModal(
+        const card =
+            document.querySelector(
+                `[data-feeling-id="${CSS.escape(
                     feelingId
-                );
+                )}"]`
+            );
 
-                return;
-            }
 
+        if (card) {
 
-            if (
-                action ===
-                "connect"
-            ) {
+            state.expandedResponses.delete(
+                feelingId
+            );
 
-                openConnectionModal(
-                    feelingId
-                );
-
-                return;
-            }
-
-
-            if (
-                action ===
-                "report"
-            ) {
-
-                openReportModal(
-                    feelingId
-                );
-
-                return;
-            }
-
-
-            if (
-                action ===
-                "more"
-            ) {
-
-                openMoreModal(
-                    feelingId
-                );
-
-                return;
-            }
-
-
-            if (
-                action ===
-                "toggle-responses"
-            ) {
-
-                await toggleResponses(
-                    feelingId,
-                    card
-                );
-            }
-        }
-    );
-
-
-    /* =========================================================
-       RESPONSE EVENTS
-    ========================================================= */
-
-    document
-        .getElementById(
-            "closeResponseButton"
-        )
-        .addEventListener(
-            "click",
-            closeResponseModal
-        );
-
-
-    document
-        .getElementById(
-            "cancelResponseButton"
-        )
-        .addEventListener(
-            "click",
-            closeResponseModal
-        );
-
-
-    document
-        .getElementById(
-            "submitResponseButton"
-        )
-        .addEventListener(
-            "click",
-            submitResponse
-        );
-
-
-    /* =========================================================
-       REPORT EVENTS
-    ========================================================= */
-
-    document
-        .getElementById(
-            "closeReportButton"
-        )
-        .addEventListener(
-            "click",
-            closeReportModal
-        );
-
-
-    document
-        .getElementById(
-            "cancelReportButton"
-        )
-        .addEventListener(
-            "click",
-            closeReportModal
-        );
-
-
-    document
-        .getElementById(
-            "submitReportButton"
-        )
-        .addEventListener(
-            "click",
-            submitReport
-        );
-
-
-    /* =========================================================
-       CONNECTION EVENTS
-    ========================================================= */
-
-    document
-        .getElementById(
-            "closeConnectionButton"
-        )
-        .addEventListener(
-            "click",
-            closeConnectionModal
-        );
-
-
-    document
-        .getElementById(
-            "connectionCloseAction"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                closeConnectionModal();
-
-                showToast(
-                    "Secure connection verification will be activated through the trusted backend."
-                );
-            }
-        );
-
-
-    document
-        .getElementById(
-            "connectionInfoButton"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                openConnectionModal()
-        );
-
-
-    /* =========================================================
-       MORE EVENTS
-    ========================================================= */
-
-    document
-        .getElementById(
-            "closeMoreButton"
-        )
-        .addEventListener(
-            "click",
-            closeMoreModal
-        );
-
-
-    document
-        .getElementById(
-            "moreCopyButton"
-        )
-        .addEventListener(
-            "click",
-            copyFeelingLink
-        );
-
-
-    document
-        .getElementById(
-            "moreReportButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                const feelingId =
-                    selectedMoreFeelingId;
-
-                closeMoreModal();
-
-                if (feelingId) {
-
-                    openReportModal(
-                        feelingId
-                    );
-                }
-            }
-        );
-
-
-    document
-        .getElementById(
-            "moreBlockButton"
-        )
-        .addEventListener(
-            "click",
-            blockSelectedUser
-        );
-
-
-    /* =========================================================
-       SAFETY EVENTS
-    ========================================================= */
-
-    document
-        .getElementById(
-            "closeSafetyButton"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                safetyModal.classList.remove(
-                    "show"
-                )
-        );
-
-
-    document
-        .getElementById(
-            "safetyCloseAction"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                safetyModal.classList.remove(
-                    "show"
-                )
-        );
-
-
-    /* =========================================================
-       MODAL BACKDROP
-    ========================================================= */
-
-    [
-        responseModal,
-        reportModal,
-        connectionModal,
-        moreModal,
-        safetyModal
-    ].forEach(
-        modal => {
-
-            modal.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        event.target !==
-                        modal
-                    ) {
-                        return;
-                    }
-
-                    modal.classList.remove(
-                        "show"
-                    );
-
-                    selectedFeelingId =
-                        null;
-
-                    selectedMoreFeelingId =
-                        null;
-                }
+            await showResponses(
+                feelingId,
+                card
             );
         }
+
+
+        showToast(
+            "Your response was sent."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Response error:",
+            error
+        );
+
+        showToast(
+            friendlyError(error)
+        );
+
+    } finally {
+
+        state.responseLoading = false;
+
+        button.disabled = false;
+        button.textContent =
+            "Send response";
+    }
+}
+
+
+/* =========================================================
+   REPORT
+========================================================= */
+
+function openReportModal(feelingId) {
+
+    state.selectedFeelingId =
+        feelingId;
+
+    reportInput.value = "";
+
+    reportModal.classList.add("show");
+
+    setTimeout(
+        () => reportInput.focus(),
+        50
     );
+}
 
 
-    /* =========================================================
-       ESCAPE
-    ========================================================= */
+function closeReportModal() {
 
-    document.addEventListener(
-        "keydown",
-        event => {
+    state.selectedFeelingId =
+        null;
 
-            if (
-                event.key !== "Escape"
-            ) {
-                return;
+    reportInput.value = "";
+
+    reportModal.classList.remove("show");
+}
+
+
+async function submitReport() {
+
+    if (!state.user) {
+        showToast("Please sign in first.");
+        return;
+    }
+
+    const feelingId =
+        state.selectedFeelingId;
+
+    if (!feelingId) {
+        showToast("Feeling not selected.");
+        return;
+    }
+
+    if (state.reportLoading) {
+        return;
+    }
+
+    const reason =
+        reportInput.value.trim();
+
+    if (!reason) {
+        showToast("Please describe the issue.");
+        return;
+    }
+
+    if (
+        reason.length >
+        MAX_REPORT_LENGTH
+    ) {
+        showToast(
+            `Report must be ${MAX_REPORT_LENGTH} characters or less.`
+        );
+        return;
+    }
+
+
+    const button =
+        $("submitReportButton");
+
+    state.reportLoading = true;
+
+    button.disabled = true;
+    button.textContent = "Submitting...";
+
+
+    try {
+
+        await addDoc(
+            collection(db, "reports"),
+            {
+                reporterId:
+                    state.user.uid,
+
+                targetType:
+                    "feeling",
+
+                targetId:
+                    feelingId,
+
+                reason,
+
+                status:
+                    "open",
+
+                createdAt:
+                    serverTimestamp()
             }
+        );
 
 
-            [
-                responseModal,
-                reportModal,
-                connectionModal,
-                moreModal,
-                safetyModal
-            ].forEach(
-                modal =>
-                    modal.classList.remove(
-                        "show"
+        closeReportModal();
+
+        showToast(
+            "Report submitted for review."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Report error:",
+            error
+        );
+
+        showToast(
+            friendlyError(error)
+        );
+
+    } finally {
+
+        state.reportLoading = false;
+
+        button.disabled = false;
+        button.textContent =
+            "Submit report";
+    }
+}
+
+
+/* =========================================================
+   BLOCK
+========================================================= */
+
+function openMoreModal(feelingId) {
+
+    state.selectedMoreFeelingId =
+        feelingId;
+
+    moreModal.classList.add("show");
+}
+
+
+function closeMoreModal() {
+
+    state.selectedMoreFeelingId =
+        null;
+
+    moreModal.classList.remove("show");
+}
+
+
+async function blockSelectedUser() {
+
+    if (!state.user) {
+        showToast("Please sign in first.");
+        return;
+    }
+
+    const feelingId =
+        state.selectedMoreFeelingId;
+
+    if (!feelingId) {
+        return;
+    }
+
+    const feeling =
+        state.allFeelings.find(
+            item =>
+                item.id === feelingId
+        );
+
+    if (!feeling) {
+        closeMoreModal();
+        return;
+    }
+
+    const targetUserId =
+        feeling.authorId;
+
+    if (!targetUserId) {
+        showToast("This user cannot be identified.");
+        return;
+    }
+
+    if (
+        targetUserId ===
+        state.user.uid
+    ) {
+        showToast("You cannot block yourself.");
+        closeMoreModal();
+        return;
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "Block this person? Their public feelings will be hidden from you."
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const blockId =
+            `${state.user.uid}_${targetUserId}`;
+
+        await setDoc(
+            doc(
+                db,
+                "blocks",
+                blockId
+            ),
+            {
+                blockerId:
+                    state.user.uid,
+
+                blockedUserId:
+                    targetUserId,
+
+                createdAt:
+                    serverTimestamp()
+            }
+        );
+
+
+        state.blockedUserIds.add(
+            targetUserId
+        );
+
+
+        state.allFeelings =
+            state.allFeelings.filter(
+                item =>
+                    item.authorId !==
+                    targetUserId
+            );
+
+
+        state.responseCache =
+            new Map(
+                [...state.responseCache]
+                    .filter(
+                        ([id]) =>
+                            state.allFeelings.some(
+                                feeling =>
+                                    feeling.id === id
+                            )
                     )
             );
 
 
-            selectedFeelingId =
-                null;
+        closeMoreModal();
 
-            selectedMoreFeelingId =
-                null;
+        applyFilters();
+
+        showToast(
+            "Person blocked. Their feelings are hidden."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Block error:",
+            error
+        );
+
+        showToast(
+            friendlyError(error)
+        );
+    }
+}
+
+
+/* =========================================================
+   COPY LINK
+========================================================= */
+
+async function copyFeelingLink() {
+
+    const feelingId =
+        state.selectedMoreFeelingId;
+
+    if (!feelingId) {
+        return;
+    }
+
+    const url =
+        `${window.location.origin}${window.location.pathname}#feeling-${encodeURIComponent(
+            feelingId
+        )}`;
+
+
+    try {
+
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            await navigator.clipboard.writeText(
+                url
+            );
+
+        } else {
+
+            const input =
+                document.createElement("textarea");
+
+            input.value = url;
+
+            input.style.position = "fixed";
+            input.style.opacity = "0";
+
+            document.body.appendChild(input);
+
+            input.focus();
+            input.select();
+
+            document.execCommand("copy");
+
+            input.remove();
         }
+
+        showToast("Feeling link copied.");
+
+    } catch (error) {
+
+        console.error(
+            "Copy error:",
+            error
+        );
+
+        showToast(
+            "Couldn't copy the link."
+        );
+    }
+
+    closeMoreModal();
+}
+
+
+/* =========================================================
+   CONNECTION
+========================================================= */
+
+function openConnectionModal(feelingId) {
+
+    state.selectedFeelingId =
+        feelingId || null;
+
+    connectionModal.classList.add("show");
+}
+
+
+function closeConnectionModal() {
+
+    connectionModal.classList.remove("show");
+
+    state.selectedFeelingId =
+        null;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(route) {
+
+    if (!route) {
+        return;
+    }
+
+    window.location.href =
+        route;
+}
+
+
+document
+    .querySelectorAll("[data-route]")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => navigate(
+                button.dataset.route
+            )
+        );
+    });
+
+
+$("notificationsButton")
+    .addEventListener(
+        "click",
+        () => navigate(
+            "notifications.html"
+        )
     );
 
 
-    /* =========================================================
-       LOGOUT SHORTCUT
-    ========================================================= */
+$("messagesButton")
+    .addEventListener(
+        "click",
+        () => navigate(
+            "messages.html"
+        )
+    );
 
-    document.addEventListener(
-        "keydown",
-        async event => {
 
-            if (
-                event.shiftKey &&
-                event.ctrlKey &&
-                event.key.toLowerCase() === "l"
-            ) {
+$("createFeelingButton")
+    .addEventListener(
+        "click",
+        () => navigate(
+            "app.html"
+        )
+    );
 
-                event.preventDefault();
 
-                try {
+$("safetyButton")
+    .addEventListener(
+        "click",
+        () =>
+            safetyModal.classList.add(
+                "show"
+            )
+    );
 
-                    await signOut(
-                        auth
-                    );
 
-                    window.location.href =
-                        "index.html";
+/* =========================================================
+   SEARCH
+========================================================= */
 
-                } catch (error) {
+function runSearch() {
+    applyFilters();
+}
 
-                    console.error(
-                        "Logout error:",
-                        error
-                    );
 
-                    showToast(
-                        "Couldn't sign out."
-                    );
-                }
+searchButton.addEventListener(
+    "click",
+    runSearch
+);
+
+
+searchInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            runSearch();
+        }
+    }
+);
+
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        clearTimeout(
+            state.searchTimer
+        );
+
+        state.searchTimer =
+            setTimeout(
+                runSearch,
+                180
+            );
+    }
+);
+
+
+moodFilter.addEventListener(
+    "change",
+    runSearch
+);
+
+
+topicFilter.addEventListener(
+    "change",
+    runSearch
+);
+
+
+sortSelect.addEventListener(
+    "change",
+    runSearch
+);
+
+
+function clearFilters() {
+
+    searchInput.value = "";
+
+    moodFilter.value = "all";
+
+    topicFilter.value = "all";
+
+    sortSelect.value = "newest";
+
+    applyFilters();
+
+    showToast(
+        "Search and filters cleared."
+    );
+}
+
+
+clearFiltersButton.addEventListener(
+    "click",
+    clearFilters
+);
+
+
+emptyClearButton.addEventListener(
+    "click",
+    clearFilters
+);
+
+
+retryButton.addEventListener(
+    "click",
+    loadDiscover
+);
+
+
+loadMoreButton.addEventListener(
+    "click",
+    loadMore
+);
+
+
+/* =========================================================
+   CARD EVENTS
+========================================================= */
+
+feelingsList.addEventListener(
+    "click",
+    async event => {
+
+        const button =
+            event.target.closest(
+                "[data-action]"
+            );
+
+        if (!button) {
+            return;
+        }
+
+        const action =
+            button.dataset.action;
+
+        const card =
+            button.closest(".card");
+
+        const feelingId =
+            button.dataset.feelingId ||
+            card?.dataset.feelingId;
+
+        if (!feelingId) {
+            return;
+        }
+
+
+        if (action === "understand") {
+
+            await toggleUnderstand(
+                feelingId,
+                button
+            );
+
+            return;
+        }
+
+
+        if (action === "respond") {
+
+            openResponseModal(
+                feelingId
+            );
+
+            return;
+        }
+
+
+        if (action === "connect") {
+
+            openConnectionModal(
+                feelingId
+            );
+
+            return;
+        }
+
+
+        if (action === "report") {
+
+            openReportModal(
+                feelingId
+            );
+
+            return;
+        }
+
+
+        if (action === "more") {
+
+            openMoreModal(
+                feelingId
+            );
+
+            return;
+        }
+
+
+        if (
+            action ===
+            "toggle-responses"
+        ) {
+
+            await showResponses(
+                feelingId,
+                card
+            );
+        }
+    }
+);
+
+
+/* =========================================================
+   RESPONSE EVENTS
+========================================================= */
+
+$("closeResponseButton")
+    .addEventListener(
+        "click",
+        closeResponseModal
+    );
+
+
+$("cancelResponseButton")
+    .addEventListener(
+        "click",
+        closeResponseModal
+    );
+
+
+$("submitResponseButton")
+    .addEventListener(
+        "click",
+        submitResponse
+    );
+
+
+/* =========================================================
+   REPORT EVENTS
+========================================================= */
+
+$("closeReportButton")
+    .addEventListener(
+        "click",
+        closeReportModal
+    );
+
+
+$("cancelReportButton")
+    .addEventListener(
+        "click",
+        closeReportModal
+    );
+
+
+$("submitReportButton")
+    .addEventListener(
+        "click",
+        submitReport
+    );
+
+
+/* =========================================================
+   CONNECTION EVENTS
+========================================================= */
+
+$("closeConnectionButton")
+    .addEventListener(
+        "click",
+        closeConnectionModal
+    );
+
+
+$("connectionCloseAction")
+    .addEventListener(
+        "click",
+        closeConnectionModal
+    );
+
+
+$("connectionInfoButton")
+    .addEventListener(
+        "click",
+        () =>
+            openConnectionModal(null)
+    );
+
+
+/* =========================================================
+   MORE EVENTS
+========================================================= */
+
+$("closeMoreButton")
+    .addEventListener(
+        "click",
+        closeMoreModal
+    );
+
+
+$("moreCopyButton")
+    .addEventListener(
+        "click",
+        copyFeelingLink
+    );
+
+
+$("moreReportButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            const feelingId =
+                state.selectedMoreFeelingId;
+
+            closeMoreModal();
+
+            if (feelingId) {
+                openReportModal(
+                    feelingId
+                );
             }
         }
     );
 
 
-    /* =========================================================
-       PUBLIC DEBUG API
-    ========================================================= */
+$("moreBlockButton")
+    .addEventListener(
+        "click",
+        blockSelectedUser
+    );
 
-    window.ListenMyFeelingsDiscover = {
 
-        reload:
-            loadDiscover,
+/* =========================================================
+   SAFETY
+========================================================= */
 
-        search:
-            runSearch,
+$("closeSafetyButton")
+    .addEventListener(
+        "click",
+        () =>
+            safetyModal.classList.remove(
+                "show"
+            )
+    );
 
-        clearFilters,
 
-        getCurrentFeelings:
-            () =>
-                [...visibleFeelings]
-    };
+$("safetyCloseAction")
+    .addEventListener(
+        "click",
+        () =>
+            safetyModal.classList.remove(
+                "show"
+            )
+    );
+
+
+/* =========================================================
+   MODAL BACKDROPS
+========================================================= */
+
+[
+    responseModal,
+    reportModal,
+    connectionModal,
+    moreModal,
+    safetyModal
+].forEach(modal => {
+
+    modal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target !==
+                modal
+            ) {
+                return;
+            }
+
+            modal.classList.remove(
+                "show"
+            );
+
+            state.selectedFeelingId =
+                null;
+
+            state.selectedMoreFeelingId =
+                null;
+        }
+    );
+});
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+        [
+            responseModal,
+            reportModal,
+            connectionModal,
+            moreModal,
+            safetyModal
+        ].forEach(
+            modal =>
+                modal.classList.remove(
+                    "show"
+                )
+        );
+
+        state.selectedFeelingId = null;
+        state.selectedMoreFeelingId = null;
+    }
+);
+
+
+/* =========================================================
+   LOGOUT SHORTCUT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    async event => {
+
+        if (
+            event.shiftKey &&
+            event.ctrlKey &&
+            event.key.toLowerCase() === "l"
+        ) {
+
+            event.preventDefault();
+
+            try {
+
+                await signOut(auth);
+
+                window.location.href =
+                    "index.html";
+
+            } catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+                showToast(
+                    "Couldn't sign out."
+                );
+            }
+        }
+    }
+);
+
+
+/* =========================================================
+   OPTIONAL DEBUG API
+========================================================= */
+
+window.ListenMyFeelingsDiscover = {
+
+    reload:
+        loadDiscover,
+
+    search:
+        runSearch,
+
+    clearFilters,
+
+    getCurrentFeelings:
+        () =>
+            [...state.visibleFeelings]
+};
 
 </script>
 
 </body>
-                    </html>
+    </html>
