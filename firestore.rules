@@ -1,0 +1,424 @@
+rules_version = '2';
+
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+
+    /* =========================================================
+       COMMON SECURITY HELPERS
+    ========================================================= */
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn()
+        && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.admin == true;
+    }
+
+    function validString(value, maxLength) {
+      return value is string
+        && value.size() <= maxLength;
+    }
+
+    function validFeelingText(value) {
+      return value is string
+        && value.size() > 0
+        && value.size() <= 2000;
+    }
+
+    function activeConnection(connectionId) {
+      return signedIn()
+        && exists(
+          /databases/$(database)/documents/connections/$(connectionId)
+        )
+        && get(
+          /databases/$(database)/documents/connections/$(connectionId)
+        ).data.status == "active"
+        && get(
+          /databases/$(database)/documents/connections/$(connectionId)
+        ).data.expiresAt > request.time
+        && (
+          get(
+            /databases/$(database)/documents/connections/$(connectionId)
+          ).data.userA == request.auth.uid
+          ||
+          get(
+            /databases/$(database)/documents/connections/$(connectionId)
+          ).data.userB == request.auth.uid
+        );
+    }
+
+
+    /* =========================================================
+       USERS
+    ========================================================= */
+
+    match /users/{userId} {
+
+      allow read: if signedIn()
+        && (
+          isOwner(userId)
+          || resource.data.profileVisibility == "public"
+        );
+
+      allow create: if isOwner(userId)
+        && request.resource.data.role == "user"
+        && request.resource.data.status == "active";
+
+      allow update: if isOwner(userId)
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.status == resource.data.status
+        && request.resource.data.diff(resource.data)
+             .affectedKeys()
+             .hasOnly([
+               "displayName",
+               "bio",
+               "avatarUrl",
+               "profileVisibility",
+               "updatedAt"
+             ]);
+
+      allow delete: if false;
+    }
+
+
+    /* =========================================================
+       FEELINGS
+    ========================================================= */
+
+    match /feelings/{feelingId} {
+
+      allow read: if signedIn()
+        && (
+          (
+            resource.data.visibility == "public"
+            && resource.data.status == "active"
+          )
+          ||
+          resource.data.authorId == request.auth.uid
+        );
+
+      allow create: if signedIn()
+        && request.resource.data.authorId == request.auth.uid
+        && validFeelingText(request.resource.data.text)
+        && request.resource.data.visibility == "public"
+        && request.resource.data.status == "active"
+        && request.resource.data.understoodCount == 0
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+
+      allow update: if signedIn()
+        && resource.data.authorId == request.auth.uid
+        && request.resource.data.authorId == resource.data.authorId
+        && request.resource.data.understoodCount
+             == resource.data.understoodCount
+        && request.resource.data.createdAt
+             == resource.data.createdAt
+        && request.resource.data.diff(resource.data)
+             .affectedKeys()
+             .hasOnly([
+               "text",
+               "mood",
+               "topic",
+               "visibility",
+               "updatedAt"
+             ])
+        && validFeelingText(request.resource.data.text);
+
+      allow delete: if signedIn()
+        && resource.data.authorId == request.auth.uid;
+
+
+      /* =======================================================
+         I UNDERSTAND REACTIONS
+      ======================================================= */
+
+      match /understands/{userId} {
+
+        allow read: if signedIn();
+
+        allow create: if isOwner(userId)
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.createdAt == request.time;
+
+        allow delete: if isOwner(userId);
+
+        allow update: if false;
+      }
+
+
+      /* =======================================================
+         RESPONSES
+      ======================================================= */
+
+      match /responses/{responseId} {
+
+        allow read: if signedIn();
+
+        allow create: if signedIn()
+          && request.resource.data.authorId == request.auth.uid
+          && validString(
+               request.resource.data.text,
+               2000
+             )
+          && request.resource.data.text.size() > 0
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.status == "active";
+
+        allow update: if signedIn()
+          && resource.data.authorId == request.auth.uid
+          && request.resource.data.authorId
+               == resource.data.authorId
+          && request.resource.data.createdAt
+               == resource.data.createdAt
+          && request.resource.data.diff(resource.data)
+               .affectedKeys()
+               .hasOnly([
+                 "text",
+                 "updatedAt"
+               ])
+          && validString(
+               request.resource.data.text,
+               2000
+             )
+          && request.resource.data.text.size() > 0;
+
+        allow delete: if signedIn()
+          && resource.data.authorId == request.auth.uid;
+      }
+    }
+
+
+    /* =========================================================
+       CONNECTIONS
+       
+       IMPORTANT:
+       Client is NEVER allowed to create or modify connections.
+       
+       Production flow:
+       Rewarded Ad
+            ↓
+       Ad provider verification
+            ↓
+       Trusted backend
+            ↓
+       Connection document
+            ↓
+       12-hour expiry
+    ========================================================= */
+
+    match /connections/{connectionId} {
+
+      allow read: if signedIn()
+        && (
+          resource.data.userA == request.auth.uid
+          ||
+          resource.data.userB == request.auth.uid
+        );
+
+      allow create: if false;
+
+      allow update: if false;
+
+      allow delete: if false;
+    }
+
+
+    /* =========================================================
+       AD UNLOCKS
+       
+       Client can read its own verified unlock history.
+       Client cannot create fake ad completions.
+    ========================================================= */
+
+    match /adUnlocks/{unlockId} {
+
+      allow read: if signedIn()
+        && resource.data.userId == request.auth.uid;
+
+      allow create: if false;
+
+      allow update: if false;
+
+      allow delete: if false;
+    }
+
+
+    /* =========================================================
+       CHATS
+       
+       Chat rooms are created by trusted backend.
+    ========================================================= */
+
+    match /chats/{chatId} {
+
+      allow read: if signedIn()
+        && (
+          resource.data.userA == request.auth.uid
+          ||
+          resource.data.userB == request.auth.uid
+        );
+
+      allow create: if false;
+
+      allow update: if false;
+
+      allow delete: if false;
+
+
+      /* =======================================================
+         CHAT MESSAGES
+         
+         chatId is expected to correspond to a connection.
+         Active connection is required.
+      ======================================================= */
+
+      match /messages/{messageId} {
+
+        allow read: if signedIn()
+          && activeConnection(chatId);
+
+        allow create: if signedIn()
+          && activeConnection(chatId)
+          && request.resource.data.senderId == request.auth.uid
+          && validString(
+               request.resource.data.text,
+               5000
+             )
+          && request.resource.data.text.size() > 0
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.status == "active";
+
+        allow update: if false;
+
+        allow delete: if false;
+      }
+    }
+
+
+    /* =========================================================
+       BLOCKS
+    ========================================================= */
+
+    match /blocks/{blockId} {
+
+      allow read: if signedIn()
+        && resource.data.blockerId == request.auth.uid;
+
+      allow create: if signedIn()
+        && request.resource.data.blockerId == request.auth.uid
+        && request.resource.data.blockedUserId is string
+        && request.resource.data.blockedUserId != request.auth.uid
+        && request.resource.data.createdAt == request.time;
+
+      allow delete: if signedIn()
+        && resource.data.blockerId == request.auth.uid;
+
+      allow update: if false;
+    }
+
+
+    /* =========================================================
+       REPORTS
+    ========================================================= */
+
+    match /reports/{reportId} {
+
+      allow create: if signedIn()
+        && request.resource.data.reporterId == request.auth.uid
+        && request.resource.data.reason is string
+        && request.resource.data.reason.size() > 0
+        && request.resource.data.reason.size() <= 1000
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.status == "open";
+
+      allow read: if isAdmin()
+        || (
+          signedIn()
+          && resource.data.reporterId == request.auth.uid
+        );
+
+      allow update: if isAdmin();
+
+      allow delete: if false;
+    }
+
+
+    /* =========================================================
+       NOTIFICATIONS
+       
+       Notifications are generated by trusted backend.
+    ========================================================= */
+
+    match /notifications/{notificationId} {
+
+      allow read: if signedIn()
+        && resource.data.userId == request.auth.uid;
+
+      allow create: if false;
+
+      allow update: if signedIn()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.diff(resource.data)
+             .affectedKeys()
+             .hasOnly([
+               "read",
+               "updatedAt"
+             ]);
+
+      allow delete: if signedIn()
+        && resource.data.userId == request.auth.uid;
+    }
+
+
+    /* =========================================================
+       SUBSCRIPTIONS
+       
+       V1 subscription system is NOT active.
+       Reserved for future implementation.
+    ========================================================= */
+
+    match /subscriptions/{subscriptionId} {
+
+      allow read: if false;
+
+      allow create: if false;
+
+      allow update: if false;
+
+      allow delete: if false;
+    }
+
+
+    /* =========================================================
+       ADMIN
+       
+       Admin-controlled collection.
+    ========================================================= */
+
+    match /admin/{documentId} {
+
+      allow read, write: if isAdmin();
+    }
+
+
+    /* =========================================================
+       EVERYTHING ELSE
+       
+       Default deny.
+    ========================================================= */
+
+    match /{document=**} {
+
+      allow read, write: if false;
+    }
+  }
+}
