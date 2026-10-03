@@ -17,11 +17,7 @@
     <meta name="theme-color" content="#09070f">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -32,15 +28,17 @@
 
     <style>
         :root {
-            --discover-bg: #09070f;
-            --discover-card: rgba(24, 19, 34, 0.94);
-            --discover-border: rgba(255, 255, 255, 0.09);
-            --discover-text: #ffffff;
-            --discover-muted: #a9a2b7;
-            --discover-accent: #a855f7;
-            --discover-accent-2: #ec4899;
-            --discover-danger: #fb7185;
-            --discover-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+            --bg: #09070f;
+            --card: rgba(24, 19, 34, .94);
+            --card2: rgba(30, 24, 43, .95);
+            --border: rgba(255,255,255,.09);
+            --text: #fff;
+            --muted: #aaa3b7;
+            --soft: #e9e2f0;
+            --purple: #a855f7;
+            --pink: #ec4899;
+            --danger: #fb7185;
+            --success: #34d399;
         }
 
         * {
@@ -57,16 +55,16 @@
             background:
                 radial-gradient(
                     circle at 10% 0%,
-                    rgba(168, 85, 247, 0.12),
-                    transparent 32%
-                ),
-                radial-gradient(
-                    circle at 90% 10%,
-                    rgba(236, 72, 153, 0.08),
+                    rgba(168,85,247,.13),
                     transparent 30%
                 ),
-                var(--discover-bg);
-            color: var(--discover-text);
+                radial-gradient(
+                    circle at 90% 8%,
+                    rgba(236,72,153,.08),
+                    transparent 28%
+                ),
+                var(--bg);
+            color: var(--text);
             font-family:
                 Inter,
                 system-ui,
@@ -88,65 +86,56 @@
         }
 
         button:disabled {
+            opacity: .55;
             cursor: not-allowed;
-            opacity: 0.6;
         }
 
-        .discover-shell {
+        .shell {
             width: min(1180px, calc(100% - 32px));
-            margin: 0 auto;
-            padding: 30px 0 110px;
+            margin: auto;
+            padding: 28px 0 115px;
         }
 
-        .discover-top {
+        .top {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 18px;
-            margin-bottom: 24px;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 22px;
         }
 
-        .discover-heading h1 {
+        h1 {
             margin: 0;
             font-size: clamp(28px, 5vw, 42px);
             letter-spacing: -1.5px;
         }
 
-        .discover-heading p {
+        .subtitle {
             margin: 8px 0 0;
-            color: var(--discover-muted);
+            color: var(--muted);
             font-size: 14px;
             line-height: 1.6;
         }
 
         .top-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .icon-btn {
+        .icon-button {
             width: 44px;
             height: 44px;
-            border: 1px solid var(--discover-border);
+            border: 1px solid var(--border);
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            display: grid;
-            place-items: center;
-            transition: 0.2s ease;
-        }
-
-        .icon-btn:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,.045);
+            color: white;
         }
 
         .search-panel {
-            padding: 18px;
-            border: 1px solid var(--discover-border);
+            padding: 15px;
+            border: 1px solid var(--border);
             border-radius: 22px;
-            background: var(--discover-card);
-            box-shadow: var(--discover-shadow);
+            background: var(--card);
             margin-bottom: 18px;
         }
 
@@ -156,143 +145,131 @@
             gap: 10px;
         }
 
-        .search-box {
+        .search-input-wrap {
             position: relative;
         }
 
-        .search-box span {
+        .search-input-wrap span {
             position: absolute;
-            left: 16px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            opacity: 0.6;
-            pointer-events: none;
+            opacity: .65;
         }
 
-        .search-box input {
+        .search-input {
             width: 100%;
             min-height: 52px;
-            padding: 0 16px 0 46px;
-            border: 1px solid var(--discover-border);
-            border-radius: 16px;
+            padding: 0 15px 0 45px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
             outline: none;
-            background: rgba(255, 255, 255, 0.055);
-            color: #fff;
+            background: rgba(255,255,255,.045);
+            color: white;
         }
 
-        .search-box input::placeholder {
-            color: #8f889c;
+        .search-input:focus {
+            border-color: rgba(168,85,247,.65);
+            box-shadow: 0 0 0 4px rgba(168,85,247,.08);
         }
 
-        .search-box input:focus {
-            border-color: rgba(168, 85, 247, 0.65);
-            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.08);
+        .search-input::placeholder {
+            color: #888091;
         }
 
-        .search-button,
-        .state-button {
+        .search-button {
             min-height: 52px;
             padding: 0 22px;
             border: 0;
-            border-radius: 16px;
-            color: #fff;
-            font-weight: 700;
-            background: linear-gradient(
-                135deg,
-                var(--discover-accent),
-                var(--discover-accent-2)
-            );
+            border-radius: 15px;
+            color: white;
+            font-weight: 800;
+            background: linear-gradient(135deg,var(--purple),var(--pink));
         }
 
-        .filter-row {
+        .filters {
             display: flex;
-            gap: 10px;
+            gap: 9px;
             overflow-x: auto;
-            padding-top: 14px;
+            padding-top: 12px;
             scrollbar-width: none;
         }
 
-        .filter-row::-webkit-scrollbar {
+        .filters::-webkit-scrollbar {
             display: none;
         }
 
-        .filter-select,
-        .sort-select {
-            min-width: 145px;
-            padding: 12px 14px;
-            border-radius: 13px;
-            border: 1px solid var(--discover-border);
-            background: rgba(255, 255, 255, 0.045);
-            color: #fff;
+        .filter,
+        .sort {
+            min-height: 42px;
+            padding: 0 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255,255,255,.045);
+            color: white;
             outline: none;
         }
 
-        .filter-select option,
-        .sort-select option {
+        .filter option,
+        .sort option {
             background: #181321;
-            color: #fff;
+            color: white;
         }
 
-        .clear-filter {
-            white-space: nowrap;
-            padding: 0 16px;
-            border-radius: 13px;
-            border: 1px solid rgba(251, 113, 133, 0.2);
-            background: rgba(251, 113, 133, 0.07);
+        .clear {
+            padding: 0 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(251,113,133,.22);
+            background: rgba(251,113,133,.07);
             color: #fda4af;
-            font-weight: 600;
+            white-space: nowrap;
         }
 
-        .content-layout {
+        .layout {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 300px;
+            grid-template-columns: minmax(0,1fr) 300px;
             gap: 20px;
-            align-items: start;
         }
 
-        .feed-column {
-            min-width: 0;
-        }
-
-        .feed-toolbar {
+        .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            margin: 4px 0 14px;
+            margin: 5px 0 14px;
         }
 
-        .result-count {
-            color: var(--discover-muted);
+        .count {
+            color: var(--muted);
             font-size: 13px;
         }
 
-        .feelings-list {
+        .list {
             display: grid;
-            gap: 14px;
+            gap: 15px;
         }
 
-        .feeling-card {
-            border: 1px solid var(--discover-border);
-            border-radius: 22px;
+        .card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 24px;
             background:
                 linear-gradient(
                     145deg,
-                    rgba(27, 21, 39, 0.96),
-                    rgba(18, 14, 27, 0.98)
+                    rgba(28,21,40,.97),
+                    rgba(17,13,25,.98)
                 );
-            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            box-shadow: 0 18px 50px rgba(0,0,0,.22);
         }
 
-        .feeling-card-inner {
+        .card-inner {
             padding: 20px;
         }
 
-        .feeling-author {
+        .author {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             gap: 12px;
         }
 
@@ -304,195 +281,189 @@
         }
 
         .avatar {
-            width: 44px;
-            height: 44px;
-            flex: 0 0 44px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
             display: grid;
             place-items: center;
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(168, 85, 247, 0.9),
-                    rgba(236, 72, 153, 0.9)
-                );
+            border-radius: 50%;
+            color: white;
             font-weight: 800;
-            color: #fff;
+            background: linear-gradient(
+                135deg,
+                #a855f7,
+                #ec4899
+            );
         }
 
         .author-name {
-            font-weight: 700;
-            white-space: nowrap;
+            font-weight: 800;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .feeling-time {
-            margin-top: 3px;
-            color: var(--discover-muted);
+        .time {
+            margin-top: 4px;
+            color: var(--muted);
             font-size: 12px;
         }
 
-        .more-button {
-            width: 36px;
-            height: 36px;
-            border-radius: 11px;
+        .more {
+            width: 38px;
+            height: 38px;
             border: 0;
-            background: rgba(255, 255, 255, 0.045);
-            color: #fff;
+            border-radius: 12px;
+            background: rgba(255,255,255,.045);
+            color: white;
+            font-size: 21px;
         }
 
-        .feeling-meta {
+        .meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 7px;
+            gap: 8px;
             margin-top: 18px;
         }
 
-        .meta-pill {
-            padding: 6px 9px;
+        .pill {
+            padding: 7px 10px;
             border-radius: 999px;
-            font-size: 11px;
-            font-weight: 600;
             color: #ddd6fe;
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.14);
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(139,92,246,.11);
+            border: 1px solid rgba(139,92,246,.16);
         }
 
-        .feeling-text {
-            margin: 15px 0 0;
-            color: #f3eff8;
-            line-height: 1.72;
-            font-size: 15px;
+        .text {
+            margin: 28px 0 0;
+            min-height: 90px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: #f5eff8;
+            font-size: 18px;
+            line-height: 1.7;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
-        .feeling-actions {
+        .actions {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 8px;
-            margin-top: 19px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.065);
+            grid-template-columns: repeat(2,1fr);
+            gap: 9px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,.065);
         }
 
-        .action-button {
-            min-height: 42px;
-            padding: 0 13px;
-            border-radius: 12px;
-            border: 1px solid var(--discover-border);
-            background: rgba(255, 255, 255, 0.035);
-            color: #e9e3f0;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.18s ease;
+        .action {
+            min-height: 48px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.035);
+            color: #eee8f3;
+            font-weight: 700;
+            transition: .18s ease;
         }
 
-        .action-button:hover {
-            background: rgba(255, 255, 255, 0.075);
-            transform: translateY(-1px);
+        .action:hover {
+            background: rgba(255,255,255,.075);
         }
 
-        .action-button.active {
+        .action.active {
             color: #f0abfc;
-            border-color: rgba(217, 70, 239, 0.3);
-            background: rgba(217, 70, 239, 0.1);
+            border-color: rgba(217,70,239,.35);
+            background: rgba(217,70,239,.12);
         }
 
-        .action-button.connect {
+        .connect {
             color: #ddd6fe;
-            border-color: rgba(168, 85, 247, 0.25);
-            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168,85,247,.25);
+            background: rgba(168,85,247,.08);
         }
 
-        .action-button.danger {
+        .report {
             color: #fda4af;
         }
 
-        .response-section {
-            margin-top: 14px;
+        .responses {
+            margin-top: 16px;
             padding: 14px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 18px;
+            background: rgba(255,255,255,.025);
         }
 
-        .response-header {
+        .responses-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             gap: 10px;
+            font-weight: 800;
         }
 
-        .response-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #ddd6fe;
-        }
-
-        .response-toggle {
+        .toggle-responses {
             border: 0;
             background: transparent;
             color: #c084fc;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px;
+            font-weight: 800;
         }
 
-        .responses-list {
+        .response-list {
             display: grid;
             gap: 9px;
-            margin-top: 10px;
+            margin-top: 13px;
         }
 
         .response-item {
-            padding: 10px 11px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.035);
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.045);
         }
 
         .response-author {
-            font-size: 11px;
-            font-weight: 700;
-            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .response-author strong {
+            color: white;
         }
 
         .response-time {
-            margin-left: 6px;
-            color: #82798e;
-            font-size: 10px;
-            font-weight: 400;
+            color: #81798d;
         }
 
         .response-text {
-            margin-top: 5px;
-            color: #d8d1df;
-            font-size: 12px;
-            line-height: 1.55;
+            margin-top: 13px;
+            color: #ddd7e4;
+            line-height: 1.65;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
-        .response-loading,
-        .response-empty {
-            margin-top: 10px;
-            color: var(--discover-muted);
-            font-size: 12px;
+        .no-responses {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 13px;
         }
 
         .sidebar {
             position: sticky;
-            top: 20px;
+            top: 18px;
             display: grid;
             gap: 14px;
         }
 
         .side-card {
             padding: 18px;
-            border: 1px solid var(--discover-border);
+            border: 1px solid var(--border);
             border-radius: 20px;
-            background: var(--discover-card);
+            background: var(--card);
         }
 
         .side-card h3 {
@@ -502,58 +473,54 @@
 
         .side-card p {
             margin: 9px 0 0;
-            color: var(--discover-muted);
+            color: var(--muted);
             font-size: 13px;
             line-height: 1.65;
         }
 
-        .side-link {
+        .side-button {
             width: 100%;
-            margin-top: 12px;
-            padding: 11px 13px;
-            text-align: left;
+            margin-top: 13px;
+            min-height: 44px;
             border-radius: 12px;
-            border: 1px solid var(--discover-border);
-            background: rgba(255, 255, 255, 0.035);
-            color: #fff;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.04);
+            color: white;
+            font-weight: 700;
         }
 
-        .ad-box {
+        .ad {
             min-height: 120px;
             display: grid;
             place-items: center;
             text-align: center;
-            padding: 20px;
-            border: 1px dashed rgba(255, 255, 255, 0.13);
-            border-radius: 18px;
             color: #81798d;
-            background: rgba(255, 255, 255, 0.025);
-            font-size: 12px;
+            font-size: 11px;
+            border: 1px dashed rgba(255,255,255,.13);
+            border-radius: 17px;
         }
 
-        .loading-state,
-        .empty-state,
-        .error-state {
-            padding: 40px 20px;
-            border: 1px solid var(--discover-border);
+        .state {
+            padding: 45px 20px;
+            border: 1px solid var(--border);
             border-radius: 20px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.025);
+            background: rgba(255,255,255,.025);
         }
 
         .state-icon {
             font-size: 30px;
-            margin-bottom: 10px;
         }
 
         .state-title {
-            font-weight: 700;
+            margin-top: 10px;
+            font-weight: 800;
         }
 
         .state-text {
-            margin: 7px auto 0;
             max-width: 440px;
-            color: var(--discover-muted);
+            margin: 8px auto 0;
+            color: var(--muted);
             font-size: 13px;
             line-height: 1.6;
         }
@@ -561,8 +528,12 @@
         .state-button {
             margin-top: 16px;
             min-height: 42px;
-            padding: 0 15px;
+            padding: 0 16px;
+            border: 0;
             border-radius: 12px;
+            background: linear-gradient(135deg,var(--purple),var(--pink));
+            color: white;
+            font-weight: 800;
         }
 
         .load-more-wrap {
@@ -574,168 +545,15 @@
         .load-more {
             min-height: 44px;
             padding: 0 20px;
+            border: 1px solid var(--border);
             border-radius: 13px;
-            border: 1px solid var(--discover-border);
-            background: rgba(255, 255, 255, 0.045);
-            color: #fff;
-            font-weight: 700;
+            background: rgba(255,255,255,.045);
+            color: white;
+            font-weight: 800;
         }
 
         .hidden {
             display: none !important;
-        }
-
-        /* =====================================================
-           MODAL FIX
-           This intentionally overrides style.css conflicts.
-        ===================================================== */
-
-        .modal-backdrop {
-            position: fixed !important;
-            inset: 0 !important;
-            z-index: 5000 !important;
-            display: none !important;
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 18px !important;
-            background: rgba(0, 0, 0, 0.74) !important;
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
-        }
-
-        .modal-backdrop.show {
-            display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-
-        .modal-backdrop .modal {
-            position: relative !important;
-            z-index: 5001 !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            filter: none !important;
-            transform: none !important;
-
-            width: min(500px, 100%) !important;
-            max-height: min(700px, calc(100vh - 36px)) !important;
-            overflow-y: auto !important;
-
-            padding: 22px !important;
-
-            border: 1px solid rgba(255, 255, 255, 0.12) !important;
-            border-radius: 22px !important;
-
-            background: #17111f !important;
-            color: #ffffff !important;
-
-            box-shadow:
-                0 30px 100px rgba(0, 0, 0, 0.65) !important;
-        }
-
-        .modal-backdrop .modal-header {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            gap: 10px !important;
-        }
-
-        .modal-backdrop .modal-header h2 {
-            margin: 0 !important;
-            color: #ffffff !important;
-            font-size: 19px !important;
-        }
-
-        .modal-backdrop .modal p {
-            color: #a9a2b7 !important;
-            font-size: 13px !important;
-            line-height: 1.65 !important;
-        }
-
-        .modal-backdrop .modal textarea {
-            display: block !important;
-            width: 100% !important;
-            min-height: 130px !important;
-            resize: vertical !important;
-
-            padding: 13px !important;
-
-            border: 1px solid rgba(255, 255, 255, 0.11) !important;
-            border-radius: 14px !important;
-
-            background: rgba(255, 255, 255, 0.06) !important;
-            color: #ffffff !important;
-
-            outline: none !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
-        .modal-backdrop .modal textarea::placeholder {
-            color: #888094 !important;
-        }
-
-        .modal-backdrop .modal textarea:focus {
-            border-color: rgba(168, 85, 247, 0.65) !important;
-            box-shadow:
-                0 0 0 4px rgba(168, 85, 247, 0.08) !important;
-        }
-
-        .modal-backdrop .modal-actions {
-            display: flex !important;
-            justify-content: flex-end !important;
-            gap: 9px !important;
-            margin-top: 14px !important;
-        }
-
-        .modal-backdrop .modal-actions.stack {
-            flex-direction: column !important;
-        }
-
-        .modal-backdrop .modal-button {
-            min-height: 42px !important;
-            padding: 0 15px !important;
-            border-radius: 12px !important;
-
-            border: 1px solid rgba(255, 255, 255, 0.10) !important;
-
-            background: rgba(255, 255, 255, 0.06) !important;
-            color: #ffffff !important;
-
-            font-weight: 700 !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
-        .modal-backdrop .modal-button.primary {
-            border: 0 !important;
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--discover-accent),
-                    var(--discover-accent-2)
-                ) !important;
-            color: #ffffff !important;
-        }
-
-        .modal-backdrop .modal-button.danger {
-            color: #fda4af !important;
-        }
-
-        .modal-backdrop .modal-close {
-            width: 36px !important;
-            height: 36px !important;
-            flex: 0 0 36px !important;
-
-            border: 0 !important;
-            border-radius: 11px !important;
-
-            background: rgba(255, 255, 255, 0.07) !important;
-            color: #ffffff !important;
-
-            opacity: 1 !important;
-            visibility: visible !important;
         }
 
         .bottom-nav {
@@ -744,16 +562,16 @@
             left: 50%;
             bottom: 12px;
             transform: translateX(-50%);
-            width: min(680px, calc(100% - 22px));
+            width: min(680px,calc(100% - 22px));
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            padding: 8px;
+            grid-template-columns: repeat(5,1fr);
             gap: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 21px;
-            background: rgba(14, 10, 20, 0.92);
+            padding: 8px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 22px;
+            background: rgba(14,10,20,.94);
             backdrop-filter: blur(20px);
-            box-shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
+            box-shadow: 0 18px 55px rgba(0,0,0,.45);
         }
 
         .bottom-nav button {
@@ -764,78 +582,178 @@
             color: #898292;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             gap: 3px;
             font-size: 10px;
         }
 
-        .bottom-nav button strong {
+        .bottom-nav strong {
             font-size: 18px;
-            line-height: 1;
         }
 
-        .bottom-nav button.active {
-            color: #fff;
-            background: rgba(168, 85, 247, 0.13);
+        .bottom-nav .active {
+            color: white;
+            background: rgba(168,85,247,.14);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(9px);
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal {
+            width: min(500px,100%);
+            max-height: calc(100vh - 36px);
+            overflow-y: auto;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 23px;
+            background: #17111f;
+            box-shadow: 0 30px 100px rgba(0,0,0,.55);
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .close {
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 12px;
+            background: rgba(255,255,255,.06);
+            color: white;
+            font-size: 20px;
+        }
+
+        .modal p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .modal textarea {
+            width: 100%;
+            min-height: 140px;
+            resize: vertical;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            outline: none;
+            background: rgba(255,255,255,.045);
+            color: white;
+        }
+
+        .modal textarea:focus {
+            border-color: rgba(168,85,247,.7);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .modal-button {
+            min-height: 44px;
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(255,255,255,.05);
+            color: white;
+            font-weight: 800;
+        }
+
+        .modal-primary {
+            border: 0;
+            background: linear-gradient(135deg,var(--purple),var(--pink));
+        }
+
+        .option-list {
+            display: grid;
+            gap: 9px;
+            margin-top: 16px;
+        }
+
+        .option-button {
+            width: 100%;
+            min-height: 48px;
+            text-align: left;
+            padding: 0 15px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255,255,255,.045);
+            color: white;
+            font-weight: 700;
+        }
+
+        .option-button.danger {
+            color: #fda4af;
         }
 
         .toast {
             position: fixed;
-            z-index: 10000;
+            z-index: 1000;
             left: 50%;
             bottom: 90px;
-            transform: translate(-50%, 20px);
+            transform: translate(-50%,20px);
+            width: min(430px,calc(100% - 30px));
+            padding: 13px 16px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 14px;
+            background: rgba(20,15,28,.97);
+            color: white;
+            text-align: center;
+            font-size: 13px;
             opacity: 0;
             pointer-events: none;
-            width: min(430px, calc(100% - 30px));
-            padding: 13px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            background: rgba(20, 15, 28, 0.97);
-            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-            color: #fff;
-            font-size: 13px;
-            text-align: center;
-            transition: 0.22s ease;
+            transition: .22s ease;
         }
 
         .toast.show {
             opacity: 1;
-            transform: translate(-50%, 0);
+            transform: translate(-50%,0);
         }
 
         @media (max-width: 900px) {
-
-            .content-layout {
+            .layout {
                 grid-template-columns: 1fr;
             }
 
             .sidebar {
                 position: static;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
         @media (max-width: 640px) {
-
-            .discover-shell {
-                width: min(100% - 20px, 1180px);
-                padding-top: 20px;
-                padding-bottom: 105px;
-            }
-
-            .discover-top {
-                align-items: flex-start;
+            .shell {
+                width: calc(100% - 20px);
+                padding-top: 18px;
             }
 
             .top-actions {
                 display: none;
-            }
-
-            .search-panel {
-                padding: 13px;
-                border-radius: 18px;
             }
 
             .search-row {
@@ -846,53 +764,41 @@
                 width: 100%;
             }
 
-            .sidebar {
-                grid-template-columns: 1fr;
-            }
-
-            .feeling-card-inner {
+            .card-inner {
                 padding: 16px;
             }
 
-            .feeling-actions {
-                grid-template-columns: repeat(2, 1fr);
+            .text {
+                min-height: 105px;
+                font-size: 17px;
             }
 
-            .modal-backdrop {
-                padding: 14px !important;
+            .actions {
+                grid-template-columns: repeat(2,1fr);
             }
 
-            .modal-backdrop .modal {
-                width: 100% !important;
-                max-height: calc(100vh - 28px) !important;
-                padding: 18px !important;
-                border-radius: 20px !important;
+            .sidebar {
+                display: grid;
             }
 
-            .modal-backdrop .modal-actions {
-                flex-direction: column !important;
-            }
-
-            .modal-backdrop .modal-button {
-                width: 100% !important;
+            .toolbar {
+                align-items: flex-start;
             }
         }
 
         @media (min-width: 801px) {
-
             .bottom-nav {
                 display: none;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
-
             *,
             *::before,
             *::after {
-                scroll-behavior: auto !important;
-                transition: none !important;
                 animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -900,25 +806,23 @@
 
 <body>
 
-<main class="discover-shell">
+<main class="shell">
 
-    <section class="discover-top">
+    <section class="top">
 
-        <div class="discover-heading">
-
+        <div>
             <h1>Discover</h1>
 
-            <p>
+            <p class="subtitle">
                 Explore real feelings shared publicly by people in the community.
             </p>
-
         </div>
 
         <div class="top-actions">
 
             <button
-                class="icon-btn"
                 id="notificationsButton"
+                class="icon-button"
                 type="button"
                 aria-label="Notifications"
             >
@@ -926,8 +830,8 @@
             </button>
 
             <button
-                class="icon-btn"
                 id="messagesButton"
+                class="icon-button"
                 type="button"
                 aria-label="Messages"
             >
@@ -943,24 +847,24 @@
 
         <div class="search-row">
 
-            <div class="search-box">
+            <div class="search-input-wrap">
 
-                <span aria-hidden="true">🔎</span>
+                <span>🔎</span>
 
                 <input
                     id="searchInput"
+                    class="search-input"
                     type="search"
                     maxlength="100"
                     autocomplete="off"
                     placeholder="Search feelings, topics or words..."
-                    aria-label="Search feelings"
                 >
 
             </div>
 
             <button
-                class="search-button"
                 id="searchButton"
+                class="search-button"
                 type="button"
             >
                 Search
@@ -969,12 +873,11 @@
         </div>
 
 
-        <div class="filter-row">
+        <div class="filters">
 
             <select
                 id="moodFilter"
-                class="filter-select"
-                aria-label="Filter by mood"
+                class="filter"
             >
                 <option value="all">All moods</option>
                 <option value="happy">😊 Happy</option>
@@ -992,8 +895,7 @@
 
             <select
                 id="topicFilter"
-                class="filter-select"
-                aria-label="Filter by topic"
+                class="filter"
             >
                 <option value="all">All topics</option>
                 <option value="self">Self</option>
@@ -1009,8 +911,8 @@
 
 
             <button
-                class="clear-filter"
                 id="clearFiltersButton"
+                class="clear"
                 type="button"
             >
                 Clear
@@ -1021,23 +923,23 @@
     </section>
 
 
-    <section class="content-layout">
+    <section class="layout">
 
-        <div class="feed-column">
+        <div>
 
-            <div class="feed-toolbar">
+            <div class="toolbar">
 
                 <span
-                    class="result-count"
                     id="resultCount"
+                    class="count"
                 >
                     Loading feelings...
                 </span>
 
+
                 <select
                     id="sortSelect"
-                    class="sort-select"
-                    aria-label="Sort feelings"
+                    class="sort"
                 >
                     <option value="newest">Newest</option>
                     <option value="oldest">Oldest</option>
@@ -1048,12 +950,9 @@
 
             <div
                 id="loadingState"
-                class="loading-state"
+                class="state"
             >
-
-                <div class="state-icon">
-                    ⏳
-                </div>
+                <div class="state-icon">⏳</div>
 
                 <div class="state-title">
                     Finding feelings...
@@ -1062,49 +961,41 @@
                 <div class="state-text">
                     We're loading public feelings from the community.
                 </div>
-
             </div>
 
 
             <div
                 id="errorState"
-                class="error-state hidden"
+                class="state hidden"
             >
-
-                <div class="state-icon">
-                    ⚠️
-                </div>
+                <div class="state-icon">⚠️</div>
 
                 <div class="state-title">
                     Couldn't load Discover
                 </div>
 
                 <div
-                    class="state-text"
                     id="errorText"
+                    class="state-text"
                 >
-                    Something went wrong while loading public feelings.
+                    Something went wrong.
                 </div>
 
                 <button
-                    class="state-button"
                     id="retryButton"
+                    class="state-button"
                     type="button"
                 >
                     Try again
                 </button>
-
             </div>
 
 
             <div
                 id="emptyState"
-                class="empty-state hidden"
+                class="state hidden"
             >
-
-                <div class="state-icon">
-                    🌙
-                </div>
+                <div class="state-icon">🌙</div>
 
                 <div class="state-title">
                     No feelings found
@@ -1115,19 +1006,18 @@
                 </div>
 
                 <button
-                    class="state-button"
                     id="emptyClearButton"
+                    class="state-button"
                     type="button"
                 >
                     Clear search
                 </button>
-
             </div>
 
 
             <div
                 id="feelingsList"
-                class="feelings-list"
+                class="list"
             ></div>
 
 
@@ -1135,7 +1025,6 @@
                 id="loadMoreWrap"
                 class="load-more-wrap hidden"
             >
-
                 <button
                     id="loadMoreButton"
                     class="load-more"
@@ -1143,7 +1032,6 @@
                 >
                     Load more
                 </button>
-
             </div>
 
         </div>
@@ -1153,9 +1041,7 @@
 
             <section class="side-card">
 
-                <h3>
-                    What is Discover?
-                </h3>
+                <h3>What is Discover?</h3>
 
                 <p>
                     Find public feelings shared by people who chose to express
@@ -1163,8 +1049,8 @@
                 </p>
 
                 <button
-                    class="side-link"
                     id="createFeelingButton"
+                    class="side-button"
                     type="button"
                 >
                     ✍️ Share your feeling
@@ -1175,18 +1061,16 @@
 
             <section class="side-card">
 
-                <h3>
-                    Connection
-                </h3>
+                <h3>Connection</h3>
 
                 <p>
-                    Connection access is protected by verified rewarded-ad
-                    verification and trusted server authorization.
+                    Connection access uses verified rewarded ads and a trusted
+                    12-hour authorization system.
                 </p>
 
                 <button
-                    class="side-link"
                     id="connectionInfoButton"
+                    class="side-button"
                     type="button"
                 >
                     🤝 How connection works
@@ -1197,9 +1081,7 @@
 
             <section class="side-card">
 
-                <h3>
-                    Stay safe
-                </h3>
+                <h3>Stay safe</h3>
 
                 <p>
                     Never share passwords, OTPs, financial information or
@@ -1207,8 +1089,8 @@
                 </p>
 
                 <button
-                    class="side-link"
                     id="safetyButton"
+                    class="side-button"
                     type="button"
                 >
                     🛡️ Safety & reporting
@@ -1219,21 +1101,12 @@
 
             <section class="side-card">
 
-                <div class="ad-box">
-
+                <div class="ad">
                     <div>
-
-                        <strong>
-                            ADVERTISEMENT
-                        </strong>
-
-                        <br>
-                        <br>
-
-                        Ad space reserved for the approved advertising provider.
-
+                        <strong>ADVERTISEMENT</strong>
+                        <br><br>
+                        Approved advertising provider space
                     </div>
-
                 </div>
 
             </section>
@@ -1258,7 +1131,6 @@
         Home
     </button>
 
-
     <button
         type="button"
         class="active"
@@ -1268,7 +1140,6 @@
         Discover
     </button>
 
-
     <button
         type="button"
         data-route="notifications.html"
@@ -1277,7 +1148,6 @@
         Alerts
     </button>
 
-
     <button
         type="button"
         data-route="messages.html"
@@ -1285,7 +1155,6 @@
         <strong>◌</strong>
         Messages
     </button>
-
 
     <button
         type="button"
@@ -1298,31 +1167,23 @@
 </nav>
 
 
-<!-- =========================================================
-     RESPONSE MODAL
-========================================================= -->
+<!-- RESPONSE MODAL -->
 
 <div
     id="responseModal"
     class="modal-backdrop"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="responseTitle"
 >
 
     <div class="modal">
 
-        <div class="modal-header">
+        <div class="modal-head">
 
-            <h2 id="responseTitle">
-                Respond with empathy
-            </h2>
+            <h2>Respond with empathy</h2>
 
             <button
                 id="closeResponseButton"
-                class="modal-close"
+                class="close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
@@ -1352,7 +1213,7 @@
 
             <button
                 id="submitResponseButton"
-                class="modal-button primary"
+                class="modal-button modal-primary"
                 type="button"
             >
                 Send response
@@ -1365,31 +1226,23 @@
 </div>
 
 
-<!-- =========================================================
-     REPORT MODAL
-========================================================= -->
+<!-- REPORT MODAL -->
 
 <div
     id="reportModal"
     class="modal-backdrop"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="reportTitle"
 >
 
     <div class="modal">
 
-        <div class="modal-header">
+        <div class="modal-head">
 
-            <h2 id="reportTitle">
-                Report feeling
-            </h2>
+            <h2>Report feeling</h2>
 
             <button
                 id="closeReportButton"
-                class="modal-close"
+                class="close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
@@ -1418,7 +1271,7 @@
 
             <button
                 id="submitReportButton"
-                class="modal-button primary"
+                class="modal-button modal-primary"
                 type="button"
             >
                 Submit report
@@ -1431,31 +1284,23 @@
 </div>
 
 
-<!-- =========================================================
-     CONNECTION MODAL
-========================================================= -->
+<!-- CONNECTION MODAL -->
 
 <div
     id="connectionModal"
     class="modal-backdrop"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="connectionTitle"
 >
 
     <div class="modal">
 
-        <div class="modal-header">
+        <div class="modal-head">
 
-            <h2 id="connectionTitle">
-                Connect safely
-            </h2>
+            <h2>Connect safely</h2>
 
             <button
                 id="closeConnectionButton"
-                class="modal-close"
+                class="close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
@@ -1463,28 +1308,25 @@
         </div>
 
         <p>
-            A connection becomes available only after rewarded-ad
-            verification is confirmed by the trusted backend.
+            A connection cannot be created safely by frontend code alone.
+            The final connection must be authorized by the trusted backend
+            after the rewarded-ad provider verifies the completed ad.
         </p>
 
         <p>
-            After successful verification, the backend can authorize
-            the connection for the defined 12-hour period.
-        </p>
-
-        <p>
-            This page will never create a fake connection or trust
-            a client-side timer.
+            Once authorized, the backend will create the connection with
+            a 12-hour server-controlled expiry. This prevents users from
+            modifying browser storage or timers to bypass the rule.
         </p>
 
         <div class="modal-actions">
 
             <button
-                id="connectionUnderstandButton"
-                class="modal-button primary"
+                id="connectionCloseAction"
+                class="modal-button modal-primary"
                 type="button"
             >
-                Continue
+                Continue safely
             </button>
 
         </div>
@@ -1494,42 +1336,34 @@
 </div>
 
 
-<!-- =========================================================
-     MORE MODAL
-========================================================= -->
+<!-- MORE MODAL -->
 
 <div
     id="moreModal"
     class="modal-backdrop"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="moreTitle"
 >
 
     <div class="modal">
 
-        <div class="modal-header">
+        <div class="modal-head">
 
-            <h2 id="moreTitle">
-                Feeling options
-            </h2>
+            <h2>Feeling options</h2>
 
             <button
                 id="closeMoreButton"
-                class="modal-close"
+                class="close"
                 type="button"
-                aria-label="Close"
             >
                 ✕
             </button>
 
         </div>
 
-        <div class="modal-actions stack">
+        <div class="option-list">
 
             <button
                 id="moreReportButton"
-                class="modal-button"
+                class="option-button danger"
                 type="button"
             >
                 🚩 Report this feeling
@@ -1537,7 +1371,7 @@
 
             <button
                 id="moreBlockButton"
-                class="modal-button danger"
+                class="option-button danger"
                 type="button"
             >
                 🚫 Block this person
@@ -1545,10 +1379,61 @@
 
             <button
                 id="moreCopyButton"
-                class="modal-button"
+                class="option-button"
                 type="button"
             >
                 🔗 Copy feeling link
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SAFETY MODAL -->
+
+<div
+    id="safetyModal"
+    class="modal-backdrop"
+>
+
+    <div class="modal">
+
+        <div class="modal-head">
+
+            <h2>Safety & reporting</h2>
+
+            <button
+                id="closeSafetyButton"
+                class="close"
+                type="button"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <p>
+            If you see harassment, hate, sexual content, spam,
+            privacy violations or other harmful behaviour, use
+            Report. You can also block a user from a feeling's menu.
+        </p>
+
+        <p>
+            Never share OTPs, passwords, banking details or private
+            identification with people you meet online.
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                id="safetyCloseAction"
+                class="modal-button modal-primary"
+                type="button"
+            >
+                Got it
             </button>
 
         </div>
@@ -1586,10 +1471,11 @@
         where,
         limit,
         getDocs,
-        getDoc,
+        getCountFromServer,
         doc,
         setDoc,
         deleteDoc,
+        getDoc,
         addDoc,
         serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -1600,33 +1486,36 @@
     ========================================================= */
 
     const MAX_RESULTS = 100;
-    const PAGE_SIZE = 30;
+    const PAGE_SIZE = 20;
     const MAX_RESPONSE_LENGTH = 2000;
     const MAX_REPORT_LENGTH = 1000;
 
 
-    const feelingCache =
-        new Map();
-
-
-    const responseCache =
-        new Map();
-
+    /* =========================================================
+       STATE
+    ========================================================= */
 
     let currentUser = null;
 
     let allFeelings = [];
-
     let visibleFeelings = [];
-
-    let blockedUserIds =
-        new Set();
 
     let renderedCount = 0;
 
-    let selectedFeelingId = null;
+    let blockedUserIds = new Set();
 
+    let selectedFeelingId = null;
     let selectedMoreFeelingId = null;
+
+    let responseCache = new Map();
+
+    let expandedResponses = new Set();
+
+    let understandLoading = new Set();
+
+    let responseLoading = new Set();
+
+    let reportLoading = false;
 
     let searchTimer = null;
 
@@ -1636,209 +1525,112 @@
     ========================================================= */
 
     const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
-
+        document.getElementById("searchInput");
 
     const searchButton =
-        document.getElementById(
-            "searchButton"
-        );
-
+        document.getElementById("searchButton");
 
     const moodFilter =
-        document.getElementById(
-            "moodFilter"
-        );
-
+        document.getElementById("moodFilter");
 
     const topicFilter =
-        document.getElementById(
-            "topicFilter"
-        );
-
+        document.getElementById("topicFilter");
 
     const clearFiltersButton =
-        document.getElementById(
-            "clearFiltersButton"
-        );
-
+        document.getElementById("clearFiltersButton");
 
     const sortSelect =
-        document.getElementById(
-            "sortSelect"
-        );
-
-
-    const feelingsList =
-        document.getElementById(
-            "feelingsList"
-        );
-
-
-    const loadingState =
-        document.getElementById(
-            "loadingState"
-        );
-
-
-    const emptyState =
-        document.getElementById(
-            "emptyState"
-        );
-
-
-    const errorState =
-        document.getElementById(
-            "errorState"
-        );
-
-
-    const errorText =
-        document.getElementById(
-            "errorText"
-        );
-
-
-    const retryButton =
-        document.getElementById(
-            "retryButton"
-        );
-
-
-    const emptyClearButton =
-        document.getElementById(
-            "emptyClearButton"
-        );
-
+        document.getElementById("sortSelect");
 
     const resultCount =
-        document.getElementById(
-            "resultCount"
-        );
+        document.getElementById("resultCount");
 
+    const feelingsList =
+        document.getElementById("feelingsList");
+
+    const loadingState =
+        document.getElementById("loadingState");
+
+    const errorState =
+        document.getElementById("errorState");
+
+    const emptyState =
+        document.getElementById("emptyState");
+
+    const errorText =
+        document.getElementById("errorText");
+
+    const retryButton =
+        document.getElementById("retryButton");
+
+    const emptyClearButton =
+        document.getElementById("emptyClearButton");
 
     const loadMoreWrap =
-        document.getElementById(
-            "loadMoreWrap"
-        );
-
+        document.getElementById("loadMoreWrap");
 
     const loadMoreButton =
-        document.getElementById(
-            "loadMoreButton"
-        );
-
+        document.getElementById("loadMoreButton");
 
     const responseModal =
-        document.getElementById(
-            "responseModal"
-        );
-
+        document.getElementById("responseModal");
 
     const responseInput =
-        document.getElementById(
-            "responseInput"
-        );
-
+        document.getElementById("responseInput");
 
     const reportModal =
-        document.getElementById(
-            "reportModal"
-        );
-
+        document.getElementById("reportModal");
 
     const reportInput =
-        document.getElementById(
-            "reportInput"
-        );
-
+        document.getElementById("reportInput");
 
     const connectionModal =
-        document.getElementById(
-            "connectionModal"
-        );
-
+        document.getElementById("connectionModal");
 
     const moreModal =
-        document.getElementById(
-            "moreModal"
-        );
+        document.getElementById("moreModal");
 
+    const safetyModal =
+        document.getElementById("safetyModal");
 
-    const toastElement =
-        document.getElementById(
-            "toast"
-        );
+    const toast =
+        document.getElementById("toast");
 
 
     /* =========================================================
-       HELPERS
+       BASIC HELPERS
     ========================================================= */
 
     function showToast(message) {
 
-        toastElement.textContent =
-            String(
-                message || ""
-            );
+        toast.textContent = message;
 
-        toastElement.classList.add(
-            "show"
-        );
+        toast.classList.add("show");
 
-        clearTimeout(
-            showToast.timer
-        );
+        clearTimeout(showToast.timer);
 
-        showToast.timer =
-            setTimeout(
-                () => {
+        showToast.timer = setTimeout(() => {
 
-                    toastElement.classList.remove(
-                        "show"
-                    );
+            toast.classList.remove("show");
 
-                },
-                3000
-            );
+        }, 3000);
     }
 
 
     function escapeHTML(value) {
 
-        return String(
-            value ?? ""
-        )
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
 
     function normalize(value) {
 
-        return String(
-            value ?? ""
-        )
+        return String(value ?? "")
             .trim()
             .toLowerCase();
     }
@@ -1847,70 +1639,48 @@
     function getInitials(name) {
 
         const clean =
-            String(
-                name || "User"
-            ).trim();
-
+            String(name || "User").trim();
 
         if (!clean) {
             return "U";
         }
 
-
         return clean
             .split(/\s+/)
-            .slice(0, 2)
+            .slice(0,2)
             .map(
                 part =>
-                    part
-                        .charAt(0)
-                        .toUpperCase()
+                    part.charAt(0).toUpperCase()
             )
             .join("");
     }
 
 
-    function getTimestampMilliseconds(
-        timestamp
-    ) {
+    function getTimestampMilliseconds(timestamp) {
 
         if (!timestamp) {
             return 0;
         }
 
-
         if (
-            typeof timestamp.toMillis ===
-            "function"
+            typeof timestamp.toMillis === "function"
         ) {
             return timestamp.toMillis();
         }
 
-
         if (
-            typeof timestamp.toDate ===
-            "function"
+            typeof timestamp.toDate === "function"
         ) {
-            return timestamp
-                .toDate()
-                .getTime();
+            return timestamp.toDate().getTime();
         }
 
-
-        if (
-            timestamp instanceof Date
-        ) {
+        if (timestamp instanceof Date) {
             return timestamp.getTime();
         }
 
-
-        if (
-            typeof timestamp ===
-            "number"
-        ) {
+        if (typeof timestamp === "number") {
             return timestamp;
         }
-
 
         return 0;
     }
@@ -1918,70 +1688,47 @@
 
     function formatDate(timestamp) {
 
-        const milliseconds =
-            getTimestampMilliseconds(
-                timestamp
-            );
+        const time =
+            getTimestampMilliseconds(timestamp);
 
-
-        if (!milliseconds) {
+        if (!time) {
             return "Recently";
         }
-
-
-        const date =
-            new Date(
-                milliseconds
-            );
-
 
         const difference =
             Math.max(
                 0,
-                Date.now() -
-                date.getTime()
+                Date.now() - time
             );
-
 
         const minutes =
             Math.floor(
                 difference / 60000
             );
 
-
         if (minutes < 1) {
             return "Just now";
         }
-
 
         if (minutes < 60) {
             return `${minutes}m ago`;
         }
 
-
         const hours =
-            Math.floor(
-                minutes / 60
-            );
-
+            Math.floor(minutes / 60);
 
         if (hours < 24) {
             return `${hours}h ago`;
         }
 
-
         const days =
-            Math.floor(
-                hours / 24
-            );
-
+            Math.floor(hours / 24);
 
         if (days < 7) {
             return `${days}d ago`;
         }
 
-
-        return date.toLocaleDateString(
+        return new Date(time).toLocaleDateString(
             undefined,
             {
                 day: "numeric",
@@ -1992,250 +1739,157 @@
     }
 
 
-    function getFieldValue(
-        data,
-        keys,
-        fallback = ""
-    ) {
-
-        for (
-            const key of keys
-        ) {
-
-            if (
-                data &&
-                data[key] !==
-                    undefined &&
-                data[key] !==
-                    null
-            ) {
-
-                return data[key];
-            }
-        }
-
-
-        return fallback;
-    }
-
-
     function normalizeMood(value) {
 
         const clean =
             normalize(value);
 
-
         const aliases = {
 
-            "😊 happy":
-                "happy",
+            "😊 happy": "happy",
+            "happy": "happy",
 
-            happy:
-                "happy",
+            "😔 sad": "sad",
+            "sad": "sad",
 
-            "😔 sad":
-                "sad",
+            "🥺 lonely": "lonely",
+            "lonely": "lonely",
 
-            sad:
-                "sad",
+            "😡 angry": "angry",
+            "angry": "angry",
 
-            "🥺 lonely":
-                "lonely",
+            "😟 anxious": "anxious",
+            "anxious": "anxious",
 
-            lonely:
-                "lonely",
+            "😕 confused": "confused",
+            "confused": "confused",
 
-            "😡 angry":
-                "angry",
+            "🌱 hopeful": "hopeful",
+            "hopeful": "hopeful",
 
-            angry:
-                "angry",
+            "🙏 grateful": "grateful",
+            "grateful": "grateful",
 
-            "😟 anxious":
-                "anxious",
+            "✨ excited": "excited",
+            "excited": "excited",
 
-            anxious:
-                "anxious",
-
-            "😕 confused":
-                "confused",
-
-            confused:
-                "confused",
-
-            "🌱 hopeful":
-                "hopeful",
-
-            hopeful:
-                "hopeful",
-
-            "🙏 grateful":
-                "grateful",
-
-            grateful:
-                "grateful",
-
-            "✨ excited":
-                "excited",
-
-            excited:
-                "excited",
-
-            "💭 other":
-                "other",
-
-            other:
-                "other"
+            "💭 other": "other",
+            "other": "other"
         };
 
-
-        return (
-            aliases[clean] ||
-            clean
-        );
+        return aliases[clean] || clean;
     }
 
 
     function normalizeTopic(value) {
 
         return normalize(value)
-            .replace(
-                /\s+/g,
-                "_"
-            );
+            .replace(/\s+/g, "_");
     }
 
 
-    function getFeelingData(
-        snapshot
-    ) {
+    function moodLabel(value) {
+
+        const clean =
+            normalizeMood(value);
+
+        const labels = {
+
+            happy: "😊 Happy",
+            sad: "😔 Sad",
+            lonely: "🥺 Lonely",
+            angry: "😡 Angry",
+            anxious: "😟 Anxious",
+            confused: "😕 Confused",
+            hopeful: "🌱 Hopeful",
+            grateful: "🙏 Grateful",
+            excited: "✨ Excited",
+            other: "💭 Other"
+        };
+
+        return labels[clean]
+            || `💭 ${String(value || "Other")}`;
+    }
+
+
+    function topicLabel(value) {
+
+        const clean =
+            normalizeTopic(value);
+
+        const labels = {
+
+            self: "Self",
+            relationships: "Relationships",
+            family: "Family",
+            work: "Work",
+            study: "Study",
+            life: "Life",
+            health: "Health",
+            money: "Money",
+            other: "Other"
+        };
+
+        return labels[clean]
+            || String(value || "Other");
+    }
+
+
+    function getFeelingData(snapshot) {
 
         const data =
-            snapshot.data() ||
-            {};
-
-
-        const text =
-            getFieldValue(
-                data,
-                [
-                    "text",
-                    "feeling",
-                    "content"
-                ],
-                ""
-            );
-
-
-        const authorName =
-            getFieldValue(
-                data,
-                [
-                    "authorDisplayName",
-                    "authorName",
-                    "displayName",
-                    "name",
-                    "userName"
-                ],
-                "Anonymous"
-            );
-
-
-        const mood =
-            getFieldValue(
-                data,
-                ["mood"],
-                "other"
-            );
-
-
-        const topic =
-            getFieldValue(
-                data,
-                ["topic"],
-                "other"
-            );
-
-
-        const createdAt =
-            getFieldValue(
-                data,
-                [
-                    "createdAt",
-                    "created_at"
-                ],
-                null
-            );
-
-
-        const visibility =
-            getFieldValue(
-                data,
-                ["visibility"],
-                "public"
-            );
-
-
-        const status =
-            getFieldValue(
-                data,
-                ["status"],
-                "active"
-            );
-
-
-        const authorId =
-            getFieldValue(
-                data,
-                [
-                    "authorId",
-                    "userId",
-                    "uid"
-                ],
-                ""
-            );
-
-
-        const understandCount =
-            Number(
-                getFieldValue(
-                    data,
-                    [
-                        "understandCount",
-                        "understoodCount"
-                    ],
-                    0
-                )
-            ) || 0;
-
+            snapshot.data() || {};
 
         return {
 
-            id:
-                snapshot.id,
+            id: snapshot.id,
 
-            text:
-                String(text),
+            text: String(
+                data.text ??
+                data.feeling ??
+                data.content ??
+                ""
+            ),
 
-            authorName:
-                String(authorName),
+            authorName: String(
+                data.authorDisplayName ??
+                data.authorName ??
+                data.displayName ??
+                data.name ??
+                "Anonymous"
+            ),
 
-            mood:
-                String(mood),
+            authorId: String(
+                data.authorId ??
+                data.userId ??
+                data.uid ??
+                ""
+            ),
 
-            topic:
-                String(topic),
+            mood: String(
+                data.mood ?? "other"
+            ),
 
-            createdAt,
+            topic: String(
+                data.topic ?? "other"
+            ),
 
-            visibility,
+            createdAt:
+                data.createdAt ?? null,
 
-            status,
+            visibility:
+                data.visibility ?? "public",
 
-            authorId:
-                String(authorId),
+            status:
+                data.status ?? "active",
 
-            understandCount
+            understoodCount:
+                Number(
+                    data.understoodCount ?? 0
+                ) || 0,
+
+            understoodByCurrentUser:
+                false
         };
     }
 
@@ -2256,101 +1910,28 @@
                 return;
             }
 
+            currentUser = user;
 
-            currentUser =
-                user;
-
-
-            await loadBlockedUsers();
-
-            await loadFeelings();
+            await loadDiscover();
         }
     );
 
 
     /* =========================================================
-       BLOCKED USERS
+       LOAD DISCOVER
     ========================================================= */
 
-    async function loadBlockedUsers() {
+    async function loadDiscover() {
 
-        blockedUserIds =
-            new Set();
-
+        setState("loading");
 
         try {
 
-            const blocksQuery =
-                query(
-                    collection(
-                        db,
-                        "blocks"
-                    ),
-                    where(
-                        "blockerId",
-                        "==",
-                        currentUser.uid
-                    ),
-                    limit(500)
-                );
-
-
-            const snapshot =
-                await getDocs(
-                    blocksQuery
-                );
-
-
-            snapshot.forEach(
-                item => {
-
-                    const data =
-                        item.data() ||
-                        {};
-
-
-                    if (
-                        data.blockedUserId
-                    ) {
-
-                        blockedUserIds.add(
-                            String(
-                                data.blockedUserId
-                            )
-                        );
-                    }
-                }
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Block load error:",
-                error
-            );
-        }
-    }
-
-
-    /* =========================================================
-       LOAD FEELINGS
-    ========================================================= */
-
-    async function loadFeelings() {
-
-        setState(
-            "loading"
-        );
-
-
-        try {
+            await loadBlockedUsers();
 
             const feelingsQuery =
                 query(
-                    collection(
-                        db,
-                        "feelings"
-                    ),
+                    collection(db, "feelings"),
                     where(
                         "visibility",
                         "==",
@@ -2361,9 +1942,7 @@
                         "==",
                         "active"
                     ),
-                    limit(
-                        MAX_RESULTS
-                    )
+                    limit(MAX_RESULTS)
                 );
 
 
@@ -2373,33 +1952,41 @@
                 );
 
 
-            allFeelings =
-                [];
+            allFeelings = [];
 
 
             snapshot.forEach(
                 item => {
 
                     const feeling =
-                        getFeelingData(
-                            item
+                        getFeelingData(item);
+
+                    if (
+                        !blockedUserIds.has(
+                            feeling.authorId
+                        )
+                    ) {
+
+                        allFeelings.push(
+                            feeling
                         );
-
-
-                    feelingCache.set(
-                        feeling.id,
-                        feeling
-                    );
-
-
-                    allFeelings.push(
-                        feeling
-                    );
+                    }
                 }
             );
 
 
+            /*
+             * Read actual understand reaction state.
+             * We also retrieve actual counts using Firestore
+             * count aggregation rather than trusting a client
+             * supplied count.
+             */
+
+            await enrichUnderstandState();
+
+
             applyFilters();
+
 
         } catch (error) {
 
@@ -2408,26 +1995,131 @@
                 error
             );
 
-
             errorText.textContent =
-                error.code ===
-                "permission-denied"
-                    ? "Firestore denied this Discover query. Check the deployed Firestore rules."
-                    : (
-                        error.message ||
-                        "Something went wrong while loading public feelings."
-                    );
+                getFriendlyFirestoreError(
+                    error
+                );
 
-
-            setState(
-                "error"
-            );
+            setState("error");
         }
     }
 
 
+    async function loadBlockedUsers() {
+
+        blockedUserIds =
+            new Set();
+
+        if (!currentUser) {
+            return;
+        }
+
+        const blocksQuery =
+            query(
+                collection(db, "blocks"),
+                where(
+                    "blockerId",
+                    "==",
+                    currentUser.uid
+                )
+            );
+
+        const snapshot =
+            await getDocs(
+                blocksQuery
+            );
+
+        snapshot.forEach(
+            item => {
+
+                const data =
+                    item.data() || {};
+
+                if (
+                    data.blockedUserId
+                ) {
+
+                    blockedUserIds.add(
+                        String(
+                            data.blockedUserId
+                        )
+                    );
+                }
+            }
+        );
+    }
+
+
+    async function enrichUnderstandState() {
+
+        if (!currentUser) {
+            return;
+        }
+
+        await Promise.all(
+            allFeelings.map(
+                async feeling => {
+
+                    try {
+
+                        const reactionRef =
+                            doc(
+                                db,
+                                "feelings",
+                                feeling.id,
+                                "understands",
+                                currentUser.uid
+                            );
+
+                        const reactionSnapshot =
+                            await getDoc(
+                                reactionRef
+                            );
+
+                        feeling.understoodByCurrentUser =
+                            reactionSnapshot.exists();
+
+
+                        const understandsRef =
+                            collection(
+                                db,
+                                "feelings",
+                                feeling.id,
+                                "understands"
+                            );
+
+                        const countSnapshot =
+                            await getCountFromServer(
+                                understandsRef
+                            );
+
+                        feeling.understoodCount =
+                            countSnapshot
+                                .data()
+                                .count || 0;
+
+                    } catch (error) {
+
+                        console.warn(
+                            "Understand state error:",
+                            feeling.id,
+                            error
+                        );
+
+                        /*
+                         * If the aggregate query fails,
+                         * keep the stored field as fallback.
+                         */
+
+                    }
+                }
+            )
+        );
+    }
+
+
     /* =========================================================
-       FILTER
+       FILTERS
     ========================================================= */
 
     function applyFilters() {
@@ -2437,12 +2129,10 @@
                 searchInput.value
             );
 
-
         const selectedMood =
             normalizeMood(
                 moodFilter.value
             );
-
 
         const selectedTopic =
             normalizeTopic(
@@ -2450,31 +2140,17 @@
             );
 
 
-        const filtered =
+        visibleFeelings =
             allFeelings.filter(
                 feeling => {
 
                     if (
-                        feeling.authorId &&
                         blockedUserIds.has(
                             feeling.authorId
                         )
                     ) {
-
                         return false;
                     }
-
-
-                    const feelingMood =
-                        normalizeMood(
-                            feeling.mood
-                        );
-
-
-                    const feelingTopic =
-                        normalizeTopic(
-                            feeling.topic
-                        );
 
 
                     const text =
@@ -2482,116 +2158,80 @@
                             feeling.text
                         );
 
-
                     const author =
                         normalize(
                             feeling.authorName
                         );
 
-
-                    const topicText =
+                    const topic =
                         normalize(
                             feeling.topic
                         );
 
-
-                    const moodText =
+                    const mood =
                         normalize(
                             feeling.mood
                         );
 
 
-                    const searchMatches =
+                    const searchMatch =
                         !search ||
-                        text.includes(
-                            search
-                        ) ||
-                        author.includes(
-                            search
-                        ) ||
-                        topicText.includes(
-                            search
-                        ) ||
-                        moodText.includes(
-                            search
-                        );
+                        text.includes(search) ||
+                        author.includes(search) ||
+                        topic.includes(search) ||
+                        mood.includes(search);
 
 
-                    const moodMatches =
-                        selectedMood ===
-                            "all" ||
-                        feelingMood ===
-                            selectedMood;
+                    const moodMatch =
+                        selectedMood === "all" ||
+                        normalizeMood(
+                            feeling.mood
+                        ) === selectedMood;
 
 
-                    const topicMatches =
-                        selectedTopic ===
-                            "all" ||
-                        feelingTopic ===
-                            selectedTopic;
+                    const topicMatch =
+                        selectedTopic === "all" ||
+                        normalizeTopic(
+                            feeling.topic
+                        ) === selectedTopic;
 
 
                     return (
-                        searchMatches &&
-                        moodMatches &&
-                        topicMatches
+                        searchMatch &&
+                        moodMatch &&
+                        topicMatch
                     );
                 }
             );
 
 
-        filtered.sort(
-            (a, b) => {
+        visibleFeelings.sort(
+            (a,b) => {
 
                 const aTime =
                     getTimestampMilliseconds(
                         a.createdAt
                     );
 
-
                 const bTime =
                     getTimestampMilliseconds(
                         b.createdAt
                     );
 
-
-                if (
-                    sortSelect.value ===
-                    "oldest"
-                ) {
-
-                    return (
-                        aTime -
-                        bTime
-                    );
-                }
-
-
-                return (
-                    bTime -
-                    aTime
-                );
+                return sortSelect.value === "oldest"
+                    ? aTime - bTime
+                    : bTime - aTime;
             }
         );
 
 
-        visibleFeelings =
-            filtered;
-
-
-        renderedCount =
-            0;
-
-
-        renderVisibleFeelings();
+        renderFeelings();
     }
 
 
-    function renderVisibleFeelings() {
+    function renderFeelings() {
 
-        feelingsList.innerHTML =
-            "";
-
+        feelingsList.innerHTML = "";
 
         renderedCount =
             Math.min(
@@ -2601,17 +2241,22 @@
 
 
         visibleFeelings
-            .slice(
-                0,
-                renderedCount
-            )
+            .slice(0,renderedCount)
             .forEach(
                 feeling => {
 
-                    feelingsList.appendChild(
+                    const card =
                         createFeelingCard(
                             feeling
-                        )
+                        );
+
+                    feelingsList.appendChild(
+                        card
+                    );
+
+                    refreshResponseSection(
+                        feeling.id,
+                        card
                     );
                 }
             );
@@ -2619,27 +2264,21 @@
 
         resultCount.textContent =
             `${visibleFeelings.length} ${
-                visibleFeelings.length ===
-                1
+                visibleFeelings.length === 1
                     ? "feeling"
                     : "feelings"
             }`;
 
 
         if (
-            visibleFeelings.length ===
-            0
+            visibleFeelings.length === 0
         ) {
 
-            setState(
-                "empty"
-            );
+            setState("empty");
 
         } else {
 
-            setState(
-                "content"
-            );
+            setState("content");
         }
 
 
@@ -2650,14 +2289,13 @@
     function updateLoadMore() {
 
         if (
-            visibleFeelings.length >
-            renderedCount
+            renderedCount <
+            visibleFeelings.length
         ) {
 
             loadMoreWrap.classList.remove(
                 "hidden"
             );
-
 
             loadMoreButton.textContent =
                 `Load more (${
@@ -2676,28 +2314,35 @@
 
     function loadMore() {
 
-        const nextItems =
+        const next =
             visibleFeelings.slice(
                 renderedCount,
-                renderedCount +
-                    PAGE_SIZE
+                renderedCount + PAGE_SIZE
             );
 
 
-        nextItems.forEach(
+        next.forEach(
             feeling => {
 
-                feelingsList.appendChild(
+                const card =
                     createFeelingCard(
                         feeling
-                    )
+                    );
+
+                feelingsList.appendChild(
+                    card
+                );
+
+                refreshResponseSection(
+                    feeling.id,
+                    card
                 );
             }
         );
 
 
         renderedCount +=
-            nextItems.length;
+            next.length;
 
 
         updateLoadMore();
@@ -2705,49 +2350,28 @@
 
 
     /* =========================================================
-       CARD
+       FEELING CARD
     ========================================================= */
 
-    function createFeelingCard(
-        feeling
-    ) {
+    function createFeelingCard(feeling) {
 
         const card =
-            document.createElement(
-                "article"
-            );
+            document.createElement("article");
 
-
-        card.className =
-            "feeling-card";
-
+        card.className = "card";
 
         card.dataset.feelingId =
             feeling.id;
 
-
         card.dataset.authorId =
-            feeling.authorId ||
-            "";
-
-
-        const moodLabel =
-            formatMoodLabel(
-                feeling.mood
-            );
-
-
-        const topicLabel =
-            formatTopicLabel(
-                feeling.topic
-            );
+            feeling.authorId;
 
 
         card.innerHTML = `
 
-            <div class="feeling-card-inner">
+            <div class="card-inner">
 
-                <div class="feeling-author">
+                <div class="author">
 
                     <div class="author-left">
 
@@ -2767,7 +2391,7 @@
                                 )}
                             </div>
 
-                            <div class="feeling-time">
+                            <div class="time">
                                 ${escapeHTML(
                                     formatDate(
                                         feeling.createdAt
@@ -2781,7 +2405,7 @@
 
 
                     <button
-                        class="more-button"
+                        class="more"
                         type="button"
                         data-action="more"
                         aria-label="More options"
@@ -2792,34 +2416,42 @@
                 </div>
 
 
-                <div class="feeling-meta">
+                <div class="meta">
 
-                    <span class="meta-pill">
+                    <span class="pill">
                         ${escapeHTML(
-                            moodLabel
+                            moodLabel(
+                                feeling.mood
+                            )
                         )}
                     </span>
 
-                    <span class="meta-pill">
+                    <span class="pill">
                         ${escapeHTML(
-                            topicLabel
+                            topicLabel(
+                                feeling.topic
+                            )
                         )}
                     </span>
 
                 </div>
 
 
-                <p class="feeling-text">
+                <div class="text">
                     ${escapeHTML(
                         feeling.text
                     )}
-                </p>
+                </div>
 
 
-                <div class="feeling-actions">
+                <div class="actions">
 
                     <button
-                        class="action-button"
+                        class="action ${
+                            feeling.understoodByCurrentUser
+                                ? "active"
+                                : ""
+                        }"
                         type="button"
                         data-action="understand"
                         data-feeling-id="${escapeHTML(
@@ -2830,7 +2462,7 @@
                         <span data-understand-count>
                             ${escapeHTML(
                                 String(
-                                    feeling.understandCount
+                                    feeling.understoodCount
                                 )
                             )}
                         </span>
@@ -2838,7 +2470,7 @@
 
 
                     <button
-                        class="action-button"
+                        class="action"
                         type="button"
                         data-action="respond"
                         data-feeling-id="${escapeHTML(
@@ -2850,7 +2482,7 @@
 
 
                     <button
-                        class="action-button connect"
+                        class="action connect"
                         type="button"
                         data-action="connect"
                         data-feeling-id="${escapeHTML(
@@ -2862,7 +2494,7 @@
 
 
                     <button
-                        class="action-button danger"
+                        class="action report"
                         type="button"
                         data-action="report"
                         data-feeling-id="${escapeHTML(
@@ -2875,144 +2507,43 @@
                 </div>
 
 
-                <div
-                    class="response-section"
-                    data-response-section
+                <section
+                    class="responses"
+                    data-responses-section
                 >
 
-                    <div class="response-header">
+                    <div class="responses-header">
 
-                        <span class="response-title">
+                        <span>
                             💬 Responses
                         </span>
 
-
                         <button
-                            class="response-toggle"
+                            class="toggle-responses"
                             type="button"
-                            data-action="responses"
+                            data-action="toggle-responses"
                             data-feeling-id="${escapeHTML(
                                 feeling.id
                             )}"
                         >
-                            View responses
+                            Show responses
                         </button>
 
                     </div>
 
-                </div>
+
+                    <div
+                        class="response-list hidden"
+                        data-response-list
+                    ></div>
+
+                </section>
 
             </div>
         `;
 
 
         return card;
-    }
-
-
-    function formatMoodLabel(
-        value
-    ) {
-
-        const clean =
-            normalizeMood(
-                value
-            );
-
-
-        const labels = {
-
-            happy:
-                "😊 Happy",
-
-            sad:
-                "😔 Sad",
-
-            lonely:
-                "🥺 Lonely",
-
-            angry:
-                "😡 Angry",
-
-            anxious:
-                "😟 Anxious",
-
-            confused:
-                "😕 Confused",
-
-            hopeful:
-                "🌱 Hopeful",
-
-            grateful:
-                "🙏 Grateful",
-
-            excited:
-                "✨ Excited",
-
-            other:
-                "💭 Other"
-        };
-
-
-        return (
-            labels[clean] ||
-            "💭 " +
-            String(
-                value ||
-                "Other"
-            )
-        );
-    }
-
-
-    function formatTopicLabel(
-        value
-    ) {
-
-        const clean =
-            normalizeTopic(
-                value
-            );
-
-
-        const labels = {
-
-            self:
-                "Self",
-
-            relationships:
-                "Relationships",
-
-            family:
-                "Family",
-
-            work:
-                "Work",
-
-            study:
-                "Study",
-
-            life:
-                "Life",
-
-            health:
-                "Health",
-
-            money:
-                "Money",
-
-            other:
-                "Other"
-        };
-
-
-        return (
-            labels[clean] ||
-            String(
-                value ||
-                "Other"
-            )
-        );
     }
 
 
@@ -3035,68 +2566,60 @@
         }
 
 
-        const reactionReference =
-            doc(
-                db,
-                "feelings",
-                feelingId,
-                "understands",
-                currentUser.uid
-            );
+        if (
+            understandLoading.has(
+                feelingId
+            )
+        ) {
+            return;
+        }
 
 
-        button.disabled =
-            true;
+        understandLoading.add(
+            feelingId
+        );
+
+        button.disabled = true;
 
 
         try {
 
+            const reactionRef =
+                doc(
+                    db,
+                    "feelings",
+                    feelingId,
+                    "understands",
+                    currentUser.uid
+                );
+
+
             const existing =
                 await getDoc(
-                    reactionReference
+                    reactionRef
                 );
 
 
-            const feeling =
-                feelingCache.get(
-                    feelingId
-                );
-
-
-            if (
-                existing.exists()
-            ) {
+            if (existing.exists()) {
 
                 await deleteDoc(
-                    reactionReference
+                    reactionRef
                 );
-
 
                 button.classList.remove(
                     "active"
                 );
 
+                const feeling =
+                    allFeelings.find(
+                        item =>
+                            item.id === feelingId
+                    );
 
                 if (feeling) {
-
-                    feeling.understandCount =
-                        Math.max(
-                            0,
-                            Number(
-                                feeling.understandCount ||
-                                0
-                            ) - 1
-                        );
+                    feeling.understoodByCurrentUser =
+                        false;
                 }
-
-
-                updateUnderstandCount(
-                    button,
-                    feeling
-                        ? feeling.understandCount
-                        : 0
-                );
-
 
                 showToast(
                     "Your understanding was removed."
@@ -3105,7 +2628,7 @@
             } else {
 
                 await setDoc(
-                    reactionReference,
+                    reactionRef,
                     {
                         userId:
                             currentUser.uid,
@@ -3115,34 +2638,67 @@
                     }
                 );
 
-
                 button.classList.add(
                     "active"
                 );
 
+                const feeling =
+                    allFeelings.find(
+                        item =>
+                            item.id === feelingId
+                    );
 
                 if (feeling) {
-
-                    feeling.understandCount =
-                        Number(
-                            feeling.understandCount ||
-                            0
-                        ) + 1;
+                    feeling.understoodByCurrentUser =
+                        true;
                 }
-
-
-                updateUnderstandCount(
-                    button,
-                    feeling
-                        ? feeling.understandCount
-                        : 1
-                );
-
 
                 showToast(
                     "I Understand added 💜"
                 );
             }
+
+
+            /*
+             * Always re-read the server-side count.
+             */
+
+            const countSnapshot =
+                await getCountFromServer(
+                    collection(
+                        db,
+                        "feelings",
+                        feelingId,
+                        "understands"
+                    )
+                );
+
+
+            const count =
+                countSnapshot
+                    .data()
+                    .count || 0;
+
+
+            const feeling =
+                allFeelings.find(
+                    item =>
+                        item.id === feelingId
+                );
+
+
+            if (feeling) {
+                feeling.understoodCount =
+                    count;
+            }
+
+
+            updateAllUnderstandButtons(
+                feelingId,
+                count,
+                feeling?.understoodByCurrentUser
+            );
+
 
         } catch (error) {
 
@@ -3151,48 +2707,277 @@
                 error
             );
 
-
             showToast(
-                error.code ===
-                    "permission-denied"
-                    ? "You don't have permission to react to this feeling."
-                    : "Couldn't update your response."
+                getFriendlyFirestoreError(
+                    error
+                )
             );
 
         } finally {
 
-            button.disabled =
-                false;
+            understandLoading.delete(
+                feelingId
+            );
+
+            button.disabled = false;
         }
     }
 
 
-    function updateUnderstandCount(
-        button,
-        count
+    function updateAllUnderstandButtons(
+        feelingId,
+        count,
+        active
     ) {
 
-        const countElement =
-            button.querySelector(
-                "[data-understand-count]"
+        document
+            .querySelectorAll(
+                `[data-action="understand"][data-feeling-id="${CSS.escape(
+                    feelingId
+                )}"]`
+            )
+            .forEach(
+                button => {
+
+                    button.classList.toggle(
+                        "active",
+                        Boolean(active)
+                    );
+
+                    const countElement =
+                        button.querySelector(
+                            "[data-understand-count]"
+                        );
+
+                    if (countElement) {
+                        countElement.textContent =
+                            String(count);
+                    }
+                }
             );
-
-
-        if (countElement) {
-
-            countElement.textContent =
-                String(
-                    Number(
-                        count
-                    ) || 0
-                );
-        }
     }
 
 
     /* =========================================================
-       RESPONSE MODAL
+       RESPONSES
     ========================================================= */
+
+    async function getResponses(
+        feelingId,
+        forceRefresh = false
+    ) {
+
+        if (
+            responseCache.has(feelingId) &&
+            !forceRefresh
+        ) {
+
+            return responseCache.get(
+                feelingId
+            );
+        }
+
+
+        const responsesQuery =
+            query(
+                collection(
+                    db,
+                    "feelings",
+                    feelingId,
+                    "responses"
+                ),
+                limit(100)
+            );
+
+
+        const snapshot =
+            await getDocs(
+                responsesQuery
+            );
+
+
+        const responses = [];
+
+
+        snapshot.forEach(
+            item => {
+
+                const data =
+                    item.data() || {};
+
+
+                if (
+                    data.status !== "active"
+                ) {
+                    return;
+                }
+
+
+                responses.push({
+
+                    id: item.id,
+
+                    userId:
+                        String(
+                            data.userId ??
+                            data.authorId ??
+                            ""
+                        ),
+
+                    authorName:
+                        String(
+                            data.authorName ??
+                            data.authorDisplayName ??
+                            "User"
+                        ),
+
+                    text:
+                        String(
+                            data.text ?? ""
+                        ),
+
+                    createdAt:
+                        data.createdAt ??
+                        null
+                });
+            }
+        );
+
+
+        responses.sort(
+            (a,b) =>
+                getTimestampMilliseconds(
+                    a.createdAt
+                ) -
+                getTimestampMilliseconds(
+                    b.createdAt
+                )
+        );
+
+
+        responseCache.set(
+            feelingId,
+            responses
+        );
+
+
+        return responses;
+    }
+
+
+    async function refreshResponseSection(
+        feelingId,
+        card
+    ) {
+
+        try {
+
+            const responses =
+                await getResponses(
+                    feelingId
+                );
+
+
+            const list =
+                card.querySelector(
+                    "[data-response-list]"
+                );
+
+
+            const toggle =
+                card.querySelector(
+                    "[data-action='toggle-responses']"
+                );
+
+
+            if (!list || !toggle) {
+                return;
+            }
+
+
+            if (responses.length === 0) {
+
+                list.innerHTML = `
+                    <div class="no-responses">
+                        No responses yet. Be the first to respond with empathy.
+                    </div>
+                `;
+
+            } else {
+
+                list.innerHTML =
+                    responses
+                        .map(
+                            response => `
+                                <div class="response-item">
+
+                                    <div class="response-author">
+
+                                        <strong>
+                                            ${escapeHTML(
+                                                response.authorName
+                                            )}
+                                        </strong>
+
+                                        <span class="response-time">
+                                            ${escapeHTML(
+                                                formatDate(
+                                                    response.createdAt
+                                                )
+                                            )}
+                                        </span>
+
+                                    </div>
+
+                                    <div class="response-text">
+                                        ${escapeHTML(
+                                            response.text
+                                        )}
+                                    </div>
+
+                                </div>
+                            `
+                        )
+                        .join("");
+            }
+
+
+            toggle.textContent =
+                expandedResponses.has(feelingId)
+                    ? "Hide responses"
+                    : `Show responses${
+                        responses.length
+                            ? ` (${responses.length})`
+                            : ""
+                    }`;
+
+
+            if (
+                expandedResponses.has(
+                    feelingId
+                )
+            ) {
+
+                list.classList.remove(
+                    "hidden"
+                );
+
+            } else {
+
+                list.classList.add(
+                    "hidden"
+                );
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Response load error:",
+                error
+            );
+        }
+    }
+
 
     function openResponseModal(
         feelingId
@@ -3201,48 +2986,29 @@
         selectedFeelingId =
             feelingId;
 
-
-        responseInput.value =
-            "";
-
+        responseInput.value = "";
 
         responseModal.classList.add(
             "show"
         );
 
-
-        document.body.style.overflow =
-            "hidden";
-
-
         setTimeout(
-            () => {
-
-                responseInput.focus();
-
-            },
-            100
+            () =>
+                responseInput.focus(),
+            60
         );
     }
 
 
     function closeResponseModal() {
 
-        selectedFeelingId =
-            null;
+        selectedFeelingId = null;
 
-
-        responseInput.value =
-            "";
-
+        responseInput.value = "";
 
         responseModal.classList.remove(
             "show"
         );
-
-
-        document.body.style.overflow =
-            "";
     }
 
 
@@ -3264,6 +3030,15 @@
                 "Feeling not selected."
             );
 
+            return;
+        }
+
+
+        if (
+            responseLoading.has(
+                selectedFeelingId
+            )
+        ) {
             return;
         }
 
@@ -3295,22 +3070,23 @@
         }
 
 
+        const feelingId =
+            selectedFeelingId;
+
+
         const button =
             document.getElementById(
                 "submitResponseButton"
             );
 
 
-        button.disabled =
-            true;
+        responseLoading.add(
+            feelingId
+        );
 
-
+        button.disabled = true;
         button.textContent =
             "Sending...";
-
-
-        const feelingId =
-            selectedFeelingId;
 
 
         try {
@@ -3323,16 +3099,15 @@
                     "responses"
                 ),
                 {
-                    authorId:
+                    userId:
                         currentUser.uid,
 
-                    authorDisplayName:
+                    authorName:
                         currentUser.displayName ||
                         currentUser.email?.split("@")[0] ||
-                        "Listener",
+                        "User",
 
-                    text:
-                        text,
+                    text,
 
                     status:
                         "active",
@@ -3343,23 +3118,40 @@
             );
 
 
-            closeResponseModal();
-
-
             responseCache.delete(
                 feelingId
             );
 
 
+            expandedResponses.add(
+                feelingId
+            );
+
+
+            closeResponseModal();
+
+
+            const card =
+                document.querySelector(
+                    `[data-feeling-id="${CSS.escape(
+                        feelingId
+                    )}"]`
+                );
+
+
+            if (card) {
+
+                await refreshResponseSection(
+                    feelingId,
+                    card
+                );
+            }
+
+
             showToast(
-                "Your response was sent. 💜"
+                "Your response was sent."
             );
 
-
-            await renderResponses(
-                feelingId,
-                true
-            );
 
         } catch (error) {
 
@@ -3368,428 +3160,51 @@
                 error
             );
 
-
             showToast(
-                error.code ===
-                    "permission-denied"
-                    ? "You don't have permission to respond to this feeling."
-                    : (
-                        error.message ||
-                        "Couldn't send your response."
-                    )
+                getFriendlyFirestoreError(
+                    error
+                )
             );
 
         } finally {
 
-            button.disabled =
-                false;
+            responseLoading.delete(
+                feelingId
+            );
 
-
+            button.disabled = false;
             button.textContent =
                 "Send response";
         }
     }
 
 
-    /* =========================================================
-       RESPONSES DISPLAY
-    ========================================================= */
-
     async function toggleResponses(
         feelingId,
-        button
+        card
     ) {
-
-        const card =
-            document.querySelector(
-                `[data-feeling-id="${CSS.escape(
-                    feelingId
-                )}"]`
-            );
-
-
-        if (!card) {
-            return;
-        }
-
-
-        const section =
-            card.querySelector(
-                "[data-response-section]"
-            );
-
-
-        if (!section) {
-            return;
-        }
-
-
-        const existing =
-            section.querySelector(
-                ".responses-list"
-            );
-
-
-        if (existing) {
-
-            existing.remove();
-
-
-            const empty =
-                section.querySelector(
-                    ".response-empty"
-                );
-
-
-            if (empty) {
-                empty.remove();
-            }
-
-
-            const loading =
-                section.querySelector(
-                    ".response-loading"
-                );
-
-
-            if (loading) {
-                loading.remove();
-            }
-
-
-            button.textContent =
-                "View responses";
-
-
-            return;
-        }
-
-
-        await renderResponses(
-            feelingId,
-            false
-        );
-
-
-        button.textContent =
-            "Hide responses";
-    }
-
-
-    async function renderResponses(
-        feelingId,
-        forceRefresh = false
-    ) {
-
-        const card =
-            document.querySelector(
-                `[data-feeling-id="${CSS.escape(
-                    feelingId
-                )}"]`
-            );
-
-
-        if (!card) {
-            return;
-        }
-
-
-        const section =
-            card.querySelector(
-                "[data-response-section]"
-            );
-
-
-        if (!section) {
-            return;
-        }
-
-
-        const toggle =
-            section.querySelector(
-                '[data-action="responses"]'
-            );
-
 
         if (
-            !forceRefresh &&
-            responseCache.has(
+            expandedResponses.has(
                 feelingId
             )
         ) {
 
-            drawResponses(
-                section,
-                responseCache.get(
-                    feelingId
-                )
+            expandedResponses.delete(
+                feelingId
             );
 
+        } else {
 
-            if (toggle) {
-
-                toggle.textContent =
-                    "Hide responses";
-            }
-
-
-            return;
+            expandedResponses.add(
+                feelingId
+            );
         }
 
 
-        const loading =
-            document.createElement(
-                "div"
-            );
-
-
-        loading.className =
-            "response-loading";
-
-
-        loading.textContent =
-            "Loading responses...";
-
-
-        section.appendChild(
-            loading
-        );
-
-
-        try {
-
-            const responsesQuery =
-                query(
-                    collection(
-                        db,
-                        "feelings",
-                        feelingId,
-                        "responses"
-                    ),
-                    where(
-                        "status",
-                        "==",
-                        "active"
-                    ),
-                    limit(20)
-                );
-
-
-            const snapshot =
-                await getDocs(
-                    responsesQuery
-                );
-
-
-            const responses =
-                [];
-
-
-            snapshot.forEach(
-                item => {
-
-                    const data =
-                        item.data() ||
-                        {};
-
-
-                    responses.push({
-
-                        id:
-                            item.id,
-
-                        authorId:
-                            String(
-                                data.authorId ||
-                                data.userId ||
-                                ""
-                            ),
-
-                        authorName:
-                            String(
-                                data.authorDisplayName ||
-                                data.authorName ||
-                                "Listener"
-                            ),
-
-                        text:
-                            String(
-                                data.text ||
-                                ""
-                            ),
-
-                        createdAt:
-                            data.createdAt ||
-                            null
-                    });
-                }
-            );
-
-
-            responses.sort(
-                (a, b) =>
-                    getTimestampMilliseconds(
-                        a.createdAt
-                    ) -
-                    getTimestampMilliseconds(
-                        b.createdAt
-                    )
-            );
-
-
-            responseCache.set(
-                feelingId,
-                responses
-            );
-
-
-            drawResponses(
-                section,
-                responses
-            );
-
-
-            if (toggle) {
-
-                toggle.textContent =
-                    "Hide responses";
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Response load error:",
-                error
-            );
-
-
-            loading.textContent =
-                "Couldn't load responses.";
-        }
-    }
-
-
-    function drawResponses(
-        section,
-        responses
-    ) {
-
-        const oldList =
-            section.querySelector(
-                ".responses-list"
-            );
-
-
-        if (oldList) {
-            oldList.remove();
-        }
-
-
-        const oldEmpty =
-            section.querySelector(
-                ".response-empty"
-            );
-
-
-        if (oldEmpty) {
-            oldEmpty.remove();
-        }
-
-
-        const oldLoading =
-            section.querySelector(
-                ".response-loading"
-            );
-
-
-        if (oldLoading) {
-            oldLoading.remove();
-        }
-
-
-        if (!responses.length) {
-
-            const empty =
-                document.createElement(
-                    "div"
-                );
-
-
-            empty.className =
-                "response-empty";
-
-
-            empty.textContent =
-                "No responses yet. Be the first to respond with empathy.";
-
-
-            section.appendChild(
-                empty
-            );
-
-
-            return;
-        }
-
-
-        const list =
-            document.createElement(
-                "div"
-            );
-
-
-        list.className =
-            "responses-list";
-
-
-        responses.forEach(
-            response => {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                item.className =
-                    "response-item";
-
-
-                item.innerHTML = `
-
-                    <div class="response-author">
-
-                        ${escapeHTML(
-                            response.authorName
-                        )}
-
-                        <span class="response-time">
-                            ${escapeHTML(
-                                formatDate(
-                                    response.createdAt
-                                )
-                            )}
-                        </span>
-
-                    </div>
-
-                    <div class="response-text">
-                        ${escapeHTML(
-                            response.text
-                        )}
-                    </div>
-                `;
-
-
-                list.appendChild(
-                    item
-                );
-            }
-        );
-
-
-        section.appendChild(
-            list
+        await refreshResponseSection(
+            feelingId,
+            card
         );
     }
 
@@ -3805,45 +3220,29 @@
         selectedFeelingId =
             feelingId;
 
-
-        reportInput.value =
-            "";
-
+        reportInput.value = "";
 
         reportModal.classList.add(
             "show"
         );
 
-
-        document.body.style.overflow =
-            "hidden";
-
-
         setTimeout(
             () =>
                 reportInput.focus(),
-            100
+            60
         );
     }
 
 
     function closeReportModal() {
 
-        selectedFeelingId =
-            null;
+        selectedFeelingId = null;
 
-
-        reportInput.value =
-            "";
-
+        reportInput.value = "";
 
         reportModal.classList.remove(
             "show"
         );
-
-
-        document.body.style.overflow =
-            "";
     }
 
 
@@ -3865,6 +3264,11 @@
                 "Feeling not selected."
             );
 
+            return;
+        }
+
+
+        if (reportLoading) {
             return;
         }
 
@@ -3902,9 +3306,9 @@
             );
 
 
-        button.disabled =
-            true;
+        reportLoading = true;
 
+        button.disabled = true;
 
         button.textContent =
             "Submitting...";
@@ -3927,8 +3331,7 @@
                     targetId:
                         selectedFeelingId,
 
-                    reason:
-                        reason,
+                    reason,
 
                     status:
                         "open",
@@ -3946,6 +3349,7 @@
                 "Report submitted for review."
             );
 
+
         } catch (error) {
 
             console.error(
@@ -3953,19 +3357,17 @@
                 error
             );
 
-
             showToast(
-                error.code ===
-                    "permission-denied"
-                    ? "You don't have permission to submit this report."
-                    : "Couldn't submit the report."
+                getFriendlyFirestoreError(
+                    error
+                )
             );
 
         } finally {
 
-            button.disabled =
-                false;
+            reportLoading = false;
 
+            button.disabled = false;
 
             button.textContent =
                 "Submit report";
@@ -3995,17 +3397,14 @@
 
 
         const feeling =
-            feelingCache.get(
-                selectedMoreFeelingId
+            allFeelings.find(
+                item =>
+                    item.id ===
+                    selectedMoreFeelingId
             );
 
 
         if (!feeling) {
-
-            showToast(
-                "Feeling could not be found."
-            );
-
             return;
         }
 
@@ -4017,7 +3416,7 @@
         if (!targetUserId) {
 
             showToast(
-                "This user cannot be blocked from this feeling."
+                "This user cannot be identified."
             );
 
             return;
@@ -4033,13 +3432,15 @@
                 "You cannot block yourself."
             );
 
+            closeMoreModal();
+
             return;
         }
 
 
         const confirmed =
             window.confirm(
-                "Block this person? Their public feelings will be hidden from your Discover feed."
+                "Block this person? Their public feelings will be hidden from you."
             );
 
 
@@ -4048,11 +3449,11 @@
         }
 
 
-        const blockId =
-            `${currentUser.uid}_${targetUserId}`;
-
-
         try {
+
+            const blockId =
+                `${currentUser.uid}_${targetUserId}`;
+
 
             await setDoc(
                 doc(
@@ -4081,12 +3482,34 @@
             closeMoreModal();
 
 
+            allFeelings =
+                allFeelings.filter(
+                    item =>
+                        item.authorId !==
+                        targetUserId
+                );
+
+
+            responseCache =
+                new Map(
+                    [...responseCache]
+                        .filter(
+                            ([id]) =>
+                                allFeelings.some(
+                                    feeling =>
+                                        feeling.id === id
+                                )
+                        )
+                );
+
+
             applyFilters();
 
 
             showToast(
-                "Person blocked."
+                "Person blocked. Their public feelings are hidden."
             );
+
 
         } catch (error) {
 
@@ -4095,12 +3518,10 @@
                 error
             );
 
-
             showToast(
-                error.code ===
-                    "permission-denied"
-                    ? "You don't have permission to block this person."
-                    : "Couldn't block this person."
+                getFriendlyFirestoreError(
+                    error
+                )
             );
         }
     }
@@ -4117,38 +3538,25 @@
         selectedMoreFeelingId =
             feelingId;
 
-
         moreModal.classList.add(
             "show"
         );
-
-
-        document.body.style.overflow =
-            "hidden";
     }
 
 
     function closeMoreModal() {
 
-        selectedMoreFeelingId =
-            null;
-
+        selectedMoreFeelingId = null;
 
         moreModal.classList.remove(
             "show"
         );
-
-
-        document.body.style.overflow =
-            "";
     }
 
 
     async function copyFeelingLink() {
 
-        if (
-            !selectedMoreFeelingId
-        ) {
+        if (!selectedMoreFeelingId) {
             return;
         }
 
@@ -4161,8 +3569,7 @@
 
             if (
                 navigator.clipboard &&
-                typeof navigator.clipboard.writeText ===
-                    "function"
+                window.isSecureContext
             ) {
 
                 await navigator.clipboard.writeText(
@@ -4173,26 +3580,20 @@
 
                 const temporary =
                     document.createElement(
-                        "input"
+                        "textarea"
                     );
 
-
-                temporary.value =
-                    url;
-
+                temporary.value = url;
 
                 document.body.appendChild(
                     temporary
                 );
 
-
                 temporary.select();
-
 
                 document.execCommand(
                     "copy"
                 );
-
 
                 temporary.remove();
             }
@@ -4205,10 +3606,9 @@
         } catch (error) {
 
             console.error(
-                "Clipboard error:",
+                "Copy error:",
                 error
             );
-
 
             showToast(
                 "Couldn't copy the link."
@@ -4225,23 +3625,16 @@
     ========================================================= */
 
     function openConnectionModal(
-        feelingId = null
+        feelingId
     ) {
 
-        if (feelingId) {
-
-            selectedFeelingId =
-                feelingId;
-        }
-
+        selectedFeelingId =
+            feelingId ||
+            selectedFeelingId;
 
         connectionModal.classList.add(
             "show"
         );
-
-
-        document.body.style.overflow =
-            "hidden";
     }
 
 
@@ -4251,20 +3644,7 @@
             "show"
         );
 
-
-        document.body.style.overflow =
-            "";
-    }
-
-
-    function continueConnectionFlow() {
-
-        closeConnectionModal();
-
-
-        showToast(
-            "Secure connection verification is not activated yet. No fake connection was created."
-        );
+        selectedFeelingId = null;
     }
 
 
@@ -4272,29 +3652,22 @@
        STATE
     ========================================================= */
 
-    function setState(
-        state
-    ) {
+    function setState(state) {
 
         loadingState.classList.add(
             "hidden"
         );
 
+        errorState.classList.add(
+            "hidden"
+        );
 
         emptyState.classList.add(
             "hidden"
         );
 
 
-        errorState.classList.add(
-            "hidden"
-        );
-
-
-        if (
-            state ===
-            "loading"
-        ) {
+        if (state === "loading") {
 
             loadingState.classList.remove(
                 "hidden"
@@ -4304,12 +3677,9 @@
         }
 
 
-        if (
-            state ===
-            "empty"
-        ) {
+        if (state === "error") {
 
-            emptyState.classList.remove(
+            errorState.classList.remove(
                 "hidden"
             );
 
@@ -4317,12 +3687,9 @@
         }
 
 
-        if (
-            state ===
-            "error"
-        ) {
+        if (state === "empty") {
 
-            errorState.classList.remove(
+            emptyState.classList.remove(
                 "hidden"
             );
 
@@ -4332,17 +3699,66 @@
 
 
     /* =========================================================
+       FIRESTORE ERROR MESSAGE
+    ========================================================= */
+
+    function getFriendlyFirestoreError(
+        error
+    ) {
+
+        if (!error) {
+            return "Something went wrong.";
+        }
+
+
+        if (
+            error.code ===
+            "permission-denied"
+        ) {
+
+            return "Firestore permission denied. Check the published Firestore rules.";
+        }
+
+
+        if (
+            error.code ===
+            "failed-precondition"
+        ) {
+
+            return "Firestore needs an index or configuration update.";
+        }
+
+
+        if (
+            error.code ===
+            "unauthenticated"
+        ) {
+
+            return "Your session expired. Please sign in again.";
+        }
+
+
+        if (
+            error.code ===
+            "network-request-failed"
+        ) {
+
+            return "Network problem. Please check your internet connection.";
+        }
+
+
+        return (
+            error.message ||
+            "Something went wrong. Please try again."
+        );
+    }
+
+
+    /* =========================================================
        NAVIGATION
     ========================================================= */
 
-    function navigate(
-        route
-    ) {
-
-        if (!route) {
-            return;
-        }
-
+    function navigate(route) {
 
         window.location.href =
             route;
@@ -4360,9 +3776,12 @@
                     "click",
                     () => {
 
-                        navigate(
-                            button.dataset.route
-                        );
+                        const route =
+                            button.dataset.route;
+
+                        if (route) {
+                            navigate(route);
+                        }
                     }
                 );
             }
@@ -4415,8 +3834,8 @@
         .addEventListener(
             "click",
             () =>
-                navigate(
-                    "settings.html#safety"
+                safetyModal.classList.add(
+                    "show"
                 )
         );
 
@@ -4426,7 +3845,6 @@
     ========================================================= */
 
     function runSearch() {
-
         applyFilters();
     }
 
@@ -4442,8 +3860,7 @@
         event => {
 
             if (
-                event.key ===
-                "Enter"
+                event.key === "Enter"
             ) {
 
                 runSearch();
@@ -4460,11 +3877,10 @@
                 searchTimer
             );
 
-
             searchTimer =
                 setTimeout(
                     runSearch,
-                    250
+                    220
                 );
         }
     );
@@ -4490,24 +3906,18 @@
 
     function clearFilters() {
 
-        searchInput.value =
-            "";
-
+        searchInput.value = "";
 
         moodFilter.value =
             "all";
 
-
         topicFilter.value =
             "all";
-
 
         sortSelect.value =
             "newest";
 
-
         applyFilters();
-
 
         showToast(
             "Search and filters cleared."
@@ -4529,12 +3939,7 @@
 
     retryButton.addEventListener(
         "click",
-        async () => {
-
-            await loadBlockedUsers();
-
-            await loadFeelings();
-        }
+        loadDiscover
     );
 
 
@@ -4569,7 +3974,7 @@
 
             const card =
                 button.closest(
-                    ".feeling-card"
+                    ".card"
                 );
 
 
@@ -4612,20 +4017,6 @@
 
             if (
                 action ===
-                "responses"
-            ) {
-
-                await toggleResponses(
-                    feelingId,
-                    button
-                );
-
-                return;
-            }
-
-
-            if (
-                action ===
                 "connect"
             ) {
 
@@ -4657,6 +4048,20 @@
 
                 openMoreModal(
                     feelingId
+                );
+
+                return;
+            }
+
+
+            if (
+                action ===
+                "toggle-responses"
+            ) {
+
+                await toggleResponses(
+                    feelingId,
+                    card
                 );
             }
         }
@@ -4747,11 +4152,18 @@
 
     document
         .getElementById(
-            "connectionUnderstandButton"
+            "connectionCloseAction"
         )
         .addEventListener(
             "click",
-            continueConnectionFlow
+            () => {
+
+                closeConnectionModal();
+
+                showToast(
+                    "Secure connection verification will be activated through the trusted backend."
+                );
+            }
         );
 
 
@@ -4801,9 +4213,7 @@
                 const feelingId =
                     selectedMoreFeelingId;
 
-
                 closeMoreModal();
-
 
                 if (feelingId) {
 
@@ -4826,53 +4236,76 @@
 
 
     /* =========================================================
-       BACKDROP CLOSE
+       SAFETY EVENTS
+    ========================================================= */
+
+    document
+        .getElementById(
+            "closeSafetyButton"
+        )
+        .addEventListener(
+            "click",
+            () =>
+                safetyModal.classList.remove(
+                    "show"
+                )
+        );
+
+
+    document
+        .getElementById(
+            "safetyCloseAction"
+        )
+        .addEventListener(
+            "click",
+            () =>
+                safetyModal.classList.remove(
+                    "show"
+                )
+        );
+
+
+    /* =========================================================
+       MODAL BACKDROP
     ========================================================= */
 
     [
         responseModal,
         reportModal,
         connectionModal,
-        moreModal
-    ]
-        .forEach(
-            modal => {
+        moreModal,
+        safetyModal
+    ].forEach(
+        modal => {
 
-                modal.addEventListener(
-                    "click",
-                    event => {
+            modal.addEventListener(
+                "click",
+                event => {
 
-                        if (
-                            event.target !==
-                            modal
-                        ) {
-                            return;
-                        }
-
-
-                        modal.classList.remove(
-                            "show"
-                        );
-
-
-                        selectedFeelingId =
-                            null;
-
-
-                        selectedMoreFeelingId =
-                            null;
-
-
-                        document.body.style.overflow =
-                            "";
+                    if (
+                        event.target !==
+                        modal
+                    ) {
+                        return;
                     }
-                );
-            }
-        );
+
+                    modal.classList.remove(
+                        "show"
+                    );
+
+                    selectedFeelingId =
+                        null;
+
+                    selectedMoreFeelingId =
+                        null;
+                }
+            );
+        }
+    );
 
 
     /* =========================================================
-       ESC
+       ESCAPE
     ========================================================= */
 
     document.addEventListener(
@@ -4880,157 +4313,56 @@
         event => {
 
             if (
-                event.key !==
-                "Escape"
+                event.key !== "Escape"
             ) {
                 return;
             }
 
 
-            responseModal.classList.remove(
-                "show"
-            );
-
-
-            reportModal.classList.remove(
-                "show"
-            );
-
-
-            connectionModal.classList.remove(
-                "show"
-            );
-
-
-            moreModal.classList.remove(
-                "show"
+            [
+                responseModal,
+                reportModal,
+                connectionModal,
+                moreModal,
+                safetyModal
+            ].forEach(
+                modal =>
+                    modal.classList.remove(
+                        "show"
+                    )
             );
 
 
             selectedFeelingId =
                 null;
 
-
             selectedMoreFeelingId =
                 null;
-
-
-            document.body.style.overflow =
-                "";
         }
     );
-
-
-    /* =========================================================
-       HASH
-    ========================================================= */
-
-    window.addEventListener(
-        "load",
-        () => {
-
-            const hash =
-                window.location.hash;
-
-
-            if (
-                !hash.startsWith(
-                    "#feeling-"
-                )
-            ) {
-                return;
-            }
-
-
-            const feelingId =
-                hash.replace(
-                    "#feeling-",
-                    ""
-                );
-
-
-            if (!feelingId) {
-                return;
-            }
-
-
-            setTimeout(
-                () => {
-
-                    const card =
-                        document.querySelector(
-                            `[data-feeling-id="${CSS.escape(
-                                feelingId
-                            )}"]`
-                        );
-
-
-                    if (card) {
-
-                        card.scrollIntoView(
-                            {
-                                behavior:
-                                    "smooth",
-
-                                block:
-                                    "center"
-                            }
-                        );
-                    }
-
-                },
-                500
-            );
-        }
-    );
-
-
-    /* =========================================================
-       PUBLIC API
-    ========================================================= */
-
-    window.ListenMyFeelingsDiscover = {
-
-        reload:
-            loadFeelings,
-
-        search:
-            runSearch,
-
-        clearFilters,
-
-        getCurrentFeelings:
-            () =>
-                [
-                    ...visibleFeelings
-                ]
-    };
 
 
     /* =========================================================
        LOGOUT SHORTCUT
     ========================================================= */
 
-    window.addEventListener(
+    document.addEventListener(
         "keydown",
         async event => {
 
             if (
                 event.shiftKey &&
                 event.ctrlKey &&
-                event.key.toLowerCase() ===
-                    "l"
+                event.key.toLowerCase() === "l"
             ) {
 
                 event.preventDefault();
-
 
                 try {
 
                     await signOut(
                         auth
                     );
-
 
                     window.location.href =
                         "index.html";
@@ -5042,7 +4374,6 @@
                         error
                     );
 
-
                     showToast(
                         "Couldn't sign out."
                     );
@@ -5051,7 +4382,27 @@
         }
     );
 
+
+    /* =========================================================
+       PUBLIC DEBUG API
+    ========================================================= */
+
+    window.ListenMyFeelingsDiscover = {
+
+        reload:
+            loadDiscover,
+
+        search:
+            runSearch,
+
+        clearFilters,
+
+        getCurrentFeelings:
+            () =>
+                [...visibleFeelings]
+    };
+
 </script>
 
 </body>
-    </html>
+                    </html>
