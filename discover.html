@@ -1,0 +1,3187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Discover • Listen My Feelings</title>
+
+    <meta
+        name="description"
+        content="Discover public feelings and connect through understanding on Listen My Feelings."
+    >
+
+    <meta name="theme-color" content="#09070f">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --discover-bg: #09070f;
+            --discover-card: rgba(24, 19, 34, 0.88);
+            --discover-card-2: rgba(31, 24, 44, 0.9);
+            --discover-border: rgba(255, 255, 255, 0.09);
+            --discover-text: #ffffff;
+            --discover-muted: #a9a2b7;
+            --discover-soft: #ddd7e8;
+            --discover-accent: #a855f7;
+            --discover-accent-2: #ec4899;
+            --discover-success: #34d399;
+            --discover-danger: #fb7185;
+            --discover-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(168, 85, 247, 0.12),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 30%
+                ),
+                var(--discover-bg);
+            color: var(--discover-text);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .discover-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 30px 0 110px;
+        }
+
+        .discover-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .discover-heading h1 {
+            margin: 0;
+            font-size: clamp(28px, 5vw, 42px);
+            letter-spacing: -1.5px;
+        }
+
+        .discover-heading p {
+            margin: 8px 0 0;
+            color: var(--discover-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--discover-border);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            transition: 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(168, 85, 247, 0.35);
+        }
+
+        .search-panel {
+            padding: 18px;
+            border: 1px solid var(--discover-border);
+            border-radius: 22px;
+            background: var(--discover-card);
+            box-shadow: var(--discover-shadow);
+            margin-bottom: 18px;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box span {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .search-box input {
+            width: 100%;
+            min-height: 52px;
+            padding: 0 16px 0 46px;
+            border: 1px solid var(--discover-border);
+            border-radius: 16px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.055);
+            color: #fff;
+        }
+
+        .search-box input::placeholder {
+            color: #8f889c;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(168, 85, 247, 0.65);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.08);
+        }
+
+        .search-button {
+            min-height: 52px;
+            padding: 0 22px;
+            border: 0;
+            border-radius: 16px;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(
+                135deg,
+                var(--discover-accent),
+                var(--discover-accent-2)
+            );
+            box-shadow: 0 12px 28px rgba(168, 85, 247, 0.2);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-top: 14px;
+            scrollbar-width: none;
+        }
+
+        .filter-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-select {
+            min-width: 145px;
+            padding: 12px 14px;
+            border-radius: 13px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.045);
+            color: #fff;
+            outline: none;
+        }
+
+        .filter-select option {
+            background: #181321;
+            color: #fff;
+        }
+
+        .clear-filter {
+            white-space: nowrap;
+            padding: 0 16px;
+            border-radius: 13px;
+            border: 1px solid rgba(251, 113, 133, 0.2);
+            background: rgba(251, 113, 133, 0.07);
+            color: #fda4af;
+            font-weight: 600;
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .feed-column {
+            min-width: 0;
+        }
+
+        .feed-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 4px 0 14px;
+        }
+
+        .result-count {
+            color: var(--discover-muted);
+            font-size: 13px;
+        }
+
+        .sort-select {
+            padding: 9px 12px;
+            border-radius: 11px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            outline: none;
+        }
+
+        .sort-select option {
+            background: #181321;
+        }
+
+        .feelings-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .feeling-card {
+            border: 1px solid var(--discover-border);
+            border-radius: 22px;
+            background: linear-gradient(
+                145deg,
+                rgba(27, 21, 39, 0.94),
+                rgba(18, 14, 27, 0.96)
+            );
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .feeling-card-inner {
+            padding: 20px;
+        }
+
+        .feeling-author {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .author-left {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            flex: 0 0 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(168, 85, 247, 0.9),
+                    rgba(236, 72, 153, 0.9)
+                );
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .author-name {
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .feeling-time {
+            margin-top: 3px;
+            color: var(--discover-muted);
+            font-size: 12px;
+        }
+
+        .more-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
+            border: 0;
+            background: rgba(255, 255, 255, 0.045);
+            color: #fff;
+        }
+
+        .feeling-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 18px;
+        }
+
+        .meta-pill {
+            padding: 6px 9px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #ddd6fe;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.14);
+        }
+
+        .feeling-text {
+            margin: 15px 0 0;
+            color: #f3eff8;
+            line-height: 1.72;
+            font-size: 15px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .feeling-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 19px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.065);
+        }
+
+        .action-button {
+            min-height: 40px;
+            padding: 0 13px;
+            border-radius: 12px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.035);
+            color: #e9e3f0;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.18s ease;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.075);
+            transform: translateY(-1px);
+        }
+
+        .action-button.active {
+            color: #f0abfc;
+            border-color: rgba(217, 70, 239, 0.3);
+            background: rgba(217, 70, 239, 0.1);
+        }
+
+        .action-button.connect {
+            color: #ddd6fe;
+            border-color: rgba(168, 85, 247, 0.25);
+            background: rgba(168, 85, 247, 0.08);
+        }
+
+        .action-button.danger {
+            color: #fda4af;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .side-card {
+            padding: 18px;
+            border: 1px solid var(--discover-border);
+            border-radius: 20px;
+            background: var(--discover-card);
+        }
+
+        .side-card h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .side-card p {
+            margin: 9px 0 0;
+            color: var(--discover-muted);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .side-link {
+            width: 100%;
+            margin-top: 12px;
+            padding: 11px 13px;
+            text-align: left;
+            border-radius: 12px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.035);
+            color: #fff;
+        }
+
+        .ad-box {
+            min-height: 120px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.13);
+            border-radius: 18px;
+            color: #81798d;
+            background: rgba(255, 255, 255, 0.025);
+            font-size: 12px;
+        }
+
+        .loading-state,
+        .empty-state,
+        .error-state {
+            padding: 40px 20px;
+            border: 1px solid var(--discover-border);
+            border-radius: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .state-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .state-title {
+            font-weight: 700;
+        }
+
+        .state-text {
+            margin: 7px auto 0;
+            max-width: 440px;
+            color: var(--discover-muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .state-button {
+            margin-top: 16px;
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(
+                135deg,
+                var(--discover-accent),
+                var(--discover-accent-2)
+            );
+        }
+
+        .load-more-wrap {
+            display: flex;
+            justify-content: center;
+            padding-top: 18px;
+        }
+
+        .load-more {
+            min-height: 44px;
+            padding: 0 20px;
+            border-radius: 13px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.045);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 12px;
+            transform: translateX(-50%);
+            width: min(680px, calc(100% - 22px));
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding: 8px;
+            gap: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 21px;
+            background: rgba(14, 10, 20, 0.92);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
+        }
+
+        .bottom-nav button {
+            min-height: 52px;
+            border: 0;
+            border-radius: 15px;
+            background: transparent;
+            color: #898292;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            font-size: 10px;
+        }
+
+        .bottom-nav button strong {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .bottom-nav button.active {
+            color: #fff;
+            background: rgba(168, 85, 247, 0.13);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal {
+            width: min(500px, 100%);
+            max-height: min(700px, calc(100vh - 36px));
+            overflow-y: auto;
+            padding: 22px;
+            border: 1px solid var(--discover-border);
+            border-radius: 22px;
+            background: #17111f;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+        }
+
+        .modal p {
+            color: var(--discover-muted);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .modal textarea {
+            width: 100%;
+            min-height: 130px;
+            resize: vertical;
+            padding: 13px;
+            border-radius: 14px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.045);
+            color: #fff;
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .modal-button {
+            min-height: 42px;
+            padding: 0 15px;
+            border-radius: 12px;
+            border: 1px solid var(--discover-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .modal-button.primary {
+            border: 0;
+            background: linear-gradient(
+                135deg,
+                var(--discover-accent),
+                var(--discover-accent-2)
+            );
+        }
+
+        .toast {
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 90px;
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            pointer-events: none;
+            width: min(430px, calc(100% - 30px));
+            padding: 13px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            background: rgba(20, 15, 28, 0.96);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+            color: #fff;
+            font-size: 13px;
+            text-align: center;
+            transition: 0.22s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @media (max-width: 900px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .discover-shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 20px;
+                padding-bottom: 105px;
+            }
+
+            .discover-top {
+                align-items: flex-start;
+            }
+
+            .top-actions {
+                display: none;
+            }
+
+            .search-panel {
+                padding: 13px;
+                border-radius: 18px;
+            }
+
+            .search-row {
+                grid-template-columns: 1fr;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .feeling-card-inner {
+                padding: 16px;
+            }
+
+            .feeling-actions {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-button {
+                width: 100%;
+            }
+
+            .feed-toolbar {
+                align-items: flex-start;
+            }
+        }
+
+        @media (min-width: 801px) {
+            .bottom-nav {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="discover-shell">
+
+    <section class="discover-top">
+        <div class="discover-heading">
+            <h1>Discover</h1>
+            <p>Explore real feelings shared publicly by people in the community.</p>
+        </div>
+
+        <div class="top-actions">
+            <button
+                class="icon-btn"
+                id="notificationsButton"
+                type="button"
+                aria-label="Notifications"
+                title="Notifications"
+            >
+                🔔
+            </button>
+
+            <button
+                class="icon-btn"
+                id="messagesButton"
+                type="button"
+                aria-label="Messages"
+                title="Messages"
+            >
+                💬
+            </button>
+        </div>
+    </section>
+
+
+    <section class="search-panel" aria-label="Discover search and filters">
+
+        <div class="search-row">
+
+            <div class="search-box">
+                <span aria-hidden="true">🔎</span>
+
+                <input
+                    id="searchInput"
+                    type="search"
+                    maxlength="100"
+                    autocomplete="off"
+                    placeholder="Search feelings, topics or words..."
+                    aria-label="Search feelings"
+                >
+            </div>
+
+            <button
+                class="search-button"
+                id="searchButton"
+                type="button"
+            >
+                Search
+            </button>
+
+        </div>
+
+        <div class="filter-row">
+
+            <select
+                id="moodFilter"
+                class="filter-select"
+                aria-label="Filter by mood"
+            >
+                <option value="all">All moods</option>
+                <option value="happy">😊 Happy</option>
+                <option value="sad">😔 Sad</option>
+                <option value="lonely">🥺 Lonely</option>
+                <option value="angry">😡 Angry</option>
+                <option value="anxious">😟 Anxious</option>
+                <option value="confused">😕 Confused</option>
+                <option value="hopeful">🌱 Hopeful</option>
+                <option value="grateful">🙏 Grateful</option>
+                <option value="excited">✨ Excited</option>
+                <option value="other">💭 Other</option>
+            </select>
+
+            <select
+                id="topicFilter"
+                class="filter-select"
+                aria-label="Filter by topic"
+            >
+                <option value="all">All topics</option>
+                <option value="self">Self</option>
+                <option value="relationships">Relationships</option>
+                <option value="family">Family</option>
+                <option value="work">Work</option>
+                <option value="study">Study</option>
+                <option value="life">Life</option>
+                <option value="health">Health</option>
+                <option value="money">Money</option>
+                <option value="other">Other</option>
+            </select>
+
+            <button
+                class="clear-filter"
+                id="clearFiltersButton"
+                type="button"
+            >
+                Clear
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="content-layout">
+
+        <div class="feed-column">
+
+            <div class="feed-toolbar">
+
+                <span
+                    class="result-count"
+                    id="resultCount"
+                >
+                    Loading feelings...
+                </span>
+
+                <select
+                    id="sortSelect"
+                    class="sort-select"
+                    aria-label="Sort feelings"
+                >
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                </select>
+
+            </div>
+
+
+            <div
+                id="loadingState"
+                class="loading-state"
+            >
+                <div class="state-icon">⏳</div>
+                <div class="state-title">Finding feelings...</div>
+                <div class="state-text">
+                    We're loading public feelings from the community.
+                </div>
+            </div>
+
+
+            <div
+                id="errorState"
+                class="error-state hidden"
+            >
+                <div class="state-icon">⚠️</div>
+                <div class="state-title">Couldn't load Discover</div>
+                <div
+                    class="state-text"
+                    id="errorText"
+                >
+                    Something went wrong while loading public feelings.
+                </div>
+
+                <button
+                    class="state-button"
+                    id="retryButton"
+                    type="button"
+                >
+                    Try again
+                </button>
+            </div>
+
+
+            <div
+                id="emptyState"
+                class="empty-state hidden"
+            >
+                <div class="state-icon">🌙</div>
+                <div class="state-title">No feelings found</div>
+                <div class="state-text">
+                    Try another search or clear the filters.
+                </div>
+
+                <button
+                    class="state-button"
+                    id="emptyClearButton"
+                    type="button"
+                >
+                    Clear search
+                </button>
+            </div>
+
+
+            <div
+                id="feelingsList"
+                class="feelings-list"
+            ></div>
+
+
+            <div
+                id="loadMoreWrap"
+                class="load-more-wrap hidden"
+            >
+                <button
+                    id="loadMoreButton"
+                    class="load-more"
+                    type="button"
+                >
+                    Load more
+                </button>
+            </div>
+
+        </div>
+
+
+        <aside class="sidebar">
+
+            <section class="side-card">
+                <h3>What is Discover?</h3>
+
+                <p>
+                    Find public feelings shared by people who chose to express
+                    themselves openly. Read with empathy and respond respectfully.
+                </p>
+
+                <button
+                    class="side-link"
+                    id="createFeelingButton"
+                    type="button"
+                >
+                    ✍️ Share your feeling
+                </button>
+            </section>
+
+
+            <section class="side-card">
+                <h3>Connection</h3>
+
+                <p>
+                    Connection access is protected by the platform's
+                    verified-ad and 12-hour connection system.
+                </p>
+
+                <button
+                    class="side-link"
+                    id="connectionInfoButton"
+                    type="button"
+                >
+                    🤝 How connection works
+                </button>
+            </section>
+
+
+            <section class="side-card">
+                <h3>Stay safe</h3>
+
+                <p>
+                    Never share passwords, OTPs, financial information or
+                    private details with strangers.
+                </p>
+
+                <button
+                    class="side-link"
+                    id="safetyButton"
+                    type="button"
+                >
+                    🛡️ Safety & reporting
+                </button>
+            </section>
+
+
+            <section class="side-card">
+
+                <div class="ad-box">
+                    <div>
+                        <strong>ADVERTISEMENT</strong>
+                        <br>
+                        <br>
+                        Ad space reserved for the approved advertising provider.
+                    </div>
+                </div>
+
+            </section>
+
+        </aside>
+
+    </section>
+
+</main>
+
+
+<nav
+    class="bottom-nav"
+    aria-label="Main navigation"
+>
+
+    <button
+        type="button"
+        data-route="app.html"
+        aria-label="Home"
+    >
+        <strong>⌂</strong>
+        Home
+    </button>
+
+    <button
+        type="button"
+        class="active"
+        data-route="discover.html"
+        aria-label="Discover"
+    >
+        <strong>◉</strong>
+        Discover
+    </button>
+
+    <button
+        type="button"
+        data-route="notifications.html"
+        aria-label="Notifications"
+    >
+        <strong>♢</strong>
+        Alerts
+    </button>
+
+    <button
+        type="button"
+        data-route="messages.html"
+        aria-label="Messages"
+    >
+        <strong>◌</strong>
+        Messages
+    </button>
+
+    <button
+        type="button"
+        data-route="profile.html"
+        aria-label="Profile"
+    >
+        <strong>○</strong>
+        Profile
+    </button>
+
+</nav>
+
+
+<!-- RESPONSE MODAL -->
+
+<div
+    id="responseModal"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="responseTitle"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="responseTitle">
+                Respond with empathy
+            </h2>
+
+            <button
+                id="closeResponseButton"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <p>
+            Your response will be attached to this feeling.
+            Keep it respectful and supportive.
+        </p>
+
+        <textarea
+            id="responseInput"
+            maxlength="2000"
+            placeholder="Write something kind..."
+        ></textarea>
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelResponseButton"
+                class="modal-button"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="submitResponseButton"
+                class="modal-button primary"
+                type="button"
+            >
+                Send response
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- REPORT MODAL -->
+
+<div
+    id="reportModal"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="reportTitle"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="reportTitle">
+                Report feeling
+            </h2>
+
+            <button
+                id="closeReportButton"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <p>
+            Tell us why you believe this content should be reviewed.
+        </p>
+
+        <textarea
+            id="reportInput"
+            maxlength="1000"
+            placeholder="Describe the issue..."
+        ></textarea>
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelReportButton"
+                class="modal-button"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="submitReportButton"
+                class="modal-button primary"
+                type="button"
+            >
+                Submit report
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CONNECTION MODAL -->
+
+<div
+    id="connectionModal"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="connectionTitle"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="connectionTitle">
+                Connect safely
+            </h2>
+
+            <button
+                id="closeConnectionButton"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <p>
+            Connections are protected by a verified rewarded-ad flow.
+            After successful server verification, an eligible connection
+            can remain active for 12 hours.
+        </p>
+
+        <p>
+            This Discover page will never create a fake connection or trust
+            a client-side timer. The secure connection endpoint and ad
+            verification backend must authorize the operation before a
+            connection document can be created.
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                id="connectionUnderstandButton"
+                class="modal-button primary"
+                type="button"
+            >
+                I understand
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MORE MENU MODAL -->
+
+<div
+    id="moreModal"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="moreTitle"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="moreTitle">
+                Feeling options
+            </h2>
+
+            <button
+                id="closeMoreButton"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div class="modal-actions" style="justify-content:stretch;flex-direction:column;">
+
+            <button
+                id="moreReportButton"
+                class="modal-button"
+                type="button"
+            >
+                🚩 Report this feeling
+            </button>
+
+            <button
+                id="moreCopyButton"
+                class="modal-button"
+                type="button"
+            >
+                🔗 Copy feeling link
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+<script type="module">
+
+    import { auth, db } from "./firebase/firebase-config.js";
+
+    import {
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+    import {
+        collection,
+        query,
+        where,
+        limit,
+        getDocs,
+        doc,
+        setDoc,
+        deleteDoc,
+        getDoc,
+        addDoc,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+    /* =========================================================
+       CONFIG
+    ========================================================= */
+
+    const MAX_RESULTS = 100;
+    const PAGE_SIZE = 30;
+    const MAX_RESPONSE_LENGTH = 2000;
+    const MAX_REPORT_LENGTH = 1000;
+
+    const feelingCache = new Map();
+
+    let currentUser = null;
+    let allFeelings = [];
+    let visibleFeelings = [];
+    let renderedCount = 0;
+
+    let selectedFeelingId = null;
+    let selectedMoreFeelingId = null;
+
+    let searchTimer = null;
+
+
+    /* =========================================================
+       DOM
+    ========================================================= */
+
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+
+    const moodFilter = document.getElementById("moodFilter");
+    const topicFilter = document.getElementById("topicFilter");
+    const clearFiltersButton = document.getElementById("clearFiltersButton");
+
+    const sortSelect = document.getElementById("sortSelect");
+
+    const feelingsList = document.getElementById("feelingsList");
+
+    const loadingState = document.getElementById("loadingState");
+    const emptyState = document.getElementById("emptyState");
+    const errorState = document.getElementById("errorState");
+
+    const errorText = document.getElementById("errorText");
+
+    const retryButton = document.getElementById("retryButton");
+    const emptyClearButton = document.getElementById("emptyClearButton");
+
+    const resultCount = document.getElementById("resultCount");
+
+    const loadMoreWrap = document.getElementById("loadMoreWrap");
+    const loadMoreButton = document.getElementById("loadMoreButton");
+
+    const responseModal = document.getElementById("responseModal");
+    const responseInput = document.getElementById("responseInput");
+
+    const reportModal = document.getElementById("reportModal");
+    const reportInput = document.getElementById("reportInput");
+
+    const connectionModal = document.getElementById("connectionModal");
+
+    const moreModal = document.getElementById("moreModal");
+
+    const toastElement = document.getElementById("toast");
+
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function showToast(message) {
+
+        toastElement.textContent = message;
+
+        toastElement.classList.add("show");
+
+        clearTimeout(showToast.timer);
+
+        showToast.timer = setTimeout(() => {
+            toastElement.classList.remove("show");
+        }, 3000);
+    }
+
+
+    function escapeHTML(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function normalize(value) {
+        return String(value ?? "")
+            .trim()
+            .toLowerCase();
+    }
+
+
+    function getInitials(name) {
+
+        const clean = String(name || "User").trim();
+
+        if (!clean) {
+            return "U";
+        }
+
+        const parts = clean.split(/\s+/).slice(0, 2);
+
+        return parts
+            .map(part => part.charAt(0).toUpperCase())
+            .join("");
+    }
+
+
+    function formatDate(timestamp) {
+
+        if (!timestamp) {
+            return "Recently";
+        }
+
+        let date = null;
+
+        if (typeof timestamp.toDate === "function") {
+            date = timestamp.toDate();
+        } else if (timestamp instanceof Date) {
+            date = timestamp;
+        } else if (typeof timestamp === "number") {
+            date = new Date(timestamp);
+        }
+
+        if (!date || Number.isNaN(date.getTime())) {
+            return "Recently";
+        }
+
+        const now = Date.now();
+
+        const difference = Math.max(
+            0,
+            now - date.getTime()
+        );
+
+        const minutes = Math.floor(difference / 60000);
+
+        if (minutes < 1) {
+            return "Just now";
+        }
+
+        if (minutes < 60) {
+            return `${minutes}m ago`;
+        }
+
+        const hours = Math.floor(minutes / 60);
+
+        if (hours < 24) {
+            return `${hours}h ago`;
+        }
+
+        const days = Math.floor(hours / 24);
+
+        if (days < 7) {
+            return `${days}d ago`;
+        }
+
+        return date.toLocaleDateString(
+            undefined,
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
+    }
+
+
+    function getFieldValue(data, keys, fallback = "") {
+
+        for (const key of keys) {
+
+            if (
+                data &&
+                data[key] !== undefined &&
+                data[key] !== null
+            ) {
+                return data[key];
+            }
+        }
+
+        return fallback;
+    }
+
+
+    function normalizeMood(value) {
+
+        const clean = normalize(value);
+
+        const aliases = {
+            "😊 happy": "happy",
+            "happy": "happy",
+
+            "😔 sad": "sad",
+            "sad": "sad",
+
+            "🥺 lonely": "lonely",
+            "lonely": "lonely",
+
+            "😡 angry": "angry",
+            "angry": "angry",
+
+            "😟 anxious": "anxious",
+            "anxious": "anxious",
+
+            "😕 confused": "confused",
+            "confused": "confused",
+
+            "🌱 hopeful": "hopeful",
+            "hopeful": "hopeful",
+
+            "🙏 grateful": "grateful",
+            "grateful": "grateful",
+
+            "✨ excited": "excited",
+            "excited": "excited",
+
+            "💭 other": "other",
+            "other": "other"
+        };
+
+        return aliases[clean] || clean;
+    }
+
+
+    function normalizeTopic(value) {
+
+        return normalize(value)
+            .replace(/\s+/g, "_");
+    }
+
+
+    function getFeelingData(snapshot) {
+
+        const data = snapshot.data() || {};
+
+        const text = getFieldValue(
+            data,
+            ["text", "feeling", "content"],
+            ""
+        );
+
+        const authorName = getFieldValue(
+            data,
+            ["authorName", "displayName", "name", "userName"],
+            "Anonymous"
+        );
+
+        const mood = getFieldValue(
+            data,
+            ["mood"],
+            "other"
+        );
+
+        const topic = getFieldValue(
+            data,
+            ["topic"],
+            "other"
+        );
+
+        const createdAt = getFieldValue(
+            data,
+            ["createdAt", "created_at"],
+            null
+        );
+
+        const visibility = getFieldValue(
+            data,
+            ["visibility"],
+            "public"
+        );
+
+        const status = getFieldValue(
+            data,
+            ["status"],
+            "active"
+        );
+
+        const authorId = getFieldValue(
+            data,
+            ["userId", "authorId", "uid"],
+            ""
+        );
+
+        const understandCount = Number(
+            getFieldValue(
+                data,
+                ["understandCount", "understoodCount"],
+                0
+            )
+        ) || 0;
+
+        const responseCount = Number(
+            getFieldValue(
+                data,
+                ["responseCount", "responsesCount"],
+                0
+            )
+        ) || 0;
+
+        return {
+            id: snapshot.id,
+            text: String(text),
+            authorName: String(authorName),
+            mood: String(mood),
+            topic: String(topic),
+            createdAt,
+            visibility,
+            status,
+            authorId: String(authorId),
+            understandCount,
+            responseCount
+        };
+    }
+
+
+    /* =========================================================
+       AUTH
+    ========================================================= */
+
+    onAuthStateChanged(auth, async user => {
+
+        if (!user) {
+
+            window.location.href = "index.html";
+
+            return;
+        }
+
+        currentUser = user;
+
+        await loadFeelings();
+    });
+
+
+    /* =========================================================
+       FIRESTORE LOAD
+    ========================================================= */
+
+    async function loadFeelings() {
+
+        setState("loading");
+
+        try {
+
+            /*
+             * We intentionally avoid orderBy() here.
+             * The client sorts the received public/active records.
+             * This reduces unnecessary composite-index requirements.
+             */
+
+            const feelingsQuery = query(
+                collection(db, "feelings"),
+                where("visibility", "==", "public"),
+                where("status", "==", "active"),
+                limit(MAX_RESULTS)
+            );
+
+            const snapshot = await getDocs(feelingsQuery);
+
+            allFeelings = [];
+
+            snapshot.forEach(item => {
+
+                const feeling = getFeelingData(item);
+
+                feelingCache.set(
+                    feeling.id,
+                    feeling
+                );
+
+                allFeelings.push(feeling);
+            });
+
+            applyFilters();
+
+        } catch (error) {
+
+            console.error(
+                "Discover load error:",
+                error
+            );
+
+            if (error.code === "permission-denied") {
+
+                errorText.textContent =
+                    "Firestore denied this public Discover query. Check that the deployed Firestore rules allow authenticated users to read public active feelings.";
+
+            } else {
+
+                errorText.textContent =
+                    error.message ||
+                    "Something went wrong while loading public feelings.";
+            }
+
+            setState("error");
+        }
+    }
+
+
+    /* =========================================================
+       FILTER / SEARCH
+    ========================================================= */
+
+    function applyFilters() {
+
+        const search = normalize(
+            searchInput.value
+        );
+
+        const selectedMood = normalizeMood(
+            moodFilter.value
+        );
+
+        const selectedTopic = normalizeTopic(
+            topicFilter.value
+        );
+
+        const filtered = allFeelings.filter(
+            feeling => {
+
+                const feelingMood =
+                    normalizeMood(feeling.mood);
+
+                const feelingTopic =
+                    normalizeTopic(feeling.topic);
+
+                const text =
+                    normalize(feeling.text);
+
+                const author =
+                    normalize(feeling.authorName);
+
+                const topicText =
+                    normalize(feeling.topic);
+
+                const moodText =
+                    normalize(feeling.mood);
+
+                const searchMatches =
+                    !search ||
+                    text.includes(search) ||
+                    author.includes(search) ||
+                    topicText.includes(search) ||
+                    moodText.includes(search);
+
+                const moodMatches =
+                    selectedMood === "all" ||
+                    feelingMood === selectedMood;
+
+                const topicMatches =
+                    selectedTopic === "all" ||
+                    feelingTopic === selectedTopic;
+
+                return (
+                    searchMatches &&
+                    moodMatches &&
+                    topicMatches
+                );
+            }
+        );
+
+        filtered.sort((a, b) => {
+
+            const aTime =
+                getTimestampMilliseconds(a.createdAt);
+
+            const bTime =
+                getTimestampMilliseconds(b.createdAt);
+
+            if (sortSelect.value === "oldest") {
+                return aTime - bTime;
+            }
+
+            return bTime - aTime;
+        });
+
+        visibleFeelings = filtered;
+
+        renderedCount = 0;
+
+        renderVisibleFeelings();
+    }
+
+
+    function getTimestampMilliseconds(timestamp) {
+
+        if (!timestamp) {
+            return 0;
+        }
+
+        if (typeof timestamp.toMillis === "function") {
+            return timestamp.toMillis();
+        }
+
+        if (typeof timestamp.toDate === "function") {
+            return timestamp.toDate().getTime();
+        }
+
+        if (timestamp instanceof Date) {
+            return timestamp.getTime();
+        }
+
+        if (typeof timestamp === "number") {
+            return timestamp;
+        }
+
+        return 0;
+    }
+
+
+    function renderVisibleFeelings() {
+
+        feelingsList.innerHTML = "";
+
+        renderedCount = Math.min(
+            PAGE_SIZE,
+            visibleFeelings.length
+        );
+
+        const initialItems =
+            visibleFeelings.slice(
+                0,
+                renderedCount
+            );
+
+        initialItems.forEach(
+            feeling => {
+                feelingsList.appendChild(
+                    createFeelingCard(feeling)
+                );
+            }
+        );
+
+        resultCount.textContent =
+            `${visibleFeelings.length} ${visibleFeelings.length === 1 ? "feeling" : "feelings"}`;
+
+        if (visibleFeelings.length === 0) {
+
+            setState("empty");
+
+        } else {
+
+            setState("content");
+        }
+
+        updateLoadMore();
+    }
+
+
+    function updateLoadMore() {
+
+        if (
+            visibleFeelings.length > renderedCount
+        ) {
+
+            loadMoreWrap.classList.remove(
+                "hidden"
+            );
+
+            loadMoreButton.textContent =
+                `Load more (${visibleFeelings.length - renderedCount} left)`;
+
+        } else {
+
+            loadMoreWrap.classList.add(
+                "hidden"
+            );
+        }
+    }
+
+
+    function loadMore() {
+
+        const nextItems =
+            visibleFeelings.slice(
+                renderedCount,
+                renderedCount + PAGE_SIZE
+            );
+
+        nextItems.forEach(
+            feeling => {
+                feelingsList.appendChild(
+                    createFeelingCard(feeling)
+                );
+            }
+        );
+
+        renderedCount += nextItems.length;
+
+        updateLoadMore();
+    }
+
+
+    /* =========================================================
+       FEELING CARD
+    ========================================================= */
+
+    function createFeelingCard(feeling) {
+
+        const card =
+            document.createElement("article");
+
+        card.className = "feeling-card";
+
+        card.dataset.feelingId =
+            feeling.id;
+
+        const currentUserUnderstands =
+            card.dataset.understood === "true";
+
+        const moodLabel =
+            formatMoodLabel(feeling.mood);
+
+        const topicLabel =
+            formatTopicLabel(feeling.topic);
+
+        card.innerHTML = `
+
+            <div class="feeling-card-inner">
+
+                <div class="feeling-author">
+
+                    <div class="author-left">
+
+                        <div class="avatar">
+                            ${escapeHTML(
+                                getInitials(
+                                    feeling.authorName
+                                )
+                            )}
+                        </div>
+
+                        <div>
+
+                            <div class="author-name">
+                                ${escapeHTML(
+                                    feeling.authorName
+                                )}
+                            </div>
+
+                            <div class="feeling-time">
+                                ${escapeHTML(
+                                    formatDate(
+                                        feeling.createdAt
+                                    )
+                                )}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="more-button"
+                        type="button"
+                        data-action="more"
+                        aria-label="More options"
+                    >
+                        ⋯
+                    </button>
+
+                </div>
+
+
+                <div class="feeling-meta">
+
+                    <span class="meta-pill">
+                        ${escapeHTML(moodLabel)}
+                    </span>
+
+                    <span class="meta-pill">
+                        ${escapeHTML(topicLabel)}
+                    </span>
+
+                </div>
+
+
+                <p class="feeling-text">
+                    ${escapeHTML(feeling.text)}
+                </p>
+
+
+                <div class="feeling-actions">
+
+                    <button
+                        class="action-button"
+                        type="button"
+                        data-action="understand"
+                        data-feeling-id="${escapeHTML(feeling.id)}"
+                    >
+                        💜 I Understand
+                        <span data-understand-count>
+                            ${escapeHTML(
+                                String(
+                                    feeling.understandCount
+                                )
+                            )}
+                        </span>
+                    </button>
+
+                    <button
+                        class="action-button"
+                        type="button"
+                        data-action="respond"
+                        data-feeling-id="${escapeHTML(feeling.id)}"
+                    >
+                        💭 Respond
+                    </button>
+
+                    <button
+                        class="action-button connect"
+                        type="button"
+                        data-action="connect"
+                        data-feeling-id="${escapeHTML(feeling.id)}"
+                    >
+                        🤝 Connect
+                    </button>
+
+                    <button
+                        class="action-button danger"
+                        type="button"
+                        data-action="report"
+                        data-feeling-id="${escapeHTML(feeling.id)}"
+                    >
+                        🚩 Report
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        return card;
+    }
+
+
+    function formatMoodLabel(value) {
+
+        const clean = normalizeMood(value);
+
+        const labels = {
+            happy: "😊 Happy",
+            sad: "😔 Sad",
+            lonely: "🥺 Lonely",
+            angry: "😡 Angry",
+            anxious: "😟 Anxious",
+            confused: "😕 Confused",
+            hopeful: "🌱 Hopeful",
+            grateful: "🙏 Grateful",
+            excited: "✨ Excited",
+            other: "💭 Other"
+        };
+
+        return labels[clean] || "💭 " + String(value || "Other");
+    }
+
+
+    function formatTopicLabel(value) {
+
+        const clean = normalizeTopic(value);
+
+        const labels = {
+            self: "Self",
+            relationships: "Relationships",
+            family: "Family",
+            work: "Work",
+            study: "Study",
+            life: "Life",
+            health: "Health",
+            money: "Money",
+            other: "Other"
+        };
+
+        return labels[clean] ||
+            String(value || "Other");
+    }
+
+
+    /* =========================================================
+       UNDERSTAND
+    ========================================================= */
+
+    async function toggleUnderstand(
+        feelingId,
+        button
+    ) {
+
+        if (!currentUser) {
+            showToast("Please sign in first.");
+            return;
+        }
+
+        const reactionReference =
+            doc(
+                db,
+                "feelings",
+                feelingId,
+                "understands",
+                currentUser.uid
+            );
+
+        try {
+
+            const existing =
+                await getDoc(
+                    reactionReference
+                );
+
+            if (existing.exists()) {
+
+                await deleteDoc(
+                    reactionReference
+                );
+
+                button.classList.remove(
+                    "active"
+                );
+
+                const feeling =
+                    feelingCache.get(
+                        feelingId
+                    );
+
+                if (feeling) {
+
+                    feeling.understandCount =
+                        Math.max(
+                            0,
+                            Number(
+                                feeling.understandCount || 0
+                            ) - 1
+                        );
+                }
+
+                updateUnderstandCount(
+                    button,
+                    feeling?.understandCount || 0
+                );
+
+                showToast(
+                    "Your understanding was removed."
+                );
+
+            } else {
+
+                await setDoc(
+                    reactionReference,
+                    {
+                        userId: currentUser.uid,
+                        createdAt: serverTimestamp()
+                    }
+                );
+
+                button.classList.add(
+                    "active"
+                );
+
+                const feeling =
+                    feelingCache.get(
+                        feelingId
+                    );
+
+                if (feeling) {
+
+                    feeling.understandCount =
+                        Number(
+                            feeling.understandCount || 0
+                        ) + 1;
+                }
+
+                updateUnderstandCount(
+                    button,
+                    feeling?.understandCount || 1
+                );
+
+                showToast(
+                    "I Understand added 💜"
+                );
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Understand error:",
+                error
+            );
+
+            showToast(
+                error.code === "permission-denied"
+                    ? "You don't have permission to react to this feeling."
+                    : "Couldn't update your response."
+            );
+        }
+    }
+
+
+    function updateUnderstandCount(
+        button,
+        count
+    ) {
+
+        const countElement =
+            button.querySelector(
+                "[data-understand-count]"
+            );
+
+        if (countElement) {
+            countElement.textContent =
+                String(count);
+        }
+    }
+
+
+    /* =========================================================
+       RESPONSE
+    ========================================================= */
+
+    function openResponseModal(
+        feelingId
+    ) {
+
+        selectedFeelingId =
+            feelingId;
+
+        responseInput.value = "";
+
+        responseModal.classList.add(
+            "show"
+        );
+
+        setTimeout(() => {
+            responseInput.focus();
+        }, 50);
+    }
+
+
+    function closeResponseModal() {
+
+        selectedFeelingId = null;
+
+        responseInput.value = "";
+
+        responseModal.classList.remove(
+            "show"
+        );
+    }
+
+
+    async function submitResponse() {
+
+        if (!currentUser) {
+            showToast("Please sign in first.");
+            return;
+        }
+
+        if (!selectedFeelingId) {
+            showToast("Feeling not selected.");
+            return;
+        }
+
+        const text =
+            responseInput.value.trim();
+
+        if (!text) {
+            showToast("Please write a response.");
+            return;
+        }
+
+        if (text.length > MAX_RESPONSE_LENGTH) {
+            showToast(
+                `Response must be ${MAX_RESPONSE_LENGTH} characters or less.`
+            );
+            return;
+        }
+
+        const button =
+            document.getElementById(
+                "submitResponseButton"
+            );
+
+        button.disabled = true;
+        button.textContent = "Sending...";
+
+        try {
+
+            await addDoc(
+                collection(
+                    db,
+                    "feelings",
+                    selectedFeelingId,
+                    "responses"
+                ),
+                {
+                    userId: currentUser.uid,
+                    authorName:
+                        currentUser.displayName ||
+                        currentUser.email?.split("@")[0] ||
+                        "User",
+                    text,
+                    createdAt: serverTimestamp(),
+                    status: "active"
+                }
+            );
+
+            closeResponseModal();
+
+            showToast(
+                "Your response was sent."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Response error:",
+                error
+            );
+
+            showToast(
+                error.code === "permission-denied"
+                    ? "You don't have permission to respond to this feeling."
+                    : "Couldn't send your response."
+            );
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "Send response";
+        }
+    }
+
+
+    /* =========================================================
+       REPORT
+    ========================================================= */
+
+    function openReportModal(
+        feelingId
+    ) {
+
+        selectedFeelingId =
+            feelingId;
+
+        reportInput.value = "";
+
+        reportModal.classList.add(
+            "show"
+        );
+
+        setTimeout(() => {
+            reportInput.focus();
+        }, 50);
+    }
+
+
+    function closeReportModal() {
+
+        selectedFeelingId = null;
+
+        reportInput.value = "";
+
+        reportModal.classList.remove(
+            "show"
+        );
+    }
+
+
+    async function submitReport() {
+
+        if (!currentUser) {
+            showToast("Please sign in first.");
+            return;
+        }
+
+        if (!selectedFeelingId) {
+            showToast("Feeling not selected.");
+            return;
+        }
+
+        const reason =
+            reportInput.value.trim();
+
+        if (!reason) {
+            showToast("Please describe the issue.");
+            return;
+        }
+
+        if (reason.length > MAX_REPORT_LENGTH) {
+            showToast(
+                `Report must be ${MAX_REPORT_LENGTH} characters or less.`
+            );
+            return;
+        }
+
+        const button =
+            document.getElementById(
+                "submitReportButton"
+            );
+
+        button.disabled = true;
+        button.textContent = "Submitting...";
+
+        try {
+
+            await addDoc(
+                collection(db, "reports"),
+                {
+                    reporterId:
+                        currentUser.uid,
+
+                    targetType:
+                        "feeling",
+
+                    targetId:
+                        selectedFeelingId,
+
+                    reason,
+
+                    status:
+                        "open",
+
+                    createdAt:
+                        serverTimestamp()
+                }
+            );
+
+            closeReportModal();
+
+            showToast(
+                "Report submitted for review."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Report error:",
+                error
+            );
+
+            showToast(
+                error.code === "permission-denied"
+                    ? "You don't have permission to submit this report."
+                    : "Couldn't submit the report."
+            );
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "Submit report";
+        }
+    }
+
+
+    /* =========================================================
+       MORE MENU
+    ========================================================= */
+
+    function openMoreModal(
+        feelingId
+    ) {
+
+        selectedMoreFeelingId =
+            feelingId;
+
+        moreModal.classList.add(
+            "show"
+        );
+    }
+
+
+    function closeMoreModal() {
+
+        selectedMoreFeelingId = null;
+
+        moreModal.classList.remove(
+            "show"
+        );
+    }
+
+
+    async function copyFeelingLink() {
+
+        if (!selectedMoreFeelingId) {
+            return;
+        }
+
+        const url =
+            `${window.location.origin}${window.location.pathname}#feeling-${selectedMoreFeelingId}`;
+
+        try {
+
+            await navigator.clipboard.writeText(
+                url
+            );
+
+            showToast(
+                "Feeling link copied."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Clipboard error:",
+                error
+            );
+
+            showToast(
+                "Couldn't copy the link."
+            );
+        }
+
+        closeMoreModal();
+    }
+
+
+    /* =========================================================
+       CONNECTION
+    ========================================================= */
+
+    function openConnectionModal() {
+
+        connectionModal.classList.add(
+            "show"
+        );
+    }
+
+
+    function closeConnectionModal() {
+
+        connectionModal.classList.remove(
+            "show"
+        );
+    }
+
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+
+    function setState(state) {
+
+        loadingState.classList.add(
+            "hidden"
+        );
+
+        emptyState.classList.add(
+            "hidden"
+        );
+
+        errorState.classList.add(
+            "hidden"
+        );
+
+        if (state === "loading") {
+
+            loadingState.classList.remove(
+                "hidden"
+            );
+
+            return;
+        }
+
+        if (state === "empty") {
+
+            emptyState.classList.remove(
+                "hidden"
+            );
+
+            return;
+        }
+
+        if (state === "error") {
+
+            errorState.classList.remove(
+                "hidden"
+            );
+
+            return;
+        }
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+
+    function navigate(route) {
+
+        window.location.href = route;
+    }
+
+
+    document
+        .querySelectorAll("[data-route]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const route =
+                        button.dataset.route;
+
+                    if (route) {
+                        navigate(route);
+                    }
+                }
+            );
+        });
+
+
+    document
+        .getElementById("notificationsButton")
+        .addEventListener(
+            "click",
+            () => navigate(
+                "notifications.html"
+            )
+        );
+
+
+    document
+        .getElementById("messagesButton")
+        .addEventListener(
+            "click",
+            () => navigate(
+                "messages.html"
+            )
+        );
+
+
+    document
+        .getElementById("createFeelingButton")
+        .addEventListener(
+            "click",
+            () => navigate(
+                "app.html"
+            )
+        );
+
+
+    document
+        .getElementById("safetyButton")
+        .addEventListener(
+            "click",
+            () => navigate(
+                "settings.html#safety"
+            )
+        );
+
+
+    /* =========================================================
+       SEARCH
+    ========================================================= */
+
+    function runSearch() {
+        applyFilters();
+    }
+
+
+    searchButton.addEventListener(
+        "click",
+        runSearch
+    );
+
+
+    searchInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+                runSearch();
+            }
+        }
+    );
+
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            clearTimeout(searchTimer);
+
+            searchTimer =
+                setTimeout(
+                    runSearch,
+                    250
+                );
+        }
+    );
+
+
+    moodFilter.addEventListener(
+        "change",
+        runSearch
+    );
+
+
+    topicFilter.addEventListener(
+        "change",
+        runSearch
+    );
+
+
+    sortSelect.addEventListener(
+        "change",
+        runSearch
+    );
+
+
+    function clearFilters() {
+
+        searchInput.value = "";
+
+        moodFilter.value = "all";
+
+        topicFilter.value = "all";
+
+        sortSelect.value = "newest";
+
+        applyFilters();
+
+        showToast(
+            "Search and filters cleared."
+        );
+    }
+
+
+    clearFiltersButton.addEventListener(
+        "click",
+        clearFilters
+    );
+
+
+    emptyClearButton.addEventListener(
+        "click",
+        clearFilters
+    );
+
+
+    retryButton.addEventListener(
+        "click",
+        loadFeelings
+    );
+
+
+    loadMoreButton.addEventListener(
+        "click",
+        loadMore
+    );
+
+
+    /* =========================================================
+       CARD EVENT DELEGATION
+    ========================================================= */
+
+    feelingsList.addEventListener(
+        "click",
+        async event => {
+
+            const button =
+                event.target.closest(
+                    "[data-action]"
+                );
+
+            if (!button) {
+                return;
+            }
+
+            const action =
+                button.dataset.action;
+
+            const feelingId =
+                button.dataset.feelingId ||
+                button.closest(
+                    ".feeling-card"
+                )?.dataset.feelingId;
+
+            if (!feelingId) {
+                return;
+            }
+
+            if (action === "understand") {
+
+                await toggleUnderstand(
+                    feelingId,
+                    button
+                );
+
+                return;
+            }
+
+            if (action === "respond") {
+
+                openResponseModal(
+                    feelingId
+                );
+
+                return;
+            }
+
+            if (action === "connect") {
+
+                selectedFeelingId =
+                    feelingId;
+
+                openConnectionModal();
+
+                return;
+            }
+
+            if (action === "report") {
+
+                openReportModal(
+                    feelingId
+                );
+
+                return;
+            }
+
+            if (action === "more") {
+
+                openMoreModal(
+                    feelingId
+                );
+            }
+        }
+    );
+
+
+    /* =========================================================
+       RESPONSE MODAL EVENTS
+    ========================================================= */
+
+    document
+        .getElementById("closeResponseButton")
+        .addEventListener(
+            "click",
+            closeResponseModal
+        );
+
+
+    document
+        .getElementById("cancelResponseButton")
+        .addEventListener(
+            "click",
+            closeResponseModal
+        );
+
+
+    document
+        .getElementById("submitResponseButton")
+        .addEventListener(
+            "click",
+            submitResponse
+        );
+
+
+    /* =========================================================
+       REPORT MODAL EVENTS
+    ========================================================= */
+
+    document
+        .getElementById("closeReportButton")
+        .addEventListener(
+            "click",
+            closeReportModal
+        );
+
+
+    document
+        .getElementById("cancelReportButton")
+        .addEventListener(
+            "click",
+            closeReportModal
+        );
+
+
+    document
+        .getElementById("submitReportButton")
+        .addEventListener(
+            "click",
+            submitReport
+        );
+
+
+    /* =========================================================
+       CONNECTION MODAL EVENTS
+    ========================================================= */
+
+    document
+        .getElementById("closeConnectionButton")
+        .addEventListener(
+            "click",
+            closeConnectionModal
+        );
+
+
+    document
+        .getElementById("connectionUnderstandButton")
+        .addEventListener(
+            "click",
+            () => {
+
+                closeConnectionModal();
+
+                showToast(
+                    "Secure connection verification will be handled by the trusted backend."
+                );
+            }
+        );
+
+
+    document
+        .getElementById("connectionInfoButton")
+        .addEventListener(
+            "click",
+            openConnectionModal
+        );
+
+
+    /* =========================================================
+       MORE MODAL EVENTS
+    ========================================================= */
+
+    document
+        .getElementById("closeMoreButton")
+        .addEventListener(
+            "click",
+            closeMoreModal
+        );
+
+
+    document
+        .getElementById("moreCopyButton")
+        .addEventListener(
+            "click",
+            copyFeelingLink
+        );
+
+
+    document
+        .getElementById("moreReportButton")
+        .addEventListener(
+            "click",
+            () => {
+
+                const feelingId =
+                    selectedMoreFeelingId;
+
+                closeMoreModal();
+
+                if (feelingId) {
+                    openReportModal(
+                        feelingId
+                    );
+                }
+            }
+        );
+
+
+    /* =========================================================
+       MODAL BACKDROP CLOSE
+    ========================================================= */
+
+    [
+        responseModal,
+        reportModal,
+        connectionModal,
+        moreModal
+    ].forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target !== modal
+                ) {
+                    return;
+                }
+
+                modal.classList.remove(
+                    "show"
+                );
+
+                selectedFeelingId = null;
+                selectedMoreFeelingId = null;
+            }
+        );
+    });
+
+
+    /* =========================================================
+       ESC KEY
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key !== "Escape") {
+                return;
+            }
+
+            responseModal.classList.remove(
+                "show"
+            );
+
+            reportModal.classList.remove(
+                "show"
+            );
+
+            connectionModal.classList.remove(
+                "show"
+            );
+
+            moreModal.classList.remove(
+                "show"
+            );
+
+            selectedFeelingId = null;
+            selectedMoreFeelingId = null;
+        }
+    );
+
+
+    /* =========================================================
+       PUBLIC APP OBJECT
+    ========================================================= */
+
+    window.ListenMyFeelingsDiscover = {
+        reload: loadFeelings,
+        search: runSearch,
+        clearFilters,
+        getCurrentFeelings: () =>
+            [...visibleFeelings]
+    };
+
+
+    /* =========================================================
+       SERVICE WORKER-SAFE PAGE INITIALIZATION
+    ========================================================= */
+
+    window.addEventListener(
+        "pageshow",
+        () => {
+
+            /*
+             * The auth listener remains the authority.
+             * No sensitive authentication data is stored in Local Storage.
+             */
+        }
+    );
+
+
+    /* =========================================================
+       LOGOUT SUPPORT
+    ========================================================= */
+
+    window.addEventListener(
+        "keydown",
+        async event => {
+
+            /*
+             * Ctrl/Cmd + Shift + L provides an additional
+             * keyboard logout shortcut without adding another
+             * visible option that could be mistaken for a normal
+             * navigation control.
+             */
+
+            if (
+                event.shiftKey &&
+                event.ctrlKey &&
+                event.key.toLowerCase() === "l"
+            ) {
+
+                event.preventDefault();
+
+                try {
+
+                    await signOut(auth);
+
+                    window.location.href =
+                        "index.html";
+
+                } catch (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                    showToast(
+                        "Couldn't sign out."
+                    );
+                }
+            }
+        }
+    );
+
+</script>
+
+</body>
+  </html>
