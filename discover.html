@@ -8,33 +8,23 @@
 
     <meta
         name="description"
-        content="Discover public feelings and connect through understanding on Listen My Feelings."
+        content="Discover feelings shared by people in the Listen My Feelings community."
     >
-
-    <meta name="theme-color" content="#09070f">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="style.css">
 
     <style>
         :root {
-            --bg: #09070f;
-            --card: rgba(24,19,34,.96);
-            --card2: rgba(30,24,43,.97);
+            --bg: #0b0811;
+            --surface: #15101c;
+            --surface-2: #1c1525;
+            --surface-3: #241b2f;
             --border: rgba(255,255,255,.09);
-            --text: #fff;
-            --muted: #aaa3b7;
+            --text: #ffffff;
+            --muted: #a69eae;
             --purple: #a855f7;
             --pink: #ec4899;
-            --danger: #fb7185;
-            --success: #34d399;
+            --green: #34d399;
+            --red: #fb7185;
+            --shadow: 0 20px 60px rgba(0,0,0,.30);
         }
 
         * {
@@ -50,14 +40,14 @@
             min-height: 100vh;
             background:
                 radial-gradient(
-                    circle at 10% 0%,
-                    rgba(168,85,247,.13),
-                    transparent 30%
+                    circle at 0% 0%,
+                    rgba(168,85,247,.14),
+                    transparent 28%
                 ),
                 radial-gradient(
-                    circle at 90% 8%,
+                    circle at 100% 20%,
                     rgba(236,72,153,.08),
-                    transparent 28%
+                    transparent 25%
                 ),
                 var(--bg);
             color: var(--text);
@@ -68,6 +58,7 @@
                 BlinkMacSystemFont,
                 "Segoe UI",
                 sans-serif;
+            padding-bottom: 105px;
         }
 
         button,
@@ -79,6 +70,7 @@
 
         button {
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
         button:disabled {
@@ -86,28 +78,31 @@
             cursor: not-allowed;
         }
 
-        .shell {
-            width: min(1180px, calc(100% - 32px));
-            margin: auto;
-            padding: 28px 0 115px;
+        .page {
+            width: min(1120px, calc(100% - 28px));
+            margin: 0 auto;
+            padding: 28px 0 35px;
         }
 
-        .top {
+        /* TOP */
+
+        .topbar {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: flex-start;
             gap: 15px;
             margin-bottom: 22px;
         }
 
-        h1 {
+        .heading h1 {
             margin: 0;
-            font-size: clamp(28px,5vw,42px);
+            font-size: clamp(30px, 7vw, 43px);
             letter-spacing: -1.5px;
+            line-height: 1;
         }
 
-        .subtitle {
-            margin: 8px 0 0;
+        .heading p {
+            margin: 9px 0 0;
             color: var(--muted);
             font-size: 14px;
             line-height: 1.6;
@@ -118,50 +113,57 @@
             gap: 8px;
         }
 
-        .icon-button {
-            width: 44px;
-            height: 44px;
+        .top-btn {
+            width: 43px;
+            height: 43px;
             border: 1px solid var(--border);
             border-radius: 14px;
             background: rgba(255,255,255,.045);
             color: white;
+            font-size: 18px;
         }
 
-        .search-panel {
-            padding: 15px;
+        /* SEARCH */
+
+        .search-box {
+            padding: 14px;
             border: 1px solid var(--border);
-            border-radius: 22px;
-            background: var(--card);
+            border-radius: 24px;
+            background: rgba(21,16,28,.94);
+            box-shadow: var(--shadow);
             margin-bottom: 18px;
         }
 
         .search-row {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 10px;
+            display: flex;
+            gap: 9px;
         }
 
-        .search-input-wrap {
+        .search-field {
             position: relative;
+            flex: 1;
         }
 
-        .search-input-wrap span {
+        .search-icon {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
+            font-size: 20px;
             opacity: .65;
+            pointer-events: none;
         }
 
         .search-input {
             width: 100%;
-            min-height: 52px;
-            padding: 0 15px 0 45px;
-            border-radius: 15px;
+            height: 54px;
             border: 1px solid var(--border);
+            border-radius: 16px;
             outline: none;
             background: rgba(255,255,255,.045);
             color: white;
+            padding: 0 15px 0 47px;
+            font-size: 15px;
         }
 
         .search-input:focus {
@@ -170,107 +172,134 @@
         }
 
         .search-input::placeholder {
-            color: #888091;
+            color: #857d8e;
         }
 
-        .search-button {
-            min-height: 52px;
+        .search-btn {
+            height: 54px;
             padding: 0 22px;
             border: 0;
-            border-radius: 15px;
+            border-radius: 16px;
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink)
+            );
             color: white;
             font-weight: 800;
-            background: linear-gradient(135deg,var(--purple),var(--pink));
         }
 
-        .filters {
+        .filter-row {
             display: flex;
             gap: 9px;
             overflow-x: auto;
-            padding-top: 12px;
             scrollbar-width: none;
+            padding-top: 10px;
         }
 
-        .filters::-webkit-scrollbar {
+        .filter-row::-webkit-scrollbar {
             display: none;
         }
 
-        .filter,
-        .sort {
-            min-height: 42px;
+        .filter {
+            flex: 0 0 auto;
+            height: 43px;
             padding: 0 13px;
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 13px;
             background: rgba(255,255,255,.045);
             color: white;
             outline: none;
         }
 
-        .filter option,
-        .sort option {
-            background: #181321;
+        .filter option {
+            background: #18121f;
             color: white;
         }
 
-        .clear {
-            padding: 0 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(251,113,133,.22);
+        .clear-btn {
+            flex: 0 0 auto;
+            height: 43px;
+            padding: 0 14px;
+            border: 1px solid rgba(251,113,133,.25);
+            border-radius: 13px;
             background: rgba(251,113,133,.07);
             color: #fda4af;
-            white-space: nowrap;
         }
 
-        .layout {
+        /* CONTENT */
+
+        .content {
             display: grid;
-            grid-template-columns: minmax(0,1fr) 300px;
-            gap: 20px;
+            grid-template-columns: minmax(0,1fr) 285px;
+            gap: 18px;
         }
 
-        .toolbar {
+        .main {
+            min-width: 0;
+        }
+
+        .feed-toolbar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin: 5px 0 14px;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 4px 2px 13px;
         }
 
-        .count {
+        .result-count {
             color: var(--muted);
             font-size: 13px;
         }
 
-        .list {
-            display: grid;
-            gap: 15px;
+        .sort {
+            height: 42px;
+            padding: 0 13px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--surface);
+            color: white;
+            outline: none;
         }
 
-        .card {
+        .sort option {
+            background: #18121f;
+            color: white;
+        }
+
+        .feed {
+            display: grid;
+            gap: 14px;
+        }
+
+        /* CARD */
+
+        .feeling-card {
+            position: relative;
             overflow: hidden;
             border: 1px solid var(--border);
             border-radius: 24px;
             background:
                 linear-gradient(
                     145deg,
-                    rgba(28,21,40,.97),
-                    rgba(17,13,25,.98)
+                    rgba(27,20,37,.98),
+                    rgba(15,11,21,.98)
                 );
-            box-shadow: 0 18px 50px rgba(0,0,0,.22);
-            contain: content;
+            box-shadow: 0 15px 45px rgba(0,0,0,.22);
         }
 
-        .card-inner {
-            padding: 20px;
+        .card-body {
+            padding: 18px;
         }
 
-        .author {
+        .author-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .author-left {
+        .author-info {
             display: flex;
             align-items: center;
             gap: 11px;
@@ -278,66 +307,69 @@
         }
 
         .avatar {
-            width: 48px;
-            height: 48px;
-            flex: 0 0 48px;
+            width: 47px;
+            height: 47px;
+            flex: 0 0 47px;
             display: grid;
             place-items: center;
             border-radius: 50%;
+            background: linear-gradient(
+                135deg,
+                #a855f7,
+                #ec4899
+            );
             color: white;
             font-weight: 800;
-            background: linear-gradient(135deg,#a855f7,#ec4899);
+            font-size: 16px;
         }
 
         .author-name {
-            font-weight: 800;
+            max-width: 210px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-weight: 800;
         }
 
-        .time {
+        .author-time {
             margin-top: 4px;
-            color: var(--muted);
+            color: #81798b;
             font-size: 12px;
         }
 
-        .more {
-            width: 38px;
-            height: 38px;
+        .more-btn {
+            width: 40px;
+            height: 40px;
             border: 0;
-            border-radius: 12px;
-            background: rgba(255,255,255,.045);
+            border-radius: 13px;
+            background: rgba(255,255,255,.05);
             color: white;
-            font-size: 21px;
+            font-size: 22px;
         }
 
         .meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 18px;
+            gap: 7px;
+            margin-top: 17px;
         }
 
         .pill {
-            padding: 7px 10px;
+            padding: 7px 11px;
+            border: 1px solid rgba(168,85,247,.18);
             border-radius: 999px;
+            background: rgba(168,85,247,.09);
             color: #ddd6fe;
             font-size: 12px;
             font-weight: 700;
-            background: rgba(139,92,246,.11);
-            border: 1px solid rgba(139,92,246,.16);
         }
 
-        .text {
-            margin: 28px 0 0;
-            min-height: 90px;
-            display: grid;
-            place-items: center;
+        .feeling-text {
+            margin: 25px 7px;
+            color: #f3edf6;
             text-align: center;
-            color: #f5eff8;
             font-size: 18px;
-            line-height: 1.7;
+            line-height: 1.65;
             white-space: pre-wrap;
             word-break: break-word;
         }
@@ -345,118 +377,125 @@
         .actions {
             display: grid;
             grid-template-columns: repeat(2,1fr);
-            gap: 9px;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255,255,255,.065);
+            gap: 8px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,.06);
         }
 
-        .action {
-            min-height: 48px;
-            border-radius: 14px;
+        .action-btn {
+            min-height: 47px;
             border: 1px solid var(--border);
+            border-radius: 14px;
             background: rgba(255,255,255,.035);
-            color: #eee8f3;
+            color: #eee8f2;
+            font-size: 13px;
             font-weight: 700;
-            transition: .18s ease;
         }
 
-        .action:hover {
-            background: rgba(255,255,255,.075);
-        }
-
-        .action.active {
+        .action-btn.active {
             color: #f0abfc;
-            border-color: rgba(217,70,239,.35);
+            border-color: rgba(217,70,239,.38);
             background: rgba(217,70,239,.12);
         }
 
-        .connect {
-            color: #ddd6fe;
+        .action-btn.connect {
+            color: #d8b4fe;
             border-color: rgba(168,85,247,.25);
-            background: rgba(168,85,247,.08);
+            background: rgba(168,85,247,.07);
         }
 
-        .report {
+        .action-btn.report {
             color: #fda4af;
         }
 
+        /* RESPONSES */
+
         .responses {
-            margin-top: 16px;
-            padding: 14px;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 18px;
+            margin-top: 12px;
+            padding: 13px;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 17px;
             background: rgba(255,255,255,.025);
         }
 
-        .responses-header {
+        .response-head {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .response-title {
+            font-size: 13px;
             font-weight: 800;
         }
 
-        .toggle-responses {
+        .response-toggle {
             border: 0;
             background: transparent;
             color: #c084fc;
+            font-size: 12px;
             font-weight: 800;
         }
 
         .response-list {
             display: grid;
-            gap: 9px;
-            margin-top: 13px;
+            gap: 8px;
+            margin-top: 11px;
         }
 
-        .response-item {
-            padding: 14px;
-            border-radius: 16px;
+        .response {
+            padding: 12px;
+            border-radius: 14px;
             background: rgba(255,255,255,.045);
         }
 
-        .response-author {
+        .response-user {
             display: flex;
-            align-items: center;
             gap: 8px;
-            font-size: 13px;
+            align-items: center;
+            font-size: 12px;
         }
 
-        .response-author strong {
+        .response-user strong {
             color: white;
         }
 
-        .response-time {
-            color: #81798d;
+        .response-date {
+            color: #7e7688;
         }
 
         .response-text {
-            margin-top: 13px;
-            color: #ddd7e4;
-            line-height: 1.65;
+            margin-top: 9px;
+            color: #ddd6e4;
+            font-size: 13px;
+            line-height: 1.6;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
-        .no-responses {
+        .no-response {
             color: var(--muted);
+            font-size: 12px;
             line-height: 1.6;
-            font-size: 13px;
+            padding-top: 10px;
         }
+
+        /* SIDEBAR */
 
         .sidebar {
             position: sticky;
             top: 18px;
+            height: max-content;
             display: grid;
-            gap: 14px;
+            gap: 13px;
         }
 
         .side-card {
-            padding: 18px;
+            padding: 17px;
             border: 1px solid var(--border);
             border-radius: 20px;
-            background: var(--card);
+            background: rgba(21,16,28,.94);
         }
 
         .side-card h3 {
@@ -467,38 +506,40 @@
         .side-card p {
             margin: 9px 0 0;
             color: var(--muted);
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.65;
         }
 
-        .side-button {
+        .side-btn {
             width: 100%;
+            min-height: 43px;
             margin-top: 13px;
-            min-height: 44px;
-            border-radius: 12px;
             border: 1px solid var(--border);
-            background: rgba(255,255,255,.04);
+            border-radius: 12px;
+            background: rgba(255,255,255,.045);
             color: white;
             font-weight: 700;
         }
 
-        .ad {
-            min-height: 120px;
+        .ad-box {
+            min-height: 115px;
             display: grid;
             place-items: center;
+            border: 1px dashed rgba(255,255,255,.12);
+            border-radius: 15px;
+            color: #756d7e;
             text-align: center;
-            color: #81798d;
-            font-size: 11px;
-            border: 1px dashed rgba(255,255,255,.13);
-            border-radius: 17px;
+            font-size: 10px;
         }
 
+        /* STATES */
+
         .state {
-            padding: 45px 20px;
+            padding: 48px 20px;
             border: 1px solid var(--border);
-            border-radius: 20px;
-            text-align: center;
+            border-radius: 22px;
             background: rgba(255,255,255,.025);
+            text-align: center;
         }
 
         .state-icon {
@@ -511,36 +552,24 @@
         }
 
         .state-text {
-            max-width: 440px;
+            max-width: 430px;
             margin: 8px auto 0;
             color: var(--muted);
             font-size: 13px;
             line-height: 1.6;
         }
 
-        .state-button {
-            margin-top: 16px;
-            min-height: 42px;
-            padding: 0 16px;
+        .retry-btn {
+            margin-top: 15px;
+            min-height: 43px;
+            padding: 0 17px;
             border: 0;
             border-radius: 12px;
-            background: linear-gradient(135deg,var(--purple),var(--pink));
-            color: white;
-            font-weight: 800;
-        }
-
-        .load-more-wrap {
-            display: flex;
-            justify-content: center;
-            padding-top: 18px;
-        }
-
-        .load-more {
-            min-height: 44px;
-            padding: 0 20px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(255,255,255,.045);
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink)
+            );
             color: white;
             font-weight: 800;
         }
@@ -549,57 +578,78 @@
             display: none !important;
         }
 
+        .load-more-wrap {
+            display: flex;
+            justify-content: center;
+            padding-top: 16px;
+        }
+
+        .load-more-btn {
+            min-height: 45px;
+            padding: 0 20px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(255,255,255,.045);
+            color: white;
+            font-weight: 800;
+        }
+
+        /* BOTTOM NAV */
+
         .bottom-nav {
             position: fixed;
             z-index: 100;
             left: 50%;
-            bottom: 12px;
+            bottom: max(9px, env(safe-area-inset-bottom));
             transform: translateX(-50%);
-            width: min(680px,calc(100% - 22px));
+            width: min(680px, calc(100% - 18px));
+            padding: 7px;
             display: grid;
             grid-template-columns: repeat(5,1fr);
             gap: 4px;
-            padding: 8px;
-            border: 1px solid rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.10);
             border-radius: 22px;
-            background: rgba(14,10,20,.94);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 18px 55px rgba(0,0,0,.45);
+            background: rgba(12,9,17,.96);
+            backdrop-filter: blur(22px);
+            box-shadow: 0 20px 70px rgba(0,0,0,.55);
         }
 
-        .bottom-nav button {
-            min-height: 52px;
+        .nav-btn {
+            min-height: 54px;
             border: 0;
-            border-radius: 15px;
+            border-radius: 16px;
             background: transparent;
-            color: #898292;
+            color: #8e8797;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             gap: 3px;
             font-size: 10px;
         }
 
-        .bottom-nav strong {
+        .nav-btn-icon {
             font-size: 18px;
+            line-height: 1;
         }
 
-        .bottom-nav .active {
+        .nav-btn.active {
+            background: rgba(168,85,247,.15);
             color: white;
-            background: rgba(168,85,247,.14);
         }
+
+        /* MODALS */
 
         .modal-backdrop {
             position: fixed;
-            inset: 0;
             z-index: 500;
+            inset: 0;
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 18px;
-            background: rgba(0,0,0,.72);
-            backdrop-filter: blur(9px);
+            padding: 17px;
+            background: rgba(0,0,0,.74);
+            backdrop-filter: blur(8px);
         }
 
         .modal-backdrop.show {
@@ -607,36 +657,36 @@
         }
 
         .modal {
-            width: min(500px,100%);
-            max-height: calc(100vh - 36px);
+            width: min(490px, 100%);
+            max-height: calc(100vh - 34px);
             overflow-y: auto;
-            padding: 22px;
+            padding: 21px;
             border: 1px solid var(--border);
-            border-radius: 23px;
+            border-radius: 22px;
             background: #17111f;
-            box-shadow: 0 30px 100px rgba(0,0,0,.55);
+            box-shadow: 0 30px 100px rgba(0,0,0,.60);
         }
 
-        .modal-head {
+        .modal-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
         }
 
-        .modal h2 {
+        .modal-header h2 {
             margin: 0;
-            font-size: 20px;
+            font-size: 19px;
         }
 
-        .close {
+        .modal-close {
             width: 38px;
             height: 38px;
             border: 0;
-            border-radius: 12px;
+            border-radius: 11px;
             background: rgba(255,255,255,.06);
             color: white;
-            font-size: 20px;
+            font-size: 19px;
         }
 
         .modal p {
@@ -658,70 +708,76 @@
         }
 
         .modal textarea:focus {
-            border-color: rgba(168,85,247,.7);
+            border-color: rgba(168,85,247,.65);
         }
 
         .modal-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 9px;
-            margin-top: 14px;
+            gap: 8px;
+            margin-top: 13px;
         }
 
-        .modal-button {
+        .modal-btn {
             min-height: 44px;
-            padding: 0 16px;
+            padding: 0 15px;
             border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(255,255,255,.05);
+            border-radius: 12px;
+            background: rgba(255,255,255,.045);
             color: white;
             font-weight: 800;
         }
 
         .modal-primary {
             border: 0;
-            background: linear-gradient(135deg,var(--purple),var(--pink));
+            background: linear-gradient(
+                135deg,
+                var(--purple),
+                var(--pink)
+            );
         }
 
-        .option-list {
+        .menu-list {
             display: grid;
-            gap: 9px;
-            margin-top: 16px;
+            gap: 8px;
+            margin-top: 15px;
         }
 
-        .option-button {
+        .menu-btn {
             width: 100%;
             min-height: 48px;
-            text-align: left;
-            padding: 0 15px;
+            padding: 0 14px;
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 13px;
             background: rgba(255,255,255,.045);
             color: white;
+            text-align: left;
             font-weight: 700;
         }
 
-        .option-button.danger {
+        .menu-danger {
             color: #fda4af;
         }
+
+        /* TOAST */
 
         .toast {
             position: fixed;
             z-index: 1000;
             left: 50%;
-            bottom: 90px;
-            transform: translate(-50%,20px);
-            width: min(430px,calc(100% - 30px));
+            bottom: 94px;
+            transform: translate(-50%, 18px);
+            width: min(430px, calc(100% - 28px));
             padding: 13px 16px;
-            border: 1px solid rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.10);
             border-radius: 14px;
-            background: rgba(20,15,28,.97);
+            background: rgba(20,15,28,.98);
             color: white;
             text-align: center;
             font-size: 13px;
             opacity: 0;
             pointer-events: none;
-            transition: .22s ease;
+            transition: .2s ease;
         }
 
         .toast.show {
@@ -729,18 +785,22 @@
             transform: translate(-50%,0);
         }
 
-        @media (max-width: 900px) {
-            .layout {
-                grid-template-columns: 1fr;
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .content {
+                display: block;
             }
 
             .sidebar {
-                position: static;
+                display: none;
             }
         }
 
-        @media (max-width: 640px) {
-            .shell {
+        @media (max-width: 600px) {
+
+            .page {
                 width: calc(100% - 20px);
                 padding-top: 18px;
             }
@@ -750,20 +810,40 @@
             }
 
             .search-row {
-                grid-template-columns: 1fr;
+                display: block;
             }
 
-            .search-button {
+            .search-btn {
                 width: 100%;
+                margin-top: 9px;
             }
 
-            .card-inner {
+            .feed-toolbar {
+                margin-top: 3px;
+            }
+
+            .feeling-card {
+                border-radius: 23px;
+            }
+
+            .card-body {
                 padding: 16px;
             }
 
-            .text {
-                min-height: 105px;
+            .feeling-text {
+                min-height: 80px;
                 font-size: 17px;
+                margin: 23px 4px;
+            }
+
+            /*
+             * IMPORTANT:
+             * Bottom navigation gets its own reserved page space
+             * through body padding-bottom, so it will not cover
+             * feeling action buttons.
+             */
+            body {
+                padding-bottom: 125px;
             }
         }
 
@@ -777,9 +857,8 @@
             *,
             *::before,
             *::after {
-                animation: none !important;
-                transition: none !important;
                 scroll-behavior: auto !important;
+                transition: none !important;
             }
         }
     </style>
@@ -787,28 +866,53 @@
 
 <body>
 
-<main class="shell">
+<div class="page">
 
-    <section class="top">
-        <div>
+    <!-- TOP -->
+
+    <header class="topbar">
+
+        <div class="heading">
             <h1>Discover</h1>
-            <p class="subtitle">
+            <p>
                 Explore real feelings shared publicly by people in the community.
             </p>
         </div>
 
         <div class="top-actions">
-            <button id="notificationsButton" class="icon-button" type="button" aria-label="Notifications">🔔</button>
-            <button id="messagesButton" class="icon-button" type="button" aria-label="Messages">💬</button>
-        </div>
-    </section>
 
-    <section class="search-panel">
+            <button
+                id="notificationsBtn"
+                class="top-btn"
+                type="button"
+                aria-label="Notifications"
+            >
+                🔔
+            </button>
+
+            <button
+                id="messagesBtn"
+                class="top-btn"
+                type="button"
+                aria-label="Messages"
+            >
+                💬
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- SEARCH -->
+
+    <section class="search-box">
 
         <div class="search-row">
 
-            <div class="search-input-wrap">
-                <span>🔎</span>
+            <div class="search-field">
+
+                <span class="search-icon">🔎</span>
 
                 <input
                     id="searchInput"
@@ -818,15 +922,21 @@
                     autocomplete="off"
                     placeholder="Search feelings, topics or words..."
                 >
+
             </div>
 
-            <button id="searchButton" class="search-button" type="button">
+            <button
+                id="searchBtn"
+                class="search-btn"
+                type="button"
+            >
                 Search
             </button>
 
         </div>
 
-        <div class="filters">
+
+        <div class="filter-row">
 
             <select id="moodFilter" class="filter">
                 <option value="all">All moods</option>
@@ -842,6 +952,7 @@
                 <option value="other">💭 Other</option>
             </select>
 
+
             <select id="topicFilter" class="filter">
                 <option value="all">All topics</option>
                 <option value="self">Self</option>
@@ -855,73 +966,136 @@
                 <option value="other">Other</option>
             </select>
 
-            <button id="clearFiltersButton" class="clear" type="button">
+
+            <button
+                id="clearBtn"
+                class="clear-btn"
+                type="button"
+            >
                 Clear
             </button>
 
         </div>
+
     </section>
 
-    <section class="layout">
 
-        <div>
+    <!-- CONTENT -->
 
-            <div class="toolbar">
+    <div class="content">
 
-                <span id="resultCount" class="count">
-                    Loading feelings...
+        <main class="main">
+
+            <div class="feed-toolbar">
+
+                <span
+                    id="resultCount"
+                    class="result-count"
+                >
+                    Loading...
                 </span>
 
-                <select id="sortSelect" class="sort">
+                <select
+                    id="sortSelect"
+                    class="sort"
+                >
                     <option value="newest">Newest</option>
                     <option value="oldest">Oldest</option>
                 </select>
 
             </div>
 
-            <div id="loadingState" class="state">
+
+            <div
+                id="loadingState"
+                class="state"
+            >
                 <div class="state-icon">⏳</div>
-                <div class="state-title">Finding feelings...</div>
+
+                <div class="state-title">
+                    Finding feelings...
+                </div>
+
                 <div class="state-text">
-                    We're loading public feelings from the community.
+                    Loading public feelings from the community.
                 </div>
             </div>
 
-            <div id="errorState" class="state hidden">
-                <div class="state-icon">⚠️</div>
-                <div class="state-title">Couldn't load Discover</div>
 
-                <div id="errorText" class="state-text">
+            <div
+                id="errorState"
+                class="state hidden"
+            >
+                <div class="state-icon">⚠️</div>
+
+                <div class="state-title">
+                    Couldn't load Discover
+                </div>
+
+                <div
+                    id="errorText"
+                    class="state-text"
+                >
                     Something went wrong.
                 </div>
 
-                <button id="retryButton" class="state-button" type="button">
+                <button
+                    id="retryBtn"
+                    class="retry-btn"
+                    type="button"
+                >
                     Try again
                 </button>
             </div>
 
-            <div id="emptyState" class="state hidden">
-                <div class="state-icon">🌙</div>
-                <div class="state-title">No feelings found</div>
 
-                <div class="state-text">
-                    Try another search or clear the filters.
+            <div
+                id="emptyState"
+                class="state hidden"
+            >
+                <div class="state-icon">🌙</div>
+
+                <div class="state-title">
+                    No feelings found
                 </div>
 
-                <button id="emptyClearButton" class="state-button" type="button">
-                    Clear search
+                <div class="state-text">
+                    Try another search or clear your filters.
+                </div>
+
+                <button
+                    id="emptyClearBtn"
+                    class="retry-btn"
+                    type="button"
+                >
+                    Clear filters
                 </button>
             </div>
 
-            <div id="feelingsList" class="list"></div>
 
-            <div id="loadMoreWrap" class="load-more-wrap hidden">
-                <button id="loadMoreButton" class="load-more" type="button">
+            <div
+                id="feed"
+                class="feed"
+            ></div>
+
+
+            <div
+                id="loadMoreWrap"
+                class="load-more-wrap hidden"
+            >
+                <button
+                    id="loadMoreBtn"
+                    class="load-more-btn"
+                    type="button"
+                >
                     Load more
                 </button>
             </div>
 
-        </div>
+        </main>
+
+
+        <!-- DESKTOP SIDEBAR -->
 
         <aside class="sidebar">
 
@@ -930,53 +1104,68 @@
                 <h3>What is Discover?</h3>
 
                 <p>
-                    Find public feelings shared by people who chose to express
-                    themselves openly. Read with empathy and respond respectfully.
+                    Find public feelings shared by people who chose
+                    to express themselves openly.
                 </p>
 
-                <button id="createFeelingButton" class="side-button" type="button">
+                <button
+                    id="shareFeelingBtn"
+                    class="side-btn"
+                    type="button"
+                >
                     ✍️ Share your feeling
                 </button>
 
             </section>
+
 
             <section class="side-card">
 
                 <h3>Connection</h3>
 
                 <p>
-                    Connection access uses verified rewarded ads and a trusted
-                    12-hour authorization system.
+                    Connections use a verified rewarded-ad flow
+                    and a trusted 12-hour authorization period.
                 </p>
 
-                <button id="connectionInfoButton" class="side-button" type="button">
-                    🤝 How connection works
+                <button
+                    id="connectionInfoBtn"
+                    class="side-btn"
+                    type="button"
+                >
+                    🤝 How it works
                 </button>
 
             </section>
+
 
             <section class="side-card">
 
                 <h3>Stay safe</h3>
 
                 <p>
-                    Never share passwords, OTPs, financial information or
-                    private details with strangers.
+                    Never share passwords, OTPs, banking information
+                    or private information with strangers.
                 </p>
 
-                <button id="safetyButton" class="side-button" type="button">
+                <button
+                    id="safetyBtn"
+                    class="side-btn"
+                    type="button"
+                >
                     🛡️ Safety & reporting
                 </button>
 
             </section>
 
+
             <section class="side-card">
 
-                <div class="ad">
+                <div class="ad-box">
                     <div>
                         <strong>ADVERTISEMENT</strong>
                         <br><br>
-                        Approved advertising provider space
+                        Advertising space
                     </div>
                 </div>
 
@@ -984,60 +1173,92 @@
 
         </aside>
 
-    </section>
+    </div>
 
-</main>
+</div>
 
 
-<nav class="bottom-nav" aria-label="Main navigation">
+<!-- BOTTOM NAV -->
 
-    <button type="button" data-route="app.html">
-        <strong>⌂</strong>
-        Home
+<nav class="bottom-nav">
+
+    <button
+        class="nav-btn"
+        type="button"
+        data-route="app.html"
+    >
+        <span class="nav-btn-icon">⌂</span>
+        <span>Home</span>
     </button>
 
-    <button type="button" class="active" data-route="discover.html">
-        <strong>◉</strong>
-        Discover
+
+    <button
+        class="nav-btn active"
+        type="button"
+        data-route="discover.html"
+    >
+        <span class="nav-btn-icon">◉</span>
+        <span>Discover</span>
     </button>
 
-    <button type="button" data-route="notifications.html">
-        <strong>♢</strong>
-        Alerts
+
+    <button
+        class="nav-btn"
+        type="button"
+        data-route="notifications.html"
+    >
+        <span class="nav-btn-icon">♢</span>
+        <span>Alerts</span>
     </button>
 
-    <button type="button" data-route="messages.html">
-        <strong>◌</strong>
-        Messages
+
+    <button
+        class="nav-btn"
+        type="button"
+        data-route="messages.html"
+    >
+        <span class="nav-btn-icon">◌</span>
+        <span>Messages</span>
     </button>
 
-    <button type="button" data-route="profile.html">
-        <strong>○</strong>
-        Profile
+
+    <button
+        class="nav-btn"
+        type="button"
+        data-route="profile.html"
+    >
+        <span class="nav-btn-icon">○</span>
+        <span>Profile</span>
     </button>
 
 </nav>
 
 
-<!-- RESPONSE -->
+<!-- RESPONSE MODAL -->
 
-<div id="responseModal" class="modal-backdrop">
+<div
+    id="responseModal"
+    class="modal-backdrop"
+>
 
     <div class="modal">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
             <h2>Respond with empathy</h2>
 
-            <button id="closeResponseButton" class="close" type="button">
+            <button
+                id="closeResponse"
+                class="modal-close"
+                type="button"
+            >
                 ✕
             </button>
 
         </div>
 
         <p>
-            Your response will be attached to this feeling.
-            Keep it respectful and supportive.
+            Write a respectful response to this feeling.
         </p>
 
         <textarea
@@ -1048,11 +1269,19 @@
 
         <div class="modal-actions">
 
-            <button id="cancelResponseButton" class="modal-button" type="button">
+            <button
+                id="cancelResponse"
+                class="modal-btn"
+                type="button"
+            >
                 Cancel
             </button>
 
-            <button id="submitResponseButton" class="modal-button modal-primary" type="button">
+            <button
+                id="sendResponse"
+                class="modal-btn modal-primary"
+                type="button"
+            >
                 Send response
             </button>
 
@@ -1063,39 +1292,54 @@
 </div>
 
 
-<!-- REPORT -->
+<!-- REPORT MODAL -->
 
-<div id="reportModal" class="modal-backdrop">
+<div
+    id="reportModal"
+    class="modal-backdrop"
+>
 
     <div class="modal">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
             <h2>Report feeling</h2>
 
-            <button id="closeReportButton" class="close" type="button">
+            <button
+                id="closeReport"
+                class="modal-close"
+                type="button"
+            >
                 ✕
             </button>
 
         </div>
 
         <p>
-            Tell us why you believe this content should be reviewed.
+            Tell us why this content should be reviewed.
         </p>
 
         <textarea
             id="reportInput"
             maxlength="1000"
-            placeholder="Describe the issue..."
+            placeholder="Describe the problem..."
         ></textarea>
 
         <div class="modal-actions">
 
-            <button id="cancelReportButton" class="modal-button" type="button">
+            <button
+                id="cancelReport"
+                class="modal-btn"
+                type="button"
+            >
                 Cancel
             </button>
 
-            <button id="submitReportButton" class="modal-button modal-primary" type="button">
+            <button
+                id="sendReport"
+                class="modal-btn modal-primary"
+                type="button"
+            >
                 Submit report
             </button>
 
@@ -1106,77 +1350,52 @@
 </div>
 
 
-<!-- CONNECTION -->
+<!-- MORE MODAL -->
 
-<div id="connectionModal" class="modal-backdrop">
-
-    <div class="modal">
-
-        <div class="modal-head">
-
-            <h2>Connect safely</h2>
-
-            <button id="closeConnectionButton" class="close" type="button">
-                ✕
-            </button>
-
-        </div>
-
-        <p>
-            Connecting is protected by a verified rewarded-ad flow.
-        </p>
-
-        <p>
-            After the ad provider confirms the completed reward, a trusted
-            backend must authorize the connection and create its 12-hour
-            server-controlled access period.
-        </p>
-
-        <p>
-            This browser cannot safely create or extend that authorization by
-            itself. No fake unlock or Local Storage bypass is used.
-        </p>
-
-        <div class="modal-actions">
-
-            <button id="connectionCloseAction" class="modal-button modal-primary" type="button">
-                Close
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- MORE -->
-
-<div id="moreModal" class="modal-backdrop">
+<div
+    id="moreModal"
+    class="modal-backdrop"
+>
 
     <div class="modal">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
             <h2>Feeling options</h2>
 
-            <button id="closeMoreButton" class="close" type="button">
+            <button
+                id="closeMore"
+                class="modal-close"
+                type="button"
+            >
                 ✕
             </button>
 
         </div>
 
-        <div class="option-list">
+        <div class="menu-list">
 
-            <button id="moreReportButton" class="option-button danger" type="button">
+            <button
+                id="moreReport"
+                class="menu-btn menu-danger"
+                type="button"
+            >
                 🚩 Report this feeling
             </button>
 
-            <button id="moreBlockButton" class="option-button danger" type="button">
+            <button
+                id="moreBlock"
+                class="menu-btn menu-danger"
+                type="button"
+            >
                 🚫 Block this person
             </button>
 
-            <button id="moreCopyButton" class="option-button" type="button">
+            <button
+                id="moreCopy"
+                class="menu-btn"
+                type="button"
+            >
                 🔗 Copy feeling link
             </button>
 
@@ -1187,36 +1406,111 @@
 </div>
 
 
-<!-- SAFETY -->
+<!-- CONNECTION MODAL -->
 
-<div id="safetyModal" class="modal-backdrop">
+<div
+    id="connectionModal"
+    class="modal-backdrop"
+>
 
     <div class="modal">
 
-        <div class="modal-head">
+        <div class="modal-header">
 
-            <h2>Safety & reporting</h2>
+            <h2>Connect safely</h2>
 
-            <button id="closeSafetyButton" class="close" type="button">
+            <button
+                id="closeConnection"
+                class="modal-close"
+                type="button"
+            >
                 ✕
             </button>
 
         </div>
 
         <p>
-            If you see harassment, hate, sexual content, spam, privacy
-            violations or other harmful behaviour, use Report.
-            You can also block a user from a feeling's menu.
+            Listen My Feelings uses a protected connection system.
         </p>
 
         <p>
-            Never share OTPs, passwords, banking details or private
-            identification with people you meet online.
+            The final connection flow requires a verified rewarded
+            advertisement and trusted backend authorization.
+        </p>
+
+        <p>
+            Once authorized, connection access is limited to
+            <strong>12 hours</strong> and is controlled by server-side
+            data rather than Local Storage.
+        </p>
+
+        <p>
+            This browser will not pretend that a connection is active
+            before the trusted backend confirms it.
         </p>
 
         <div class="modal-actions">
 
-            <button id="safetyCloseAction" class="modal-button modal-primary" type="button">
+            <button
+                id="connectionClose"
+                class="modal-btn modal-primary"
+                type="button"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SAFETY MODAL -->
+
+<div
+    id="safetyModal"
+    class="modal-backdrop"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>Safety & reporting</h2>
+
+            <button
+                id="closeSafety"
+                class="modal-close"
+                type="button"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <p>
+            You can report harmful content using the Report button
+            or block a person through the three-dot menu.
+        </p>
+
+        <p>
+            Never share your password, OTP, bank details, payment
+            information or private identification with strangers.
+        </p>
+
+        <p>
+            If someone threatens immediate harm or you are in danger,
+            contact the appropriate emergency service in your area.
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                id="safetyClose"
+                class="modal-btn modal-primary"
+                type="button"
+            >
                 Got it
             </button>
 
@@ -1227,7 +1521,14 @@
 </div>
 
 
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+></div>
 
 
 <script type="module">
@@ -1241,15 +1542,15 @@ import {
 
 import {
     collection,
-    collectionGroup,
     query,
     where,
     limit,
     getDocs,
     getDoc,
+    getCountFromServer,
+    doc,
     setDoc,
     deleteDoc,
-    doc,
     addDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -1259,8 +1560,8 @@ import {
    CONFIG
 ========================================================= */
 
-const MAX_RESULTS = 100;
-const PAGE_SIZE = 20;
+const MAX_FEELINGS = 100;
+const PAGE_SIZE = 10;
 const MAX_RESPONSE_LENGTH = 2000;
 const MAX_REPORT_LENGTH = 1000;
 
@@ -1270,21 +1571,33 @@ const MAX_REPORT_LENGTH = 1000;
 ========================================================= */
 
 const state = {
+
     user: null,
+
+    feelings: [],
+
+    filtered: [],
+
+    rendered: 0,
+
     loading: false,
-    allFeelings: [],
-    visibleFeelings: [],
-    blockedUserIds: new Set(),
-    understoodIds: new Set(),
-    responseCache: new Map(),
-    expandedResponses: new Set(),
-    responseLoading: false,
-    reportLoading: false,
-    understandLoading: new Set(),
+
     selectedFeelingId: null,
+
     selectedMoreFeelingId: null,
-    renderedCount: 0,
-    searchTimer: null
+
+    responseCache: new Map(),
+
+    expandedResponses: new Set(),
+
+    blockedUsers: new Set(),
+
+    understandBusy: new Set(),
+
+    responseBusy: false,
+
+    reportBusy: false
+
 };
 
 
@@ -1292,68 +1605,89 @@ const state = {
    DOM
 ========================================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+    document.getElementById(id);
 
-const searchInput = $("searchInput");
-const searchButton = $("searchButton");
-const moodFilter = $("moodFilter");
-const topicFilter = $("topicFilter");
-const clearFiltersButton = $("clearFiltersButton");
-const sortSelect = $("sortSelect");
 
-const resultCount = $("resultCount");
-const feelingsList = $("feelingsList");
+const feed =
+    $("feed");
 
-const loadingState = $("loadingState");
-const errorState = $("errorState");
-const emptyState = $("emptyState");
-const errorText = $("errorText");
+const loadingState =
+    $("loadingState");
 
-const retryButton = $("retryButton");
-const emptyClearButton = $("emptyClearButton");
+const errorState =
+    $("errorState");
 
-const loadMoreWrap = $("loadMoreWrap");
-const loadMoreButton = $("loadMoreButton");
+const emptyState =
+    $("emptyState");
 
-const responseModal = $("responseModal");
-const responseInput = $("responseInput");
+const errorText =
+    $("errorText");
 
-const reportModal = $("reportModal");
-const reportInput = $("reportInput");
+const resultCount =
+    $("resultCount");
 
-const connectionModal = $("connectionModal");
-const moreModal = $("moreModal");
-const safetyModal = $("safetyModal");
+const searchInput =
+    $("searchInput");
 
-const toast = $("toast");
+const moodFilter =
+    $("moodFilter");
+
+const topicFilter =
+    $("topicFilter");
+
+const sortSelect =
+    $("sortSelect");
+
+const loadMoreWrap =
+    $("loadMoreWrap");
+
+const loadMoreBtn =
+    $("loadMoreBtn");
+
+const toast =
+    $("toast");
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message) {
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 3000);
+}
 
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
-function showToast(message) {
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(showToast.timer);
-
-    showToast.timer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);
-}
-
-
 function escapeHTML(value) {
 
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 
@@ -1367,7 +1701,9 @@ function normalize(value) {
 
 function getInitials(name) {
 
-    const clean = String(name || "User").trim();
+    const clean =
+        String(name || "User")
+            .trim();
 
     if (!clean) {
         return "U";
@@ -1375,49 +1711,58 @@ function getInitials(name) {
 
     return clean
         .split(/\s+/)
-        .slice(0, 2)
-        .map(part => part.charAt(0).toUpperCase())
+        .slice(0,2)
+        .map(
+            item =>
+                item[0]?.toUpperCase() || ""
+        )
         .join("");
 }
 
 
-function timestampMs(value) {
+function getMillis(timestamp) {
 
-    if (!value) {
+    if (!timestamp) {
         return 0;
     }
 
-    if (typeof value.toMillis === "function") {
-        return value.toMillis();
+    if (
+        typeof timestamp.toMillis ===
+        "function"
+    ) {
+        return timestamp.toMillis();
     }
 
-    if (typeof value.toDate === "function") {
-        return value.toDate().getTime();
-    }
-
-    if (value instanceof Date) {
-        return value.getTime();
-    }
-
-    if (typeof value === "number") {
-        return value;
+    if (
+        typeof timestamp.toDate ===
+        "function"
+    ) {
+        return timestamp.toDate().getTime();
     }
 
     return 0;
 }
 
 
-function formatDate(timestamp) {
+function formatTime(timestamp) {
 
-    const time = timestampMs(timestamp);
+    const time =
+        getMillis(timestamp);
 
     if (!time) {
-        return "Recently";
+        return "Just now";
     }
 
-    const difference = Math.max(0, Date.now() - time);
+    const diff =
+        Math.max(
+            0,
+            Date.now() - time
+        );
 
-    const minutes = Math.floor(difference / 60000);
+    const minutes =
+        Math.floor(
+            diff / 60000
+        );
 
     if (minutes < 1) {
         return "Just now";
@@ -1427,92 +1772,32 @@ function formatDate(timestamp) {
         return `${minutes}m ago`;
     }
 
-    const hours = Math.floor(minutes / 60);
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
 
     if (hours < 24) {
         return `${hours}h ago`;
     }
 
-    const days = Math.floor(hours / 24);
+    const days =
+        Math.floor(
+            hours / 24
+        );
 
     if (days < 7) {
         return `${days}d ago`;
     }
 
-    return new Date(time).toLocaleDateString(
-        undefined,
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        }
-    );
-}
-
-
-function normalizeMood(value) {
-
-    const clean = normalize(value);
-
-    return clean
-        .replace("😊 ", "")
-        .replace("😔 ", "")
-        .replace("🥺 ", "")
-        .replace("😡 ", "")
-        .replace("😟 ", "")
-        .replace("😕 ", "")
-        .replace("🌱 ", "")
-        .replace("🙏 ", "")
-        .replace("✨ ", "")
-        .replace("💭 ", "");
-}
-
-
-function normalizeTopic(value) {
-
-    return normalize(value)
-        .replace(/\s+/g, "_");
-}
-
-
-function moodLabel(value) {
-
-    const mood = normalizeMood(value);
-
-    const labels = {
-        happy: "😊 Happy",
-        sad: "😔 Sad",
-        lonely: "🥺 Lonely",
-        angry: "😡 Angry",
-        anxious: "😟 Anxious",
-        confused: "😕 Confused",
-        hopeful: "🌱 Hopeful",
-        grateful: "🙏 Grateful",
-        excited: "✨ Excited",
-        other: "💭 Other"
-    };
-
-    return labels[mood] || `💭 ${String(value || "Other")}`;
-}
-
-
-function topicLabel(value) {
-
-    const topic = normalizeTopic(value);
-
-    const labels = {
-        self: "Self",
-        relationships: "Relationships",
-        family: "Family",
-        work: "Work",
-        study: "Study",
-        life: "Life",
-        health: "Health",
-        money: "Money",
-        other: "Other"
-    };
-
-    return labels[topic] || String(value || "Other");
+    return new Date(time)
+        .toLocaleDateString(
+            undefined,
+            {
+                day: "numeric",
+                month: "short"
+            }
+        );
 }
 
 
@@ -1522,50 +1807,175 @@ function friendlyError(error) {
         return "Something went wrong.";
     }
 
-    switch (error.code) {
-
-        case "permission-denied":
-            return "Firestore permission denied. Check the published rules.";
-
-        case "unauthenticated":
-            return "Your session expired. Please sign in again.";
-
-        case "failed-precondition":
-            return "Firebase needs an index or configuration update.";
-
-        case "network-request-failed":
-            return "Network problem. Please check your internet.";
-
-        case "unavailable":
-            return "Firebase is temporarily unavailable. Try again.";
-
-        default:
-            return error.message || "Something went wrong.";
+    if (
+        error.code ===
+        "permission-denied"
+    ) {
+        return "Permission denied by Firebase.";
     }
+
+    if (
+        error.code ===
+        "unauthenticated"
+    ) {
+        return "Your login session expired.";
+    }
+
+    if (
+        error.code ===
+        "failed-precondition"
+    ) {
+        return "Firebase needs an index/configuration update.";
+    }
+
+    if (
+        error.code ===
+        "unavailable"
+    ) {
+        return "Firebase is temporarily unavailable.";
+    }
+
+    return error.message ||
+        "Something went wrong.";
+}
+
+
+function normalizeMood(value) {
+
+    return normalize(value)
+        .replace(
+            /[^a-z]/g,
+            ""
+        );
+}
+
+
+function normalizeTopic(value) {
+
+    return normalize(value)
+        .replace(
+            /[^a-z]/g,
+            ""
+        );
+}
+
+
+function moodText(value) {
+
+    const mood =
+        normalizeMood(value);
+
+    const map = {
+
+        happy: "😊 Happy",
+
+        sad: "😔 Sad",
+
+        lonely: "🥺 Lonely",
+
+        angry: "😡 Angry",
+
+        anxious: "😟 Anxious",
+
+        confused: "😕 Confused",
+
+        hopeful: "🌱 Hopeful",
+
+        grateful: "🙏 Grateful",
+
+        excited: "✨ Excited",
+
+        other: "💭 Other"
+
+    };
+
+    return map[mood] ||
+        `💭 ${value || "Other"}`;
+}
+
+
+function topicText(value) {
+
+    const topic =
+        normalizeTopic(value);
+
+    const map = {
+
+        self: "Self",
+
+        relationships: "Relationships",
+
+        family: "Family",
+
+        work: "Work",
+
+        study: "Study",
+
+        life: "Life",
+
+        health: "Health",
+
+        money: "Money",
+
+        other: "Other"
+
+    };
+
+    return map[topic] ||
+        String(value || "Other");
 }
 
 
 /* =========================================================
-   STATE UI
+   PAGE STATES
 ========================================================= */
 
-function setState(type) {
+function hideStates() {
 
-    loadingState.classList.add("hidden");
-    errorState.classList.add("hidden");
-    emptyState.classList.add("hidden");
+    loadingState.classList.add(
+        "hidden"
+    );
 
-    if (type === "loading") {
-        loadingState.classList.remove("hidden");
-    }
+    errorState.classList.add(
+        "hidden"
+    );
 
-    if (type === "error") {
-        errorState.classList.remove("hidden");
-    }
+    emptyState.classList.add(
+        "hidden"
+    );
+}
 
-    if (type === "empty") {
-        emptyState.classList.remove("hidden");
-    }
+
+function showLoading() {
+
+    hideStates();
+
+    loadingState.classList.remove(
+        "hidden"
+    );
+}
+
+
+function showError(message) {
+
+    hideStates();
+
+    errorText.textContent =
+        message;
+
+    errorState.classList.remove(
+        "hidden"
+    );
+}
+
+
+function showEmpty() {
+
+    hideStates();
+
+    emptyState.classList.remove(
+        "hidden"
+    );
 }
 
 
@@ -1573,48 +1983,64 @@ function setState(type) {
    AUTH
 ========================================================= */
 
-onAuthStateChanged(auth, async user => {
+onAuthStateChanged(
+    auth,
+    async user => {
 
-    if (!user) {
+        if (!user) {
 
-        window.location.href = "index.html";
+            window.location.href =
+                "index.html";
 
-        return;
+            return;
+        }
+
+        state.user =
+            user;
+
+        await loadDiscover();
     }
-
-    state.user = user;
-
-    await loadDiscover();
-});
+);
 
 
 /* =========================================================
-   LOAD BLOCKS
+   LOAD BLOCKED USERS
 ========================================================= */
 
 async function loadBlockedUsers() {
 
-    state.blockedUserIds.clear();
+    state.blockedUsers.clear();
 
-    if (!state.user) {
-        return;
-    }
+    const q =
+        query(
+            collection(
+                db,
+                "blocks"
+            ),
+            where(
+                "blockerId",
+                "==",
+                state.user.uid
+            ),
+            limit(300)
+        );
 
-    const q = query(
-        collection(db, "blocks"),
-        where("blockerId", "==", state.user.uid),
-        limit(500)
-    );
-
-    const snapshot = await getDocs(q);
+    const snapshot =
+        await getDocs(q);
 
     snapshot.forEach(item => {
 
-        const data = item.data() || {};
+        const data =
+            item.data();
 
-        if (data.blockedUserId) {
-            state.blockedUserIds.add(
-                String(data.blockedUserId)
+        if (
+            data.blockedUserId
+        ) {
+
+            state.blockedUsers.add(
+                String(
+                    data.blockedUserId
+                )
             );
         }
     });
@@ -1622,66 +2048,7 @@ async function loadBlockedUsers() {
 
 
 /* =========================================================
-   LOAD CURRENT USER UNDERSTANDS
-   ========================================================= */
-
-/*
-   We use one collection-group query instead of one
-   getDoc() per feeling.
-
-   If your current rules do not yet include a collection-group
-   rule for "understands", this query will be denied. In that
-   case the page automatically falls back to normal per-card
-   checks when the user interacts.
-*/
-
-async function loadUnderstandState() {
-
-    state.understoodIds.clear();
-
-    if (!state.user) {
-        return;
-    }
-
-    try {
-
-        const q = query(
-            collectionGroup(db, "understands"),
-            where("userId", "==", state.user.uid),
-            limit(500)
-        );
-
-        const snapshot = await getDocs(q);
-
-        snapshot.forEach(item => {
-
-            const parentPath = item.ref.parent.parent;
-
-            if (parentPath) {
-                state.understoodIds.add(
-                    parentPath.id
-                );
-            }
-        });
-
-    } catch (error) {
-
-        console.warn(
-            "Collection-group understand lookup unavailable:",
-            error
-        );
-
-        /*
-         * Do not break Discover because of an optional
-         * optimization. The button itself still performs
-         * an authoritative getDoc() check before writing.
-         */
-    }
-}
-
-
-/* =========================================================
-   LOAD DISCOVER
+   LOAD FEELINGS
 ========================================================= */
 
 async function loadDiscover() {
@@ -1690,247 +2057,384 @@ async function loadDiscover() {
         return;
     }
 
-    state.loading = true;
+    state.loading =
+        true;
 
-    setState("loading");
+    showLoading();
 
-    resultCount.textContent = "Loading feelings...";
+    resultCount.textContent =
+        "Loading feelings...";
 
     try {
 
         await loadBlockedUsers();
 
+
         /*
-         * No orderBy here.
+         * Simple Firestore query.
          *
-         * We sort locally. This avoids depending on a composite
-         * index and keeps the query simple.
+         * No orderBy.
+         * No collectionGroup.
+         * No composite query.
          */
 
-        const q = query(
-            collection(db, "feelings"),
-            where("visibility", "==", "public"),
-            where("status", "==", "active"),
-            limit(MAX_RESULTS)
-        );
+        const q =
+            query(
+                collection(
+                    db,
+                    "feelings"
+                ),
+                where(
+                    "visibility",
+                    "==",
+                    "public"
+                ),
+                where(
+                    "status",
+                    "==",
+                    "active"
+                ),
+                limit(
+                    MAX_FEELINGS
+                )
+            );
 
-        const snapshot = await getDocs(q);
+
+        const snapshot =
+            await getDocs(q);
+
 
         const feelings = [];
 
+
         snapshot.forEach(item => {
 
-            const data = item.data() || {};
+            const data =
+                item.data() || {};
 
-            const authorId = String(
-                data.authorId ??
-                data.userId ??
-                data.uid ??
-                ""
-            );
+
+            const authorId =
+                String(
+                    data.authorId ||
+                    ""
+                );
+
 
             if (
                 authorId &&
-                state.blockedUserIds.has(authorId)
+                state.blockedUsers.has(
+                    authorId
+                )
             ) {
                 return;
             }
 
-            const text = String(
-                data.text ??
-                data.feeling ??
-                data.content ??
-                ""
-            ).trim();
+
+            const text =
+                String(
+                    data.text ||
+                    ""
+                ).trim();
+
 
             if (!text) {
                 return;
             }
 
+
             feelings.push({
 
-                id: item.id,
-
-                text,
-
-                authorName: String(
-                    data.authorDisplayName ??
-                    data.authorName ??
-                    data.displayName ??
-                    data.name ??
-                    "Anonymous"
-                ),
+                id:
+                    item.id,
 
                 authorId,
 
-                mood: String(
-                    data.mood ?? "other"
-                ),
+                authorName:
+                    String(
+                        data.authorDisplayName ||
+                        "User"
+                    ),
 
-                topic: String(
-                    data.topic ?? "other"
-                ),
+                text,
+
+                mood:
+                    String(
+                        data.mood ||
+                        "other"
+                    ),
+
+                topic:
+                    String(
+                        data.topic ||
+                        "other"
+                    ),
 
                 createdAt:
-                    data.createdAt ?? null,
+                    data.createdAt ||
+                    null,
 
                 understoodCount:
                     Number(
-                        data.understoodCount ?? 0
-                    ) || 0
+                        data.understoodCount ||
+                        0
+                    ),
+
+                understood:
+                    false
+
             });
+
         });
 
-        state.allFeelings = feelings;
 
-        /*
-         * One optimized optional query for the current user's
-         * understand reactions.
-         */
-        await loadUnderstandState();
+        state.feelings =
+            feelings;
 
-        state.allFeelings.forEach(feeling => {
 
-            feeling.understood =
-                state.understoodIds.has(
-                    feeling.id
-                );
-        });
+        sortFeelings();
 
         applyFilters();
+
 
     } catch (error) {
 
         console.error(
-            "Discover load error:",
+            "Discover error:",
             error
         );
 
-        errorText.textContent =
-            friendlyError(error);
-
-        setState("error");
+        showError(
+            friendlyError(error)
+        );
 
     } finally {
 
-        state.loading = false;
+        state.loading =
+            false;
     }
 }
 
 
 /* =========================================================
-   FILTERS
+   SORT
+========================================================= */
+
+function sortFeelings() {
+
+    state.feelings.sort(
+        (a,b) => {
+
+            const aTime =
+                getMillis(
+                    a.createdAt
+                );
+
+            const bTime =
+                getMillis(
+                    b.createdAt
+                );
+
+            return sortSelect.value ===
+                "oldest"
+
+                ? aTime - bTime
+
+                : bTime - aTime;
+        }
+    );
+}
+
+
+/* =========================================================
+   FILTER
 ========================================================= */
 
 function applyFilters() {
 
     const search =
-        normalize(searchInput.value);
+        normalize(
+            searchInput.value
+        );
 
-    const selectedMood =
-        normalizeMood(moodFilter.value);
+    const mood =
+        normalizeMood(
+            moodFilter.value
+        );
 
-    const selectedTopic =
-        normalizeTopic(topicFilter.value);
+    const topic =
+        normalizeTopic(
+            topicFilter.value
+        );
 
-    state.visibleFeelings =
-        state.allFeelings.filter(feeling => {
 
-            if (
-                state.blockedUserIds.has(
-                    feeling.authorId
-                )
-            ) {
-                return false;
+    state.filtered =
+        state.feelings.filter(
+            feeling => {
+
+                if (
+                    state.blockedUsers.has(
+                        feeling.authorId
+                    )
+                ) {
+                    return false;
+                }
+
+
+                if (
+                    search
+                ) {
+
+                    const text =
+                        normalize(
+                            [
+                                feeling.text,
+                                feeling.authorName,
+                                feeling.mood,
+                                feeling.topic
+                            ].join(" ")
+                        );
+
+                    if (
+                        !text.includes(
+                            search
+                        )
+                    ) {
+                        return false;
+                    }
+                }
+
+
+                if (
+                    mood !== "all" &&
+                    normalizeMood(
+                        feeling.mood
+                    ) !== mood
+                ) {
+                    return false;
+                }
+
+
+                if (
+                    topic !== "all" &&
+                    normalizeTopic(
+                        feeling.topic
+                    ) !== topic
+                ) {
+                    return false;
+                }
+
+
+                return true;
             }
-
-            const haystack = normalize([
-                feeling.text,
-                feeling.authorName,
-                feeling.topic,
-                feeling.mood
-            ].join(" "));
-
-            if (
-                search &&
-                !haystack.includes(search)
-            ) {
-                return false;
-            }
-
-            if (
-                selectedMood !== "all" &&
-                normalizeMood(feeling.mood) !== selectedMood
-            ) {
-                return false;
-            }
-
-            if (
-                selectedTopic !== "all" &&
-                normalizeTopic(feeling.topic) !== selectedTopic
-            ) {
-                return false;
-            }
-
-            return true;
-        });
+        );
 
 
-    state.visibleFeelings.sort((a,b) => {
+    state.rendered =
+        0;
 
-        const aTime = timestampMs(a.createdAt);
-        const bTime = timestampMs(b.createdAt);
-
-        return sortSelect.value === "oldest"
-            ? aTime - bTime
-            : bTime - aTime;
-    });
-
-
-    renderFeelings();
+    renderFeed();
 }
 
 
 /* =========================================================
-   RENDER
+   RENDER FEED
 ========================================================= */
 
-function renderFeelings() {
+function renderFeed() {
 
-    feelingsList.replaceChildren();
+    feed.replaceChildren();
 
-    state.renderedCount =
+    state.rendered =
         Math.min(
             PAGE_SIZE,
-            state.visibleFeelings.length
+            state.filtered.length
         );
+
 
     const fragment =
         document.createDocumentFragment();
 
-    state.visibleFeelings
-        .slice(0, state.renderedCount)
-        .forEach(feeling => {
 
-            fragment.appendChild(
-                createFeelingCard(feeling)
-            );
-        });
+    state.filtered
+        .slice(
+            0,
+            state.rendered
+        )
+        .forEach(
+            feeling => {
 
-    feelingsList.appendChild(fragment);
+                fragment.appendChild(
+                    createCard(
+                        feeling
+                    )
+                );
+            }
+        );
+
+
+    feed.appendChild(
+        fragment
+    );
+
 
     resultCount.textContent =
-        `${state.visibleFeelings.length} ${
-            state.visibleFeelings.length === 1
+        `${state.filtered.length} ${
+            state.filtered.length === 1
                 ? "feeling"
                 : "feelings"
         }`;
 
-    if (state.visibleFeelings.length === 0) {
-        setState("empty");
+
+    if (
+        state.filtered.length === 0
+    ) {
+
+        showEmpty();
+
     } else {
-        setState("content");
+
+        hideStates();
     }
+
+
+    updateLoadMore();
+}
+
+
+function loadMore() {
+
+    const next =
+        state.filtered.slice(
+            state.rendered,
+            state.rendered +
+            PAGE_SIZE
+        );
+
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    next.forEach(
+        feeling => {
+
+            fragment.appendChild(
+                createCard(
+                    feeling
+                )
+            );
+        }
+    );
+
+
+    feed.appendChild(
+        fragment
+    );
+
+
+    state.rendered +=
+        next.length;
+
 
     updateLoadMore();
 }
@@ -1939,76 +2443,54 @@ function renderFeelings() {
 function updateLoadMore() {
 
     if (
-        state.renderedCount <
-        state.visibleFeelings.length
+        state.rendered <
+        state.filtered.length
     ) {
 
-        loadMoreWrap.classList.remove("hidden");
+        loadMoreWrap.classList.remove(
+            "hidden"
+        );
 
-        loadMoreButton.textContent =
-            `Load more (${
-                state.visibleFeelings.length -
-                state.renderedCount
-            } left)`;
+        loadMoreBtn.textContent =
+            `Load more • ${
+                state.filtered.length -
+                state.rendered
+            } remaining`;
 
     } else {
 
-        loadMoreWrap.classList.add("hidden");
+        loadMoreWrap.classList.add(
+            "hidden"
+        );
     }
 }
 
 
-function loadMore() {
-
-    const next =
-        state.visibleFeelings.slice(
-            state.renderedCount,
-            state.renderedCount + PAGE_SIZE
-        );
-
-    const fragment =
-        document.createDocumentFragment();
-
-    next.forEach(feeling => {
-
-        fragment.appendChild(
-            createFeelingCard(feeling)
-        );
-    });
-
-    feelingsList.appendChild(fragment);
-
-    state.renderedCount += next.length;
-
-    updateLoadMore();
-}
-
-
 /* =========================================================
-   CARD
+   CREATE CARD
 ========================================================= */
 
-function createFeelingCard(feeling) {
+function createCard(feeling) {
 
     const card =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
 
-    card.className = "card";
+    card.className =
+        "feeling-card";
 
     card.dataset.feelingId =
         feeling.id;
 
-    card.dataset.authorId =
-        feeling.authorId;
-
 
     card.innerHTML = `
 
-        <div class="card-inner">
+        <div class="card-body">
 
-            <div class="author">
+            <div class="author-row">
 
-                <div class="author-left">
+                <div class="author-info">
 
                     <div class="avatar">
                         ${escapeHTML(
@@ -2026,9 +2508,9 @@ function createFeelingCard(feeling) {
                             )}
                         </div>
 
-                        <div class="time">
+                        <div class="author-time">
                             ${escapeHTML(
-                                formatDate(
+                                formatTime(
                                     feeling.createdAt
                                 )
                             )}
@@ -2038,8 +2520,9 @@ function createFeelingCard(feeling) {
 
                 </div>
 
+
                 <button
-                    class="more"
+                    class="more-btn"
                     type="button"
                     data-action="more"
                     aria-label="More options"
@@ -2049,11 +2532,12 @@ function createFeelingCard(feeling) {
 
             </div>
 
+
             <div class="meta">
 
                 <span class="pill">
                     ${escapeHTML(
-                        moodLabel(
+                        moodText(
                             feeling.mood
                         )
                     )}
@@ -2061,7 +2545,7 @@ function createFeelingCard(feeling) {
 
                 <span class="pill">
                     ${escapeHTML(
-                        topicLabel(
+                        topicText(
                             feeling.topic
                         )
                     )}
@@ -2069,26 +2553,27 @@ function createFeelingCard(feeling) {
 
             </div>
 
-            <div class="text">
-                ${escapeHTML(feeling.text)}
+
+            <div class="feeling-text">
+                ${escapeHTML(
+                    feeling.text
+                )}
             </div>
+
 
             <div class="actions">
 
                 <button
-                    class="action ${
+                    class="action-btn ${
                         feeling.understood
                             ? "active"
                             : ""
                     }"
                     type="button"
                     data-action="understand"
-                    data-feeling-id="${escapeHTML(
-                        feeling.id
-                    )}"
                 >
                     💜 I Understand
-                    <span data-understand-count>
+                    <span data-count>
                         ${escapeHTML(
                             String(
                                 feeling.understoodCount
@@ -2097,61 +2582,54 @@ function createFeelingCard(feeling) {
                     </span>
                 </button>
 
+
                 <button
-                    class="action"
+                    class="action-btn"
                     type="button"
                     data-action="respond"
-                    data-feeling-id="${escapeHTML(
-                        feeling.id
-                    )}"
                 >
                     💭 Respond
                 </button>
 
+
                 <button
-                    class="action connect"
+                    class="action-btn connect"
                     type="button"
                     data-action="connect"
-                    data-feeling-id="${escapeHTML(
-                        feeling.id
-                    )}"
                 >
                     🤝 Connect
                 </button>
 
+
                 <button
-                    class="action report"
+                    class="action-btn report"
                     type="button"
                     data-action="report"
-                    data-feeling-id="${escapeHTML(
-                        feeling.id
-                    )}"
                 >
                     🚩 Report
                 </button>
 
             </div>
 
+
             <section class="responses">
 
-                <div class="responses-header">
+                <div class="response-head">
 
-                    <span>
+                    <span class="response-title">
                         💬 Responses
                     </span>
 
                     <button
-                        class="toggle-responses"
+                        class="response-toggle"
                         type="button"
-                        data-action="toggle-responses"
-                        data-feeling-id="${escapeHTML(
-                            feeling.id
-                        )}"
+                        data-action="responses"
                     >
                         Show responses
                     </button>
 
                 </div>
+
 
                 <div
                     class="response-list hidden"
@@ -2163,6 +2641,7 @@ function createFeelingCard(feeling) {
         </div>
     `;
 
+
     return card;
 }
 
@@ -2172,26 +2651,26 @@ function createFeelingCard(feeling) {
 ========================================================= */
 
 async function toggleUnderstand(
-    feelingId,
+    feeling,
     button
 ) {
 
-    if (!state.user) {
-        showToast("Please sign in first.");
-        return;
-    }
-
     if (
-        state.understandLoading.has(
-            feelingId
+        state.understandBusy.has(
+            feeling.id
         )
     ) {
         return;
     }
 
-    state.understandLoading.add(feelingId);
 
-    button.disabled = true;
+    state.understandBusy.add(
+        feeling.id
+    );
+
+    button.disabled =
+        true;
+
 
     try {
 
@@ -2199,22 +2678,28 @@ async function toggleUnderstand(
             doc(
                 db,
                 "feelings",
-                feelingId,
+                feeling.id,
                 "understands",
                 state.user.uid
             );
 
+
         const existing =
-            await getDoc(reactionRef);
-
-
-        if (existing.exists()) {
-
-            await deleteDoc(reactionRef);
-
-            state.understoodIds.delete(
-                feelingId
+            await getDoc(
+                reactionRef
             );
+
+
+        if (
+            existing.exists()
+        ) {
+
+            await deleteDoc(
+                reactionRef
+            );
+
+            feeling.understood =
+                false;
 
         } else {
 
@@ -2229,59 +2714,41 @@ async function toggleUnderstand(
                 }
             );
 
-            state.understoodIds.add(
-                feelingId
-            );
-        }
-
-
-        const feeling =
-            state.allFeelings.find(
-                item =>
-                    item.id === feelingId
-            );
-
-
-        if (feeling) {
-
             feeling.understood =
-                state.understoodIds.has(
-                    feelingId
-                );
-
-            /*
-             * The existing understoodCount field is not trusted
-             * as an authoritative counter. Update the UI
-             * immediately and reconcile with the server only
-             * after the successful mutation.
-             */
-            feeling.understoodCount =
-                Math.max(
-                    0,
-                    Number(
-                        feeling.understoodCount
-                    ) +
-                    (
-                        feeling.understood
-                            ? 1
-                            : -1
-                    )
-                );
+                true;
         }
 
 
-        updateUnderstandUI(
-            feelingId,
-            feeling?.understoodCount ?? 0,
-            feeling?.understood ?? false
+        /*
+         * Only after the real Firestore write do we ask
+         * Firebase for the actual count.
+         */
+        const countSnapshot =
+            await getCountFromServer(
+                collection(
+                    db,
+                    "feelings",
+                    feeling.id,
+                    "understands"
+                )
+            );
+
+
+        feeling.understoodCount =
+            countSnapshot.data().count;
+
+
+        updateCardUnderstand(
+            feeling
         );
 
 
         showToast(
-            existing.exists()
-                ? "I Understand removed."
-                : "I Understand added 💜"
+            feeling.understood
+                ? "I Understand 💜"
+                : "I Understand removed."
         );
+
 
     } catch (error) {
 
@@ -2296,351 +2763,162 @@ async function toggleUnderstand(
 
     } finally {
 
-        state.understandLoading.delete(
-            feelingId
+        state.understandBusy.delete(
+            feeling.id
         );
 
-        button.disabled = false;
+        button.disabled =
+            false;
     }
 }
 
 
-function updateUnderstandUI(
-    feelingId,
-    count,
-    active
+function updateCardUnderstand(
+    feeling
 ) {
 
-    document
-        .querySelectorAll(
-            `[data-action="understand"][data-feeling-id="${CSS.escape(
-                feelingId
+    const card =
+        document.querySelector(
+            `[data-feeling-id="${CSS.escape(
+                feeling.id
             )}"]`
-        )
-        .forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                Boolean(active)
-            );
-
-            const countNode =
-                button.querySelector(
-                    "[data-understand-count]"
-                );
-
-            if (countNode) {
-                countNode.textContent =
-                    String(count);
-            }
-        });
-}
-
-
-/* =========================================================
-   RESPONSES
-========================================================= */
-
-async function loadResponses(feelingId) {
-
-    if (
-        state.responseCache.has(
-            feelingId
-        )
-    ) {
-        return state.responseCache.get(
-            feelingId
-        );
-    }
-
-    const q =
-        query(
-            collection(
-                db,
-                "feelings",
-                feelingId,
-                "responses"
-            ),
-            limit(100)
         );
 
-    const snapshot =
-        await getDocs(q);
-
-    const responses = [];
-
-    snapshot.forEach(item => {
-
-        const data =
-            item.data() || {};
-
-        if (
-            data.status !== "active"
-        ) {
-            return;
-        }
-
-        const text =
-            String(
-                data.text ?? ""
-            ).trim();
-
-        if (!text) {
-            return;
-        }
-
-        responses.push({
-
-            id: item.id,
-
-            userId:
-                String(
-                    data.userId ??
-                    data.authorId ??
-                    ""
-                ),
-
-            authorName:
-                String(
-                    data.authorName ??
-                    data.authorDisplayName ??
-                    "User"
-                ),
-
-            text,
-
-            createdAt:
-                data.createdAt ?? null
-        });
-    });
-
-
-    responses.sort(
-        (a,b) =>
-            timestampMs(a.createdAt) -
-            timestampMs(b.createdAt)
-    );
-
-
-    state.responseCache.set(
-        feelingId,
-        responses
-    );
-
-    return responses;
-}
-
-
-async function showResponses(
-    feelingId,
-    card
-) {
-
-    const list =
-        card.querySelector(
-            "[data-response-list]"
-        );
-
-    const toggle =
-        card.querySelector(
-            "[data-action='toggle-responses']"
-        );
-
-    if (!list || !toggle) {
-        return;
-    }
-
-
-    if (
-        state.expandedResponses.has(
-            feelingId
-        )
-    ) {
-
-        state.expandedResponses.delete(
-            feelingId
-        );
-
-        list.classList.add("hidden");
-
-        const cached =
-            state.responseCache.get(
-                feelingId
-            );
-
-        toggle.textContent =
-            cached?.length
-                ? `Show responses (${cached.length})`
-                : "Show responses";
-
-        return;
-    }
-
-
-    toggle.disabled = true;
-    toggle.textContent = "Loading...";
-
-
-    try {
-
-        const responses =
-            await loadResponses(
-                feelingId
-            );
-
-        state.expandedResponses.add(
-            feelingId
-        );
-
-
-        if (!responses.length) {
-
-            list.innerHTML = `
-                <div class="no-responses">
-                    No responses yet. Be the first to respond with empathy.
-                </div>
-            `;
-
-        } else {
-
-            list.innerHTML =
-                responses.map(
-                    response => `
-                        <div class="response-item">
-
-                            <div class="response-author">
-
-                                <strong>
-                                    ${escapeHTML(
-                                        response.authorName
-                                    )}
-                                </strong>
-
-                                <span class="response-time">
-                                    ${escapeHTML(
-                                        formatDate(
-                                            response.createdAt
-                                        )
-                                    )}
-                                </span>
-
-                            </div>
-
-                            <div class="response-text">
-                                ${escapeHTML(
-                                    response.text
-                                )}
-                            </div>
-
-                        </div>
-                    `
-                ).join("");
-        }
-
-
-        list.classList.remove(
-            "hidden"
-        );
-
-        toggle.textContent =
-            responses.length
-                ? `Hide responses (${responses.length})`
-                : "Hide responses";
-
-
-    } catch (error) {
-
-        console.error(
-            "Response load error:",
-            error
-        );
-
-        toggle.textContent =
-            "Show responses";
-
-        showToast(
-            friendlyError(error)
-        );
-
-    } finally {
-
-        toggle.disabled = false;
-    }
-}
-
-
-function openResponseModal(feelingId) {
-
-    state.selectedFeelingId =
-        feelingId;
-
-    responseInput.value = "";
-
-    responseModal.classList.add("show");
-
-    setTimeout(
-        () => responseInput.focus(),
-        50
-    );
-}
-
-
-function closeResponseModal() {
-
-    state.selectedFeelingId =
-        null;
-
-    responseInput.value = "";
-
-    responseModal.classList.remove("show");
-}
-
-
-async function submitResponse() {
-
-    if (!state.user) {
-        showToast("Please sign in first.");
-        return;
-    }
-
-    const feelingId =
-        state.selectedFeelingId;
-
-    if (!feelingId) {
-        showToast("Feeling not selected.");
-        return;
-    }
-
-    if (state.responseLoading) {
-        return;
-    }
-
-    const text =
-        responseInput.value.trim();
-
-    if (!text) {
-        showToast("Please write a response.");
-        return;
-    }
-
-    if (
-        text.length >
-        MAX_RESPONSE_LENGTH
-    ) {
-        showToast(
-            `Response must be ${MAX_RESPONSE_LENGTH} characters or less.`
-        );
+    if (!card) {
         return;
     }
 
 
     const button =
-        $("submitResponseButton");
+        card.querySelector(
+            '[data-action="understand"]'
+        );
 
-    state.responseLoading = true;
+    if (!button) {
+        return;
+    }
 
-    button.disabled = true;
-    button.textContent = "Sending...";
+
+    button.classList.toggle(
+        "active",
+        feeling.understood
+    );
+
+
+    const count =
+        button.querySelector(
+            "[data-count]"
+        );
+
+    if (count) {
+
+        count.textContent =
+            String(
+                feeling.understoodCount
+            );
+    }
+}
+
+
+/* =========================================================
+   RESPONSE
+========================================================= */
+
+function openResponse(
+    feelingId
+) {
+
+    state.selectedFeelingId =
+        feelingId;
+
+    $("responseInput").value =
+        "";
+
+    $("responseModal")
+        .classList.add(
+            "show"
+        );
+
+    setTimeout(
+        () =>
+            $("responseInput").focus(),
+        50
+    );
+}
+
+
+function closeResponse() {
+
+    $("responseModal")
+        .classList.remove(
+            "show"
+        );
+
+    state.selectedFeelingId =
+        null;
+}
+
+
+async function sendResponse() {
+
+    if (
+        state.responseBusy
+    ) {
+        return;
+    }
+
+
+    const feelingId =
+        state.selectedFeelingId;
+
+
+    const text =
+        $("responseInput")
+            .value
+            .trim();
+
+
+    if (!feelingId) {
+        showToast(
+            "Feeling not selected."
+        );
+        return;
+    }
+
+
+    if (!text) {
+        showToast(
+            "Please write a response."
+        );
+        return;
+    }
+
+
+    if (
+        text.length >
+        MAX_RESPONSE_LENGTH
+    ) {
+
+        showToast(
+            "Response is too long."
+        );
+
+        return;
+    }
+
+
+    const button =
+        $("sendResponse");
+
+
+    state.responseBusy =
+        true;
+
+    button.disabled =
+        true;
+
+    button.textContent =
+        "Sending...";
 
 
     try {
@@ -2676,11 +2954,8 @@ async function submitResponse() {
             feelingId
         );
 
-        state.expandedResponses.add(
-            feelingId
-        );
 
-        closeResponseModal();
+        closeResponse();
 
 
         const card =
@@ -2693,13 +2968,10 @@ async function submitResponse() {
 
         if (card) {
 
-            state.expandedResponses.delete(
-                feelingId
-            );
-
-            await showResponses(
+            await openResponses(
                 feelingId,
-                card
+                card,
+                true
             );
         }
 
@@ -2722,11 +2994,267 @@ async function submitResponse() {
 
     } finally {
 
-        state.responseLoading = false;
+        state.responseBusy =
+            false;
 
-        button.disabled = false;
+        button.disabled =
+            false;
+
         button.textContent =
             "Send response";
+    }
+}
+
+
+/* =========================================================
+   LOAD RESPONSES ONLY WHEN REQUESTED
+========================================================= */
+
+async function getResponses(
+    feelingId
+) {
+
+    if (
+        state.responseCache.has(
+            feelingId
+        )
+    ) {
+
+        return state.responseCache.get(
+            feelingId
+        );
+    }
+
+
+    const q =
+        query(
+            collection(
+                db,
+                "feelings",
+                feelingId,
+                "responses"
+            ),
+            limit(100)
+        );
+
+
+    const snapshot =
+        await getDocs(q);
+
+
+    const responses = [];
+
+
+    snapshot.forEach(item => {
+
+        const data =
+            item.data() || {};
+
+
+        if (
+            data.status !==
+            "active"
+        ) {
+            return;
+        }
+
+
+        const text =
+            String(
+                data.text || ""
+            ).trim();
+
+
+        if (!text) {
+            return;
+        }
+
+
+        responses.push({
+
+            id:
+                item.id,
+
+            authorName:
+                String(
+                    data.authorName ||
+                    "User"
+                ),
+
+            text,
+
+            createdAt:
+                data.createdAt ||
+                null
+        });
+
+    });
+
+
+    responses.sort(
+        (a,b) =>
+            getMillis(
+                a.createdAt
+            ) -
+            getMillis(
+                b.createdAt
+            )
+    );
+
+
+    state.responseCache.set(
+        feelingId,
+        responses
+    );
+
+
+    return responses;
+}
+
+
+async function openResponses(
+    feelingId,
+    card,
+    forceOpen = false
+) {
+
+    const list =
+        card.querySelector(
+            "[data-response-list]"
+        );
+
+    const toggle =
+        card.querySelector(
+            '[data-action="responses"]'
+        );
+
+
+    if (!list || !toggle) {
+        return;
+    }
+
+
+    if (
+        !forceOpen &&
+        state.expandedResponses.has(
+            feelingId
+        )
+    ) {
+
+        state.expandedResponses.delete(
+            feelingId
+        );
+
+        list.classList.add(
+            "hidden"
+        );
+
+        toggle.textContent =
+            "Show responses";
+
+        return;
+    }
+
+
+    toggle.disabled =
+        true;
+
+    toggle.textContent =
+        "Loading...";
+
+
+    try {
+
+        const responses =
+            await getResponses(
+                feelingId
+            );
+
+
+        if (
+            responses.length === 0
+        ) {
+
+            list.innerHTML = `
+                <div class="no-response">
+                    No responses yet.
+                    Be the first to respond with empathy.
+                </div>
+            `;
+
+        } else {
+
+            list.innerHTML =
+                responses.map(
+                    response => `
+
+                        <div class="response">
+
+                            <div class="response-user">
+
+                                <strong>
+                                    ${escapeHTML(
+                                        response.authorName
+                                    )}
+                                </strong>
+
+                                <span class="response-date">
+                                    ${escapeHTML(
+                                        formatTime(
+                                            response.createdAt
+                                        )
+                                    )}
+                                </span>
+
+                            </div>
+
+                            <div class="response-text">
+                                ${escapeHTML(
+                                    response.text
+                                )}
+                            </div>
+
+                        </div>
+
+                    `
+                ).join("");
+        }
+
+
+        list.classList.remove(
+            "hidden"
+        );
+
+
+        state.expandedResponses.add(
+            feelingId
+        );
+
+
+        toggle.textContent =
+            responses.length
+                ? `Hide responses (${responses.length})`
+                : "Hide responses";
+
+
+    } catch (error) {
+
+        console.error(
+            "Responses error:",
+            error
+        );
+
+        showToast(
+            friendlyError(error)
+        );
+
+        toggle.textContent =
+            "Show responses";
+
+    } finally {
+
+        toggle.disabled =
+            false;
     }
 }
 
@@ -2735,84 +3263,110 @@ async function submitResponse() {
    REPORT
 ========================================================= */
 
-function openReportModal(feelingId) {
+function openReport(
+    feelingId
+) {
 
     state.selectedFeelingId =
         feelingId;
 
-    reportInput.value = "";
+    $("reportInput").value =
+        "";
 
-    reportModal.classList.add("show");
+    $("reportModal")
+        .classList.add(
+            "show"
+        );
 
     setTimeout(
-        () => reportInput.focus(),
+        () =>
+            $("reportInput").focus(),
         50
     );
 }
 
 
-function closeReportModal() {
+function closeReport() {
+
+    $("reportModal")
+        .classList.remove(
+            "show"
+        );
 
     state.selectedFeelingId =
         null;
-
-    reportInput.value = "";
-
-    reportModal.classList.remove("show");
 }
 
 
 async function submitReport() {
 
-    if (!state.user) {
-        showToast("Please sign in first.");
+    if (
+        state.reportBusy
+    ) {
         return;
     }
+
 
     const feelingId =
         state.selectedFeelingId;
 
-    if (!feelingId) {
-        showToast("Feeling not selected.");
-        return;
-    }
-
-    if (state.reportLoading) {
-        return;
-    }
 
     const reason =
-        reportInput.value.trim();
+        $("reportInput")
+            .value
+            .trim();
 
-    if (!reason) {
-        showToast("Please describe the issue.");
-        return;
-    }
 
-    if (
-        reason.length >
-        MAX_REPORT_LENGTH
-    ) {
+    if (!feelingId) {
         showToast(
-            `Report must be ${MAX_REPORT_LENGTH} characters or less.`
+            "Feeling not selected."
         );
         return;
     }
 
 
+    if (!reason) {
+        showToast(
+            "Please describe the issue."
+        );
+        return;
+    }
+
+
+    if (
+        reason.length >
+        MAX_REPORT_LENGTH
+    ) {
+
+        showToast(
+            "Report is too long."
+        );
+
+        return;
+    }
+
+
     const button =
-        $("submitReportButton");
+        $("sendReport");
 
-    state.reportLoading = true;
 
-    button.disabled = true;
-    button.textContent = "Submitting...";
+    state.reportBusy =
+        true;
+
+    button.disabled =
+        true;
+
+    button.textContent =
+        "Submitting...";
 
 
     try {
 
         await addDoc(
-            collection(db, "reports"),
+            collection(
+                db,
+                "reports"
+            ),
             {
                 reporterId:
                     state.user.uid,
@@ -2834,7 +3388,8 @@ async function submitReport() {
         );
 
 
-        closeReportModal();
+        closeReport();
+
 
         showToast(
             "Report submitted for review."
@@ -2854,9 +3409,12 @@ async function submitReport() {
 
     } finally {
 
-        state.reportLoading = false;
+        state.reportBusy =
+            false;
 
-        button.disabled = false;
+        button.disabled =
+            false;
+
         button.textContent =
             "Submit report";
     }
@@ -2864,74 +3422,95 @@ async function submitReport() {
 
 
 /* =========================================================
-   BLOCK
+   MORE MENU
 ========================================================= */
 
-function openMoreModal(feelingId) {
+function openMore(
+    feelingId
+) {
 
     state.selectedMoreFeelingId =
         feelingId;
 
-    moreModal.classList.add("show");
+    $("moreModal")
+        .classList.add(
+            "show"
+        );
 }
 
 
-function closeMoreModal() {
+function closeMore() {
+
+    $("moreModal")
+        .classList.remove(
+            "show"
+        );
 
     state.selectedMoreFeelingId =
         null;
-
-    moreModal.classList.remove("show");
 }
 
 
-async function blockSelectedUser() {
+/* =========================================================
+   BLOCK
+========================================================= */
 
-    if (!state.user) {
-        showToast("Please sign in first.");
-        return;
-    }
+async function blockUser() {
 
     const feelingId =
         state.selectedMoreFeelingId;
 
-    if (!feelingId) {
-        return;
-    }
 
     const feeling =
-        state.allFeelings.find(
+        state.feelings.find(
             item =>
-                item.id === feelingId
+                item.id ===
+                feelingId
         );
 
+
     if (!feeling) {
-        closeMoreModal();
+        closeMore();
         return;
     }
+
 
     const targetUserId =
         feeling.authorId;
 
+
     if (!targetUserId) {
-        showToast("This user cannot be identified.");
+
+        showToast(
+            "User information unavailable."
+        );
+
+        closeMore();
+
         return;
     }
+
 
     if (
         targetUserId ===
         state.user.uid
     ) {
-        showToast("You cannot block yourself.");
-        closeMoreModal();
+
+        showToast(
+            "You cannot block yourself."
+        );
+
+        closeMore();
+
         return;
     }
 
 
     const confirmed =
         window.confirm(
-            "Block this person? Their public feelings will be hidden from you."
+            "Block this person? Their feelings will be hidden from you."
         );
+
 
     if (!confirmed) {
         return;
@@ -2942,6 +3521,7 @@ async function blockSelectedUser() {
 
         const blockId =
             `${state.user.uid}_${targetUserId}`;
+
 
         await setDoc(
             doc(
@@ -2962,38 +3542,26 @@ async function blockSelectedUser() {
         );
 
 
-        state.blockedUserIds.add(
+        state.blockedUsers.add(
             targetUserId
         );
 
 
-        state.allFeelings =
-            state.allFeelings.filter(
+        state.feelings =
+            state.feelings.filter(
                 item =>
                     item.authorId !==
                     targetUserId
             );
 
 
-        state.responseCache =
-            new Map(
-                [...state.responseCache]
-                    .filter(
-                        ([id]) =>
-                            state.allFeelings.some(
-                                feeling =>
-                                    feeling.id === id
-                            )
-                    )
-            );
-
-
-        closeMoreModal();
+        closeMore();
 
         applyFilters();
 
+
         showToast(
-            "Person blocked. Their feelings are hidden."
+            "Person blocked."
         );
 
 
@@ -3012,7 +3580,7 @@ async function blockSelectedUser() {
 
 
 /* =========================================================
-   COPY LINK
+   COPY
 ========================================================= */
 
 async function copyFeelingLink() {
@@ -3020,9 +3588,11 @@ async function copyFeelingLink() {
     const feelingId =
         state.selectedMoreFeelingId;
 
+
     if (!feelingId) {
         return;
     }
+
 
     const url =
         `${window.location.origin}${window.location.pathname}#feeling-${encodeURIComponent(
@@ -3032,50 +3602,23 @@ async function copyFeelingLink() {
 
     try {
 
-        if (
-            navigator.clipboard &&
-            window.isSecureContext
-        ) {
-
-            await navigator.clipboard.writeText(
-                url
-            );
-
-        } else {
-
-            const input =
-                document.createElement("textarea");
-
-            input.value = url;
-
-            input.style.position = "fixed";
-            input.style.opacity = "0";
-
-            document.body.appendChild(input);
-
-            input.focus();
-            input.select();
-
-            document.execCommand("copy");
-
-            input.remove();
-        }
-
-        showToast("Feeling link copied.");
-
-    } catch (error) {
-
-        console.error(
-            "Copy error:",
-            error
+        await navigator.clipboard.writeText(
+            url
         );
+
+        showToast(
+            "Feeling link copied."
+        );
+
+    } catch {
 
         showToast(
             "Couldn't copy the link."
         );
     }
 
-    closeMoreModal();
+
+    closeMore();
 }
 
 
@@ -3083,21 +3626,21 @@ async function copyFeelingLink() {
    CONNECTION
 ========================================================= */
 
-function openConnectionModal(feelingId) {
+function openConnection() {
 
-    state.selectedFeelingId =
-        feelingId || null;
-
-    connectionModal.classList.add("show");
+    $("connectionModal")
+        .classList.add(
+            "show"
+        );
 }
 
 
-function closeConnectionModal() {
+function closeConnection() {
 
-    connectionModal.classList.remove("show");
-
-    state.selectedFeelingId =
-        null;
+    $("connectionModal")
+        .classList.remove(
+            "show"
+        );
 }
 
 
@@ -3105,175 +3648,185 @@ function closeConnectionModal() {
    NAVIGATION
 ========================================================= */
 
-function navigate(route) {
-
-    if (!route) {
-        return;
-    }
-
-    window.location.href =
-        route;
-}
-
-
 document
-    .querySelectorAll("[data-route]")
+    .querySelectorAll(
+        "[data-route]"
+    )
     .forEach(button => {
 
         button.addEventListener(
             "click",
-            () => navigate(
-                button.dataset.route
-            )
+            () => {
+
+                window.location.href =
+                    button.dataset.route;
+            }
         );
     });
 
 
-$("notificationsButton")
+$("notificationsBtn")
     .addEventListener(
         "click",
-        () => navigate(
-            "notifications.html"
-        )
+        () => {
+
+            window.location.href =
+                "notifications.html";
+        }
     );
 
 
-$("messagesButton")
+$("messagesBtn")
     .addEventListener(
         "click",
-        () => navigate(
-            "messages.html"
-        )
+        () => {
+
+            window.location.href =
+                "messages.html";
+        }
     );
 
 
-$("createFeelingButton")
+$("shareFeelingBtn")
     .addEventListener(
         "click",
-        () => navigate(
-            "app.html"
-        )
-    );
+        () => {
 
-
-$("safetyButton")
-    .addEventListener(
-        "click",
-        () =>
-            safetyModal.classList.add(
-                "show"
-            )
+            window.location.href =
+                "app.html";
+        }
     );
 
 
 /* =========================================================
-   SEARCH
+   SEARCH / FILTER
 ========================================================= */
 
-function runSearch() {
+function runFilter() {
+
+    sortFeelings();
+
     applyFilters();
 }
 
 
-searchButton.addEventListener(
-    "click",
-    runSearch
-);
+$("searchBtn")
+    .addEventListener(
+        "click",
+        runFilter
+    );
 
 
-searchInput.addEventListener(
-    "keydown",
-    event => {
+searchInput
+    .addEventListener(
+        "input",
+        () => {
 
-        if (event.key === "Enter") {
-            runSearch();
-        }
-    }
-);
-
-
-searchInput.addEventListener(
-    "input",
-    () => {
-
-        clearTimeout(
-            state.searchTimer
-        );
-
-        state.searchTimer =
-            setTimeout(
-                runSearch,
-                180
+            clearTimeout(
+                searchInput.timer
             );
-    }
-);
+
+            searchInput.timer =
+                setTimeout(
+                    runFilter,
+                    180
+                );
+        }
+    );
 
 
-moodFilter.addEventListener(
-    "change",
-    runSearch
-);
+searchInput
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Enter"
+            ) {
+
+                runFilter();
+            }
+        }
+    );
 
 
-topicFilter.addEventListener(
-    "change",
-    runSearch
-);
+moodFilter
+    .addEventListener(
+        "change",
+        runFilter
+    );
 
 
-sortSelect.addEventListener(
-    "change",
-    runSearch
-);
+topicFilter
+    .addEventListener(
+        "change",
+        runFilter
+    );
+
+
+sortSelect
+    .addEventListener(
+        "change",
+        runFilter
+    );
 
 
 function clearFilters() {
 
-    searchInput.value = "";
+    searchInput.value =
+        "";
 
-    moodFilter.value = "all";
+    moodFilter.value =
+        "all";
 
-    topicFilter.value = "all";
+    topicFilter.value =
+        "all";
 
-    sortSelect.value = "newest";
+    sortSelect.value =
+        "newest";
 
-    applyFilters();
+    runFilter();
 
     showToast(
-        "Search and filters cleared."
+        "Filters cleared."
     );
 }
 
 
-clearFiltersButton.addEventListener(
-    "click",
-    clearFilters
-);
+$("clearBtn")
+    .addEventListener(
+        "click",
+        clearFilters
+    );
 
 
-emptyClearButton.addEventListener(
-    "click",
-    clearFilters
-);
+$("emptyClearBtn")
+    .addEventListener(
+        "click",
+        clearFilters
+    );
 
 
-retryButton.addEventListener(
-    "click",
-    loadDiscover
-);
+$("retryBtn")
+    .addEventListener(
+        "click",
+        loadDiscover
+    );
 
 
-loadMoreButton.addEventListener(
-    "click",
-    loadMore
-);
+loadMoreBtn
+    .addEventListener(
+        "click",
+        loadMore
+    );
 
 
 /* =========================================================
-   CARD EVENTS
+   FEED CLICK HANDLER
 ========================================================= */
 
-feelingsList.addEventListener(
+feed.addEventListener(
     "click",
     async event => {
 
@@ -3282,29 +3835,51 @@ feelingsList.addEventListener(
                 "[data-action]"
             );
 
+
         if (!button) {
             return;
         }
 
-        const action =
-            button.dataset.action;
 
         const card =
-            button.closest(".card");
+            button.closest(
+                ".feeling-card"
+            );
 
-        const feelingId =
-            button.dataset.feelingId ||
-            card?.dataset.feelingId;
 
-        if (!feelingId) {
+        if (!card) {
             return;
         }
 
 
-        if (action === "understand") {
+        const feelingId =
+            card.dataset.feelingId;
+
+
+        const feeling =
+            state.feelings.find(
+                item =>
+                    item.id ===
+                    feelingId
+            );
+
+
+        if (!feeling) {
+            return;
+        }
+
+
+        const action =
+            button.dataset.action;
+
+
+        if (
+            action ===
+            "understand"
+        ) {
 
             await toggleUnderstand(
-                feelingId,
+                feeling,
                 button
             );
 
@@ -3312,39 +3887,12 @@ feelingsList.addEventListener(
         }
 
 
-        if (action === "respond") {
+        if (
+            action ===
+            "respond"
+        ) {
 
-            openResponseModal(
-                feelingId
-            );
-
-            return;
-        }
-
-
-        if (action === "connect") {
-
-            openConnectionModal(
-                feelingId
-            );
-
-            return;
-        }
-
-
-        if (action === "report") {
-
-            openReportModal(
-                feelingId
-            );
-
-            return;
-        }
-
-
-        if (action === "more") {
-
-            openMoreModal(
+            openResponse(
                 feelingId
             );
 
@@ -3354,14 +3902,54 @@ feelingsList.addEventListener(
 
         if (
             action ===
-            "toggle-responses"
+            "connect"
         ) {
 
-            await showResponses(
+            openConnection();
+
+            return;
+        }
+
+
+        if (
+            action ===
+            "report"
+        ) {
+
+            openReport(
+                feelingId
+            );
+
+            return;
+        }
+
+
+        if (
+            action ===
+            "more"
+        ) {
+
+            openMore(
+                feelingId
+            );
+
+            return;
+        }
+
+
+        if (
+            action ===
+            "responses"
+        ) {
+
+            await openResponses(
                 feelingId,
                 card
             );
+
+            return;
         }
+
     }
 );
 
@@ -3370,24 +3958,24 @@ feelingsList.addEventListener(
    RESPONSE EVENTS
 ========================================================= */
 
-$("closeResponseButton")
+$("closeResponse")
     .addEventListener(
         "click",
-        closeResponseModal
+        closeResponse
     );
 
 
-$("cancelResponseButton")
+$("cancelResponse")
     .addEventListener(
         "click",
-        closeResponseModal
+        closeResponse
     );
 
 
-$("submitResponseButton")
+$("sendResponse")
     .addEventListener(
         "click",
-        submitResponse
+        sendResponse
     );
 
 
@@ -3395,21 +3983,21 @@ $("submitResponseButton")
    REPORT EVENTS
 ========================================================= */
 
-$("closeReportButton")
+$("closeReport")
     .addEventListener(
         "click",
-        closeReportModal
+        closeReport
     );
 
 
-$("cancelReportButton")
+$("cancelReport")
     .addEventListener(
         "click",
-        closeReportModal
+        closeReport
     );
 
 
-$("submitReportButton")
+$("sendReport")
     .addEventListener(
         "click",
         submitReport
@@ -3417,72 +4005,69 @@ $("submitReportButton")
 
 
 /* =========================================================
-   CONNECTION EVENTS
-========================================================= */
-
-$("closeConnectionButton")
-    .addEventListener(
-        "click",
-        closeConnectionModal
-    );
-
-
-$("connectionCloseAction")
-    .addEventListener(
-        "click",
-        closeConnectionModal
-    );
-
-
-$("connectionInfoButton")
-    .addEventListener(
-        "click",
-        () =>
-            openConnectionModal(null)
-    );
-
-
-/* =========================================================
    MORE EVENTS
 ========================================================= */
 
-$("closeMoreButton")
+$("closeMore")
     .addEventListener(
         "click",
-        closeMoreModal
+        closeMore
     );
 
 
-$("moreCopyButton")
+$("moreCopy")
     .addEventListener(
         "click",
         copyFeelingLink
     );
 
 
-$("moreReportButton")
+$("moreBlock")
+    .addEventListener(
+        "click",
+        blockUser
+    );
+
+
+$("moreReport")
     .addEventListener(
         "click",
         () => {
 
-            const feelingId =
+            const id =
                 state.selectedMoreFeelingId;
 
-            closeMoreModal();
+            closeMore();
 
-            if (feelingId) {
-                openReportModal(
-                    feelingId
-                );
+            if (id) {
+                openReport(id);
             }
         }
     );
 
 
-$("moreBlockButton")
+/* =========================================================
+   CONNECTION EVENTS
+========================================================= */
+
+$("connectionInfoBtn")
     .addEventListener(
         "click",
-        blockSelectedUser
+        openConnection
+    );
+
+
+$("closeConnection")
+    .addEventListener(
+        "click",
+        closeConnection
+    );
+
+
+$("connectionClose")
+    .addEventListener(
+        "click",
+        closeConnection
     );
 
 
@@ -3490,61 +4075,73 @@ $("moreBlockButton")
    SAFETY
 ========================================================= */
 
-$("closeSafetyButton")
+$("safetyBtn")
     .addEventListener(
         "click",
         () =>
-            safetyModal.classList.remove(
-                "show"
-            )
+            $("safetyModal")
+                .classList.add(
+                    "show"
+                )
     );
 
 
-$("safetyCloseAction")
+$("closeSafety")
     .addEventListener(
         "click",
         () =>
-            safetyModal.classList.remove(
-                "show"
-            )
+            $("safetyModal")
+                .classList.remove(
+                    "show"
+                )
+    );
+
+
+$("safetyClose")
+    .addEventListener(
+        "click",
+        () =>
+            $("safetyModal")
+                .classList.remove(
+                    "show"
+                )
     );
 
 
 /* =========================================================
-   MODAL BACKDROPS
+   BACKDROP CLOSE
 ========================================================= */
 
-[
-    responseModal,
-    reportModal,
-    connectionModal,
-    moreModal,
-    safetyModal
-].forEach(modal => {
+document
+    .querySelectorAll(
+        ".modal-backdrop"
+    )
+    .forEach(
+        modal => {
 
-    modal.addEventListener(
-        "click",
-        event => {
+            modal.addEventListener(
+                "click",
+                event => {
 
-            if (
-                event.target !==
-                modal
-            ) {
-                return;
-            }
+                    if (
+                        event.target ===
+                        modal
+                    ) {
 
-            modal.classList.remove(
-                "show"
+                        modal.classList.remove(
+                            "show"
+                        );
+
+                        state.selectedFeelingId =
+                            null;
+
+                        state.selectedMoreFeelingId =
+                            null;
+                    }
+                }
             );
-
-            state.selectedFeelingId =
-                null;
-
-            state.selectedMoreFeelingId =
-                null;
         }
     );
-});
 
 
 /* =========================================================
@@ -3555,25 +4152,29 @@ document.addEventListener(
     "keydown",
     event => {
 
-        if (event.key !== "Escape") {
+        if (
+            event.key !==
+            "Escape"
+        ) {
             return;
         }
 
-        [
-            responseModal,
-            reportModal,
-            connectionModal,
-            moreModal,
-            safetyModal
-        ].forEach(
-            modal =>
-                modal.classList.remove(
-                    "show"
-                )
-        );
+        document
+            .querySelectorAll(
+                ".modal-backdrop"
+            )
+            .forEach(
+                modal =>
+                    modal.classList.remove(
+                        "show"
+                    )
+            );
 
-        state.selectedFeelingId = null;
-        state.selectedMoreFeelingId = null;
+        state.selectedFeelingId =
+            null;
+
+        state.selectedMoreFeelingId =
+            null;
     }
 );
 
@@ -3587,16 +4188,19 @@ document.addEventListener(
     async event => {
 
         if (
-            event.shiftKey &&
             event.ctrlKey &&
-            event.key.toLowerCase() === "l"
+            event.shiftKey &&
+            event.key.toLowerCase() ===
+            "l"
         ) {
 
             event.preventDefault();
 
             try {
 
-                await signOut(auth);
+                await signOut(
+                    auth
+                );
 
                 window.location.href =
                     "index.html";
@@ -3604,7 +4208,6 @@ document.addEventListener(
             } catch (error) {
 
                 console.error(
-                    "Logout error:",
                     error
                 );
 
@@ -3618,25 +4221,66 @@ document.addEventListener(
 
 
 /* =========================================================
-   OPTIONAL DEBUG API
+   HASH SUPPORT
 ========================================================= */
 
-window.ListenMyFeelingsDiscover = {
+function openHashFeeling() {
 
-    reload:
-        loadDiscover,
+    const hash =
+        window.location.hash;
 
-    search:
-        runSearch,
 
-    clearFilters,
+    if (
+        !hash.startsWith(
+            "#feeling-"
+        )
+    ) {
+        return;
+    }
 
-    getCurrentFeelings:
-        () =>
-            [...state.visibleFeelings]
-};
+
+    const id =
+        decodeURIComponent(
+            hash.substring(
+                "#feeling-".length
+            )
+        );
+
+
+    setTimeout(
+        () => {
+
+            const card =
+                document.querySelector(
+                    `[data-feeling-id="${CSS.escape(
+                        id
+                    )}"]`
+                );
+
+
+            if (card) {
+
+                card.scrollIntoView({
+                    behavior:
+                        "smooth",
+                    block:
+                        "center"
+                });
+
+            }
+
+        },
+        400
+    );
+}
+
+
+window.addEventListener(
+    "load",
+    openHashFeeling
+);
 
 </script>
 
 </body>
-    </html>
+        </html>
