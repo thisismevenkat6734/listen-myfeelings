@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Notifications — Listen My Feelings</title>
+
+  <meta
+    name="description"
+    content="See activity around your feelings on Listen My Feelings."
+  >
+
+  <style>
+    :root {
+      --bg: #09070f;
+      --surface: #11101a;
+      --surface-2: #171522;
+      --border: rgba(255,255,255,.09);
+      --text: #f8f7fb;
+      --muted: #aaa5b7;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 15% 0%,
+          rgba(139,92,246,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(236,72,153,.09),
+          transparent 25%
+        ),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      padding-bottom: 82px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+    }
+
+    .loading-box {
+      text-align: center;
+    }
+
+    .loading-logo {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+      font-weight: 900;
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink)
+      );
+      box-shadow:
+        0 15px 40px rgba(139,92,246,.28);
+    }
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255,255,255,.15);
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 70px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,7,15,.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      width: min(100%, 1100px);
+      height: 100%;
+      margin: auto;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink)
+      );
+      box-shadow:
+        0 8px 25px rgba(139,92,246,.25);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-size: 16px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+      display: grid;
+      place-items: center;
+      transition: .2s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255,255,255,.08);
+      transform: translateY(-1px);
+    }
+
+    .page {
+      width: min(100%, 850px);
+      margin: auto;
+      padding: 25px 16px 50px;
+    }
+
+    .page-heading {
+      margin-bottom: 18px;
+    }
+
+    .page-title {
+      font-size: clamp(27px, 6vw, 36px);
+      font-weight: 850;
+      letter-spacing: -.7px;
+    }
+
+    .page-subtitle {
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .activity-count {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      color: var(--text);
+      background: rgba(255,255,255,.045);
+      font-weight: 750;
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      border: 0;
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink)
+      );
+      box-shadow:
+        0 10px 28px rgba(139,92,246,.22);
+    }
+
+    .notifications-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .notification {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      background: var(--surface);
+      transition: .2s ease;
+    }
+
+    .notification:hover {
+      border-color: rgba(139,92,246,.28);
+      transform: translateY(-1px);
+    }
+
+    .notification-icon {
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 21px;
+      background: rgba(139,92,246,.12);
+      border: 1px solid rgba(139,92,246,.16);
+    }
+
+    .notification.response .notification-icon {
+      background: rgba(236,72,153,.11);
+      border-color: rgba(236,72,153,.17);
+    }
+
+    .notification-content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .notification-title {
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .notification-text {
+      color: #d2ccdb;
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .notification-time {
+      color: var(--muted);
+      margin-top: 7px;
+      font-size: 11px;
+    }
+
+    .notification-action {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 11px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .empty {
+      border: 1px dashed rgba(255,255,255,.12);
+      border-radius: 21px;
+      padding: 45px 18px;
+      text-align: center;
+      background: rgba(255,255,255,.02);
+    }
+
+    .empty-icon {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .empty-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .empty-text {
+      max-width: 420px;
+      margin: 6px auto 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .safety-card {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(139,92,246,.16);
+      border-radius: 20px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(139,92,246,.08),
+          rgba(236,72,153,.035)
+        );
+    }
+
+    .safety-title {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .safety-text {
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 200;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      height: 64px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(15,12,23,.92);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.4);
+    }
+
+    .bottom-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .bottom-item span:first-child {
+      font-size: 19px;
+    }
+
+    .bottom-item.active {
+      color: #d8caff;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 10000;
+      left: 50%;
+      bottom: 92px;
+      transform: translate(-50%, 15px);
+      width: min(92vw, 420px);
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #171320;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      text-align: center;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .toast.error {
+      border-color: rgba(239,68,68,.25);
+    }
+
+    @media (min-width: 700px) {
+
+      body {
+        padding-bottom: 0;
+      }
+
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .desktop-nav a {
+        padding: 9px 11px;
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .desktop-nav a:hover,
+      .desktop-nav a.active {
+        color: var(--text);
+        background: rgba(255,255,255,.06);
+      }
+
+      .bottom-nav {
+        display: none;
+      }
+
+      .page {
+        padding-top: 35px;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .brand-text {
+        display: none;
+      }
+
+      .page {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .notification {
+        padding: 14px;
+      }
+
+      .notification-icon {
+        width: 42px;
+        height: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-box">
+      <div class="loading-logo">L</div>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+
+    <div class="topbar-inner">
+
+      <a class="brand" href="app.html">
+        <div class="brand-mark">L</div>
+        <div class="brand-text">
+          Listen My Feelings
+        </div>
+      </a>
+
+      <nav class="desktop-nav">
+
+        <a href="app.html">
+          Home
+        </a>
+
+        <a href="discover.html">
+          Discover
+        </a>
+
+        <a href="messages.html">
+          Messages
+        </a>
+
+        <a
+          href="notifications.html"
+          class="active"
+        >
+          Notifications
+        </a>
+
+        <a href="profile.html">
+          Profile
+        </a>
+
+      </nav>
+
+      <div class="top-actions">
+
+        <button
+          class="icon-btn"
+          id="refreshBtn"
+          type="button"
+          aria-label="Refresh notifications"
+          title="Refresh"
+        >
+          ↻
+        </button>
+
+        <button
+          class="icon-btn"
+          id="logoutBtn"
+          type="button"
+          aria-label="Logout"
+          title="Logout"
+        >
+          ⇥
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <main class="page">
+
+    <section class="page-heading">
+
+      <h1 class="page-title">
+        Notifications
+      </h1>
+
+      <p class="page-subtitle">
+        See when people respond to or understand what you shared.
+      </p>
+
+    </section>
+
+
+    <div class="toolbar">
+
+      <div
+        class="activity-count"
+        id="activityCount"
+      >
+        Loading activity...
+      </div>
+
+      <button
+        class="btn"
+        id="refreshActivityBtn"
+        type="button"
+      >
+        Refresh
+      </button>
+
+    </div>
+
+
+    <section
+      class="notifications-list"
+      id="notificationsList"
+    >
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ⏳
+        </div>
+
+        <div class="empty-title">
+          Loading notifications...
+        </div>
+
+        <div class="empty-text">
+          Checking activity around your feelings.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="safety-card">
+
+      <div class="safety-title">
+        Your privacy matters
+      </div>
+
+      <div class="safety-text">
+        Notifications only show activity related to your own
+        feelings. Personal account information is not exposed
+        through this activity feed.
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <nav class="bottom-nav">
+
+    <a
+      class="bottom-item"
+      href="app.html"
+    >
+      <span>⌂</span>
+      <span>Home</span>
+    </a>
+
+    <a
+      class="bottom-item"
+      href="discover.html"
+    >
+      <span>◉</span>
+      <span>Discover</span>
+    </a>
+
+    <a
+      class="bottom-item"
+      href="messages.html"
+    >
+      <span>✉</span>
+      <span>Messages</span>
+    </a>
+
+    <a
+      class="bottom-item active"
+      href="notifications.html"
+    >
+      <span>♡</span>
+      <span>Alerts</span>
+    </a>
+
+  </nav>
+
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <script type="module">
+
+    import { auth, db } from "./firebase/firebase-config.js";
+
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+    import {
+      collection,
+      getDocs,
+      query,
+      where,
+      limit
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+    const state = {
+      user: null,
+      feelings: [],
+      notifications: []
+    };
+
+
+    const $ = (id) =>
+      document.getElementById(id);
+
+
+    function showToast(
+      message,
+      type = ""
+    ) {
+
+      const toast = $("toast");
+
+      toast.textContent = message;
+
+      toast.className = "toast";
+
+      if (type) {
+        toast.classList.add(type);
+      }
+
+      requestAnimationFrame(() => {
+        toast.classList.add("show");
+      });
+
+      clearTimeout(
+        showToast.timer
+      );
+
+      showToast.timer =
+        setTimeout(() => {
+
+          toast.classList.remove(
+            "show"
+          );
+
+        }, 3000);
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(
+        value ?? ""
+      )
+        .replaceAll(
+          "&",
+          "&amp;"
+        )
+        .replaceAll(
+          "<",
+          "&lt;"
+        )
+        .replaceAll(
+          ">",
+          "&gt;"
+        )
+        .replaceAll(
+          '"',
+          "&quot;"
+        )
+        .replaceAll(
+          "'",
+          "&#039;"
+        );
+    }
+
+
+    function formatTime(timestamp) {
+
+      if (!timestamp) {
+        return "Recently";
+      }
+
+      let date;
+
+      try {
+
+        if (
+          typeof timestamp.toDate ===
+          "function"
+        ) {
+
+          date =
+            timestamp.toDate();
+
+        } else {
+
+          return "Recently";
+        }
+
+      } catch {
+
+        return "Recently";
+      }
+
+
+      const diff =
+        Date.now() -
+        date.getTime();
+
+
+      if (
+        diff <
+        60 * 1000
+      ) {
+
+        return "Just now";
+      }
+
+
+      if (
+        diff <
+        60 * 60 * 1000
+      ) {
+
+        return (
+          Math.floor(
+            diff /
+            (60 * 1000)
+          ) +
+          "m ago"
+        );
+      }
+
+
+      if (
+        diff <
+        24 * 60 * 60 * 1000
+      ) {
+
+        return (
+          Math.floor(
+            diff /
+            (60 * 60 * 1000)
+          ) +
+          "h ago"
+        );
+      }
+
+
+      if (
+        diff <
+        7 * 24 * 60 * 60 * 1000
+      ) {
+
+        return (
+          Math.floor(
+            diff /
+            (24 * 60 * 60 * 1000)
+          ) +
+          "d ago"
+        );
+      }
+
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }
+      );
+    }
+
+
+    function getTimestampValue(
+      timestamp
+    ) {
+
+      try {
+
+        return (
+          timestamp?.toMillis?.() ||
+          0
+        );
+
+      } catch {
+
+        return 0;
+      }
+    }
+
+
+    async function loadMyFeelings() {
+
+      const feelingsQuery =
+        query(
+          collection(
+            db,
+            "feelings"
+          ),
+          where(
+            "authorId",
+            "==",
+            state.user.uid
+          ),
+          limit(50)
+        );
+
+
+      const snapshot =
+        await getDocs(
+          feelingsQuery
+        );
+
+
+      state.feelings =
+        snapshot.docs.map(
+          (item) => ({
+            id: item.id,
+            ...item.data()
+          })
+        );
+
+
+      state.feelings.sort(
+        (a, b) =>
+          getTimestampValue(
+            b.createdAt
+          ) -
+          getTimestampValue(
+            a.createdAt
+          )
+      );
+    }
+
+
+    async function collectUnderstands(
+      feeling
+    ) {
+
+      const result = [];
+
+
+      try {
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "feelings",
+              feeling.id,
+              "understands"
+            )
+          );
+
+
+        snapshot.forEach(
+          (item) => {
+
+            const data =
+              item.data();
+
+
+            if (
+              data.userId ===
+              state.user.uid
+            ) {
+
+              return;
+            }
+
+
+            result.push({
+              id:
+                "understand_" +
+                feeling.id +
+                "_" +
+                item.id,
+
+              type:
+                "understand",
+
+              feelingId:
+                feeling.id,
+
+              feelingText:
+                feeling.text || "",
+
+              actorId:
+                data.userId || "",
+
+              createdAt:
+                data.createdAt || null
+            });
+
+          }
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "Could not load understands:",
+          feeling.id,
+          error
+        );
+      }
+
+
+      return result;
+    }
+
+
+    async function collectResponses(
+      feeling
+    ) {
+
+      const result = [];
+
+
+      try {
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "feelings",
+              feeling.id,
+              "responses"
+            )
+          );
+
+
+        snapshot.forEach(
+          (item) => {
+
+            const data =
+              item.data();
+
+
+            if (
+              data.userId ===
+              state.user.uid
+            ) {
+
+              return;
+            }
+
+
+            result.push({
+              id:
+                "response_" +
+                feeling.id +
+                "_" +
+                item.id,
+
+              type:
+                "response",
+
+              feelingId:
+                feeling.id,
+
+              feelingText:
+                feeling.text || "",
+
+              actorId:
+                data.userId || "",
+
+              actorName:
+                data.authorName ||
+                "Someone",
+
+              responseText:
+                data.text || "",
+
+              createdAt:
+                data.createdAt || null
+            });
+
+          }
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "Could not load responses:",
+          feeling.id,
+          error
+        );
+      }
+
+
+      return result;
+    }
+
+
+    async function loadNotifications() {
+
+      if (!state.user) {
+        return;
+      }
+
+
+      $("activityCount")
+        .textContent =
+        "Checking activity...";
+
+
+      const list =
+        $("notificationsList");
+
+
+      list.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">⏳</div>
+          <div class="empty-title">
+            Checking activity...
+          </div>
+          <div class="empty-text">
+            Looking for responses and understanding.
+          </div>
+        </div>
+      `;
+
+
+      try {
+
+        await loadMyFeelings();
+
+
+        const results = [];
+
+
+        /*
+         * Load activity for the user's own feelings.
+         *
+         * We intentionally don't expose other users'
+         * profile documents here. Understand records only
+         * contain a user ID, so those notifications are
+         * shown as "Someone".
+         */
+
+        for (
+          const feeling
+          of state.feelings
+        ) {
+
+          const [
+            understands,
+            responses
+          ] = await Promise.all([
+            collectUnderstands(
+              feeling
+            ),
+            collectResponses(
+              feeling
+            )
+          ]);
+
+
+          results.push(
+            ...understands,
+            ...responses
+          );
+        }
+
+
+        results.sort(
+          (a, b) =>
+            getTimestampValue(
+              b.createdAt
+            ) -
+            getTimestampValue(
+              a.createdAt
+            )
+        );
+
+
+        state.notifications =
+          results.slice(0, 100);
+
+
+        renderNotifications();
+
+
+      } catch (error) {
+
+        console.error(
+          "Notification load error:",
+          error
+        );
+
+
+        list.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">
+              ⚠️
+            </div>
+            <div class="empty-title">
+              Could not load activity
+            </div>
+            <div class="empty-text">
+              Please refresh the page and try again.
+            </div>
+          </div>
+        `;
+
+
+        $("activityCount")
+          .textContent =
+          "Activity unavailable";
+
+
+        showToast(
+          "Could not load notifications.",
+          "error"
+        );
+      }
+    }
+
+
+    function renderNotifications() {
+
+      const list =
+        $("notificationsList");
+
+
+      const notifications =
+        state.notifications;
+
+
+      $("activityCount")
+        .textContent =
+        notifications.length === 1
+          ? "1 activity"
+          : `${notifications.length} activities`;
+
+
+      if (!notifications.length) {
+
+        list.innerHTML = `
+          <div class="empty">
+
+            <div class="empty-icon">
+              🔔
+            </div>
+
+            <div class="empty-title">
+              You're all caught up
+            </div>
+
+            <div class="empty-text">
+              When someone understands or responds
+              to one of your feelings, you'll see it here.
+            </div>
+
+          </div>
+        `;
+
+        return;
+      }
+
+
+      list.innerHTML =
+        notifications
+          .map(
+            (notification) => {
+
+              if (
+                notification.type ===
+                "understand"
+              ) {
+
+                return `
+                  <article
+                    class="notification"
+                  >
+
+                    <div
+                      class="notification-icon"
+                    >
+                      🤍
+                    </div>
+
+                    <div
+                      class="notification-content"
+                    >
+
+                      <div
+                        class="notification-title"
+                      >
+                        Someone understood your feeling
+                      </div>
+
+                      <div
+                        class="notification-text"
+                      >
+                        Someone connected with what
+                        you shared.
+                      </div>
+
+                      <div
+                        class="notification-time"
+                      >
+                        ${escapeHtml(
+                          formatTime(
+                            notification.createdAt
+                          )
+                        )}
+                      </div>
+
+                      <a
+                        class="notification-action"
+                        href="discover.html#${encodeURIComponent(
+                          notification.feelingId
+                        )}"
+                      >
+                        View feeling
+                      </a>
+
+                    </div>
+
+                  </article>
+                `;
+              }
+
+
+              return `
+                <article
+                  class="notification response"
+                >
+
+                  <div
+                    class="notification-icon"
+                  >
+                    💬
+                  </div>
+
+                  <div
+                    class="notification-content"
+                  >
+
+                    <div
+                      class="notification-title"
+                    >
+                      ${escapeHtml(
+                        notification.actorName
+                      )} responded to your feeling
+                    </div>
+
+                    <div
+                      class="notification-text"
+                    >
+                      ${escapeHtml(
+                        notification.responseText
+                      )}
+                    </div>
+
+                    <div
+                      class="notification-time"
+                    >
+                      ${escapeHtml(
+                        formatTime(
+                          notification.createdAt
+                        )
+                      )}
+                    </div>
+
+                    <a
+                      class="notification-action"
+                      href="discover.html#${encodeURIComponent(
+                        notification.feelingId
+                      )}"
+                    >
+                      View conversation
+                    </a>
+
+                  </div>
+
+                </article>
+              `;
+            }
+          )
+          .join("");
+    }
+
+
+    async function refresh() {
+
+      if (!state.user) {
+        return;
+      }
+
+      try {
+
+        showToast(
+          "Refreshing activity..."
+        );
+
+        await loadNotifications();
+
+        showToast(
+          "Notifications refreshed.",
+          ""
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Refresh error:",
+          error
+        );
+
+        showToast(
+          "Refresh failed.",
+          "error"
+        );
+      }
+    }
+
+
+    async function logout() {
+
+      try {
+
+        await signOut(auth);
+
+      } catch (error) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+        showToast(
+          "Could not log out.",
+          "error"
+        );
+      }
+    }
+
+
+    $("refreshBtn")
+      .addEventListener(
+        "click",
+        refresh
+      );
+
+
+    $("refreshActivityBtn")
+      .addEventListener(
+        "click",
+        refresh
+      );
+
+
+    $("logoutBtn")
+      .addEventListener(
+        "click",
+        logout
+      );
+
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        if (!user) {
+
+          window.location.replace(
+            "index.html"
+          );
+
+          return;
+        }
+
+
+        state.user = user;
+
+
+        try {
+
+          await loadNotifications();
+
+        } finally {
+
+          $("loadingScreen")
+            .classList.add(
+              "hidden"
+            );
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+          </html>
