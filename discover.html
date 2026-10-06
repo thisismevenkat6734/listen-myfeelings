@@ -1,1260 +1,1001 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-    <title>Discover • Listen My Feelings</title>
-
-    <meta
-        name="description"
-        content="Discover feelings shared by people in the Listen My Feelings community."
-    >
-
-    <style>
-        :root {
-            --bg: #0b0811;
-            --surface: #15101c;
-            --surface-2: #1c1525;
-            --surface-3: #241b2f;
-            --border: rgba(255,255,255,.09);
-            --text: #ffffff;
-            --muted: #a69eae;
-            --purple: #a855f7;
-            --pink: #ec4899;
-            --green: #34d399;
-            --red: #fb7185;
-            --shadow: 0 20px 60px rgba(0,0,0,.30);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background:
-                radial-gradient(
-                    circle at 0% 0%,
-                    rgba(168,85,247,.14),
-                    transparent 28%
-                ),
-                radial-gradient(
-                    circle at 100% 20%,
-                    rgba(236,72,153,.08),
-                    transparent 25%
-                ),
-                var(--bg);
-            color: var(--text);
-            font-family:
-                Inter,
-                system-ui,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                sans-serif;
-            padding-bottom: 105px;
-        }
-
-        button,
-        input,
-        textarea,
-        select {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        button:disabled {
-            opacity: .55;
-            cursor: not-allowed;
-        }
-
-        .page {
-            width: min(1120px, calc(100% - 28px));
-            margin: 0 auto;
-            padding: 28px 0 35px;
-        }
-
-        /* TOP */
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 22px;
-        }
-
-        .heading h1 {
-            margin: 0;
-            font-size: clamp(30px, 7vw, 43px);
-            letter-spacing: -1.5px;
-            line-height: 1;
-        }
-
-        .heading p {
-            margin: 9px 0 0;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .top-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .top-btn {
-            width: 43px;
-            height: 43px;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            font-size: 18px;
-        }
-
-        /* SEARCH */
-
-        .search-box {
-            padding: 14px;
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            background: rgba(21,16,28,.94);
-            box-shadow: var(--shadow);
-            margin-bottom: 18px;
-        }
-
-        .search-row {
-            display: flex;
-            gap: 9px;
-        }
-
-        .search-field {
-            position: relative;
-            flex: 1;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            opacity: .65;
-            pointer-events: none;
-        }
-
-        .search-input {
-            width: 100%;
-            height: 54px;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            outline: none;
-            background: rgba(255,255,255,.045);
-            color: white;
-            padding: 0 15px 0 47px;
-            font-size: 15px;
-        }
-
-        .search-input:focus {
-            border-color: rgba(168,85,247,.65);
-            box-shadow: 0 0 0 4px rgba(168,85,247,.08);
-        }
-
-        .search-input::placeholder {
-            color: #857d8e;
-        }
-
-        .search-btn {
-            height: 54px;
-            padding: 0 22px;
-            border: 0;
-            border-radius: 16px;
-            background: linear-gradient(
-                135deg,
-                var(--purple),
-                var(--pink)
-            );
-            color: white;
-            font-weight: 800;
-        }
-
-        .filter-row {
-            display: flex;
-            gap: 9px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-top: 10px;
-        }
-
-        .filter-row::-webkit-scrollbar {
-            display: none;
-        }
-
-        .filter {
-            flex: 0 0 auto;
-            height: 43px;
-            padding: 0 13px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            outline: none;
-        }
-
-        .filter option {
-            background: #18121f;
-            color: white;
-        }
-
-        .clear-btn {
-            flex: 0 0 auto;
-            height: 43px;
-            padding: 0 14px;
-            border: 1px solid rgba(251,113,133,.25);
-            border-radius: 13px;
-            background: rgba(251,113,133,.07);
-            color: #fda4af;
-        }
-
-        /* CONTENT */
-
-        .content {
-            display: grid;
-            grid-template-columns: minmax(0,1fr) 285px;
-            gap: 18px;
-        }
-
-        .main {
-            min-width: 0;
-        }
-
-        .feed-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 4px 2px 13px;
-        }
-
-        .result-count {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .sort {
-            height: 42px;
-            padding: 0 13px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: var(--surface);
-            color: white;
-            outline: none;
-        }
-
-        .sort option {
-            background: #18121f;
-            color: white;
-        }
-
-        .feed {
-            display: grid;
-            gap: 14px;
-        }
-
-        /* CARD */
-
-        .feeling-card {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(27,20,37,.98),
-                    rgba(15,11,21,.98)
-                );
-            box-shadow: 0 15px 45px rgba(0,0,0,.22);
-        }
-
-        .card-body {
-            padding: 18px;
-        }
-
-        .author-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .author-info {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            min-width: 0;
-        }
-
-        .avatar {
-            width: 47px;
-            height: 47px;
-            flex: 0 0 47px;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            background: linear-gradient(
-                135deg,
-                #a855f7,
-                #ec4899
-            );
-            color: white;
-            font-weight: 800;
-            font-size: 16px;
-        }
-
-        .author-name {
-            max-width: 210px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            font-weight: 800;
-        }
-
-        .author-time {
-            margin-top: 4px;
-            color: #81798b;
-            font-size: 12px;
-        }
-
-        .more-btn {
-            width: 40px;
-            height: 40px;
-            border: 0;
-            border-radius: 13px;
-            background: rgba(255,255,255,.05);
-            color: white;
-            font-size: 22px;
-        }
-
-        .meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            margin-top: 17px;
-        }
-
-        .pill {
-            padding: 7px 11px;
-            border: 1px solid rgba(168,85,247,.18);
-            border-radius: 999px;
-            background: rgba(168,85,247,.09);
-            color: #ddd6fe;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .feeling-text {
-            margin: 25px 7px;
-            color: #f3edf6;
-            text-align: center;
-            font-size: 18px;
-            line-height: 1.65;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .actions {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 8px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(255,255,255,.06);
-        }
-
-        .action-btn {
-            min-height: 47px;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: rgba(255,255,255,.035);
-            color: #eee8f2;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .action-btn.active {
-            color: #f0abfc;
-            border-color: rgba(217,70,239,.38);
-            background: rgba(217,70,239,.12);
-        }
-
-        .action-btn.connect {
-            color: #d8b4fe;
-            border-color: rgba(168,85,247,.25);
-            background: rgba(168,85,247,.07);
-        }
-
-        .action-btn.report {
-            color: #fda4af;
-        }
-
-        /* RESPONSES */
-
-        .responses {
-            margin-top: 12px;
-            padding: 13px;
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 17px;
-            background: rgba(255,255,255,.025);
-        }
-
-        .response-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .response-title {
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .response-toggle {
-            border: 0;
-            background: transparent;
-            color: #c084fc;
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        .response-list {
-            display: grid;
-            gap: 8px;
-            margin-top: 11px;
-        }
-
-        .response {
-            padding: 12px;
-            border-radius: 14px;
-            background: rgba(255,255,255,.045);
-        }
-
-        .response-user {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            font-size: 12px;
-        }
-
-        .response-user strong {
-            color: white;
-        }
-
-        .response-date {
-            color: #7e7688;
-        }
-
-        .response-text {
-            margin-top: 9px;
-            color: #ddd6e4;
-            font-size: 13px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .no-response {
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.6;
-            padding-top: 10px;
-        }
-
-        /* SIDEBAR */
-
-        .sidebar {
-            position: sticky;
-            top: 18px;
-            height: max-content;
-            display: grid;
-            gap: 13px;
-        }
-
-        .side-card {
-            padding: 17px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            background: rgba(21,16,28,.94);
-        }
-
-        .side-card h3 {
-            margin: 0;
-            font-size: 15px;
-        }
-
-        .side-card p {
-            margin: 9px 0 0;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.65;
-        }
-
-        .side-btn {
-            width: 100%;
-            min-height: 43px;
-            margin-top: 13px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            font-weight: 700;
-        }
-
-        .ad-box {
-            min-height: 115px;
-            display: grid;
-            place-items: center;
-            border: 1px dashed rgba(255,255,255,.12);
-            border-radius: 15px;
-            color: #756d7e;
-            text-align: center;
-            font-size: 10px;
-        }
-
-        /* STATES */
-
-        .state {
-            padding: 48px 20px;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            background: rgba(255,255,255,.025);
-            text-align: center;
-        }
-
-        .state-icon {
-            font-size: 30px;
-        }
-
-        .state-title {
-            margin-top: 10px;
-            font-weight: 800;
-        }
-
-        .state-text {
-            max-width: 430px;
-            margin: 8px auto 0;
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .retry-btn {
-            margin-top: 15px;
-            min-height: 43px;
-            padding: 0 17px;
-            border: 0;
-            border-radius: 12px;
-            background: linear-gradient(
-                135deg,
-                var(--purple),
-                var(--pink)
-            );
-            color: white;
-            font-weight: 800;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .load-more-wrap {
-            display: flex;
-            justify-content: center;
-            padding-top: 16px;
-        }
-
-        .load-more-btn {
-            min-height: 45px;
-            padding: 0 20px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            font-weight: 800;
-        }
-
-        /* BOTTOM NAV */
-
-        .bottom-nav {
-            position: fixed;
-            z-index: 100;
-            left: 50%;
-            bottom: max(9px, env(safe-area-inset-bottom));
-            transform: translateX(-50%);
-            width: min(680px, calc(100% - 18px));
-            padding: 7px;
-            display: grid;
-            grid-template-columns: repeat(5,1fr);
-            gap: 4px;
-            border: 1px solid rgba(255,255,255,.10);
-            border-radius: 22px;
-            background: rgba(12,9,17,.96);
-            backdrop-filter: blur(22px);
-            box-shadow: 0 20px 70px rgba(0,0,0,.55);
-        }
-
-        .nav-btn {
-            min-height: 54px;
-            border: 0;
-            border-radius: 16px;
-            background: transparent;
-            color: #8e8797;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            font-size: 10px;
-        }
-
-        .nav-btn-icon {
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        .nav-btn.active {
-            background: rgba(168,85,247,.15);
-            color: white;
-        }
-
-        /* MODALS */
-
-        .modal-backdrop {
-            position: fixed;
-            z-index: 500;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 17px;
-            background: rgba(0,0,0,.74);
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-backdrop.show {
-            display: flex;
-        }
-
-        .modal {
-            width: min(490px, 100%);
-            max-height: calc(100vh - 34px);
-            overflow-y: auto;
-            padding: 21px;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            background: #17111f;
-            box-shadow: 0 30px 100px rgba(0,0,0,.60);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 19px;
-        }
-
-        .modal-close {
-            width: 38px;
-            height: 38px;
-            border: 0;
-            border-radius: 11px;
-            background: rgba(255,255,255,.06);
-            color: white;
-            font-size: 19px;
-        }
-
-        .modal p {
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .modal textarea {
-            width: 100%;
-            min-height: 140px;
-            resize: vertical;
-            padding: 14px;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            outline: none;
-            background: rgba(255,255,255,.045);
-            color: white;
-        }
-
-        .modal textarea:focus {
-            border-color: rgba(168,85,247,.65);
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-top: 13px;
-        }
-
-        .modal-btn {
-            min-height: 44px;
-            padding: 0 15px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            font-weight: 800;
-        }
-
-        .modal-primary {
-            border: 0;
-            background: linear-gradient(
-                135deg,
-                var(--purple),
-                var(--pink)
-            );
-        }
-
-        .menu-list {
-            display: grid;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .menu-btn {
-            width: 100%;
-            min-height: 48px;
-            padding: 0 14px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(255,255,255,.045);
-            color: white;
-            text-align: left;
-            font-weight: 700;
-        }
-
-        .menu-danger {
-            color: #fda4af;
-        }
-
-        /* TOAST */
-
-        .toast {
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            bottom: 94px;
-            transform: translate(-50%, 18px);
-            width: min(430px, calc(100% - 28px));
-            padding: 13px 16px;
-            border: 1px solid rgba(255,255,255,.10);
-            border-radius: 14px;
-            background: rgba(20,15,28,.98);
-            color: white;
-            text-align: center;
-            font-size: 13px;
-            opacity: 0;
-            pointer-events: none;
-            transition: .2s ease;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translate(-50%,0);
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 800px) {
-
-            .content {
-                display: block;
-            }
-
-            .sidebar {
-                display: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .page {
-                width: calc(100% - 20px);
-                padding-top: 18px;
-            }
-
-            .top-actions {
-                display: none;
-            }
-
-            .search-row {
-                display: block;
-            }
-
-            .search-btn {
-                width: 100%;
-                margin-top: 9px;
-            }
-
-            .feed-toolbar {
-                margin-top: 3px;
-            }
-
-            .feeling-card {
-                border-radius: 23px;
-            }
-
-            .card-body {
-                padding: 16px;
-            }
-
-            .feeling-text {
-                min-height: 80px;
-                font-size: 17px;
-                margin: 23px 4px;
-            }
-
-            /*
-             * IMPORTANT:
-             * Bottom navigation gets its own reserved page space
-             * through body padding-bottom, so it will not cover
-             * feeling action buttons.
-             */
-            body {
-                padding-bottom: 125px;
-            }
-        }
-
-        @media (min-width: 801px) {
-            .bottom-nav {
-                display: none;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                transition: none !important;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Discover • Listen My Feelings</title>
+<meta name="description" content="Discover feelings shared by people in the Listen My Feelings community.">
+
+<style>
+:root{
+    --bg:#0b0810;
+    --surface:#15101c;
+    --surface2:#1b1424;
+    --surface3:#241a2f;
+    --border:rgba(255,255,255,.09);
+    --text:#fff;
+    --muted:#a8a0af;
+    --purple:#a855f7;
+    --pink:#ec4899;
+    --danger:#fb7185;
+    --success:#86efac;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    padding-bottom:105px;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 0 0,rgba(168,85,247,.16),transparent 28%),
+        radial-gradient(circle at 100% 0,rgba(236,72,153,.10),transparent 25%),
+        var(--bg);
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* PAGE */
+
+.page{
+    width:min(1120px,calc(100% - 24px));
+    margin:auto;
+    padding:22px 0 35px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.header h1{
+    margin:0;
+    font-size:clamp(31px,7vw,44px);
+    letter-spacing:-1.5px;
+}
+
+.header p{
+    margin:7px 0 0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+}
+
+.header-actions{
+    display:flex;
+    gap:8px;
+}
+
+.header-btn{
+    width:44px;
+    height:44px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+}
+
+/* SEARCH */
+
+.search-box{
+    margin-bottom:18px;
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:rgba(20,15,27,.96);
+}
+
+.search-row{
+    display:flex;
+    gap:9px;
+}
+
+.search-wrap{
+    position:relative;
+    flex:1;
+}
+
+.search-icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    opacity:.65;
+}
+
+.search-input{
+    width:100%;
+    height:53px;
+    padding:0 15px 0 44px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    outline:none;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+}
+
+.search-input:focus{
+    border-color:rgba(168,85,247,.7);
+}
+
+.search-input::placeholder{
+    color:#81798b;
+}
+
+.search-btn{
+    min-width:105px;
+    height:53px;
+    border:0;
+    border-radius:15px;
+    background:linear-gradient(135deg,var(--purple),var(--pink));
+    color:#fff;
+    font-weight:800;
+}
+
+.filters{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-top:10px;
+    scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{
+    display:none;
+}
+
+.filter,
+.clear{
+    flex:0 0 auto;
+    height:42px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+}
+
+.filter option,
+.sort option{
+    background:#18121f;
+    color:#fff;
+}
+
+.clear{
+    color:#fda4af;
+    border-color:rgba(251,113,133,.25);
+}
+
+/* LAYOUT */
+
+.layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 285px;
+    gap:18px;
+}
+
+.main{
+    min-width:0;
+}
+
+.toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:3px 2px 13px;
+}
+
+.result{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.sort{
+    height:42px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    background:var(--surface);
+    color:#fff;
+}
+
+/* FEED */
+
+.feed{
+    display:grid;
+    gap:14px;
+}
+
+/* CARD */
+
+.card{
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:23px;
+    background:linear-gradient(145deg,rgba(28,21,39,.98),rgba(15,11,21,.98));
+    box-shadow:0 15px 45px rgba(0,0,0,.22);
+}
+
+.card-body{
+    padding:18px;
+}
+
+.author{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.author-left{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    min-width:0;
+}
+
+.avatar{
+    width:47px;
+    height:47px;
+    flex:0 0 47px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--purple),var(--pink));
+    color:#fff;
+    font-weight:800;
+}
+
+.author-name{
+    max-width:220px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-weight:800;
+}
+
+.time{
+    margin-top:4px;
+    color:#81798b;
+    font-size:12px;
+}
+
+.more{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:13px;
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    font-size:21px;
+}
+
+.meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:17px;
+}
+
+.pill{
+    padding:7px 11px;
+    border:1px solid rgba(168,85,247,.18);
+    border-radius:999px;
+    background:rgba(168,85,247,.09);
+    color:#ddd6fe;
+    font-size:12px;
+    font-weight:700;
+}
+
+.feeling{
+    margin:24px 5px;
+    color:#f4eef7;
+    text-align:center;
+    font-size:18px;
+    line-height:1.65;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+/* ACTIONS */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.action{
+    min-height:47px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:rgba(255,255,255,.035);
+    color:#eee8f2;
+    font-size:13px;
+    font-weight:700;
+}
+
+.action.active{
+    color:#f0abfc;
+    border-color:rgba(217,70,239,.4);
+    background:rgba(217,70,239,.12);
+}
+
+.action.connect{
+    color:#d8b4fe;
+    border-color:rgba(168,85,247,.25);
+}
+
+.action.report{
+    color:#fda4af;
+}
+
+/* RESPONSES */
+
+.responses{
+    margin-top:12px;
+    padding:13px;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:17px;
+    background:rgba(255,255,255,.025);
+}
+
+.response-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.response-title{
+    font-size:13px;
+    font-weight:800;
+}
+
+.response-toggle{
+    border:0;
+    background:transparent;
+    color:#c084fc;
+    font-size:12px;
+    font-weight:800;
+}
+
+.response-list{
+    display:grid;
+    gap:8px;
+    margin-top:11px;
+}
+
+.response{
+    padding:12px;
+    border-radius:14px;
+    background:rgba(255,255,255,.045);
+}
+
+.response-user{
+    display:flex;
+    gap:8px;
+    font-size:12px;
+}
+
+.response-user strong{
+    color:#fff;
+}
+
+.response-time{
+    color:#7e7688;
+}
+
+.response-text{
+    margin-top:8px;
+    color:#ddd6e4;
+    font-size:13px;
+    line-height:1.6;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+.no-responses{
+    padding-top:10px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:sticky;
+    top:18px;
+    height:max-content;
+    display:grid;
+    gap:13px;
+}
+
+.side-card{
+    padding:17px;
+    border:1px solid var(--border);
+    border-radius:19px;
+    background:rgba(21,16,28,.95);
+}
+
+.side-card h3{
+    margin:0;
+    font-size:15px;
+}
+
+.side-card p{
+    margin:9px 0 0;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.65;
+}
+
+.side-btn{
+    width:100%;
+    min-height:43px;
+    margin-top:13px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+    font-weight:700;
+}
+
+.ad{
+    min-height:110px;
+    display:grid;
+    place-items:center;
+    border:1px dashed rgba(255,255,255,.12);
+    border-radius:14px;
+    color:#756d7e;
+    text-align:center;
+    font-size:10px;
+}
+
+/* STATES */
+
+.state{
+    padding:45px 20px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:rgba(255,255,255,.025);
+    text-align:center;
+}
+
+.state-icon{
+    font-size:30px;
+}
+
+.state-title{
+    margin-top:9px;
+    font-weight:800;
+}
+
+.state-text{
+    max-width:440px;
+    margin:8px auto 0;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.retry,
+.load-more{
+    min-height:43px;
+    margin-top:14px;
+    padding:0 17px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--purple),var(--pink));
+    color:#fff;
+    font-weight:800;
+}
+
+.load-wrap{
+    display:flex;
+    justify-content:center;
+    padding-top:15px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    z-index:100;
+    left:50%;
+    bottom:max(9px,env(safe-area-inset-bottom));
+    transform:translateX(-50%);
+    width:min(680px,calc(100% - 18px));
+    padding:7px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:4px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;
+    background:rgba(12,9,17,.96);
+    backdrop-filter:blur(20px);
+    box-shadow:0 20px 70px rgba(0,0,0,.55);
+}
+
+.nav{
+    min-height:54px;
+    border:0;
+    border-radius:15px;
+    background:transparent;
+    color:#8e8797;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    font-size:10px;
+}
+
+.nav-icon{
+    font-size:18px;
+}
+
+.nav.active{
+    background:rgba(168,85,247,.15);
+    color:#fff;
+}
+
+/* MODALS */
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+}
+
+.modal-bg.show{
+    display:flex;
+}
+
+.modal{
+    width:min(490px,100%);
+    max-height:calc(100vh - 32px);
+    overflow-y:auto;
+    padding:21px;
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:#17111f;
+    box-shadow:0 30px 100px rgba(0,0,0,.6);
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.modal-head h2{
+    margin:0;
+    font-size:19px;
+}
+
+.close{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:11px;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    font-size:20px;
+}
+
+.modal p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+}
+
+textarea{
+    width:100%;
+    min-height:140px;
+    resize:vertical;
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    outline:none;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+}
+
+textarea:focus{
+    border-color:rgba(168,85,247,.7);
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:13px;
+}
+
+.modal-btn{
+    min-height:44px;
+    padding:0 15px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+    font-weight:800;
+}
+
+.primary{
+    border:0;
+    background:linear-gradient(135deg,var(--purple),var(--pink));
+}
+
+.menu{
+    display:grid;
+    gap:8px;
+    margin-top:15px;
+}
+
+.menu-btn{
+    width:100%;
+    min-height:48px;
+    padding:0 14px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:rgba(255,255,255,.045);
+    color:#fff;
+    text-align:left;
+    font-weight:700;
+}
+
+.danger{
+    color:#fda4af;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    z-index:1000;
+    left:50%;
+    bottom:95px;
+    transform:translate(-50%,18px);
+    width:min(430px,calc(100% - 28px));
+    padding:13px 16px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+    background:rgba(20,15,28,.98);
+    color:#fff;
+    text-align:center;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s ease;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        display:none;
+    }
+}
+
+@media(max-width:600px){
+    .page{
+        width:calc(100% - 18px);
+        padding-top:17px;
+    }
+
+    .header-actions{
+        display:none;
+    }
+
+    .search-row{
+        display:block;
+    }
+
+    .search-btn{
+        width:100%;
+        margin-top:8px;
+    }
+
+    .card-body{
+        padding:16px;
+    }
+
+    .feeling{
+        font-size:17px;
+    }
+
+    body{
+        padding-bottom:130px;
+    }
+}
+
+@media(min-width:801px){
+    .bottom-nav{
+        display:none;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="page">
 
-    <!-- TOP -->
+<header class="header">
+    <div>
+        <h1>Discover</h1>
+        <p>Explore real feelings shared publicly by people in the community.</p>
+    </div>
 
-    <header class="topbar">
+    <div class="header-actions">
+        <button id="notificationsBtn" class="header-btn" type="button" aria-label="Notifications">🔔</button>
+        <button id="messagesBtn" class="header-btn" type="button" aria-label="Messages">💬</button>
+    </div>
+</header>
 
-        <div class="heading">
-            <h1>Discover</h1>
-            <p>
-                Explore real feelings shared publicly by people in the community.
-            </p>
+<section class="search-box">
+
+    <div class="search-row">
+        <div class="search-wrap">
+            <span class="search-icon">🔎</span>
+
+            <input
+                id="search"
+                class="search-input"
+                type="search"
+                maxlength="100"
+                autocomplete="off"
+                placeholder="Search feelings, topics or words..."
+            >
         </div>
 
-        <div class="top-actions">
-
-            <button
-                id="notificationsBtn"
-                class="top-btn"
-                type="button"
-                aria-label="Notifications"
-            >
-                🔔
-            </button>
-
-            <button
-                id="messagesBtn"
-                class="top-btn"
-                type="button"
-                aria-label="Messages"
-            >
-                💬
-            </button>
-
-        </div>
-
-    </header>
-
-
-    <!-- SEARCH -->
-
-    <section class="search-box">
-
-        <div class="search-row">
-
-            <div class="search-field">
-
-                <span class="search-icon">🔎</span>
-
-                <input
-                    id="searchInput"
-                    class="search-input"
-                    type="search"
-                    maxlength="100"
-                    autocomplete="off"
-                    placeholder="Search feelings, topics or words..."
-                >
-
-            </div>
-
-            <button
-                id="searchBtn"
-                class="search-btn"
-                type="button"
-            >
-                Search
-            </button>
-
-        </div>
-
-
-        <div class="filter-row">
-
-            <select id="moodFilter" class="filter">
-                <option value="all">All moods</option>
-                <option value="happy">😊 Happy</option>
-                <option value="sad">😔 Sad</option>
-                <option value="lonely">🥺 Lonely</option>
-                <option value="angry">😡 Angry</option>
-                <option value="anxious">😟 Anxious</option>
-                <option value="confused">😕 Confused</option>
-                <option value="hopeful">🌱 Hopeful</option>
-                <option value="grateful">🙏 Grateful</option>
-                <option value="excited">✨ Excited</option>
-                <option value="other">💭 Other</option>
-            </select>
-
-
-            <select id="topicFilter" class="filter">
-                <option value="all">All topics</option>
-                <option value="self">Self</option>
-                <option value="relationships">Relationships</option>
-                <option value="family">Family</option>
-                <option value="work">Work</option>
-                <option value="study">Study</option>
-                <option value="life">Life</option>
-                <option value="health">Health</option>
-                <option value="money">Money</option>
-                <option value="other">Other</option>
-            </select>
-
-
-            <button
-                id="clearBtn"
-                class="clear-btn"
-                type="button"
-            >
-                Clear
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- CONTENT -->
-
-    <div class="content">
-
-        <main class="main">
-
-            <div class="feed-toolbar">
-
-                <span
-                    id="resultCount"
-                    class="result-count"
-                >
-                    Loading...
-                </span>
-
-                <select
-                    id="sortSelect"
-                    class="sort"
-                >
-                    <option value="newest">Newest</option>
-                    <option value="oldest">Oldest</option>
-                </select>
-
-            </div>
-
-
-            <div
-                id="loadingState"
-                class="state"
-            >
-                <div class="state-icon">⏳</div>
-
-                <div class="state-title">
-                    Finding feelings...
-                </div>
-
-                <div class="state-text">
-                    Loading public feelings from the community.
-                </div>
-            </div>
-
-
-            <div
-                id="errorState"
-                class="state hidden"
-            >
-                <div class="state-icon">⚠️</div>
-
-                <div class="state-title">
-                    Couldn't load Discover
-                </div>
-
-                <div
-                    id="errorText"
-                    class="state-text"
-                >
-                    Something went wrong.
-                </div>
-
-                <button
-                    id="retryBtn"
-                    class="retry-btn"
-                    type="button"
-                >
-                    Try again
-                </button>
-            </div>
-
-
-            <div
-                id="emptyState"
-                class="state hidden"
-            >
-                <div class="state-icon">🌙</div>
-
-                <div class="state-title">
-                    No feelings found
-                </div>
-
-                <div class="state-text">
-                    Try another search or clear your filters.
-                </div>
-
-                <button
-                    id="emptyClearBtn"
-                    class="retry-btn"
-                    type="button"
-                >
-                    Clear filters
-                </button>
-            </div>
-
-
-            <div
-                id="feed"
-                class="feed"
-            ></div>
-
-
-            <div
-                id="loadMoreWrap"
-                class="load-more-wrap hidden"
-            >
-                <button
-                    id="loadMoreBtn"
-                    class="load-more-btn"
-                    type="button"
-                >
-                    Load more
-                </button>
-            </div>
-
-        </main>
-
-
-        <!-- DESKTOP SIDEBAR -->
-
-        <aside class="sidebar">
-
-            <section class="side-card">
-
-                <h3>What is Discover?</h3>
-
-                <p>
-                    Find public feelings shared by people who chose
-                    to express themselves openly.
-                </p>
-
-                <button
-                    id="shareFeelingBtn"
-                    class="side-btn"
-                    type="button"
-                >
-                    ✍️ Share your feeling
-                </button>
-
-            </section>
-
-
-            <section class="side-card">
-
-                <h3>Connection</h3>
-
-                <p>
-                    Connections use a verified rewarded-ad flow
-                    and a trusted 12-hour authorization period.
-                </p>
-
-                <button
-                    id="connectionInfoBtn"
-                    class="side-btn"
-                    type="button"
-                >
-                    🤝 How it works
-                </button>
-
-            </section>
-
-
-            <section class="side-card">
-
-                <h3>Stay safe</h3>
-
-                <p>
-                    Never share passwords, OTPs, banking information
-                    or private information with strangers.
-                </p>
-
-                <button
-                    id="safetyBtn"
-                    class="side-btn"
-                    type="button"
-                >
-                    🛡️ Safety & reporting
-                </button>
-
-            </section>
-
-
-            <section class="side-card">
-
-                <div class="ad-box">
-                    <div>
-                        <strong>ADVERTISEMENT</strong>
-                        <br><br>
-                        Advertising space
-                    </div>
-                </div>
-
-            </section>
-
-        </aside>
+        <button id="searchBtn" class="search-btn" type="button">
+            Search
+        </button>
+    </div>
+
+    <div class="filters">
+
+        <select id="mood" class="filter">
+            <option value="all">All moods</option>
+            <option value="happy">😊 Happy</option>
+            <option value="sad">😔 Sad</option>
+            <option value="lonely">🥺 Lonely</option>
+            <option value="angry">😡 Angry</option>
+            <option value="anxious">😟 Anxious</option>
+            <option value="confused">😕 Confused</option>
+            <option value="hopeful">🌱 Hopeful</option>
+            <option value="grateful">🙏 Grateful</option>
+            <option value="excited">✨ Excited</option>
+            <option value="other">💭 Other</option>
+        </select>
+
+        <select id="topic" class="filter">
+            <option value="all">All topics</option>
+            <option value="self">Self</option>
+            <option value="relationships">Relationships</option>
+            <option value="family">Family</option>
+            <option value="work">Work</option>
+            <option value="study">Study</option>
+            <option value="life">Life</option>
+            <option value="health">Health</option>
+            <option value="money">Money</option>
+            <option value="other">Other</option>
+        </select>
+
+        <button id="clear" class="clear" type="button">
+            Clear
+        </button>
+
+    </div>
+</section>
+
+<div class="layout">
+
+<main class="main">
+
+    <div class="toolbar">
+
+        <span id="count" class="result">
+            Loading...
+        </span>
+
+        <select id="sort" class="sort">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+        </select>
 
     </div>
 
+    <div id="loading" class="state">
+        <div class="state-icon">⏳</div>
+        <div class="state-title">Finding feelings...</div>
+        <div class="state-text">
+            Loading public feelings from the community.
+        </div>
+    </div>
+
+    <div id="error" class="state hidden">
+        <div class="state-icon">⚠️</div>
+        <div class="state-title">Couldn't load Discover</div>
+        <div id="errorText" class="state-text"></div>
+
+        <button id="retry" class="retry" type="button">
+            Try again
+        </button>
+    </div>
+
+    <div id="empty" class="state hidden">
+        <div class="state-icon">🌙</div>
+        <div class="state-title">No feelings found</div>
+        <div class="state-text">
+            Try another search or clear the filters.
+        </div>
+
+        <button id="emptyClear" class="retry" type="button">
+            Clear filters
+        </button>
+    </div>
+
+    <div id="feed" class="feed"></div>
+
+    <div id="loadWrap" class="load-wrap hidden">
+        <button id="loadMore" class="load-more" type="button">
+            Load more
+        </button>
+    </div>
+
+</main>
+
+<aside class="sidebar">
+
+    <section class="side-card">
+        <h3>What is Discover?</h3>
+
+        <p>
+            Find public feelings shared by people who chose
+            to express themselves openly.
+        </p>
+
+        <button id="shareBtn" class="side-btn" type="button">
+            ✍️ Share your feeling
+        </button>
+    </section>
+
+    <section class="side-card">
+        <h3>Connection</h3>
+
+        <p>
+            Connections use a verified rewarded-ad flow
+            and trusted 12-hour authorization.
+        </p>
+
+        <button id="connectionBtn" class="side-btn" type="button">
+            🤝 How it works
+        </button>
+    </section>
+
+    <section class="side-card">
+        <h3>Stay safe</h3>
+
+        <p>
+            Never share passwords, OTPs, banking information
+            or private information with strangers.
+        </p>
+
+        <button id="safetyBtn" class="side-btn" type="button">
+            🛡️ Safety & reporting
+        </button>
+    </section>
+
+    <section class="side-card">
+        <div class="ad">
+            <div>
+                <strong>ADVERTISEMENT</strong>
+                <br><br>
+                Advertising space
+            </div>
+        </div>
+    </section>
+
+</aside>
+
 </div>
-
-
-<!-- BOTTOM NAV -->
+</div>
 
 <nav class="bottom-nav">
 
-    <button
-        class="nav-btn"
-        type="button"
-        data-route="app.html"
-    >
-        <span class="nav-btn-icon">⌂</span>
-        <span>Home</span>
+    <button class="nav" data-route="app.html" type="button">
+        <span class="nav-icon">⌂</span>
+        Home
     </button>
 
-
-    <button
-        class="nav-btn active"
-        type="button"
-        data-route="discover.html"
-    >
-        <span class="nav-btn-icon">◉</span>
-        <span>Discover</span>
+    <button class="nav active" data-route="discover.html" type="button">
+        <span class="nav-icon">◉</span>
+        Discover
     </button>
 
-
-    <button
-        class="nav-btn"
-        type="button"
-        data-route="notifications.html"
-    >
-        <span class="nav-btn-icon">♢</span>
-        <span>Alerts</span>
+    <button class="nav" data-route="notifications.html" type="button">
+        <span class="nav-icon">♢</span>
+        Alerts
     </button>
 
-
-    <button
-        class="nav-btn"
-        type="button"
-        data-route="messages.html"
-    >
-        <span class="nav-btn-icon">◌</span>
-        <span>Messages</span>
+    <button class="nav" data-route="messages.html" type="button">
+        <span class="nav-icon">◌</span>
+        Messages
     </button>
 
-
-    <button
-        class="nav-btn"
-        type="button"
-        data-route="profile.html"
-    >
-        <span class="nav-btn-icon">○</span>
-        <span>Profile</span>
+    <button class="nav" data-route="profile.html" type="button">
+        <span class="nav-icon">○</span>
+        Profile
     </button>
 
 </nav>
 
-
 <!-- RESPONSE MODAL -->
 
-<div
-    id="responseModal"
-    class="modal-backdrop"
->
+<div id="responseModal" class="modal-bg">
 
     <div class="modal">
 
-        <div class="modal-header">
-
+        <div class="modal-head">
             <h2>Respond with empathy</h2>
 
-            <button
-                id="closeResponse"
-                class="modal-close"
-                type="button"
-            >
+            <button id="responseClose" class="close" type="button">
                 ✕
             </button>
-
         </div>
 
         <p>
@@ -1269,50 +1010,31 @@
 
         <div class="modal-actions">
 
-            <button
-                id="cancelResponse"
-                class="modal-btn"
-                type="button"
-            >
+            <button id="responseCancel" class="modal-btn" type="button">
                 Cancel
             </button>
 
-            <button
-                id="sendResponse"
-                class="modal-btn modal-primary"
-                type="button"
-            >
+            <button id="responseSend" class="modal-btn primary" type="button">
                 Send response
             </button>
 
         </div>
 
     </div>
-
 </div>
-
 
 <!-- REPORT MODAL -->
 
-<div
-    id="reportModal"
-    class="modal-backdrop"
->
+<div id="reportModal" class="modal-bg">
 
     <div class="modal">
 
-        <div class="modal-header">
-
+        <div class="modal-head">
             <h2>Report feeling</h2>
 
-            <button
-                id="closeReport"
-                class="modal-close"
-                type="button"
-            >
+            <button id="reportClose" class="close" type="button">
                 ✕
             </button>
-
         </div>
 
         <p>
@@ -1322,223 +1044,145 @@
         <textarea
             id="reportInput"
             maxlength="1000"
-            placeholder="Describe the problem..."
+            placeholder="Describe the issue..."
         ></textarea>
 
         <div class="modal-actions">
 
-            <button
-                id="cancelReport"
-                class="modal-btn"
-                type="button"
-            >
+            <button id="reportCancel" class="modal-btn" type="button">
                 Cancel
             </button>
 
-            <button
-                id="sendReport"
-                class="modal-btn modal-primary"
-                type="button"
-            >
+            <button id="reportSend" class="modal-btn primary" type="button">
                 Submit report
             </button>
 
         </div>
 
     </div>
-
 </div>
-
 
 <!-- MORE MODAL -->
 
-<div
-    id="moreModal"
-    class="modal-backdrop"
->
+<div id="moreModal" class="modal-bg">
 
     <div class="modal">
 
-        <div class="modal-header">
-
+        <div class="modal-head">
             <h2>Feeling options</h2>
 
-            <button
-                id="closeMore"
-                class="modal-close"
-                type="button"
-            >
+            <button id="moreClose" class="close" type="button">
                 ✕
             </button>
-
         </div>
 
-        <div class="menu-list">
+        <div class="menu">
 
-            <button
-                id="moreReport"
-                class="menu-btn menu-danger"
-                type="button"
-            >
+            <button id="moreReport" class="menu-btn danger" type="button">
                 🚩 Report this feeling
             </button>
 
-            <button
-                id="moreBlock"
-                class="menu-btn menu-danger"
-                type="button"
-            >
+            <button id="moreBlock" class="menu-btn danger" type="button">
                 🚫 Block this person
             </button>
 
-            <button
-                id="moreCopy"
-                class="menu-btn"
-                type="button"
-            >
+            <button id="moreCopy" class="menu-btn" type="button">
                 🔗 Copy feeling link
             </button>
 
         </div>
 
     </div>
-
 </div>
-
 
 <!-- CONNECTION MODAL -->
 
-<div
-    id="connectionModal"
-    class="modal-backdrop"
->
+<div id="connectionModal" class="modal-bg">
 
     <div class="modal">
 
-        <div class="modal-header">
-
+        <div class="modal-head">
             <h2>Connect safely</h2>
 
-            <button
-                id="closeConnection"
-                class="modal-close"
-                type="button"
-            >
+            <button id="connectionClose" class="close" type="button">
                 ✕
             </button>
-
         </div>
 
         <p>
-            Listen My Feelings uses a protected connection system.
+            Connection access is protected by a rewarded-ad
+            verification system.
         </p>
 
         <p>
-            The final connection flow requires a verified rewarded
-            advertisement and trusted backend authorization.
+            After the ad provider confirms the reward,
+            the trusted backend creates a server-controlled
+            12-hour connection.
         </p>
 
         <p>
-            Once authorized, connection access is limited to
-            <strong>12 hours</strong> and is controlled by server-side
-            data rather than Local Storage.
-        </p>
-
-        <p>
-            This browser will not pretend that a connection is active
-            before the trusted backend confirms it.
+            The browser does not fake a connection or use
+            Local Storage to bypass the security system.
         </p>
 
         <div class="modal-actions">
 
-            <button
-                id="connectionClose"
-                class="modal-btn modal-primary"
-                type="button"
-            >
+            <button id="connectionDone" class="modal-btn primary" type="button">
                 Close
             </button>
 
         </div>
 
     </div>
-
 </div>
-
 
 <!-- SAFETY MODAL -->
 
-<div
-    id="safetyModal"
-    class="modal-backdrop"
->
+<div id="safetyModal" class="modal-bg">
 
     <div class="modal">
 
-        <div class="modal-header">
-
+        <div class="modal-head">
             <h2>Safety & reporting</h2>
 
-            <button
-                id="closeSafety"
-                class="modal-close"
-                type="button"
-            >
+            <button id="safetyClose" class="close" type="button">
                 ✕
             </button>
-
         </div>
 
         <p>
-            You can report harmful content using the Report button
-            or block a person through the three-dot menu.
+            Report harmful content using Report or block a person
+            using the three-dot menu.
         </p>
 
         <p>
-            Never share your password, OTP, bank details, payment
-            information or private identification with strangers.
-        </p>
-
-        <p>
-            If someone threatens immediate harm or you are in danger,
-            contact the appropriate emergency service in your area.
+            Never share passwords, OTPs, bank details,
+            payment information or private identification.
         </p>
 
         <div class="modal-actions">
 
-            <button
-                id="safetyClose"
-                class="modal-btn modal-primary"
-                type="button"
-            >
+            <button id="safetyDone" class="modal-btn primary" type="button">
                 Got it
             </button>
 
         </div>
 
     </div>
-
 </div>
 
-
-<!-- TOAST -->
-
-<div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-></div>
-
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script type="module">
 
-import { auth, db } from "./firebase/firebase-config.js";
+import { auth, db }
+from "./firebase/firebase-config.js";
 
 import {
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
     collection,
@@ -1553,145 +1197,94 @@ import {
     deleteDoc,
     addDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-/* =========================================================
+/* =========================
    CONFIG
-========================================================= */
+========================= */
 
 const MAX_FEELINGS = 100;
 const PAGE_SIZE = 10;
-const MAX_RESPONSE_LENGTH = 2000;
-const MAX_REPORT_LENGTH = 1000;
 
 
-/* =========================================================
+/* =========================
    STATE
-========================================================= */
+========================= */
 
 const state = {
-
-    user: null,
-
-    feelings: [],
-
-    filtered: [],
-
-    rendered: 0,
-
-    loading: false,
-
-    selectedFeelingId: null,
-
-    selectedMoreFeelingId: null,
-
-    responseCache: new Map(),
-
-    expandedResponses: new Set(),
-
-    blockedUsers: new Set(),
-
-    understandBusy: new Set(),
-
-    responseBusy: false,
-
-    reportBusy: false
-
+    user:null,
+    feelings:[],
+    filtered:[],
+    rendered:0,
+    blocked:new Set(),
+    understandBusy:new Set(),
+    selectedFeeling:null,
+    selectedMore:null,
+    responseCache:new Map(),
+    expandedResponses:new Set(),
+    loading:false,
+    responseBusy:false,
+    reportBusy:false
 };
 
 
-/* =========================================================
+/* =========================
    DOM
-========================================================= */
+========================= */
 
-const $ = id =>
-    document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-
-const feed =
-    $("feed");
-
-const loadingState =
-    $("loadingState");
-
-const errorState =
-    $("errorState");
-
-const emptyState =
-    $("emptyState");
-
-const errorText =
-    $("errorText");
-
-const resultCount =
-    $("resultCount");
-
-const searchInput =
-    $("searchInput");
-
-const moodFilter =
-    $("moodFilter");
-
-const topicFilter =
-    $("topicFilter");
-
-const sortSelect =
-    $("sortSelect");
-
-const loadMoreWrap =
-    $("loadMoreWrap");
-
-const loadMoreBtn =
-    $("loadMoreBtn");
-
-const toast =
-    $("toast");
+const feed = $("feed");
+const loading = $("loading");
+const errorBox = $("error");
+const empty = $("empty");
+const count = $("count");
+const search = $("search");
+const mood = $("mood");
+const topic = $("topic");
+const sort = $("sort");
+const loadWrap = $("loadWrap");
 
 
-/* =========================================================
+/* =========================
    TOAST
-========================================================= */
+========================= */
 
 let toastTimer = null;
 
+function showToast(message){
 
-function showToast(message) {
+    const toast = $("toast");
 
-    toast.textContent =
-        message;
-
+    toast.textContent = message;
     toast.classList.add("show");
 
     clearTimeout(toastTimer);
 
-    toastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 3000);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    },3000);
 }
 
 
-/* =========================================================
+/* =========================
    HELPERS
-========================================================= */
+========================= */
 
-function escapeHTML(value) {
+function esc(value){
 
     return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 }
 
 
-function normalize(value) {
+function normalize(value){
 
     return String(value ?? "")
         .trim()
@@ -1699,648 +1292,368 @@ function normalize(value) {
 }
 
 
-function getInitials(name) {
+function initials(name){
 
-    const clean =
-        String(name || "User")
-            .trim();
+    const parts = String(name || "User")
+        .trim()
+        .split(/\s+/);
 
-    if (!clean) {
-        return "U";
-    }
-
-    return clean
-        .split(/\s+/)
+    return parts
         .slice(0,2)
-        .map(
-            item =>
-                item[0]?.toUpperCase() || ""
+        .map(part =>
+            part.charAt(0).toUpperCase()
         )
-        .join("");
+        .join("") || "U";
 }
 
 
-function getMillis(timestamp) {
+function timestampMs(value){
 
-    if (!timestamp) {
-        return 0;
+    if(!value) return 0;
+
+    if(typeof value.toMillis === "function"){
+        return value.toMillis();
     }
 
-    if (
-        typeof timestamp.toMillis ===
-        "function"
-    ) {
-        return timestamp.toMillis();
-    }
-
-    if (
-        typeof timestamp.toDate ===
-        "function"
-    ) {
-        return timestamp.toDate().getTime();
+    if(typeof value.toDate === "function"){
+        return value.toDate().getTime();
     }
 
     return 0;
 }
 
 
-function formatTime(timestamp) {
+function relativeTime(value){
 
-    const time =
-        getMillis(timestamp);
+    const time = timestampMs(value);
 
-    if (!time) {
-        return "Just now";
-    }
+    if(!time) return "Just now";
 
-    const diff =
-        Math.max(
-            0,
-            Date.now() - time
-        );
+    const minutes = Math.floor(
+        (Date.now() - time) / 60000
+    );
 
-    const minutes =
-        Math.floor(
-            diff / 60000
-        );
+    if(minutes < 1) return "Just now";
 
-    if (minutes < 1) {
-        return "Just now";
-    }
-
-    if (minutes < 60) {
+    if(minutes < 60){
         return `${minutes}m ago`;
     }
 
-    const hours =
-        Math.floor(
-            minutes / 60
-        );
+    const hours = Math.floor(minutes / 60);
 
-    if (hours < 24) {
+    if(hours < 24){
         return `${hours}h ago`;
     }
 
-    const days =
-        Math.floor(
-            hours / 24
-        );
+    const days = Math.floor(hours / 24);
 
-    if (days < 7) {
+    if(days < 7){
         return `${days}d ago`;
     }
 
-    return new Date(time)
-        .toLocaleDateString(
-            undefined,
-            {
-                day: "numeric",
-                month: "short"
-            }
-        );
-}
-
-
-function friendlyError(error) {
-
-    if (!error) {
-        return "Something went wrong.";
-    }
-
-    if (
-        error.code ===
-        "permission-denied"
-    ) {
-        return "Permission denied by Firebase.";
-    }
-
-    if (
-        error.code ===
-        "unauthenticated"
-    ) {
-        return "Your login session expired.";
-    }
-
-    if (
-        error.code ===
-        "failed-precondition"
-    ) {
-        return "Firebase needs an index/configuration update.";
-    }
-
-    if (
-        error.code ===
-        "unavailable"
-    ) {
-        return "Firebase is temporarily unavailable.";
-    }
-
-    return error.message ||
-        "Something went wrong.";
-}
-
-
-function normalizeMood(value) {
-
-    return normalize(value)
-        .replace(
-            /[^a-z]/g,
-            ""
-        );
-}
-
-
-function normalizeTopic(value) {
-
-    return normalize(value)
-        .replace(
-            /[^a-z]/g,
-            ""
-        );
-}
-
-
-function moodText(value) {
-
-    const mood =
-        normalizeMood(value);
-
-    const map = {
-
-        happy: "😊 Happy",
-
-        sad: "😔 Sad",
-
-        lonely: "🥺 Lonely",
-
-        angry: "😡 Angry",
-
-        anxious: "😟 Anxious",
-
-        confused: "😕 Confused",
-
-        hopeful: "🌱 Hopeful",
-
-        grateful: "🙏 Grateful",
-
-        excited: "✨ Excited",
-
-        other: "💭 Other"
-
-    };
-
-    return map[mood] ||
-        `💭 ${value || "Other"}`;
-}
-
-
-function topicText(value) {
-
-    const topic =
-        normalizeTopic(value);
-
-    const map = {
-
-        self: "Self",
-
-        relationships: "Relationships",
-
-        family: "Family",
-
-        work: "Work",
-
-        study: "Study",
-
-        life: "Life",
-
-        health: "Health",
-
-        money: "Money",
-
-        other: "Other"
-
-    };
-
-    return map[topic] ||
-        String(value || "Other");
-}
-
-
-/* =========================================================
-   PAGE STATES
-========================================================= */
-
-function hideStates() {
-
-    loadingState.classList.add(
-        "hidden"
-    );
-
-    errorState.classList.add(
-        "hidden"
-    );
-
-    emptyState.classList.add(
-        "hidden"
-    );
-}
-
-
-function showLoading() {
-
-    hideStates();
-
-    loadingState.classList.remove(
-        "hidden"
-    );
-}
-
-
-function showError(message) {
-
-    hideStates();
-
-    errorText.textContent =
-        message;
-
-    errorState.classList.remove(
-        "hidden"
-    );
-}
-
-
-function showEmpty() {
-
-    hideStates();
-
-    emptyState.classList.remove(
-        "hidden"
-    );
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-onAuthStateChanged(
-    auth,
-    async user => {
-
-        if (!user) {
-
-            window.location.href =
-                "index.html";
-
-            return;
+    return new Date(time).toLocaleDateString(
+        undefined,
+        {
+            day:"numeric",
+            month:"short"
         }
+    );
+}
 
-        state.user =
-            user;
 
-        await loadDiscover();
+function friendlyError(error){
+
+    if(error?.code === "permission-denied"){
+        return "Firebase permission denied. Please make sure the latest Firestore Rules are published.";
     }
-);
+
+    if(error?.code === "unauthenticated"){
+        return "Your login session has expired.";
+    }
+
+    if(error?.code === "unavailable"){
+        return "Firebase is temporarily unavailable. Please try again.";
+    }
+
+    return error?.message || "Something went wrong.";
+}
 
 
-/* =========================================================
+function moodLabel(value){
+
+    const key = normalize(value)
+        .replace(/[^a-z]/g,"");
+
+    const map = {
+        happy:"😊 Happy",
+        sad:"😔 Sad",
+        lonely:"🥺 Lonely",
+        angry:"😡 Angry",
+        anxious:"😟 Anxious",
+        confused:"😕 Confused",
+        hopeful:"🌱 Hopeful",
+        grateful:"🙏 Grateful",
+        excited:"✨ Excited",
+        other:"💭 Other"
+    };
+
+    return map[key] || `💭 ${value || "Other"}`;
+}
+
+
+function topicLabel(value){
+
+    const key = normalize(value)
+        .replace(/[^a-z]/g,"");
+
+    const map = {
+        self:"Self",
+        relationships:"Relationships",
+        family:"Family",
+        work:"Work",
+        study:"Study",
+        life:"Life",
+        health:"Health",
+        money:"Money",
+        other:"Other"
+    };
+
+    return map[key] || String(value || "Other");
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(auth,async user => {
+
+    if(!user){
+
+        location.replace("index.html");
+        return;
+    }
+
+    state.user = user;
+
+    await loadDiscover();
+});
+
+
+/* =========================
    LOAD BLOCKED USERS
-========================================================= */
+========================= */
 
-async function loadBlockedUsers() {
+async function loadBlockedUsers(){
 
-    state.blockedUsers.clear();
+    state.blocked.clear();
 
-    const q =
-        query(
-            collection(
-                db,
-                "blocks"
-            ),
-            where(
-                "blockerId",
-                "==",
-                state.user.uid
-            ),
-            limit(300)
-        );
+    const q = query(
+        collection(db,"blocks"),
+        where("blockerId","==",state.user.uid),
+        limit(300)
+    );
 
-    const snapshot =
-        await getDocs(q);
+    const snapshot = await getDocs(q);
 
     snapshot.forEach(item => {
 
-        const data =
-            item.data();
+        const data = item.data();
 
-        if (
-            data.blockedUserId
-        ) {
-
-            state.blockedUsers.add(
-                String(
-                    data.blockedUserId
-                )
+        if(data.blockedUserId){
+            state.blocked.add(
+                String(data.blockedUserId)
             );
         }
     });
 }
 
 
-/* =========================================================
+/* =========================
    LOAD FEELINGS
-========================================================= */
+========================= */
 
-async function loadDiscover() {
+async function loadDiscover(){
 
-    if (state.loading) {
+    if(state.loading){
         return;
     }
 
-    state.loading =
-        true;
+    state.loading = true;
 
-    showLoading();
+    loading.classList.remove("hidden");
+    errorBox.classList.add("hidden");
+    empty.classList.add("hidden");
 
-    resultCount.textContent =
-        "Loading feelings...";
+    feed.replaceChildren();
 
-    try {
+    count.textContent = "Loading feelings...";
+
+    try{
 
         await loadBlockedUsers();
 
+        const q = query(
+            collection(db,"feelings"),
+            where("visibility","==","public"),
+            where("status","==","active"),
+            limit(MAX_FEELINGS)
+        );
 
-        /*
-         * Simple Firestore query.
-         *
-         * No orderBy.
-         * No collectionGroup.
-         * No composite query.
-         */
+        const snapshot = await getDocs(q);
 
-        const q =
-            query(
-                collection(
-                    db,
-                    "feelings"
-                ),
-                where(
-                    "visibility",
-                    "==",
-                    "public"
-                ),
-                where(
-                    "status",
-                    "==",
-                    "active"
-                ),
-                limit(
-                    MAX_FEELINGS
-                )
-            );
-
-
-        const snapshot =
-            await getDocs(q);
-
-
-        const feelings = [];
-
+        state.feelings = [];
 
         snapshot.forEach(item => {
 
-            const data =
-                item.data() || {};
-
+            const data = item.data() || {};
 
             const authorId =
-                String(
-                    data.authorId ||
-                    ""
-                );
+                String(data.authorId || "");
 
-
-            if (
-                authorId &&
-                state.blockedUsers.has(
-                    authorId
-                )
-            ) {
+            if(state.blocked.has(authorId)){
                 return;
             }
-
 
             const text =
-                String(
-                    data.text ||
-                    ""
-                ).trim();
+                String(data.text || "").trim();
 
-
-            if (!text) {
+            if(!text){
                 return;
             }
 
-
-            feelings.push({
-
-                id:
-                    item.id,
-
+            state.feelings.push({
+                id:item.id,
                 authorId,
-
-                authorName:
-                    String(
-                        data.authorDisplayName ||
-                        "User"
-                    ),
-
+                authorName:String(
+                    data.authorDisplayName ||
+                    "User"
+                ),
                 text,
-
-                mood:
-                    String(
-                        data.mood ||
-                        "other"
-                    ),
-
-                topic:
-                    String(
-                        data.topic ||
-                        "other"
-                    ),
-
-                createdAt:
-                    data.createdAt ||
-                    null,
-
+                mood:String(
+                    data.mood || "other"
+                ),
+                topic:String(
+                    data.topic || "other"
+                ),
+                createdAt:data.createdAt || null,
+                understood:false,
                 understoodCount:
-                    Number(
-                        data.understoodCount ||
-                        0
-                    ),
-
-                understood:
-                    false
-
+                    Number(data.understoodCount || 0) || 0
             });
-
         });
-
-
-        state.feelings =
-            feelings;
-
-
-        sortFeelings();
 
         applyFilters();
 
+    }catch(error){
 
-    } catch (error) {
+        console.error("Discover load error:",error);
 
-        console.error(
-            "Discover error:",
-            error
-        );
+        loading.classList.add("hidden");
+        errorBox.classList.remove("hidden");
 
-        showError(
-            friendlyError(error)
-        );
+        $("errorText").textContent =
+            friendlyError(error);
 
-    } finally {
+        count.textContent = "Unable to load";
 
-        state.loading =
-            false;
+    }finally{
+
+        state.loading = false;
     }
 }
 
 
-/* =========================================================
-   SORT
-========================================================= */
+/* =========================
+   SORT + FILTER
+========================= */
 
-function sortFeelings() {
+function sortFeelings(){
 
-    state.feelings.sort(
-        (a,b) => {
+    state.feelings.sort((a,b) => {
 
-            const aTime =
-                getMillis(
-                    a.createdAt
-                );
+        const aTime = timestampMs(a.createdAt);
+        const bTime = timestampMs(b.createdAt);
 
-            const bTime =
-                getMillis(
-                    b.createdAt
-                );
-
-            return sortSelect.value ===
-                "oldest"
-
-                ? aTime - bTime
-
-                : bTime - aTime;
-        }
-    );
+        return sort.value === "oldest"
+            ? aTime - bTime
+            : bTime - aTime;
+    });
 }
 
 
-/* =========================================================
-   FILTER
-========================================================= */
+function applyFilters(){
 
-function applyFilters() {
+    sortFeelings();
 
-    const search =
-        normalize(
-            searchInput.value
-        );
+    const searchText =
+        normalize(search.value);
 
-    const mood =
-        normalizeMood(
-            moodFilter.value
-        );
+    const selectedMood =
+        normalize(mood.value);
 
-    const topic =
-        normalizeTopic(
-            topicFilter.value
-        );
-
+    const selectedTopic =
+        normalize(topic.value);
 
     state.filtered =
-        state.feelings.filter(
-            feeling => {
+        state.feelings.filter(feeling => {
 
-                if (
-                    state.blockedUsers.has(
-                        feeling.authorId
-                    )
-                ) {
-                    return false;
-                }
-
-
-                if (
-                    search
-                ) {
-
-                    const text =
-                        normalize(
-                            [
-                                feeling.text,
-                                feeling.authorName,
-                                feeling.mood,
-                                feeling.topic
-                            ].join(" ")
-                        );
-
-                    if (
-                        !text.includes(
-                            search
-                        )
-                    ) {
-                        return false;
-                    }
-                }
-
-
-                if (
-                    mood !== "all" &&
-                    normalizeMood(
-                        feeling.mood
-                    ) !== mood
-                ) {
-                    return false;
-                }
-
-
-                if (
-                    topic !== "all" &&
-                    normalizeTopic(
-                        feeling.topic
-                    ) !== topic
-                ) {
-                    return false;
-                }
-
-
-                return true;
+            if(
+                state.blocked.has(
+                    feeling.authorId
+                )
+            ){
+                return false;
             }
-        );
 
+            if(searchText){
 
-    state.rendered =
-        0;
+                const searchable = normalize(
+                    [
+                        feeling.text,
+                        feeling.authorName,
+                        feeling.mood,
+                        feeling.topic
+                    ].join(" ")
+                );
 
-    renderFeed();
+                if(!searchable.includes(searchText)){
+                    return false;
+                }
+            }
+
+            if(
+                selectedMood !== "all" &&
+                normalize(feeling.mood)
+                    .replace(/[^a-z]/g,"") !==
+                selectedMood
+            ){
+                return false;
+            }
+
+            if(
+                selectedTopic !== "all" &&
+                normalize(feeling.topic)
+                    .replace(/[^a-z]/g,"") !==
+                selectedTopic
+            ){
+                return false;
+            }
+
+            return true;
+        });
+
+    state.rendered = 0;
+
+    renderFirstPage();
 }
 
 
-/* =========================================================
-   RENDER FEED
-========================================================= */
+/* =========================
+   RENDER
+========================= */
 
-function renderFeed() {
+function renderFirstPage(){
 
     feed.replaceChildren();
 
@@ -2350,179 +1663,132 @@ function renderFeed() {
             state.filtered.length
         );
 
-
     const fragment =
         document.createDocumentFragment();
 
-
     state.filtered
-        .slice(
-            0,
-            state.rendered
-        )
-        .forEach(
-            feeling => {
+        .slice(0,state.rendered)
+        .forEach(feeling => {
 
-                fragment.appendChild(
-                    createCard(
-                        feeling
-                    )
-                );
-            }
-        );
+            fragment.appendChild(
+                createFeelingCard(feeling)
+            );
+        });
 
+    feed.appendChild(fragment);
 
-    feed.appendChild(
-        fragment
-    );
+    loading.classList.add("hidden");
+    errorBox.classList.add("hidden");
 
-
-    resultCount.textContent =
+    count.textContent =
         `${state.filtered.length} ${
             state.filtered.length === 1
                 ? "feeling"
                 : "feelings"
         }`;
 
+    if(state.filtered.length === 0){
 
-    if (
-        state.filtered.length === 0
-    ) {
+        empty.classList.remove("hidden");
 
-        showEmpty();
+    }else{
 
-    } else {
-
-        hideStates();
+        empty.classList.add("hidden");
     }
 
+    updateLoadMoreButton();
 
-    updateLoadMore();
+    /*
+     * Accurate Understand state is loaded only
+     * for visible cards. Responses are loaded
+     * only when requested.
+     */
+    refreshVisibleUnderstandStates();
 }
 
 
-function loadMore() {
+function renderMore(){
 
     const next =
         state.filtered.slice(
             state.rendered,
-            state.rendered +
-            PAGE_SIZE
+            state.rendered + PAGE_SIZE
         );
 
+    if(next.length === 0){
+        return;
+    }
 
     const fragment =
         document.createDocumentFragment();
 
+    next.forEach(feeling => {
 
-    next.forEach(
-        feeling => {
+        fragment.appendChild(
+            createFeelingCard(feeling)
+        );
+    });
 
-            fragment.appendChild(
-                createCard(
-                    feeling
-                )
-            );
-        }
-    );
+    feed.appendChild(fragment);
 
+    state.rendered += next.length;
 
-    feed.appendChild(
-        fragment
-    );
+    updateLoadMoreButton();
 
-
-    state.rendered +=
-        next.length;
-
-
-    updateLoadMore();
+    refreshVisibleUnderstandStates(next);
 }
 
 
-function updateLoadMore() {
+function updateLoadMoreButton(){
 
-    if (
-        state.rendered <
+    loadWrap.classList.toggle(
+        "hidden",
+        state.rendered >=
         state.filtered.length
-    ) {
-
-        loadMoreWrap.classList.remove(
-            "hidden"
-        );
-
-        loadMoreBtn.textContent =
-            `Load more • ${
-                state.filtered.length -
-                state.rendered
-            } remaining`;
-
-    } else {
-
-        loadMoreWrap.classList.add(
-            "hidden"
-        );
-    }
+    );
 }
 
 
-/* =========================================================
-   CREATE CARD
-========================================================= */
+/* =========================
+   CARD
+========================= */
 
-function createCard(feeling) {
+function createFeelingCard(feeling){
 
     const card =
-        document.createElement(
-            "article"
-        );
+        document.createElement("article");
 
-    card.className =
-        "feeling-card";
-
-    card.dataset.feelingId =
-        feeling.id;
-
+    card.className = "card";
+    card.dataset.id = feeling.id;
 
     card.innerHTML = `
 
         <div class="card-body">
 
-            <div class="author-row">
+            <div class="author">
 
-                <div class="author-info">
+                <div class="author-left">
 
                     <div class="avatar">
-                        ${escapeHTML(
-                            getInitials(
-                                feeling.authorName
-                            )
-                        )}
+                        ${esc(initials(feeling.authorName))}
                     </div>
 
                     <div>
 
                         <div class="author-name">
-                            ${escapeHTML(
-                                feeling.authorName
-                            )}
+                            ${esc(feeling.authorName)}
                         </div>
 
-                        <div class="author-time">
-                            ${escapeHTML(
-                                formatTime(
-                                    feeling.createdAt
-                                )
-                            )}
+                        <div class="time">
+                            ${esc(relativeTime(feeling.createdAt))}
                         </div>
 
                     </div>
 
                 </div>
 
-
                 <button
-                    class="more-btn"
+                    class="more"
                     type="button"
                     data-action="more"
                     aria-label="More options"
@@ -2532,77 +1798,53 @@ function createCard(feeling) {
 
             </div>
 
-
             <div class="meta">
 
                 <span class="pill">
-                    ${escapeHTML(
-                        moodText(
-                            feeling.mood
-                        )
-                    )}
+                    ${esc(moodLabel(feeling.mood))}
                 </span>
 
                 <span class="pill">
-                    ${escapeHTML(
-                        topicText(
-                            feeling.topic
-                        )
-                    )}
+                    ${esc(topicLabel(feeling.topic))}
                 </span>
 
             </div>
 
-
-            <div class="feeling-text">
-                ${escapeHTML(
-                    feeling.text
-                )}
+            <div class="feeling">
+                ${esc(feeling.text)}
             </div>
-
 
             <div class="actions">
 
                 <button
-                    class="action-btn ${
-                        feeling.understood
-                            ? "active"
-                            : ""
-                    }"
+                    class="action ${feeling.understood ? "active" : ""}"
                     type="button"
                     data-action="understand"
                 >
                     💜 I Understand
-                    <span data-count>
-                        ${escapeHTML(
-                            String(
-                                feeling.understoodCount
-                            )
-                        )}
+                    <span data-understand-count>
+                        ${feeling.understoodCount}
                     </span>
                 </button>
 
-
                 <button
-                    class="action-btn"
+                    class="action"
                     type="button"
                     data-action="respond"
                 >
                     💭 Respond
                 </button>
 
-
                 <button
-                    class="action-btn connect"
+                    class="action connect"
                     type="button"
                     data-action="connect"
                 >
                     🤝 Connect
                 </button>
 
-
                 <button
-                    class="action-btn report"
+                    class="action report"
                     type="button"
                     data-action="report"
                 >
@@ -2610,7 +1852,6 @@ function createCard(feeling) {
                 </button>
 
             </div>
-
 
             <section class="responses">
 
@@ -2630,7 +1871,6 @@ function createCard(feeling) {
 
                 </div>
 
-
                 <div
                     class="response-list hidden"
                     data-response-list
@@ -2641,38 +1881,45 @@ function createCard(feeling) {
         </div>
     `;
 
-
     return card;
 }
 
 
-/* =========================================================
-   UNDERSTAND
-========================================================= */
+/* =========================
+   UNDERSTAND STATE
+========================= */
 
-async function toggleUnderstand(
-    feeling,
-    button
-) {
+async function refreshVisibleUnderstandStates(
+    specificFeelings = null
+){
 
-    if (
-        state.understandBusy.has(
-            feeling.id
+    const feelings =
+        specificFeelings ||
+        state.filtered.slice(
+            0,
+            state.rendered
+        );
+
+    /*
+     * Small controlled batch.
+     * No response queries here.
+     */
+    await Promise.all(
+        feelings.map(
+            feeling =>
+                refreshUnderstandState(feeling)
         )
-    ) {
+    );
+}
+
+
+async function refreshUnderstandState(feeling){
+
+    if(!state.user){
         return;
     }
 
-
-    state.understandBusy.add(
-        feeling.id
-    );
-
-    button.disabled =
-        true;
-
-
-    try {
+    try{
 
         const reactionRef =
             doc(
@@ -2683,45 +1930,133 @@ async function toggleUnderstand(
                 state.user.uid
             );
 
+        const reactionSnapshot =
+            await getDoc(reactionRef);
+
+        feeling.understood =
+            reactionSnapshot.exists();
+
+        const countSnapshot =
+            await getCountFromServer(
+                collection(
+                    db,
+                    "feelings",
+                    feeling.id,
+                    "understands"
+                )
+            );
+
+        feeling.understoodCount =
+            countSnapshot.data().count;
+
+        updateUnderstandUI(feeling);
+
+    }catch(error){
+
+        console.warn(
+            "Understand state unavailable:",
+            error
+        );
+    }
+}
+
+
+function updateUnderstandUI(feeling){
+
+    const card =
+        feed.querySelector(
+            `[data-id="${CSS.escape(feeling.id)}"]`
+        );
+
+    if(!card){
+        return;
+    }
+
+    const button =
+        card.querySelector(
+            '[data-action="understand"]'
+        );
+
+    if(!button){
+        return;
+    }
+
+    button.classList.toggle(
+        "active",
+        Boolean(feeling.understood)
+    );
+
+    const count =
+        button.querySelector(
+            "[data-understand-count]"
+        );
+
+    if(count){
+        count.textContent =
+            String(feeling.understoodCount);
+    }
+}
+
+
+/* =========================
+   UNDERSTAND ACTION
+========================= */
+
+async function toggleUnderstand(
+    feeling,
+    button
+){
+
+    if(
+        state.understandBusy.has(
+            feeling.id
+        )
+    ){
+        return;
+    }
+
+    state.understandBusy.add(
+        feeling.id
+    );
+
+    button.disabled = true;
+
+    try{
+
+        const reactionRef =
+            doc(
+                db,
+                "feelings",
+                feeling.id,
+                "understands",
+                state.user.uid
+            );
 
         const existing =
-            await getDoc(
-                reactionRef
-            );
+            await getDoc(reactionRef);
 
+        if(existing.exists()){
 
-        if (
-            existing.exists()
-        ) {
+            await deleteDoc(reactionRef);
 
-            await deleteDoc(
-                reactionRef
-            );
+            feeling.understood = false;
 
-            feeling.understood =
-                false;
-
-        } else {
+        }else{
 
             await setDoc(
                 reactionRef,
                 {
-                    userId:
-                        state.user.uid,
-
-                    createdAt:
-                        serverTimestamp()
+                    userId:state.user.uid,
+                    createdAt:serverTimestamp()
                 }
             );
 
-            feeling.understood =
-                true;
+            feeling.understood = true;
         }
 
-
         /*
-         * Only after the real Firestore write do we ask
-         * Firebase for the actual count.
+         * Always get authoritative server count
+         * after the write.
          */
         const countSnapshot =
             await getCountFromServer(
@@ -2733,27 +2068,21 @@ async function toggleUnderstand(
                 )
             );
 
-
         feeling.understoodCount =
             countSnapshot.data().count;
 
-
-        updateCardUnderstand(
-            feeling
-        );
-
+        updateUnderstandUI(feeling);
 
         showToast(
             feeling.understood
-                ? "I Understand 💜"
+                ? "I Understand added 💜"
                 : "I Understand removed."
         );
 
-
-    } catch (error) {
+    }catch(error){
 
         console.error(
-            "Understand error:",
+            "Understand action error:",
             error
         );
 
@@ -2761,167 +2090,96 @@ async function toggleUnderstand(
             friendlyError(error)
         );
 
-    } finally {
+    }finally{
 
         state.understandBusy.delete(
             feeling.id
         );
 
-        button.disabled =
-            false;
+        button.disabled = false;
     }
 }
 
 
-function updateCardUnderstand(
-    feeling
-) {
-
-    const card =
-        document.querySelector(
-            `[data-feeling-id="${CSS.escape(
-                feeling.id
-            )}"]`
-        );
-
-    if (!card) {
-        return;
-    }
-
-
-    const button =
-        card.querySelector(
-            '[data-action="understand"]'
-        );
-
-    if (!button) {
-        return;
-    }
-
-
-    button.classList.toggle(
-        "active",
-        feeling.understood
-    );
-
-
-    const count =
-        button.querySelector(
-            "[data-count]"
-        );
-
-    if (count) {
-
-        count.textContent =
-            String(
-                feeling.understoodCount
-            );
-    }
-}
-
-
-/* =========================================================
+/* =========================
    RESPONSE
-========================================================= */
+========================= */
 
-function openResponse(
-    feelingId
-) {
+function openResponseModal(feelingId){
 
-    state.selectedFeelingId =
+    state.selectedFeeling =
         feelingId;
 
-    $("responseInput").value =
-        "";
+    $("responseInput").value = "";
 
     $("responseModal")
-        .classList.add(
-            "show"
-        );
+        .classList.add("show");
 
-    setTimeout(
-        () =>
-            $("responseInput").focus(),
-        50
-    );
+    setTimeout(() => {
+        $("responseInput").focus();
+    },50);
 }
 
 
-function closeResponse() {
+function closeResponseModal(){
 
     $("responseModal")
-        .classList.remove(
-            "show"
-        );
+        .classList.remove("show");
 
-    state.selectedFeelingId =
-        null;
+    state.selectedFeeling = null;
 }
 
 
-async function sendResponse() {
+async function submitResponse(){
 
-    if (
-        state.responseBusy
-    ) {
+    if(state.responseBusy){
         return;
     }
 
-
     const feelingId =
-        state.selectedFeelingId;
-
+        state.selectedFeeling;
 
     const text =
         $("responseInput")
             .value
             .trim();
 
+    if(!feelingId){
 
-    if (!feelingId) {
         showToast(
             "Feeling not selected."
         );
+
         return;
     }
 
+    if(!text){
 
-    if (!text) {
         showToast(
             "Please write a response."
         );
+
         return;
     }
 
-
-    if (
-        text.length >
-        MAX_RESPONSE_LENGTH
-    ) {
+    if(text.length > 2000){
 
         showToast(
-            "Response is too long."
+            "Response must be 2000 characters or less."
         );
 
         return;
     }
 
+    const sendButton =
+        $("responseSend");
 
-    const button =
-        $("sendResponse");
+    state.responseBusy = true;
 
+    sendButton.disabled = true;
+    sendButton.textContent = "Sending...";
 
-    state.responseBusy =
-        true;
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "Sending...";
-
-
-    try {
+    try{
 
         await addDoc(
             collection(
@@ -2941,47 +2199,38 @@ async function sendResponse() {
 
                 text,
 
-                status:
-                    "active",
+                status:"active",
 
                 createdAt:
                     serverTimestamp()
             }
         );
 
-
         state.responseCache.delete(
             feelingId
         );
 
-
-        closeResponse();
-
+        closeResponseModal();
 
         const card =
-            document.querySelector(
-                `[data-feeling-id="${CSS.escape(
-                    feelingId
-                )}"]`
+            feed.querySelector(
+                `[data-id="${CSS.escape(feelingId)}"]`
             );
 
+        if(card){
 
-        if (card) {
-
-            await openResponses(
+            await loadResponsesIntoCard(
                 feelingId,
                 card,
                 true
             );
         }
 
-
         showToast(
             "Your response was sent."
         );
 
-
-    } catch (error) {
+    }catch(error){
 
         console.error(
             "Response error:",
@@ -2992,39 +2241,31 @@ async function sendResponse() {
             friendlyError(error)
         );
 
-    } finally {
+    }finally{
 
-        state.responseBusy =
-            false;
+        state.responseBusy = false;
 
-        button.disabled =
-            false;
-
-        button.textContent =
-            "Send response";
+        sendButton.disabled = false;
+        sendButton.textContent = "Send response";
     }
 }
 
 
-/* =========================================================
-   LOAD RESPONSES ONLY WHEN REQUESTED
-========================================================= */
+/* =========================
+   RESPONSE READ
+========================= */
 
-async function getResponses(
-    feelingId
-) {
+async function getResponses(feelingId){
 
-    if (
+    if(
         state.responseCache.has(
             feelingId
         )
-    ) {
-
+    ){
         return state.responseCache.get(
             feelingId
         );
     }
-
 
     const q =
         query(
@@ -3037,86 +2278,60 @@ async function getResponses(
             limit(100)
         );
 
-
     const snapshot =
         await getDocs(q);
 
-
     const responses = [];
-
 
     snapshot.forEach(item => {
 
         const data =
             item.data() || {};
 
-
-        if (
-            data.status !==
-            "active"
-        ) {
+        if(data.status !== "active"){
             return;
         }
-
 
         const text =
-            String(
-                data.text || ""
-            ).trim();
+            String(data.text || "").trim();
 
-
-        if (!text) {
+        if(!text){
             return;
         }
 
-
         responses.push({
-
-            id:
-                item.id,
-
+            id:item.id,
             authorName:
                 String(
                     data.authorName ||
                     "User"
                 ),
-
             text,
-
             createdAt:
-                data.createdAt ||
-                null
+                data.createdAt || null
         });
-
     });
-
 
     responses.sort(
         (a,b) =>
-            getMillis(
-                a.createdAt
-            ) -
-            getMillis(
-                b.createdAt
-            )
+            timestampMs(a.createdAt) -
+            timestampMs(b.createdAt)
     );
-
 
     state.responseCache.set(
         feelingId,
         responses
     );
 
-
     return responses;
 }
 
 
-async function openResponses(
+async function loadResponsesIntoCard(
     feelingId,
     card,
     forceOpen = false
-) {
+){
 
     const list =
         card.querySelector(
@@ -3128,26 +2343,22 @@ async function openResponses(
             '[data-action="responses"]'
         );
 
-
-    if (!list || !toggle) {
+    if(!list || !toggle){
         return;
     }
 
-
-    if (
+    if(
         !forceOpen &&
         state.expandedResponses.has(
             feelingId
         )
-    ) {
+    ){
 
         state.expandedResponses.delete(
             feelingId
         );
 
-        list.classList.add(
-            "hidden"
-        );
+        list.classList.add("hidden");
 
         toggle.textContent =
             "Show responses";
@@ -3155,92 +2366,66 @@ async function openResponses(
         return;
     }
 
+    toggle.disabled = true;
+    toggle.textContent = "Loading...";
 
-    toggle.disabled =
-        true;
-
-    toggle.textContent =
-        "Loading...";
-
-
-    try {
+    try{
 
         const responses =
             await getResponses(
                 feelingId
             );
 
-
-        if (
-            responses.length === 0
-        ) {
+        if(responses.length === 0){
 
             list.innerHTML = `
-                <div class="no-response">
+                <div class="no-responses">
                     No responses yet.
                     Be the first to respond with empathy.
                 </div>
             `;
 
-        } else {
+        }else{
 
             list.innerHTML =
-                responses.map(
-                    response => `
+                responses.map(response => `
+                    <div class="response">
 
-                        <div class="response">
+                        <div class="response-user">
 
-                            <div class="response-user">
+                            <strong>
+                                ${esc(response.authorName)}
+                            </strong>
 
-                                <strong>
-                                    ${escapeHTML(
-                                        response.authorName
-                                    )}
-                                </strong>
-
-                                <span class="response-date">
-                                    ${escapeHTML(
-                                        formatTime(
-                                            response.createdAt
-                                        )
-                                    )}
-                                </span>
-
-                            </div>
-
-                            <div class="response-text">
-                                ${escapeHTML(
-                                    response.text
-                                )}
-                            </div>
+                            <span class="response-time">
+                                ${esc(relativeTime(response.createdAt))}
+                            </span>
 
                         </div>
 
-                    `
-                ).join("");
+                        <div class="response-text">
+                            ${esc(response.text)}
+                        </div>
+
+                    </div>
+                `).join("");
         }
 
-
-        list.classList.remove(
-            "hidden"
-        );
-
+        list.classList.remove("hidden");
 
         state.expandedResponses.add(
             feelingId
         );
-
 
         toggle.textContent =
             responses.length
                 ? `Hide responses (${responses.length})`
                 : "Hide responses";
 
-
-    } catch (error) {
+    }catch(error){
 
         console.error(
-            "Responses error:",
+            "Response read error:",
             error
         );
 
@@ -3251,122 +2436,81 @@ async function openResponses(
         toggle.textContent =
             "Show responses";
 
-    } finally {
+    }finally{
 
-        toggle.disabled =
-            false;
+        toggle.disabled = false;
     }
 }
 
 
-/* =========================================================
+/* =========================
    REPORT
-========================================================= */
+========================= */
 
-function openReport(
-    feelingId
-) {
+function openReportModal(feelingId){
 
-    state.selectedFeelingId =
+    state.selectedFeeling =
         feelingId;
 
-    $("reportInput").value =
-        "";
+    $("reportInput").value = "";
 
     $("reportModal")
-        .classList.add(
-            "show"
-        );
-
-    setTimeout(
-        () =>
-            $("reportInput").focus(),
-        50
-    );
+        .classList.add("show");
 }
 
 
-function closeReport() {
+function closeReportModal(){
 
     $("reportModal")
-        .classList.remove(
-            "show"
-        );
+        .classList.remove("show");
 
-    state.selectedFeelingId =
-        null;
+    state.selectedFeeling = null;
 }
 
 
-async function submitReport() {
+async function submitReport(){
 
-    if (
-        state.reportBusy
-    ) {
+    if(state.reportBusy){
         return;
     }
 
-
     const feelingId =
-        state.selectedFeelingId;
-
+        state.selectedFeeling;
 
     const reason =
         $("reportInput")
             .value
             .trim();
 
-
-    if (!feelingId) {
-        showToast(
-            "Feeling not selected."
-        );
+    if(!feelingId){
+        showToast("Feeling not selected.");
         return;
     }
 
-
-    if (!reason) {
-        showToast(
-            "Please describe the issue."
-        );
+    if(!reason){
+        showToast("Please describe the issue.");
         return;
     }
 
-
-    if (
-        reason.length >
-        MAX_REPORT_LENGTH
-    ) {
-
+    if(reason.length > 1000){
         showToast(
-            "Report is too long."
+            "Report must be 1000 characters or less."
         );
-
         return;
     }
-
 
     const button =
-        $("sendReport");
+        $("reportSend");
 
+    state.reportBusy = true;
 
-    state.reportBusy =
-        true;
+    button.disabled = true;
+    button.textContent = "Submitting...";
 
-    button.disabled =
-        true;
-
-    button.textContent =
-        "Submitting...";
-
-
-    try {
+    try{
 
         await addDoc(
-            collection(
-                db,
-                "reports"
-            ),
+            collection(db,"reports"),
             {
                 reporterId:
                     state.user.uid,
@@ -3387,16 +2531,13 @@ async function submitReport() {
             }
         );
 
-
-        closeReport();
-
+        closeReportModal();
 
         showToast(
             "Report submitted for review."
         );
 
-
-    } catch (error) {
+    }catch(error){
 
         console.error(
             "Report error:",
@@ -3407,121 +2548,93 @@ async function submitReport() {
             friendlyError(error)
         );
 
-    } finally {
+    }finally{
 
-        state.reportBusy =
-            false;
+        state.reportBusy = false;
 
-        button.disabled =
-            false;
-
-        button.textContent =
-            "Submit report";
+        button.disabled = false;
+        button.textContent = "Submit report";
     }
 }
 
 
-/* =========================================================
-   MORE MENU
-========================================================= */
+/* =========================
+   MORE
+========================= */
 
-function openMore(
-    feelingId
-) {
+function openMoreModal(feelingId){
 
-    state.selectedMoreFeelingId =
+    state.selectedMore =
         feelingId;
 
     $("moreModal")
-        .classList.add(
-            "show"
-        );
+        .classList.add("show");
 }
 
 
-function closeMore() {
+function closeMoreModal(){
 
     $("moreModal")
-        .classList.remove(
-            "show"
-        );
+        .classList.remove("show");
 
-    state.selectedMoreFeelingId =
-        null;
+    state.selectedMore = null;
 }
 
 
-/* =========================================================
+/* =========================
    BLOCK
-========================================================= */
+========================= */
 
-async function blockUser() {
-
-    const feelingId =
-        state.selectedMoreFeelingId;
-
+async function blockSelectedUser(){
 
     const feeling =
         state.feelings.find(
             item =>
                 item.id ===
-                feelingId
+                state.selectedMore
         );
 
-
-    if (!feeling) {
-        closeMore();
+    if(!feeling){
+        closeMoreModal();
         return;
     }
 
-
-    const targetUserId =
-        feeling.authorId;
-
-
-    if (!targetUserId) {
+    if(!feeling.authorId){
 
         showToast(
             "User information unavailable."
         );
 
-        closeMore();
-
         return;
     }
 
-
-    if (
-        targetUserId ===
+    if(
+        feeling.authorId ===
         state.user.uid
-    ) {
+    ){
 
         showToast(
             "You cannot block yourself."
         );
 
-        closeMore();
+        closeMoreModal();
 
         return;
     }
-
 
     const confirmed =
         window.confirm(
             "Block this person? Their feelings will be hidden from you."
         );
 
-
-    if (!confirmed) {
+    if(!confirmed){
         return;
     }
 
-
-    try {
+    try{
 
         const blockId =
-            `${state.user.uid}_${targetUserId}`;
-
+            `${state.user.uid}_${feeling.authorId}`;
 
         await setDoc(
             doc(
@@ -3534,38 +2647,35 @@ async function blockUser() {
                     state.user.uid,
 
                 blockedUserId:
-                    targetUserId,
+                    feeling.authorId,
 
                 createdAt:
                     serverTimestamp()
             }
         );
 
-
-        state.blockedUsers.add(
-            targetUserId
+        state.blocked.add(
+            feeling.authorId
         );
-
 
         state.feelings =
             state.feelings.filter(
                 item =>
                     item.authorId !==
-                    targetUserId
+                    feeling.authorId
             );
 
+        state.responseCache.clear();
 
-        closeMore();
+        closeMoreModal();
 
         applyFilters();
-
 
         showToast(
             "Person blocked."
         );
 
-
-    } catch (error) {
+    }catch(error){
 
         console.error(
             "Block error:",
@@ -3579,86 +2689,99 @@ async function blockUser() {
 }
 
 
-/* =========================================================
-   COPY
-========================================================= */
+/* =========================
+   COPY LINK
+========================= */
 
-async function copyFeelingLink() {
+async function copyFeelingLink(){
 
-    const feelingId =
-        state.selectedMoreFeelingId;
+    const id =
+        state.selectedMore;
 
-
-    if (!feelingId) {
+    if(!id){
         return;
     }
 
-
     const url =
-        `${window.location.origin}${window.location.pathname}#feeling-${encodeURIComponent(
-            feelingId
-        )}`;
+        `${location.origin}${location.pathname}#feeling-${encodeURIComponent(id)}`;
 
+    try{
 
-    try {
+        if(
+            navigator.clipboard &&
+            window.isSecureContext
+        ){
 
-        await navigator.clipboard.writeText(
-            url
-        );
+            await navigator.clipboard.writeText(
+                url
+            );
+
+        }else{
+
+            const input =
+                document.createElement("input");
+
+            input.value = url;
+
+            document.body.appendChild(input);
+
+            input.select();
+
+            document.execCommand("copy");
+
+            input.remove();
+        }
 
         showToast(
             "Feeling link copied."
         );
 
-    } catch {
+    }catch(error){
+
+        console.error(
+            "Copy error:",
+            error
+        );
 
         showToast(
             "Couldn't copy the link."
         );
     }
 
-
-    closeMore();
+    closeMoreModal();
 }
 
 
-/* =========================================================
+/* =========================
    CONNECTION
-========================================================= */
+========================= */
 
-function openConnection() {
+function openConnectionModal(){
 
     $("connectionModal")
-        .classList.add(
-            "show"
-        );
+        .classList.add("show");
 }
 
 
-function closeConnection() {
+function closeConnectionModal(){
 
     $("connectionModal")
-        .classList.remove(
-            "show"
-        );
+        .classList.remove("show");
 }
 
 
-/* =========================================================
+/* =========================
    NAVIGATION
-========================================================= */
+========================= */
 
 document
-    .querySelectorAll(
-        "[data-route]"
-    )
+    .querySelectorAll("[data-route]")
     .forEach(button => {
 
         button.addEventListener(
             "click",
             () => {
-
-                window.location.href =
+                location.href =
                     button.dataset.route;
             }
         );
@@ -3669,8 +2792,7 @@ $("notificationsBtn")
     .addEventListener(
         "click",
         () => {
-
-            window.location.href =
+            location.href =
                 "notifications.html";
         }
     );
@@ -3680,32 +2802,27 @@ $("messagesBtn")
     .addEventListener(
         "click",
         () => {
-
-            window.location.href =
+            location.href =
                 "messages.html";
         }
     );
 
 
-$("shareFeelingBtn")
+$("shareBtn")
     .addEventListener(
         "click",
         () => {
-
-            window.location.href =
+            location.href =
                 "app.html";
         }
     );
 
 
-/* =========================================================
-   SEARCH / FILTER
-========================================================= */
+/* =========================
+   SEARCH / FILTERS
+========================= */
 
-function runFilter() {
-
-    sortFeelings();
-
+function executeSearch(){
     applyFilters();
 }
 
@@ -3713,118 +2830,106 @@ function runFilter() {
 $("searchBtn")
     .addEventListener(
         "click",
-        runFilter
+        executeSearch
     );
 
 
-searchInput
+search.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter"){
+            executeSearch();
+        }
+    }
+);
+
+
+let searchTimer = null;
+
+search.addEventListener(
+    "input",
+    () => {
+
+        clearTimeout(searchTimer);
+
+        searchTimer =
+            setTimeout(
+                executeSearch,
+                220
+            );
+    }
+);
+
+
+mood.addEventListener(
+    "change",
+    executeSearch
+);
+
+
+topic.addEventListener(
+    "change",
+    executeSearch
+);
+
+
+sort.addEventListener(
+    "change",
+    executeSearch
+);
+
+
+$("clear")
     .addEventListener(
-        "input",
+        "click",
         () => {
 
-            clearTimeout(
-                searchInput.timer
+            search.value = "";
+            mood.value = "all";
+            topic.value = "all";
+            sort.value = "newest";
+
+            applyFilters();
+
+            showToast(
+                "Filters cleared."
             );
-
-            searchInput.timer =
-                setTimeout(
-                    runFilter,
-                    180
-                );
         }
     );
 
 
-searchInput
+$("emptyClear")
     .addEventListener(
-        "keydown",
-        event => {
+        "click",
+        () => {
 
-            if (
-                event.key ===
-                "Enter"
-            ) {
+            search.value = "";
+            mood.value = "all";
+            topic.value = "all";
 
-                runFilter();
-            }
+            applyFilters();
         }
     );
 
 
-moodFilter
-    .addEventListener(
-        "change",
-        runFilter
-    );
-
-
-topicFilter
-    .addEventListener(
-        "change",
-        runFilter
-    );
-
-
-sortSelect
-    .addEventListener(
-        "change",
-        runFilter
-    );
-
-
-function clearFilters() {
-
-    searchInput.value =
-        "";
-
-    moodFilter.value =
-        "all";
-
-    topicFilter.value =
-        "all";
-
-    sortSelect.value =
-        "newest";
-
-    runFilter();
-
-    showToast(
-        "Filters cleared."
-    );
-}
-
-
-$("clearBtn")
-    .addEventListener(
-        "click",
-        clearFilters
-    );
-
-
-$("emptyClearBtn")
-    .addEventListener(
-        "click",
-        clearFilters
-    );
-
-
-$("retryBtn")
+$("retry")
     .addEventListener(
         "click",
         loadDiscover
     );
 
 
-loadMoreBtn
+$("loadMore")
     .addEventListener(
         "click",
-        loadMore
+        renderMore
     );
 
 
-/* =========================================================
-   FEED CLICK HANDLER
-========================================================= */
+/* =========================
+   FEED EVENTS
+========================= */
 
 feed.addEventListener(
     "click",
@@ -3835,48 +2940,32 @@ feed.addEventListener(
                 "[data-action]"
             );
 
-
-        if (!button) {
+        if(!button){
             return;
         }
-
 
         const card =
-            button.closest(
-                ".feeling-card"
-            );
+            button.closest(".card");
 
-
-        if (!card) {
+        if(!card){
             return;
         }
-
-
-        const feelingId =
-            card.dataset.feelingId;
-
 
         const feeling =
             state.feelings.find(
                 item =>
                     item.id ===
-                    feelingId
+                    card.dataset.id
             );
 
-
-        if (!feeling) {
+        if(!feeling){
             return;
         }
-
 
         const action =
             button.dataset.action;
 
-
-        if (
-            action ===
-            "understand"
-        ) {
+        if(action === "understand"){
 
             await toggleUnderstand(
                 feeling,
@@ -3886,132 +2975,135 @@ feed.addEventListener(
             return;
         }
 
+        if(action === "respond"){
 
-        if (
-            action ===
-            "respond"
-        ) {
-
-            openResponse(
-                feelingId
+            openResponseModal(
+                feeling.id
             );
 
             return;
         }
 
+        if(action === "responses"){
 
-        if (
-            action ===
-            "connect"
-        ) {
-
-            openConnection();
-
-            return;
-        }
-
-
-        if (
-            action ===
-            "report"
-        ) {
-
-            openReport(
-                feelingId
-            );
-
-            return;
-        }
-
-
-        if (
-            action ===
-            "more"
-        ) {
-
-            openMore(
-                feelingId
-            );
-
-            return;
-        }
-
-
-        if (
-            action ===
-            "responses"
-        ) {
-
-            await openResponses(
-                feelingId,
+            await loadResponsesIntoCard(
+                feeling.id,
                 card
             );
 
             return;
         }
 
+        if(action === "report"){
+
+            openReportModal(
+                feeling.id
+            );
+
+            return;
+        }
+
+        if(action === "connect"){
+
+            openConnectionModal();
+
+            return;
+        }
+
+        if(action === "more"){
+
+            openMoreModal(
+                feeling.id
+            );
+
+            return;
+        }
     }
 );
 
 
-/* =========================================================
+/* =========================
    RESPONSE EVENTS
-========================================================= */
+========================= */
 
-$("closeResponse")
+$("responseClose")
     .addEventListener(
         "click",
-        closeResponse
+        closeResponseModal
     );
 
 
-$("cancelResponse")
+$("responseCancel")
     .addEventListener(
         "click",
-        closeResponse
+        closeResponseModal
     );
 
 
-$("sendResponse")
+$("responseSend")
     .addEventListener(
         "click",
-        sendResponse
+        submitResponse
     );
 
 
-/* =========================================================
+/* =========================
    REPORT EVENTS
-========================================================= */
+========================= */
 
-$("closeReport")
+$("reportClose")
     .addEventListener(
         "click",
-        closeReport
+        closeReportModal
     );
 
 
-$("cancelReport")
+$("reportCancel")
     .addEventListener(
         "click",
-        closeReport
+        closeReportModal
     );
 
 
-$("sendReport")
+$("reportSend")
     .addEventListener(
         "click",
         submitReport
     );
 
 
-/* =========================================================
+/* =========================
    MORE EVENTS
-========================================================= */
+========================= */
 
-$("closeMore")
+$("moreClose")
     .addEventListener(
         "click",
-        closeMore
+        closeMoreModal
+    );
+
+
+$("moreReport")
+    .addEventListener(
+        "click",
+        () => {
+
+            const id =
+                state.selectedMore;
+
+            closeMoreModal();
+
+            if(id){
+                openReportModal(id);
+            }
+        }
+    );
+
+
+$("moreBlock")
+    .addEventListener(
+        "click",
+        blockSelectedUser
     );
 
 
@@ -4022,265 +3114,227 @@ $("moreCopy")
     );
 
 
-$("moreBlock")
-    .addEventListener(
-        "click",
-        blockUser
-    );
-
-
-$("moreReport")
-    .addEventListener(
-        "click",
-        () => {
-
-            const id =
-                state.selectedMoreFeelingId;
-
-            closeMore();
-
-            if (id) {
-                openReport(id);
-            }
-        }
-    );
-
-
-/* =========================================================
+/* =========================
    CONNECTION EVENTS
-========================================================= */
+========================= */
 
-$("connectionInfoBtn")
+$("connectionBtn")
     .addEventListener(
         "click",
-        openConnection
-    );
-
-
-$("closeConnection")
-    .addEventListener(
-        "click",
-        closeConnection
+        openConnectionModal
     );
 
 
 $("connectionClose")
     .addEventListener(
         "click",
-        closeConnection
+        closeConnectionModal
     );
 
 
-/* =========================================================
+$("connectionDone")
+    .addEventListener(
+        "click",
+        closeConnectionModal
+    );
+
+
+/* =========================
    SAFETY
-========================================================= */
+========================= */
 
 $("safetyBtn")
     .addEventListener(
         "click",
-        () =>
+        () => {
             $("safetyModal")
-                .classList.add(
-                    "show"
-                )
-    );
-
-
-$("closeSafety")
-    .addEventListener(
-        "click",
-        () =>
-            $("safetyModal")
-                .classList.remove(
-                    "show"
-                )
+                .classList.add("show");
+        }
     );
 
 
 $("safetyClose")
     .addEventListener(
         "click",
-        () =>
+        () => {
             $("safetyModal")
-                .classList.remove(
-                    "show"
-                )
-    );
-
-
-/* =========================================================
-   BACKDROP CLOSE
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".modal-backdrop"
-    )
-    .forEach(
-        modal => {
-
-            modal.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        event.target ===
-                        modal
-                    ) {
-
-                        modal.classList.remove(
-                            "show"
-                        );
-
-                        state.selectedFeelingId =
-                            null;
-
-                        state.selectedMoreFeelingId =
-                            null;
-                    }
-                }
-            );
+                .classList.remove("show");
         }
     );
 
 
-/* =========================================================
-   ESC
-========================================================= */
+$("safetyDone")
+    .addEventListener(
+        "click",
+        () => {
+            $("safetyModal")
+                .classList.remove("show");
+        }
+    );
+
+
+/* =========================
+   MODAL BACKDROP
+========================= */
+
+document
+    .querySelectorAll(".modal-bg")
+    .forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if(
+                    event.target !== modal
+                ){
+                    return;
+                }
+
+                modal.classList.remove(
+                    "show"
+                );
+
+                state.selectedFeeling = null;
+                state.selectedMore = null;
+            }
+        );
+    });
+
+
+/* =========================
+   ESCAPE
+========================= */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if (
-            event.key !==
-            "Escape"
-        ) {
+        if(event.key !== "Escape"){
             return;
         }
 
         document
-            .querySelectorAll(
-                ".modal-backdrop"
-            )
-            .forEach(
-                modal =>
-                    modal.classList.remove(
-                        "show"
-                    )
-            );
+            .querySelectorAll(".modal-bg")
+            .forEach(modal => {
+                modal.classList.remove("show");
+            });
 
-        state.selectedFeelingId =
-            null;
-
-        state.selectedMoreFeelingId =
-            null;
+        state.selectedFeeling = null;
+        state.selectedMore = null;
     }
 );
 
 
-/* =========================================================
-   LOGOUT SHORTCUT
-========================================================= */
+/* =========================
+   HASH SUPPORT
+========================= */
+
+function openHashFeeling(){
+
+    const hash =
+        decodeURIComponent(
+            location.hash
+        );
+
+    if(!hash.startsWith("#feeling-")){
+        return;
+    }
+
+    const id =
+        hash.substring(
+            "#feeling-".length
+        );
+
+    const card =
+        feed.querySelector(
+            `[data-id="${CSS.escape(id)}"]`
+        );
+
+    if(card){
+
+        card.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+        return;
+    }
+
+    const index =
+        state.filtered.findIndex(
+            item =>
+                item.id === id
+        );
+
+    if(index === -1){
+        return;
+    }
+
+    while(
+        state.rendered <= index &&
+        state.rendered <
+        state.filtered.length
+    ){
+
+        renderMore();
+    }
+
+    setTimeout(() => {
+
+        const target =
+            feed.querySelector(
+                `[data-id="${CSS.escape(id)}"]`
+            );
+
+        if(target){
+
+            target.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+        }
+
+    },100);
+}
+
+window.addEventListener(
+    "hashchange",
+    openHashFeeling
+);
+
+setTimeout(
+    openHashFeeling,
+    800
+);
+
+
+/* =========================
+   OPTIONAL LOGOUT SHORTCUT
+========================= */
 
 document.addEventListener(
     "keydown",
     async event => {
 
-        if (
+        if(
             event.ctrlKey &&
             event.shiftKey &&
-            event.key.toLowerCase() ===
-            "l"
-        ) {
+            event.key.toLowerCase() === "l"
+        ){
 
             event.preventDefault();
 
-            try {
+            await signOut(auth);
 
-                await signOut(
-                    auth
-                );
-
-                window.location.href =
-                    "index.html";
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Couldn't sign out."
-                );
-            }
+            location.replace(
+                "index.html"
+            );
         }
     }
-);
-
-
-/* =========================================================
-   HASH SUPPORT
-========================================================= */
-
-function openHashFeeling() {
-
-    const hash =
-        window.location.hash;
-
-
-    if (
-        !hash.startsWith(
-            "#feeling-"
-        )
-    ) {
-        return;
-    }
-
-
-    const id =
-        decodeURIComponent(
-            hash.substring(
-                "#feeling-".length
-            )
-        );
-
-
-    setTimeout(
-        () => {
-
-            const card =
-                document.querySelector(
-                    `[data-feeling-id="${CSS.escape(
-                        id
-                    )}"]`
-                );
-
-
-            if (card) {
-
-                card.scrollIntoView({
-                    behavior:
-                        "smooth",
-                    block:
-                        "center"
-                });
-
-            }
-
-        },
-        400
-    );
-}
-
-
-window.addEventListener(
-    "load",
-    openHashFeeling
 );
 
 </script>
 
 </body>
-        </html>
+    </html>
