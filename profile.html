@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Profile — Listen My Feelings</title>
+
+  <meta
+    name="description"
+    content="Manage your Listen My Feelings profile, feelings and personal information."
+  >
+
+  <style>
+    :root {
+      --bg: #09070f;
+      --surface: #11101a;
+      --surface-2: #171522;
+      --surface-3: #1d192b;
+      --border: rgba(255,255,255,.09);
+      --text: #f8f7fb;
+      --muted: #aaa5b7;
+      --purple: #8b5cf6;
+      --purple-2: #a855f7;
+      --pink: #ec4899;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 22px;
+      --max: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(139,92,246,.13), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(236,72,153,.09), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      padding-bottom: 82px;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+    }
+
+    .loading-box {
+      text-align: center;
+    }
+
+    .loading-logo {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      box-shadow: 0 15px 40px rgba(139,92,246,.28);
+    }
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255,255,255,.15);
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 70px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,7,15,.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      width: min(100%, var(--max));
+      height: 100%;
+      margin: auto;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      box-shadow: 0 8px 25px rgba(139,92,246,.25);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-weight: 800;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+      display: grid;
+      place-items: center;
+      transition: .2s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255,255,255,.08);
+      transform: translateY(-1px);
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .page {
+      width: min(100%, var(--max));
+      margin: auto;
+      padding: 24px 16px 50px;
+    }
+
+    .profile-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(139,92,246,.13),
+          rgba(236,72,153,.05) 45%,
+          rgba(255,255,255,.025)
+        ),
+        var(--surface);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-glow {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      right: -90px;
+      top: -110px;
+      border-radius: 50%;
+      background: rgba(139,92,246,.14);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    .profile-main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .profile-avatar {
+      width: 94px;
+      height: 94px;
+      flex-shrink: 0;
+      border-radius: 30px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      font-size: 32px;
+      font-weight: 800;
+      box-shadow: 0 15px 40px rgba(139,92,246,.28);
+      border: 3px solid rgba(255,255,255,.12);
+    }
+
+    .profile-info {
+      min-width: 0;
+    }
+
+    .profile-name {
+      font-size: clamp(25px, 5vw, 34px);
+      font-weight: 850;
+      letter-spacing: -.7px;
+      word-break: break-word;
+    }
+
+    .profile-email {
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .profile-bio {
+      color: #d7d2df;
+      line-height: 1.65;
+      margin-top: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .mood-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 12px;
+      padding: 7px 11px;
+      border: 1px solid rgba(139,92,246,.25);
+      border-radius: 999px;
+      color: #ddd4ff;
+      background: rgba(139,92,246,.10);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .profile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,.045);
+      font-weight: 750;
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+    }
+
+    .btn-primary {
+      border: 0;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      box-shadow: 0 10px 28px rgba(139,92,246,.22);
+    }
+
+    .btn-danger {
+      color: #ffb4b4;
+      border-color: rgba(239,68,68,.22);
+      background: rgba(239,68,68,.07);
+    }
+
+    .stats {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 15px 8px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 21px;
+      font-weight: 850;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 820;
+    }
+
+    .section-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .feelings-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .feeling-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 18px;
+      transition: .2s ease;
+    }
+
+    .feeling-card:hover {
+      border-color: rgba(139,92,246,.28);
+      transform: translateY(-1px);
+    }
+
+    .feeling-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: #cfc9da;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .tag.mood {
+      background: rgba(139,92,246,.12);
+      color: #d8cbff;
+    }
+
+    .feeling-text {
+      color: #eeeaf3;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .feeling-footer {
+      margin-top: 13px;
+      padding-top: 11px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .empty {
+      border: 1px dashed rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 34px 18px;
+      text-align: center;
+      background: rgba(255,255,255,.02);
+    }
+
+    .empty-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .empty-title {
+      font-weight: 800;
+      font-size: 17px;
+    }
+
+    .empty-text {
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .edit-panel {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 19px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: #ddd7e7;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      outline: none;
+      color: var(--text);
+      background: #0c0a13;
+      border-radius: 13px;
+      padding: 12px 13px;
+      transition: .2s ease;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: rgba(139,92,246,.65);
+      box-shadow: 0 0 0 3px rgba(139,92,246,.10);
+    }
+
+    .field textarea {
+      min-height: 105px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    .status-message {
+      min-height: 20px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .status-message.success {
+      color: #86efac;
+    }
+
+    .status-message.error {
+      color: #fca5a5;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 200;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      height: 64px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(15,12,23,.92);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.4);
+    }
+
+    .bottom-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .bottom-item span:first-child {
+      font-size: 19px;
+    }
+
+    .bottom-item.active {
+      color: #d8caff;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 10000;
+      left: 50%;
+      bottom: 92px;
+      transform: translate(-50%, 15px);
+      width: min(92vw, 420px);
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #171320;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      text-align: center;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .toast.success {
+      border-color: rgba(34,197,94,.25);
+    }
+
+    .toast.error {
+      border-color: rgba(239,68,68,.25);
+    }
+
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,.68);
+      backdrop-filter: blur(8px);
+    }
+
+    .confirm-overlay.show {
+      display: flex;
+    }
+
+    .confirm-box {
+      width: min(100%, 430px);
+      border: 1px solid var(--border);
+      border-radius: 23px;
+      background: var(--surface-2);
+      padding: 23px;
+      box-shadow: var(--shadow);
+    }
+
+    .confirm-title {
+      font-size: 21px;
+      font-weight: 820;
+    }
+
+    .confirm-text {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 700px) {
+      body {
+        padding-bottom: 0;
+      }
+
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .desktop-nav a {
+        padding: 9px 11px;
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .desktop-nav a:hover,
+      .desktop-nav a.active {
+        color: var(--text);
+        background: rgba(255,255,255,.06);
+      }
+
+      .bottom-nav {
+        display: none;
+      }
+
+      .profile-main {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      .profile-info {
+        flex: 1;
+      }
+
+      .profile-actions {
+        margin-top: 0;
+      }
+
+      .profile-card {
+        padding: 30px;
+      }
+
+      .profile-actions {
+        justify-content: flex-end;
+      }
+
+      .profile-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .brand-text {
+        display: none;
+      }
+
+      .page {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .profile-card {
+        padding: 19px;
+        border-radius: 23px;
+      }
+
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 25px;
+        font-size: 27px;
+      }
+
+      .stats {
+        margin-top: 16px;
+      }
+
+      .stat-number {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-box">
+      <div class="loading-logo">L</div>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <a class="brand" href="app.html" aria-label="Listen My Feelings home">
+        <div class="brand-mark">L</div>
+        <div class="brand-text">Listen My Feelings</div>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="app.html">Home</a>
+        <a href="discover.html">Discover</a>
+        <a href="messages.html">Messages</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="profile.html" class="active">Profile</a>
+      </nav>
+
+      <div class="top-actions">
+        <button
+          class="icon-btn"
+          id="refreshBtn"
+          type="button"
+          title="Refresh profile"
+          aria-label="Refresh profile"
+        >
+          ↻
+        </button>
+
+        <button
+          class="icon-btn"
+          id="logoutTopBtn"
+          type="button"
+          title="Logout"
+          aria-label="Logout"
+        >
+          ⇥
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section class="profile-card">
+      <div class="profile-glow"></div>
+
+      <div class="profile-header-row">
+
+        <div class="profile-main">
+
+          <div class="profile-avatar" id="profileAvatar">
+            U
+          </div>
+
+          <div class="profile-info">
+
+            <h1 class="profile-name" id="profileName">
+              Loading...
+            </h1>
+
+            <div class="profile-email" id="profileEmail">
+              Loading...
+            </div>
+
+            <div class="profile-bio" id="profileBio">
+              Loading your profile...
+            </div>
+
+            <div class="mood-pill hidden" id="profileMood">
+              <span>●</span>
+              <span id="profileMoodText"></span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="profile-actions">
+          <button class="btn btn-primary" id="editBtn" type="button">
+            Edit profile
+          </button>
+
+          <button class="btn btn-danger" id="logoutBtn" type="button">
+            Logout
+          </button>
+        </div>
+
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number" id="feelingsCount">0</span>
+          <span class="stat-label">Feelings</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-number" id="understoodCount">0</span>
+          <span class="stat-label">Understood</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-number" id="responseCount">0</span>
+          <span class="stat-label">Responses</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="section hidden" id="editSection">
+
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Edit profile</h2>
+          <p class="section-subtitle">
+            Update the information people see about you.
+          </p>
+        </div>
+      </div>
+
+      <div class="edit-panel">
+
+        <div class="field">
+          <label for="nameInput">Display name</label>
+          <input
+            id="nameInput"
+            type="text"
+            maxlength="100"
+            autocomplete="name"
+            placeholder="Your name"
+          >
+        </div>
+
+        <div class="field">
+          <label for="bioInput">Bio</label>
+          <textarea
+            id="bioInput"
+            maxlength="500"
+            placeholder="Tell people a little about yourself..."
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="moodInput">Current mood</label>
+          <select id="moodInput">
+            <option value="">Prefer not to say</option>
+            <option value="Happy">😊 Happy</option>
+            <option value="Calm">😌 Calm</option>
+            <option value="Hopeful">🌱 Hopeful</option>
+            <option value="Grateful">🙏 Grateful</option>
+            <option value="Confused">😕 Confused</option>
+            <option value="Lonely">💭 Lonely</option>
+            <option value="Sad">😔 Sad</option>
+            <option value="Anxious">🌧️ Anxious</option>
+            <option value="Tired">😴 Tired</option>
+            <option value="Motivated">🔥 Motivated</option>
+            <option value="Excited">✨ Excited</option>
+          </select>
+        </div>
+
+        <div class="edit-actions">
+          <button class="btn btn-primary" id="saveProfileBtn" type="button">
+            Save changes
+          </button>
+
+          <button class="btn" id="cancelEditBtn" type="button">
+            Cancel
+          </button>
+        </div>
+
+        <div class="status-message" id="editStatus"></div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">My feelings</h2>
+          <p class="section-subtitle">
+            Feelings you've shared with the community.
+          </p>
+        </div>
+
+        <button class="btn" id="refreshFeelingsBtn" type="button">
+          Refresh
+        </button>
+      </div>
+
+      <div class="feelings-list" id="feelingsList">
+
+        <div class="empty">
+          <div class="empty-icon">💭</div>
+          <div class="empty-title">Loading your feelings...</div>
+          <div class="empty-text">
+            Please wait a moment.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+
+    <a class="bottom-item" href="app.html">
+      <span>⌂</span>
+      <span>Home</span>
+    </a>
+
+    <a class="bottom-item" href="discover.html">
+      <span>◉</span>
+      <span>Discover</span>
+    </a>
+
+    <a class="bottom-item" href="messages.html">
+      <span>✉</span>
+      <span>Messages</span>
+    </a>
+
+    <a class="bottom-item active" href="profile.html">
+      <span>●</span>
+      <span>Profile</span>
+    </a>
+
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="confirm-overlay" id="logoutOverlay">
+
+    <div class="confirm-box">
+
+      <div class="confirm-title">
+        Log out?
+      </div>
+
+      <div class="confirm-text">
+        You'll need to sign in again to access your Listen My Feelings account.
+      </div>
+
+      <div class="confirm-actions">
+
+        <button class="btn" id="cancelLogoutBtn" type="button">
+          Cancel
+        </button>
+
+        <button class="btn btn-danger" id="confirmLogoutBtn" type="button">
+          Logout
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+
+    import { auth, db } from "./firebase/firebase-config.js";
+
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+    import {
+      collection,
+      doc,
+      getDoc,
+      getDocs,
+      query,
+      where,
+      orderBy,
+      limit,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+    const state = {
+      user: null,
+      profile: null,
+      feelings: [],
+      editing: false,
+      loading: false
+    };
+
+
+    const $ = (id) => document.getElementById(id);
+
+
+    function showToast(message, type = "") {
+
+      const toast = $("toast");
+
+      toast.textContent = message;
+
+      toast.className = "toast";
+
+      if (type) {
+        toast.classList.add(type);
+      }
+
+      requestAnimationFrame(() => {
+        toast.classList.add("show");
+      });
+
+      clearTimeout(showToast.timer);
+
+      showToast.timer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    function getDefaultName(user) {
+
+      return (
+        user?.displayName ||
+        user?.email?.split("@")[0] ||
+        "Listener"
+      );
+    }
+
+
+    function getInitials(name) {
+
+      const clean = String(name || "U")
+        .trim()
+        .replace(/\s+/g, " ");
+
+      if (!clean) {
+        return "U";
+      }
+
+      const parts = clean.split(" ");
+
+      if (parts.length === 1) {
+        return parts[0].slice(0, 1).toUpperCase();
+      }
+
+      return (
+        parts[0].slice(0, 1) +
+        parts[parts.length - 1].slice(0, 1)
+      ).toUpperCase();
+    }
+
+
+    function formatDate(timestamp) {
+
+      if (!timestamp) {
+        return "Just now";
+      }
+
+      let date;
+
+      try {
+
+        if (typeof timestamp.toDate === "function") {
+          date = timestamp.toDate();
+        } else if (timestamp instanceof Date) {
+          date = timestamp;
+        } else {
+          return "Recently";
+        }
+
+      } catch {
+        return "Recently";
+      }
+
+      const now = Date.now();
+
+      const diff = now - date.getTime();
+
+      if (diff < 60 * 1000) {
+        return "Just now";
+      }
+
+      if (diff < 60 * 60 * 1000) {
+        return `${Math.floor(diff / (60 * 1000))}m ago`;
+      }
+
+      if (diff < 24 * 60 * 60 * 1000) {
+        return `${Math.floor(diff / (60 * 60 * 1000))}h ago`;
+      }
+
+      if (diff < 7 * 24 * 60 * 60 * 1000) {
+        return `${Math.floor(diff / (24 * 60 * 60 * 1000))}d ago`;
+      }
+
+      return date.toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+
+    function setLoading(loading) {
+
+      state.loading = loading;
+
+      $("saveProfileBtn").disabled = loading;
+      $("refreshBtn").disabled = loading;
+      $("refreshFeelingsBtn").disabled = loading;
+
+      if (loading) {
+        $("saveProfileBtn").textContent = "Saving...";
+      } else {
+        $("saveProfileBtn").textContent = "Save changes";
+      }
+    }
+
+
+    async function loadProfile() {
+
+      if (!state.user) {
+        return;
+      }
+
+      const userRef = doc(db, "users", state.user.uid);
+
+      try {
+
+        const snapshot = await getDoc(userRef);
+
+        if (snapshot.exists()) {
+
+          state.profile = {
+            ...snapshot.data()
+          };
+
+        } else {
+
+          state.profile = {
+            uid: state.user.uid,
+            displayName: getDefaultName(state.user),
+            bio: "",
+            mood: "",
+            role: "user",
+            status: "active"
+          };
+
+        }
+
+        renderProfile();
+
+      } catch (error) {
+
+        console.error("Profile load error:", error);
+
+        state.profile = {
+          uid: state.user.uid,
+          displayName: getDefaultName(state.user),
+          bio: "",
+          mood: "",
+          role: "user",
+          status: "active"
+        };
+
+        renderProfile();
+
+        showToast(
+          "Could not load some profile details.",
+          "error"
+        );
+      }
+    }
+
+
+    function renderProfile() {
+
+      const profile = state.profile || {};
+
+      const name =
+        profile.displayName ||
+        getDefaultName(state.user);
+
+      const email =
+        state.user?.email ||
+        "Email unavailable";
+
+      const bio =
+        profile.bio ||
+        "No bio added yet.";
+
+      const mood =
+        profile.mood ||
+        "";
+
+      $("profileName").textContent = name;
+
+      $("profileEmail").textContent = email;
+
+      $("profileBio").textContent = bio;
+
+      $("profileAvatar").textContent = getInitials(name);
+
+      if (mood) {
+
+        $("profileMood").classList.remove("hidden");
+
+        $("profileMoodText").textContent = mood;
+
+      } else {
+
+        $("profileMood").classList.add("hidden");
+
+        $("profileMoodText").textContent = "";
+      }
+
+      $("nameInput").value = name;
+
+      $("bioInput").value = profile.bio || "";
+
+      $("moodInput").value = profile.mood || "";
+    }
+
+
+    async function ensureUserProfile() {
+
+      if (!state.user) {
+        return;
+      }
+
+      const userRef = doc(db, "users", state.user.uid);
+
+      const snapshot = await getDoc(userRef);
+
+      if (snapshot.exists()) {
+
+        state.profile = {
+          ...snapshot.data()
+        };
+
+        return;
+      }
+
+      const newProfile = {
+        uid: state.user.uid,
+        displayName: getDefaultName(state.user),
+        bio: "",
+        mood: "",
+        role: "user",
+        status: "active"
+      };
+
+      await setDoc(userRef, newProfile);
+
+      state.profile = {
+        ...newProfile
+      };
+    }
+
+
+    async function saveProfile() {
+
+      if (!state.user || state.loading) {
+        return;
+      }
+
+      const name =
+        $("nameInput").value.trim();
+
+      const bio =
+        $("bioInput").value.trim();
+
+      const mood =
+        $("moodInput").value.trim();
+
+      const status = $("editStatus");
+
+      status.textContent = "";
+      status.className = "status-message";
+
+      if (!name) {
+
+        status.textContent =
+          "Please enter a display name.";
+
+        status.classList.add("error");
+
+        return;
+      }
+
+      if (name.length > 100) {
+
+        status.textContent =
+          "Display name is too long.";
+
+        status.classList.add("error");
+
+        return;
+      }
+
+      if (bio.length > 500) {
+
+        status.textContent =
+          "Bio must be 500 characters or less.";
+
+        status.classList.add("error");
+
+        return;
+      }
+
+      try {
+
+        setLoading(true);
+
+        const userRef =
+          doc(db, "users", state.user.uid);
+
+        const existing =
+          await getDoc(userRef);
+
+        if (existing.exists()) {
+
+          const current = existing.data();
+
+          await setDoc(
+            userRef,
+            {
+              displayName: name,
+              bio,
+              mood
+            },
+            {
+              merge: true
+            }
+          );
+
+          state.profile = {
+            ...current,
+            displayName: name,
+            bio,
+            mood
+          };
+
+        } else {
+
+          const newProfile = {
+            uid: state.user.uid,
+            displayName: name,
+            bio,
+            mood,
+            role: "user",
+            status: "active"
+          };
+
+          await setDoc(
+            userRef,
+            newProfile
+          );
+
+          state.profile = newProfile;
+        }
+
+        renderProfile();
+
+        $("editSection").classList.add("hidden");
+
+        state.editing = false;
+
+        showToast(
+          "Profile updated successfully.",
+          "success"
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Profile save error:",
+          error
+        );
+
+        const message =
+          error?.code === "permission-denied"
+            ? "Profile update was blocked by Firebase rules."
+            : "Could not save your profile. Please try again.";
+
+        status.textContent = message;
+
+        status.classList.add("error");
+
+        showToast(
+          message,
+          "error"
+        );
+
+      } finally {
+
+        setLoading(false);
+      }
+    }
+
+
+    async function loadFeelings() {
+
+      if (!state.user) {
+        return;
+      }
+
+      const list = $("feelingsList");
+
+      list.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">⏳</div>
+          <div class="empty-title">Loading feelings...</div>
+          <div class="empty-text">Please wait.</div>
+        </div>
+      `;
+
+      try {
+
+        const feelingsQuery = query(
+          collection(db, "feelings"),
+          where("authorId", "==", state.user.uid),
+          limit(50)
+        );
+
+        const snapshot =
+          await getDocs(feelingsQuery);
+
+        state.feelings =
+          snapshot.docs.map((item) => ({
+            id: item.id,
+            ...item.data()
+          }));
+
+        state.feelings.sort((a, b) => {
+
+          const aTime =
+            a.createdAt?.toMillis?.() || 0;
+
+          const bTime =
+            b.createdAt?.toMillis?.() || 0;
+
+          return bTime - aTime;
+        });
+
+        renderFeelings();
+
+      } catch (error) {
+
+        console.error(
+          "Feelings load error:",
+          error
+        );
+
+        list.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">⚠️</div>
+            <div class="empty-title">
+              Could not load your feelings
+            </div>
+            <div class="empty-text">
+              Please refresh and try again.
+            </div>
+          </div>
+        `;
+
+        showToast(
+          "Could not load your feelings.",
+          "error"
+        );
+      }
+    }
+
+
+    async function loadFeelingStats() {
+
+      if (!state.user) {
+        return;
+      }
+
+      let understoodTotal = 0;
+
+      let responseTotal = 0;
+
+      for (const feeling of state.feelings) {
+
+        try {
+
+          const understandsSnapshot =
+            await getDocs(
+              collection(
+                db,
+                "feelings",
+                feeling.id,
+                "understands"
+              )
+            );
+
+          understoodTotal +=
+            understandsSnapshot.size;
+
+        } catch (error) {
+
+          console.warn(
+            "Understand count unavailable:",
+            feeling.id,
+            error
+          );
+        }
+
+        try {
+
+          const responsesSnapshot =
+            await getDocs(
+              collection(
+                db,
+                "feelings",
+                feeling.id,
+                "responses"
+              )
+            );
+
+          responseTotal +=
+            responsesSnapshot.size;
+
+        } catch (error) {
+
+          console.warn(
+            "Response count unavailable:",
+            feeling.id,
+            error
+          );
+        }
+      }
+
+      $("feelingsCount").textContent =
+        state.feelings.length;
+
+      $("understoodCount").textContent =
+        understoodTotal;
+
+      $("responseCount").textContent =
+        responseTotal;
+    }
+
+
+    function renderFeelings() {
+
+      const list = $("feelingsList");
+
+      $("feelingsCount").textContent =
+        state.feelings.length;
+
+      if (!state.feelings.length) {
+
+        list.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">💭</div>
+            <div class="empty-title">
+              You haven't shared a feeling yet
+            </div>
+            <div class="empty-text">
+              When you're ready, share what's on your mind.
+            </div>
+            <div style="margin-top:16px;">
+              <a
+                class="btn btn-primary"
+                href="app.html"
+                style="display:inline-flex;align-items:center;justify-content:center;"
+              >
+                Share a feeling
+              </a>
+            </div>
+          </div>
+        `;
+
+        $("understoodCount").textContent = "0";
+
+        $("responseCount").textContent = "0";
+
+        return;
+      }
+
+      list.innerHTML =
+        state.feelings.map((feeling) => {
+
+          const text =
+            feeling.text || "";
+
+          const mood =
+            feeling.mood || "No mood";
+
+          const topic =
+            feeling.topic || "General";
+
+          const status =
+            feeling.status || "active";
+
+          return `
+            <article
+              class="feeling-card"
+              data-feeling-id="${escapeHtml(feeling.id)}"
+            >
+
+              <div class="feeling-meta">
+
+                <span class="tag mood">
+                  ${escapeHtml(mood)}
+                </span>
+
+                <span class="tag">
+                  ${escapeHtml(topic)}
+                </span>
+
+                <span class="tag">
+                  ${escapeHtml(status)}
+                </span>
+
+              </div>
+
+              <div class="feeling-text">
+                ${escapeHtml(text)}
+              </div>
+
+              <div class="feeling-footer">
+
+                <span>
+                  ${formatDate(feeling.createdAt)}
+                </span>
+
+                <span>
+                  Public feeling
+                </span>
+
+              </div>
+
+            </article>
+          `;
+
+        }).join("");
+
+      loadFeelingStats();
+    }
+
+
+    function openEdit() {
+
+      state.editing = true;
+
+      renderProfile();
+
+      $("editSection").classList.remove("hidden");
+
+      $("editSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      setTimeout(() => {
+        $("nameInput").focus();
+      }, 350);
+    }
+
+
+    function closeEdit() {
+
+      state.editing = false;
+
+      $("editSection").classList.add("hidden");
+
+      const status = $("editStatus");
+
+      status.textContent = "";
+
+      status.className = "status-message";
+
+      renderProfile();
+    }
+
+
+    function openLogout() {
+
+      $("logoutOverlay").classList.add("show");
+    }
+
+
+    function closeLogout() {
+
+      $("logoutOverlay").classList.remove("show");
+    }
+
+
+    async function performLogout() {
+
+      try {
+
+        closeLogout();
+
+        showToast("Logging out...");
+
+        await signOut(auth);
+
+      } catch (error) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+        showToast(
+          "Could not log out. Please try again.",
+          "error"
+        );
+      }
+    }
+
+
+    async function refreshProfile() {
+
+      if (!state.user) {
+        return;
+      }
+
+      try {
+
+        showToast("Refreshing profile...");
+
+        await loadProfile();
+
+        await loadFeelings();
+
+        showToast(
+          "Profile refreshed.",
+          "success"
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Refresh error:",
+          error
+        );
+
+        showToast(
+          "Refresh failed.",
+          "error"
+        );
+      }
+    }
+
+
+    $("editBtn").addEventListener(
+      "click",
+      openEdit
+    );
+
+
+    $("cancelEditBtn").addEventListener(
+      "click",
+      closeEdit
+    );
+
+
+    $("saveProfileBtn").addEventListener(
+      "click",
+      saveProfile
+    );
+
+
+    $("logoutBtn").addEventListener(
+      "click",
+      openLogout
+    );
+
+
+    $("logoutTopBtn").addEventListener(
+      "click",
+      openLogout
+    );
+
+
+    $("cancelLogoutBtn").addEventListener(
+      "click",
+      closeLogout
+    );
+
+
+    $("confirmLogoutBtn").addEventListener(
+      "click",
+      performLogout
+    );
+
+
+    $("refreshBtn").addEventListener(
+      "click",
+      refreshProfile
+    );
+
+
+    $("refreshFeelingsBtn").addEventListener(
+      "click",
+      loadFeelings
+    );
+
+
+    $("logoutOverlay").addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target ===
+          $("logoutOverlay")
+        ) {
+          closeLogout();
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Escape" &&
+          $("logoutOverlay").classList.contains("show")
+        ) {
+          closeLogout();
+        }
+
+      }
+    );
+
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        if (!user) {
+
+          window.location.replace(
+            "index.html"
+          );
+
+          return;
+        }
+
+        state.user = user;
+
+        try {
+
+          await ensureUserProfile();
+
+          await loadProfile();
+
+          await loadFeelings();
+
+        } catch (error) {
+
+          console.error(
+            "Initial profile error:",
+            error
+          );
+
+          showToast(
+            "Some profile information could not be loaded.",
+            "error"
+          );
+        }
+
+        $("loadingScreen").classList.add(
+          "hidden"
+        );
+      }
+    );
+
+  </script>
+
+</body>
+          </html>
